@@ -1,0 +1,87 @@
+import React, { useState, useEffect } from 'react';
+
+const GlobalRecentBlogs = () => {
+    const [recentPosts, setRecentPosts] = useState([]);
+    const isProduction = process.env.NODE_ENV === 'production';
+
+    const siteUrl = isProduction
+        ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
+        : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
+
+    const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in"
+
+
+    useEffect(() => {
+        fetch(`${GlobalSiteUrl}/api/global-blogs?_limit=3&_sort=createdAt:desc`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('API Response:', data); // Log the API response for debugging
+                if (data.error) {
+                    console.error('Error:', data.error.message);
+                } else if (data.data) {
+                    const sortedBlogs = data.data.sort((a, b) => new Date(b.attributes.date) - new Date(a.attributes.date));
+                    // Use slice to limit to the first three recent posts
+                    setRecentPosts(sortedBlogs.slice(0, 3).map(post => ({ ...post.attributes, id: post.id })));
+                }
+            })
+            .catch(error => {
+                console.error('Fetch Error:', error);
+            });
+    }, []);
+
+
+    return (
+
+        <div className='blog-side-bar'>
+            <div className='siderbar-item item-1'>
+                <div className='sidebar-title'>
+                    <h4>Share blog post</h4>
+                </div>
+                <div className='sidebar-content'>
+                    {/* Social share links */}
+
+                    <ul className='social-share'>
+                        <li>
+                            <a href='' target='_blank'>
+                                <i class="fa-brands fa-facebook-f"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href='' target='_blank'>
+                                <i class="fa-brands fa-twitter"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href='' target='_blank'>
+                                <i class="fa-brands fa-linkedin-in"></i>
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+
+            <div className='siderbar-item item-2'>
+                <div className='sidebar-content'>
+                    <ul className='similar-posts'>
+                        {recentPosts.map(post => (
+                            <li key={post.id}>
+                                <a href={`/global-individual-blogs/${post.id}`} target='_blank'>
+                                    {post.Title}
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    );
+}
+
+export default GlobalRecentBlogs;

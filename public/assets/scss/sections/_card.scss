@@ -1,0 +1,48 @@
+.wrap-hub-item{
+    display: flex;
+    justify-content: row;
+    flex-direction: row;
+    // width: 525px; 
+    // height: 200px; 
+    padding: 16px;
+    border: none;
+    min-height: 215px;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    transition: box-shadow 0.3s ease; 
+  
+    &:hover {
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.221); 
+    }
+  }
+  
+    .image-container {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: 16px;
+      margin-top: 8px;
+  
+      .card-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    
+    .card-content {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+  
+      h2 {
+        font-size: 20px;
+        margin-bottom: 8px;
+      }
+  
+      p {
+        font-size: 16px;      }
+    }
+    
+    
