@@ -61,7 +61,7 @@ const Footer = () => {
                           height="150"
                           allowfullscreen=""
                           loading="lazy"
-                          referrerpolicy="no-referrer-when-downgrade"
+                          referrerPolicy="no-referrer-when-downgrade"
                         ></iframe>
 
                         <div className="">
@@ -132,7 +132,7 @@ const Footer = () => {
                           <a href="#">{footerData.attributes.key5}</a>
                         </li>
                       </ul>
-                      <hr class="new1"></hr>
+                      <hr className="new1"></hr>
                       <ul className="footerTopPadding">
                         <li>
                           <a href="#">{footerData.attributes.key6}</a>
@@ -254,7 +254,7 @@ const Footer = () => {
                       <a href='#'>Mandatory Disclosures</a>
                     </li>
                   </ul>
-                  <hr class="new1">
+                  <hr className="new1">
                   </hr>
                   <ul className="footerTopPadding res-footer-margin">
                     <li>

@@ -1,22 +1,22 @@
 //== Global Design
-@import "global/_mixins";
-@import "global/_variables";
-@import "global/_global";
-@import "global/_common";
-@import "global/_animate";
+@import "./global/_mixins";
+@import "./global/_variables";
+@import "./global/_global";
+@import "./global/_common";
+@import "./global/_animate";
 
 //== Pages
 //== Sections
-@import "sections/_section-title";
-@import "sections/_navbar";
-@import "sections/_banner";
-@import "sections/_content";
-@import "sections/_pages";
-@import "sections/_widgets";
-@import "sections/_sectionbg";
-@import "sections/_footer";
-@import "sections/_responsive";
-@import "sections/_card";
+@import "./sections/_section-title";
+@import "./sections/_navbar";
+@import "./sections/_banner";
+@import "./sections/_content";
+@import "./sections/_pages";
+@import "./sections/_widgets";
+@import "./sections/_sectionbg";
+@import "./sections/_footer";
+@import "./sections/_responsive";
+@import "./sections/_card";
 
 .btn-home {
     border-radius: 30px;

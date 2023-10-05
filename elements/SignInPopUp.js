@@ -70,7 +70,7 @@ const SignInPopUp = () => {
             <p className='sen-form-bottom-message'>
               <a href='#0'>Forgot your password?</a>
             </p>
-            {/* <a href="#0" class="sen-close-form">Close</a> */}
+            {/* <a href="#0" className="sen-close-form">Close</a> */}
           </div>{" "}
           {/* sen-login */}
           <div id='sen-signup'>
@@ -139,7 +139,7 @@ const SignInPopUp = () => {
                 />
               </p>
             </form>
-            {/* <a href="#0" class="sen-close-form">Close</a> */}
+            {/* <a href="#0" className="sen-close-form">Close</a> */}
           </div>{" "}
           {/* sen-signup */}
           <div id='sen-reset-password'>

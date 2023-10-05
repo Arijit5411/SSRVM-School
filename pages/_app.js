@@ -1,4 +1,8 @@
-import '@/styles/globals.css'
+import '@/styles/scss/style.scss'
+import "animate.css"
+import "bootstrap/dist/css/bootstrap.min.css"
+import "slick-carousel/slick/slick.css"
+import "slick-carousel/slick/slick-theme.css"
 import RouteScrollToTop from '@/elements/RouteScrollToTop'
 import ScrollToTop from 'react-scroll-to-top'
 

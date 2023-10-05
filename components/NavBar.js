@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import MenuPopup from "./menuPopup";
 import AdmissionEnquiry from "./AdmissionEnquiry";
-import { Link } from "react-router-dom";
+// import Link from "next/link";
+import Link from "next/link";
 import {
   FaFacebookF,
   FaInstagram,
@@ -35,7 +36,8 @@ const NavBar = () => {
     setShowPopup2(!showPopup2);
   };
   // Control sidebar navigation
-  let items = document.querySelectorAll(".menu-item-has-children > a");
+  let items = typeof document !== 'undefined' && document.querySelectorAll(".menu-item-has-children > a");
+  // let items = useRef()
   for (let i in items) {
     if (items.hasOwnProperty(i)) {
       items[i].onclick = function () {
@@ -130,7 +132,7 @@ const NavBar = () => {
                 </button>
               </div>
               <div className="logo">
-                <Link to="/">
+                <Link href="/">
                   <img
                     src={publicUrl + "assets/img/ssrvm-logo.svg"}
                     alt="Transpro"
@@ -168,7 +170,7 @@ const NavBar = () => {
                         key={index}
                         className={menuItem.attributes.children && menuItem.attributes.children.data.length > 0 ? 'menu-item-has-children' : ''}
                       >
-                        <a href={menuItem.attributes.url} target={menuItem.attributes.target}>
+                        <a ref={items} href={menuItem.attributes.url} target={menuItem.attributes.target}>
                           {menuItem.attributes.title}
                         </a>
                         {menuItem.attributes.children && menuItem.attributes.children.data.length > 0 && (
@@ -197,7 +199,7 @@ const NavBar = () => {
             {showPopup && <MenuPopup onClose={togglePopup} />}
           </nav>
         </header>
-        <div class="sticky-icon">
+        <div className="sticky-icon">
           <a
             href="https://www.facebook.com/ssrvm.official" target="new"
             className="facebook"
@@ -234,7 +236,7 @@ const NavBar = () => {
             </div>
           )}
         </div>
-        <div class="admission">
+        <div className="admission">
           <button onClick={togglePopup1}>Admission Enquiry</button>
         </div>
         {showPopup1 && <AdmissionEnquiry onClose={togglePopup1} />}
@@ -261,24 +263,24 @@ const NavBar = () => {
                   Menu
                 </button>
 
-                <div class="admission">
+                <div className="admission">
                   <button onClick={togglePopup1}>Admission Enquiry</button>
                 </div>
                 {showPopup2 && <MobileMenu onClose={togglePopup2} />}
               </div>
               <div className="logo">
-                <Link className="logo-1" to="/">
+                <Link className="logo-1" href="/">
                   <img
                     src={publicUrl + "assets/img/ssrvm-logo.svg"}
                     className="mobileLogo"
                   />
                 </Link>
-                <div class="dropdown logotext mobileDropDown">
-                  <button class="dropbtnMobile">
+                <div className="dropdown logotext mobileDropDown">
+                  <button className="dropbtnMobile">
                     {schoolData.length > 0 && schoolData[0].attributes.title}
                     <FaAngleDown className="arrowleft" />
                   </button>
-                  <div class="dropdown-content">
+                  <div className="dropdown-content">
                     {schoolData.map((item) => (
                       <a key={item.id} href={item.attributes.url} target={item.attributes.target}>
                         {item.attributes.title}

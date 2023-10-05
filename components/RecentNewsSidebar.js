@@ -48,17 +48,17 @@ const RecentNewsSidebar = () => {
                     <ul className='social-share'>
                         <li>
                             <a href='' target='_blank'>
-                                <i class="fa-brands fa-facebook-f"></i>
+                                <i className="fa-brands fa-facebook-f"></i>
                             </a>
                         </li>
                         <li>
                             <a href='' target='_blank'>
-                                <i class="fa-brands fa-twitter"></i>
+                                <i className="fa-brands fa-twitter"></i>
                             </a>
                         </li>
                         <li>
                             <a href='' target='_blank'>
-                                <i class="fa-brands fa-linkedin-in"></i>
+                                <i className="fa-brands fa-linkedin-in"></i>
                             </a>
                         </li>
                     </ul>
@@ -71,7 +71,7 @@ const RecentNewsSidebar = () => {
                     <ul className='similar-posts'>
                         {recentPosts.map(post => (
                             <li key={post.id}>
-                                <Link to={`/back-to-news/${post.id}`}>
+                                <Link href={`/back-to-news/${post.id}`}>
                                     {post.title}
                                 </Link>
                             </li>

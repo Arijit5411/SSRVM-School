@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 const RecentEventsSidebar = () => {
   const [recentPosts, setRecentPosts] = useState([]);
@@ -48,17 +48,17 @@ const RecentEventsSidebar = () => {
           <ul className="social-share">
             <li>
               <a href="" target="_blank">
-                <i class="fa-brands fa-facebook-f"></i>
+                <i className="fa-brands fa-facebook-f"></i>
               </a>
             </li>
             <li>
               <a href="" target="_blank">
-                <i class="fa-brands fa-twitter"></i>
+                <i className="fa-brands fa-twitter"></i>
               </a>
             </li>
             <li>
               <a href="" target="_blank">
-                <i class="fa-brands fa-linkedin-in"></i>
+                <i className="fa-brands fa-linkedin-in"></i>
               </a>
             </li>
           </ul>
@@ -70,7 +70,7 @@ const RecentEventsSidebar = () => {
           <ul className="similar-posts">
             {recentPosts.map((post) => (
               <li key={post.id}>
-                <Link to={`/back-to-news/${post.id}`}>{post.title}</Link>
+                <Link href={`/back-to-news/${post.id}`}>{post.title}</Link>
               </li>
             ))}
           </ul>

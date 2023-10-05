@@ -62,12 +62,12 @@ const MenuPopup = ({ onClose }) => {
                   </a>
                 </span>
                 <span className="borderDesign">
-                  <div class="dropdown1 .logotext">
-                    <button class="dropbtn1">
+                  <div className="dropdown1 .logotext">
+                    <button className="dropbtn1">
                       BANGALORE SOUTH
                       <FaAngleDown className="arrowleft" />
                     </button>
-                    <div class="dropdown-content1">
+                    <div className="dropdown-content1">
                       <a href="#">BANGALORE SOUTH</a>
                       <a href="https://bangaloreeast.ssrvm.org/">
                         BANGALORE EAST
@@ -365,9 +365,9 @@ const MenuPopup = ({ onClose }) => {
                 <div>
                   <p className="bottom_comp_sec_social colorBlack">
                     Connect with SSRVM Trust:{" "}
-                    <ul class="head_nav_menu social-link">
+                    <ul className="head_nav_menu social-link">
                       <li>
-                        <a href="#" class="facebook">
+                        <a href="#" className="facebook">
                           <svg
                             stroke="currentColor"
                             fill="currentColor"
@@ -382,7 +382,7 @@ const MenuPopup = ({ onClose }) => {
                         </a>
                       </li>
                       <li>
-                        <a href="#" class="twitter">
+                        <a href="#" className="twitter">
                           <svg
                             stroke="currentColor"
                             fill="currentColor"
@@ -399,7 +399,7 @@ const MenuPopup = ({ onClose }) => {
                       <li>
                         <a
                           href="https://www.youtube.com/channel/UCz1tS-oRzKeElBOd6pIjgLQ"
-                          class="youtube"
+                          className="youtube"
                         >
                           <svg
                             stroke="currentColor"
@@ -415,7 +415,7 @@ const MenuPopup = ({ onClose }) => {
                         </a>
                       </li>
                       <li>
-                        <a href="#" class="instagram">
+                        <a href="#" className="instagram">
                           <svg
                             stroke="currentColor"
                             fill="currentColor"

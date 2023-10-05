@@ -37,13 +37,14 @@
 }
 
 .IstHomeBackground {
-  background-image: url(../../img/background/Founded-by-Gurudev.jpg);
+  // background-image: url(../../../public/assets/img/background/Founded-by-Gurudev.jpg);
+  background-image: url(../../../public/assets/img/background/Founded-by-Gurudev.jpg);
   padding-top: 8%;
   background-size: contain;
 }
 
 .IstHomeBackground1 {
-  background-image: url(../../img/background/Founded-by-Gurudev1.jpg);
+  background-image: url(../../../public/assets/img/background/Founded-by-Gurudev1.jpg);
   padding-top: 16%;
   margin-top: -15%;
   background-size: contain;
@@ -70,7 +71,7 @@
 
 .backgroungColor {
   // background: #F6F2F4;
-  background-image: url(../../img/background/Latest.jpg);
+  background-image: url(../../../public/assets/img/background/Latest.jpg);
   padding-top: 80px;
   padding-bottom: 51px;
   background-repeat: no-repeat;
@@ -78,7 +79,7 @@
 }
 
 .heighLight {
-  background-image: url(../../img/background/student-highlights.jpg);
+  background-image: url(../../../public/assets/img/background/student-highlights.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   // background-color: #F8F3CB;
@@ -92,49 +93,49 @@
 
 .addmissionProcessBack {
   // background: #F6F2F4;
-  background-image: url(../../img/background/Admission.jpg);
+  background-image: url(../../../public/assets/img/background/Admission.jpg);
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 .addmissionProcessBack1 {
   // background: #F6F2F4;
-  background-image: url(../../img/background/AdmissioninProcess.jpg);
+  background-image: url(../../../public/assets/img/background/AdmissioninProcess.jpg);
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 .techerlife {
   // background: #F6F2F4;
-  background-image: url(../../img/teacher//1-bg.jpg);
+  background-image: url(../../../public/assets/img/teacher//1-bg.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   padding-top: 120px;
 }
 
 .techerlife-new {
-  background-image: url(../../img/teacher/1-bg-new.jpg);
+  background-image: url(../../../public/assets/img/teacher/1-bg-new.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   padding-top: 120px;
 }
 
 .studentlife {
-  background-image: url(../../img/student/1-day-student-deskcrop2.jpg);
+  background-image: url(../../../public/assets/img/student/1-day-student-deskcrop2.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   padding-top: 10px;
 }
 
 .studentlife-new {
-  background-image: url(../../img/student/1-day-student-deskcrop2-new.jpg);
+  background-image: url(../../../public/assets/img/student/1-day-student-deskcrop2-new.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   padding-top: 1px;
 }
 
 .studentlifeMobile {
-  background-image: url(../../img/student/mobile-day-student.jpg);
+  background-image: url(../../../public/assets/img/student/mobile-day-student.jpg);
   background-repeat: no-repeat;
   padding-top: 35%;
   background-size: cover;
@@ -144,25 +145,25 @@
 }
 
 // .parentSpeak {
-//   background-image: url(../../img/background/Parents.jpg);
+//   background-image: url(../../../public/assets/img/background/Parents.jpg);
 //   background-repeat: repeat;
 //   background-size: contain;
 // }
 
 // .parentSpeak {
-//   background-image: url(../../img/background/News-Events-Blog.jpg);
+//   background-image: url(../../../public/assets/img/background/News-Events-Blog.jpg);
 //   background-repeat: repeat;
 //   background-size: contain;
 // }
 
 // .newsEvent {
-//   background-image: url(../../img/background/News-Events.jpg);
+//   background-image: url(../../../public/assets/img/background/News-Events.jpg);
 //   background-repeat: no-repeat;
 //   background-size: cover;
 // }
 .newsEvent {
   // background: #F6F2F4;
-  background-image: url(../../img/background/News-Events-Blog.jpg);
+  background-image: url(../../../public/assets/img/background/News-Events-Blog.jpg);
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -1531,7 +1532,7 @@ img.wrap-img-dots {
   background-position: left;
   width: 100%;
   height: 15%;
-  background-image: url(../../img/banner/2-title-dots.png);
+  background-image: url(../../../public/assets/img/banner/2-title-dots.png);
   position: absolute;
   background-repeat: no-repeat;
 }
@@ -1575,9 +1576,9 @@ img.wrap-img-dots {
 
   .principal-mess:before {
     width: 21% !important;
-    background-image: url(../../img/banner/2-title-dots.png);
+    background-image: url(../../../public/assets/img/banner/2-title-dots.png);
     position: absolute;
-    background-repeat-x: repeat;
+    background-repeat: repeat;
   }
 
 }
@@ -1875,14 +1876,14 @@ p.card-text {
 .wrap-training-item-se1 {
   padding-top: 15%;
   background-size: 100%;
-  background-image: url(../../img/banner/Teaching-Methodology1.jpg);
+  background-image: url(../../../public/assets/img/banner/Teaching-Methodology1.jpg);
 }
 
 .wrap-training-item-se3 {
   background-repeat: no-repeat;
   background-size: cover;
   padding-top: 10px;
-  background-image: url(../../img/banner/value-based-eduction-bg.jpg);
+  background-image: url(../../../public/assets/img/banner/value-based-eduction-bg.jpg);
 }
 
 .imgWidth {
@@ -1894,8 +1895,8 @@ p.card-text {
   padding-top: 20%;
   background-size: 100%;
   padding-bottom: 14%;
-  // background-image: url(../../img/banner/shraddha-training-hero-bg-desktop.jpg);
-  background-image: url(../../img/banner/Shraddha-Training.jpg);
+  // background-image: url(../../../public/assets/img/banner/shraddha-training-hero-bg-desktop.jpg);
+  background-image: url(../../../public/assets/img/banner/Shraddha-Training.jpg);
 }
 
 h1.wrap-training {
@@ -2883,7 +2884,7 @@ img.image_life-of-student {
 }
 
 .whole_body_of_life-of-student {
-  background-image: url(../../img/student/1-day-student-desktop.jpg);
+  background-image: url(../../../public/assets/img/student/1-day-student-desktop.jpg);
 }
 
 .last-para_right_student_life {
@@ -3460,21 +3461,21 @@ iframe.embed-responsive-item {
 }
 
 .top-section1 {
-  background-image: url(../../img/principal-message-new.png);
+  background-image: url(../../../public/assets/img/principal-message-new.png);
   background-size: 100%;
   background-repeat: no-repeat;
   margin-top: 5%;
 }
 
 .top-section1-new {
-  background-image: url(../../img/banner/principal-message.png);
+  background-image: url(../../../public/assets/img/banner/principal-message.png);
   background-size: 100%;
   background-repeat: no-repeat;
   margin-top: 5%;
 }
 
 .top-section1-results {
-  background-image: url(../../img/Results1.jpg);
+  background-image: url(../../../public/assets/img/Results1.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   padding-top: 11%
@@ -3491,7 +3492,7 @@ iframe.embed-responsive-item {
 //======================================== Generic Text Page background image CSS =================
 
 .top-section2 {
-  background-image: url(../../img/background/Generic-Text-Page3.jpg);
+  background-image: url(../../../public/assets/img/background/Generic-Text-Page3.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   padding-top: 26px;
@@ -3506,21 +3507,21 @@ iframe.embed-responsive-item {
 //============================================= Career-Guidance background image CSS ==================
 
 .top-section3 {
-  background-image: url(../../img/career-guidance-new.jpg);
+  background-image: url(../../../public/assets/img/career-guidance-new.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   padding-top: 44px;
 }
 
 .top-section3-new {
-  background-image: url(../../img/Career-Guidance.jpg);
+  background-image: url(../../../public/assets/img/Career-Guidance.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   margin-top: 6%;
 }
 
 .top-section-new {
-  background-image: url(../../img/Career-Guidance-new-1.jpg);
+  background-image: url(../../../public/assets/img/Career-Guidance-new-1.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   padding-top: 140px;
@@ -3546,14 +3547,14 @@ section.wrap-item-principal-se2 {
 //================================================== Back To Blog background image CSS =====================
 
 .top-section4 {
-  background-image: url(../../img/background/Back-to-blog1.jpg);
+  background-image: url(../../../public/assets/img/background/Back-to-blog1.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   padding-top: 44px;
 }
 
 .top-section4-new {
-  background-image: url(../../img/background/bk-News.jpg);
+  background-image: url(../../../public/assets/img/background/bk-News.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   padding-top: 44px;
@@ -3562,7 +3563,7 @@ section.wrap-item-principal-se2 {
 //================================================== Back To News background image CSS =====================
 
 .top-section5 {
-  background-image: url(../../img/background/Back-to-Events1.jpg);
+  background-image: url(../../../public/assets/img/background/Back-to-Events1.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   padding-top: 44px;
@@ -3575,7 +3576,7 @@ section.wrap-item-principal-se2 {
 //================================================== Individual Event Page background image CSS ==============
 
 .top-section6 {
-  background-image: url(../../img/background/Back-to-Events1.jpg);
+  background-image: url(../../../public/assets/img/background/Back-to-Events1.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   padding-top: 44px;
@@ -3584,7 +3585,7 @@ section.wrap-item-principal-se2 {
 //==================================================== Press Releases background image CSS ===================
 
 .top-section7 {
-  background-image: url(../../img/background/Press-Releases.jpg);
+  background-image: url(../../../public/assets/img/background/Press-Releases.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   padding-top: 44px;
@@ -3593,7 +3594,7 @@ section.wrap-item-principal-se2 {
 //==================================================== Committee Members background image CSS ===================
 
 .top-section8 {
-  background-image: url(../../img/background/Committe-Members.jpg);
+  background-image: url(../../../public/assets/img/background/Committe-Members.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   padding-top: 44px;
@@ -3602,7 +3603,7 @@ section.wrap-item-principal-se2 {
 //==================================================== News Page background image CSS ===================
 
 .top-section9 {
-  background-image: url(../../img/background/News.jpg);
+  background-image: url(../../../public/assets/img/background/News.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   padding-top: 44px;
@@ -3611,7 +3612,7 @@ section.wrap-item-principal-se2 {
 //==================================================== BlogPage background image CSS ===================
 
 .top-section10 {
-  background-image: url(../../img/background/Blog.jpg);
+  background-image: url(../../../public/assets/img/background/Blog.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   padding-top: 132px;
@@ -3627,7 +3628,7 @@ h1.principal-mess.blog-item-wrap {
 //==================================================== Event Page background image CSS ===================
 
 .top-section11 {
-  background-image: url(../../img/events.jpg);
+  background-image: url(../../../public/assets/img/events.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   padding-top: 130px;
@@ -3643,7 +3644,7 @@ h1.principal-mess.wrap-events-item {
 //==================================================== School Curriculum Page background image CSS ===================
 
 .top-section12 {
-  background-image: url(../../img/background/School-Curriculum.jpg);
+  background-image: url(../../../public/assets/img/background/School-Curriculum.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   padding-top: 3px;
@@ -3653,7 +3654,7 @@ h1.principal-mess.wrap-events-item {
 //==================================================== Srijani E Newsletter Page background image CSS ===================
 
 .top-section13 {
-  background-image: url(../../img/background/SRIJANI-e-Newsletter1.jpg);
+  background-image: url(../../../public/assets/img/background/SRIJANI-e-Newsletter1.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   padding-top: 3px;
@@ -3663,7 +3664,7 @@ h1.principal-mess.wrap-events-item {
 //==================================================== Our Hub of Activity Page background image CSS ===================
 
 .top-section14 {
-  background-image: url(../../img/background/Our-Hub-of-Activities2.jpg);
+  background-image: url(../../../public/assets/img/background/Our-Hub-of-Activities2.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   padding-top: 3px;
@@ -3673,21 +3674,21 @@ h1.principal-mess.wrap-events-item {
 //==================================================== Sports and arts Page background image CSS ===================
 
 .top-section15 {
-  background-image: url(../../img/background/Our-Hub-of-Activities1.jpg);
+  background-image: url(../../../public/assets/img/background/Our-Hub-of-Activities1.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   padding-top: 140px;
 }
 
 .top-section15-new {
-  background-image: url(../../img/background/Our-Hub-of-Activities1-new.jpg);
+  background-image: url(../../../public/assets/img/background/Our-Hub-of-Activities1-new.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   padding-top: 140px;
 }
 
 .top-section15-new1 {
-  background-image: url(../../img/background/Sports-and-Martial-arts1.jpg);
+  background-image: url(../../../public/assets/img/background/Sports-and-Martial-arts1.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   padding-top: 140px;
@@ -3706,7 +3707,7 @@ h1.principal-mess.wrap-events-item {
 //==================================================== Gallery Page background image CSS ===================
 
 .section-top {
-  background-image: url(../../img/background/Gallery.jpg);
+  background-image: url(../../../public/assets/img/background/Gallery.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   padding-top: 11px;
@@ -3716,7 +3717,7 @@ h1.principal-mess.wrap-events-item {
 //==================================================== Annual Reports Page background image CSS ===================
 
 .top-section16 {
-  background-image: url(../../img/background/Annual-Reports4.jpg);
+  background-image: url(../../../public/assets/img/background/Annual-Reports4.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   padding-top: 40px;
@@ -3726,7 +3727,7 @@ h1.principal-mess.wrap-events-item {
 //==================================================== Quick Links Page background image CSS ===================
 
 .top-section17 {
-  background-image: url(../../img/background/Annual-Reports4.jpg);
+  background-image: url(../../../public/assets/img/background/Annual-Reports4.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   padding-top: 40px;
@@ -3736,7 +3737,7 @@ h1.principal-mess.wrap-events-item {
 //==================================================== Careers Page background image CSS ===================
 
 .top-section18 {
-  background-image: url(../../img/background/Carrers6.jpg);
+  background-image: url(../../../public/assets/img/background/Carrers6.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   padding-top: 168px;
@@ -3744,7 +3745,7 @@ h1.principal-mess.wrap-events-item {
 }
 
 .top-section18-new {
-  background-image: url(../../img/background/Carrers1-.jpg);
+  background-image: url(../../../public/assets/img/background/Carrers1-.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   padding-top: 168px;
@@ -3754,7 +3755,7 @@ h1.principal-mess.wrap-events-item {
 //==================================================== Virtual Tour Page background image CSS ===================
 
 .top-section19 {
-  background-image: url(../../img/background/Virtual-Tour.jpg);
+  background-image: url(../../../public/assets/img/background/Virtual-Tour.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   padding-top: 159px;
@@ -3771,7 +3772,7 @@ h1.principal-mess.wrap-tour-item {
 //==================================================== Team Page background image CSS ===================
 
 .top-section20 {
-  background-image: url(../../img/background/Team.jpg);
+  background-image: url(../../../public/assets/img/background/Team.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   padding-top: 112px;
@@ -3788,7 +3789,7 @@ h1.principal-mess.wrap-team-item {
 //==================================================== Our Vission and Mission background image CSS ===================
 
 .top-section21 {
-  // background-image: url(../../img/background/Our-Vision.jpg);
+  // background-image: url(../../../public/assets/img/background/Our-Vision.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -3798,13 +3799,13 @@ h1.principal-mess.wrap-team-item {
 
 .heighLight1 {
   // background: #F6F2F4;
-  background-image: url(../../img/background/Our-Mission.jpg);
+  background-image: url(../../../public/assets/img/background/Our-Mission.jpg);
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 .heighLight1-new {
-  background-image: url(../../img/background/Our-Mission-new.jpg);
+  background-image: url(../../../public/assets/img/background/Our-Mission-new.jpg);
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -3813,7 +3814,7 @@ h1.principal-mess.wrap-team-item {
 
 
 .top-section24 {
-  background-image: url(../../img/background/Results.jpg);
+  background-image: url(../../../public/assets/img/background/Results.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -3826,7 +3827,7 @@ h1.principal-mess.wrap-team-item {
 
 
 .top-section25 {
-  background-image: url(../../img/background/Back-to-Careers9.jpg);
+  background-image: url(../../../public/assets/img/background/Back-to-Careers9.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -4303,7 +4304,7 @@ section.form-certi-two {
 
 // ========================================================= Testimonials =====================================================
 .top-section38 {
-  background-image: url(../../img/background/Testmonials.jpg);
+  background-image: url(../../../public/assets/img/background/Testmonials.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
 }
@@ -4414,7 +4415,7 @@ img.wrap-img-testimonial {
 
 //========================================== International_and_National page CSS ===================
 .top-section38 {
-  background-image: url(../../img/background/International-and-National-collaborations-of-SSA.jpg);
+  background-image: url(../../../public/assets/img/background/International-and-National-collaborations-of-SSA.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   // background-size: cover;
@@ -4534,7 +4535,7 @@ img.wrap-img-pan {
 //==================================================== Founder page page background image CSS ===================
 
 .top-section26 {
-  background-image: url(../../img/background/Founded-by7.jpg);
+  background-image: url(../../../public/assets/img/background/Founded-by7.jpg);
   background-size: cover;
   background-repeat: round;
   padding-top: 1px;
@@ -4542,7 +4543,7 @@ img.wrap-img-pan {
 }
 
 .top-section26-new {
-  background-image: url(../../img/background/Founded-by6-new.jpg);
+  background-image: url(../../../public/assets/img/background/Founded-by6-new.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   padding-top: 1px;
@@ -4551,7 +4552,7 @@ img.wrap-img-pan {
 //==================================================== Admissions page page background image CSS ===================
 
 .top-section27 {
-  background-image: url(../../img/background/Admission.jpg);
+  background-image: url(../../../public/assets/img/background/Admission.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   // background-size: cover;
@@ -4562,7 +4563,7 @@ img.wrap-img-pan {
 //==================================================== Features page page background image CSS ===================
 
 .top-section28 {
-  background-image: url(../../img/background/Principal.png);
+  background-image: url(../../../public/assets/img/background/Principal.png);
   background-size: 100%;
   background-repeat: no-repeat;
   // background-size: cover;
@@ -4572,7 +4573,7 @@ img.wrap-img-pan {
 
 // =================================================== co-curricular-activities ================================
 .top-section40 {
-  background-image: url(../../img/background/CO-Curricular-Activities.jpg);
+  background-image: url(../../../public/assets/img/background/CO-Curricular-Activities.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   // background-size: cover;
@@ -4581,7 +4582,7 @@ img.wrap-img-pan {
 }
 
 .top-section40-new {
-  background-image: url(../../img/background/activities.jpg);
+  background-image: url(../../../public/assets/img/background/activities.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   padding-top: 58px;
@@ -4590,7 +4591,7 @@ img.wrap-img-pan {
 //==================================================== Contact page page background image CSS ===================
 
 .top-section29 {
-  background-image: url(../../img/background/Contact.jpg);
+  background-image: url(../../../public/assets/img/background/Contact.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   // background-size: cover;
@@ -4599,7 +4600,7 @@ img.wrap-img-pan {
 }
 
 .top-section29-new {
-  background-image: url(../../img/background/Contact-new.jpg);
+  background-image: url(../../../public/assets/img/background/Contact-new.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   // background-size: cover;
@@ -4623,7 +4624,7 @@ img.wrap-img-pan {
 
 // ============================================ Results three====================================
 .top-section39 {
-  background-image: url(../../img/background/ssa-results.jpg);
+  background-image: url(../../../public/assets/img/background/ssa-results.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   // background-size: cover;
@@ -4652,7 +4653,7 @@ img.wrap-img-pan {
 //======================================== State of the art Facility page page background image CSS ===================
 
 .top-section30 {
-  background-image: url(../../img/background/State-of-the-art-Facility.jpg);
+  background-image: url(../../../public/assets/img/background/State-of-the-art-Facility.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   // background-size: cover;
@@ -4661,7 +4662,7 @@ img.wrap-img-pan {
 }
 
 .top-section1-new1 {
-  background-image: url(../../img/principal-message-new.png);
+  background-image: url(../../../public/assets/img/principal-message-new.png);
   background-size: 100%;
   background-repeat: no-repeat;
 }
@@ -4669,7 +4670,7 @@ img.wrap-img-pan {
 //======================================== School Magazine page page background image CSS ===================
 
 .top-section31 {
-  background-image: url(../../img/background/School-Magazine1.jpg);
+  background-image: url(../../../public/assets/img/background/School-Magazine1.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   // background-size: cover;
@@ -4680,7 +4681,7 @@ img.wrap-img-pan {
 //======================================== Publication page page background image CSS ===================
 
 .top-section32 {
-  background-image: url(../../img/background/School-Magazine1.jpg);
+  background-image: url(../../../public/assets/img/background/School-Magazine1.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   // background-size: cover;
@@ -4691,7 +4692,7 @@ img.wrap-img-pan {
 //======================================== School-timings page page background image CSS ===================
 
 .top-section33 {
-  background-image: url(../../img/background/School-Magazine1.jpg);
+  background-image: url(../../../public/assets/img/background/School-Magazine1.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   // background-size: cover;
@@ -4702,7 +4703,7 @@ img.wrap-img-pan {
 //======================================== Examination page page background image CSS ===================
 
 .top-section34 {
-  background-image: url(../../img/background/School-Magazine1.jpg);
+  background-image: url(../../../public/assets/img/background/School-Magazine1.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   // background-size: cover;
@@ -4711,7 +4712,7 @@ img.wrap-img-pan {
 }
 
 .top-section1-new1 {
-  background-image: url(../../img/principal-message-new.png);
+  background-image: url(../../../public/assets/img/principal-message-new.png);
   background-size: 100%;
   background-repeat: no-repeat;
 }
@@ -4719,7 +4720,7 @@ img.wrap-img-pan {
 //======================================== Life At Sri Academy page page background image CSS ===================
 
 .top-section35 {
-  background-image: url(../../img/background/Life-at-Sri-Sri-Academy2.jpg);
+  background-image: url(../../../public/assets/img/background/Life-at-Sri-Sri-Academy2.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   // background-size: cover;
@@ -4730,7 +4731,7 @@ img.wrap-img-pan {
 //======================================== Awards-and-achievements page background image CSS ===================
 
 .top-section36 {
-  background-image: url(../../img/background/School-Magazine1.jpg);
+  background-image: url(../../../public/assets/img/background/School-Magazine1.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   // background-size: cover;
@@ -4741,7 +4742,7 @@ img.wrap-img-pan {
 //======================================== Sustainability-projects page background image CSS ===================
 
 .top-section37 {
-  background-image: url(../../img/background/School-Magazine1.jpg);
+  background-image: url(../../../public/assets/img/background/School-Magazine1.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
   // background-size: cover;
@@ -5376,7 +5377,7 @@ h2.peda-title {
     margin-top: -31%;
     padding-top: 15%;
     background-size: 100%;
-    background-image: url(../../img/banner/Teaching-Methodology-Mob.jpg);
+    background-image: url(../../../public/assets/img/banner/Teaching-Methodology-Mob.jpg);
   }
 
   .modal-header {

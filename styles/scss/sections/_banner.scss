@@ -548,9 +548,9 @@
     margin-bottom: 0px;
   }
 
-  .slider-nav-item.nav-active {
-    // box-shadow: 0px 5px 5px 0 rgba(0, 0, 0, 0.1);
-  }
+  // .slider-nav-item.nav-active {
+  //   // box-shadow: 0px 5px 5px 0 rgba(0, 0, 0, 0.1);
+  // }
 
   .slick-prev {
     display: none !important;
@@ -1037,19 +1037,23 @@
 }
 
 .banner-one-Color {
-  background-image: url(../../img/banner/1-hero-bg.jpg);
+  // background-image: url(../../img/banner/1-hero-bg.jpg);
+  background-image: url(../../../public/assets/img/banner/1-hero-bg.jpg);
 }
 
 .banner-two-Color {
-  background-image: url(../../img/banner/1-hero-bg.jpg);
+  // background-image: url(../../img/banner/1-hero-bg.jpg);
+  background-image: url(../../../public/assets/img/banner/1-hero-bg.jpg);
 }
 
 .banner-three-Color {
-  background-image: url(../../img/banner/1-hero-bg.jpg);
+  // background-image: url(../../img/banner/1-hero-bg.jpg);
+  background-image: url(../../../public/assets/img/banner/1-hero-bg.jpg);
 }
 
 .banner-four-Color {
-  background-image: url(../../img/banner/1-hero-bg.jpg);
+  // background-image: url(../../img/banner/1-hero-bg.jpg);
+  background-image: url(../../../public/assets/img/banner/1-hero-bg.jpg);
 }
 
 .image-Banner-Round {

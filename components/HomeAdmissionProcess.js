@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 const HomeAdmissionProcess = () => {
   const [admission, setAdmission] = useState([]);

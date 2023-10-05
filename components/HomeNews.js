@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react";
 import Slider from "react-slick";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -100,7 +100,7 @@ const HomeNews = () => {
                             {post.attributes.title}
                           </p>
                           <Link
-                            to={`/back-to-news/${post.id}`}
+                            href={`/back-to-news/${post.id}`}
                             className="text-muted-news"
                           >
                             read more
