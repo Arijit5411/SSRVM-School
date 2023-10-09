@@ -14,7 +14,7 @@ const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in"
 
 export const getStaticProps = async () => {
     const res = await fetch(`${siteUrl}/api/seos`)
-    const res1 = await fetch(`${GlobalSiteUrl}/api/teaching-methodologies`)
+    const res1 = await fetch(`${GlobalSiteUrl}/api/value-based-educations?populate=*`)
 
     const data = await res.json()
     const data1 = await res1.json()
@@ -22,13 +22,13 @@ export const getStaticProps = async () => {
     return {
         props: {
             seodata: data,
-            teaching: data1
+            value: data1
         }
     }
 }
 
-const TeachingMethodology = ({ seodata, teaching }) => {
-    const [teachingData, setTeachingData] = useState(null);
+const ValueBasedEducation = ({ seodata, value }) => {
+    const [valueData, setValueData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [seoData, setSeoData] = useState({
         title: '',
@@ -36,15 +36,14 @@ const TeachingMethodology = ({ seodata, teaching }) => {
         metaDescription: '',
     });
 
-
     useEffect(() => {
         // Fetch SEO data from your API
-        // fetch(`${siteUrl}/api/seos`)
+        // fetch(`${siteUrl}/api/seos`) // Replace with the actual API endpoint
         //     .then((response) => response.json())
         //     .then((data) => {
         //         console.log('API response data:', data); // Log the API response data
         //         if (data && data.data && data.data.length > 0) {
-        //             const seoAttributes = data.data[0].attributes; // Use index 0 to get the first SEO entry
+        //             const seoAttributes = data.data[10].attributes;
         //             setSeoData({
         //                 title: seoAttributes.title || '',
         //                 metaTitle: seoAttributes.metaTitle || '',
@@ -56,35 +55,33 @@ const TeachingMethodology = ({ seodata, teaching }) => {
         //         console.error('Error fetching SEO data:', error);
         //     });
         if (seodata && seodata?.data && seoData?.data?.length > 0) {
-            const seoAttributes = seodata.data[1].attributes;
+            const seoAttributes = seodata.data[10].attributes;
             setSeoData({
                 title: seoAttributes.title || '',
                 metaTitle: seoAttributes.metaTitle || '',
                 metaDescription: seoAttributes.metaDescription || '',
             })
         }
-    }, [siteUrl]); // Include siteUrl as a dependency
+    }, []);
 
     useEffect(() => {
-        // fetch(`${GlobalSiteUrl}/api/teaching-methodologies`)
+        // fetch(`${GlobalSiteUrl}/api/value-based-educations?populate=*`)
         //     .then((response) => response.json())
         //     .then((data) => {
-        //         if (data && data.data && data.data.length > 0) {
-        //             setTeachingData(data.data[0].attributes);
-        //         }
+        //         setValueData(data.data[0].attributes);
         //         setLoading(false);
         //     })
         //     .catch((error) => {
-        //         console.error("Error fetching teaching methodology data:", error);
+        //         console.error("Error:", error);
         //         setLoading(false);
         //     });
-        if (teaching && teaching?.data && teaching?.data?.length > 0) {
-            setTeachingData(teaching?.data[0]?.attributes);
+        if (value && value?.data && value?.data?.length > 0) {
+            setValueData(value?.data[0]?.attributes);
             setLoading(false);
         } else {
             setLoading(false);
         }
-    }, [GlobalSiteUrl]);
+    }, []);
 
     return (
         <>
@@ -104,30 +101,31 @@ const TeachingMethodology = ({ seodata, teaching }) => {
                     />
                 )} */}
 
-                <section className="wrap-training-item-se1">
-                    <section className="container">
-                        <div className="row">
-                            <div className="col-lg-6">
-                                {loading ? (
-                                    <p>Loading...</p>
-                                ) : (
-                                    <>
-                                        <h1 className="wrap-training-teach">
-                                            {teachingData ? teachingData.title : 'No Title Available'}
-                                        </h1>
-                                        <p className='teachText'>
-                                            {teachingData ? teachingData.content : 'No Content Available'}
-                                        </p>
-                                    </>
-                                )}
+                {loading ? (
+                    <div className="loader">Loading...</div>
+                ) : (
+
+                    <section className="wrap-training-item-se3">
+                        <section className="container ">
+                            <div className="row">
+                                <div className="col-lg-6">
+                                    <div className=" valueMargin">
+                                        <h1 className="principal-mess value_mob">{valueData.heading}</h1>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                            <img
+                                src={`${GlobalSiteUrl}${valueData?.image?.data?.attributes?.url}`}
+                                className='imgWidth' />
+                        </section>
+
                     </section>
-                    <Footer />
-                </section>
+
+                )}
+                <Footer />
             </Fragment>
         </>
     );
 }
 
-export default TeachingMethodology;
+export default ValueBasedEducation;

@@ -90,6 +90,7 @@ const ImpAnmnt = () => {
         (event) =>
           event.attributes.enable_disable && (
             <div key={event.id} className="service_area-3">
+              {console.log('events', event)}
               <div className="container">
                 <div className="service-item">
                   <div className="row align-items-center">
