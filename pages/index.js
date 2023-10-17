@@ -28,7 +28,7 @@ export const getStaticProps = async () => {
   const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
 
   const data = await res.json()
-  
+
   return {
     props: {
       seodata: data
@@ -62,7 +62,7 @@ const Home = ({ seodata }) => {
     //   .catch((error) => {
     //     console.error('Error fetching SEO data:', error);
     //   });
-    if (seodata && seodata?.data && seoData?.data?.length > 0) {
+    if (seodata && seodata?.data && seodata?.data?.length > 0) {
       const seoAttributes = seodata.data[36].attributes;
       setSeoData({
         title: seoAttributes.title || '',
@@ -74,11 +74,11 @@ const Home = ({ seodata }) => {
 
   return (
     <>
-    <Head>
-      <title>{seoData.title}</title>
-      {seoData.metaTitle && <meta name="title" content={seoData.metaTitle}/>}
-      {seoData.metaTitle && <meta name="description" content={seoData.metaDescription}/>}
-    </Head>
+      <Head>
+        <title>{seoData.title}</title>
+        {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
+        {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
+      </Head>
       {/* {seoData && (
         <Seo
           title={seoData.title}

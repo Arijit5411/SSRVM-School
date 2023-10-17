@@ -20,21 +20,21 @@ export const getStaticProps = async () => {
     const res = await fetch(`${siteUrl}/api/seos`)
     const res1 = await fetch(`${GlobalSiteUrl}/api/founder-pages?populate=*`)
     const res2 = await fetch(`${GlobalSiteUrl}/api/art-of-living-foundations?populate=*`)
-  
+
     const data = await res.json()
     const data1 = await res1.json()
     const data2 = await res2.json()
-    
-    return {
-      props: {
-        seodata: data,
-        founderprop: data1,
-        foundation: data2
-      }
-    }
-  }
 
-const FounderTrust = ({seodata, founderprop, foundation}) => {
+    return {
+        props: {
+            seodata: data,
+            founderprop: data1,
+            foundation: data2
+        }
+    }
+}
+
+const FounderTrust = ({ seodata, founderprop, foundation }) => {
     const [founder, setFounder] = useState(null);
     const [foundationData, setFoundationData] = useState(null);
     const [seoData, setSeoData] = useState({
@@ -61,10 +61,10 @@ const FounderTrust = ({seodata, founderprop, foundation}) => {
         //     .catch((error) => {
         //         console.error("Error:", error);
         //     });
-        if(founderprop && founderprop?.data && founderprop?.data?.length > 0) {
+        if (founderprop && founderprop?.data && founderprop?.data?.length > 0) {
             setFounder(founderprop?.data[0]?.attributes)
         }
-        if(foundation && foundation?.data && foundation?.data?.length > 0) {
+        if (foundation && foundation?.data && foundation?.data?.length > 0) {
             setFoundationData(foundation?.data[0]?.attributes)
         }
     }, []);
@@ -87,14 +87,14 @@ const FounderTrust = ({seodata, founderprop, foundation}) => {
         //     .catch((error) => {
         //         console.error('Error fetching SEO data:', error);
         //     });
-        if (seodata && seodata?.data && seoData?.data?.length > 0) {
+        if (seodata && seodata?.data && seodata?.data?.length > 0) {
             const seoAttributes = seodata.data[5].attributes;
             setSeoData({
-              title: seoAttributes.title || '',
-              metaTitle: seoAttributes.metaTitle || '',
-              metaDescription: seoAttributes.metaDescription || '',
+                title: seoAttributes.title || '',
+                metaTitle: seoAttributes.metaTitle || '',
+                metaDescription: seoAttributes.metaDescription || '',
             })
-          }
+        }
     }, []);
 
     const logoUrl = `${GlobalSiteUrl}${foundationData?.logo_sun?.data?.attributes?.url}`;

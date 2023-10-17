@@ -75,7 +75,7 @@ const News = ({ seodata, newsProp }) => {
         //     .catch((error) => {
         //         console.error('Error fetching SEO data:', error);
         //     });
-        if (seodata && seodata?.data && seoData?.data?.length > 0) {
+        if (seodata && seodata?.data && seodata?.data?.length > 0) {
             const seoAttributes = seodata.data[36].attributes;
             setSeoData({
                 title: seoAttributes.title || '',

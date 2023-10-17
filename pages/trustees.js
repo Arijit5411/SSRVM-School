@@ -82,7 +82,7 @@ const Trustees = ({ seodata, trusteeData }) => {
         //         console.error('Error fetching Trustees data:', error);
         //     });
 
-        if (seodata && seodata?.data && seoData?.data?.length > 0) {
+        if (seodata && seodata?.data && seodata?.data?.length > 0) {
             const seoAttributes = seodata.data[8].attributes;
             setSeoData({
                 title: seoAttributes.title || '',

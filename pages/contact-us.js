@@ -165,7 +165,7 @@ const ContactUs = ({ seodata }) => {
         //     .catch((error) => {
         //         console.error('Error fetching SEO data:', error);
         //     });
-        if (seodata && seodata?.data && seoData?.data?.length > 0) {
+        if (seodata && seodata?.data && seodata?.data?.length > 0) {
             const seoAttributes = seodata.data[27].attributes;
             setSeoData({
                 title: seoAttributes.title || '',

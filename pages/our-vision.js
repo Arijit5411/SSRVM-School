@@ -69,7 +69,7 @@ const OurVision = ({ seodata, visionMission }) => {
         //         console.error('Error fetching Vision and Mission data:', error);
         //     });
 
-        if (seodata && seodata?.data && seoData?.data?.length > 0) {
+        if (seodata && seodata?.data && seodata?.data?.length > 0) {
             const seoAttributes = seodata.data[0].attributes;
             setSeoData({
                 title: seoAttributes.title || '',

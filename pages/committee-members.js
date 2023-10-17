@@ -25,7 +25,7 @@ export const getStaticProps = async () => {
     }
 }
 
-const CommitteeMembers = ({seodata, commitee_Data}) => {
+const CommitteeMembers = ({ seodata, commitee_Data }) => {
     const [committeeMembers, setCommitteeMembers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [seoData, setSeoData] = useState({
@@ -35,16 +35,16 @@ const CommitteeMembers = ({seodata, commitee_Data}) => {
     });
 
     // useEffect(() => {
-        // fetch(`${siteUrl}/api/committee-members?populate=*`)
-        //     .then((response) => response.json())
-        //     .then((data) => {
-        //         setCommitteeMembers(data.data);
-        //         setLoading(false);
-        //     })
-        //     .catch((error) => {
-        //         console.error("Error:", error);
-        //         setLoading(false);
-        //     });
+    // fetch(`${siteUrl}/api/committee-members?populate=*`)
+    //     .then((response) => response.json())
+    //     .then((data) => {
+    //         setCommitteeMembers(data.data);
+    //         setLoading(false);
+    //     })
+    //     .catch((error) => {
+    //         console.error("Error:", error);
+    //         setLoading(false);
+    //     });
     // }, []);
 
     useEffect(() => {
@@ -65,7 +65,7 @@ const CommitteeMembers = ({seodata, commitee_Data}) => {
         //   .catch((error) => {
         //     console.error('Error fetching SEO data:', error);
         //   });
-        if (seodata && seodata?.data && seoData?.data?.length > 0) {
+        if (seodata && seodata?.data && seodata?.data?.length > 0) {
             const seoAttributes = seodata.data[3].attributes;
             setSeoData({
                 title: seoAttributes.title || '',
@@ -73,7 +73,7 @@ const CommitteeMembers = ({seodata, commitee_Data}) => {
                 metaDescription: seoAttributes.metaDescription || '',
             })
         }
-        if(commitee_Data && commitee_Data?.data?.length > 0) {
+        if (commitee_Data && commitee_Data?.data?.length > 0) {
             setCommitteeMembers(commitee_Data?.data)
             setLoading(false)
         } else {

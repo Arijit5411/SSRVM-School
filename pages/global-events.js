@@ -1,10 +1,10 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
-// import { Link } from 'react-router-dom';
 import Link from 'next/link';
 import Head from 'next/head';
-// import Seo from './Seo';
+// import { Link } from 'react-router-dom';
+// import Seo from './Seo';\
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -12,9 +12,11 @@ const siteUrl = isProduction
     ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
     : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
 
+const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in"
+
 export const getStaticProps = async () => {
     const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
-    const res1 = await fetch(`${siteUrl}/api/event-pages?populate=*`)
+    const res1 = await fetch(`${GlobalSiteUrl}/api/global-events?populate=*`)
 
     const data = await res.json()
     const data1 = await res1.json()
@@ -22,12 +24,12 @@ export const getStaticProps = async () => {
     return {
         props: {
             seodata: data,
-            eventsProp: data1
+            eventData: data1
         }
     }
 }
 
-const EventsPage = ({ seodata, eventsProp }) => {
+const GlobalEvents = ({ seodata, eventData }) => {
 
     const [eventsPage, setEventsPage] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
@@ -39,9 +41,8 @@ const EventsPage = ({ seodata, eventsProp }) => {
 
     const postsPerPage = 6; // Number of events posts per page
 
-
     useEffect(() => {
-        // fetch(`${siteUrl}/api/event-pages?populate=*`)  // Update the endpoint
+        // fetch(`${GlobalSiteUrl}/api/global-events?populate=*`)
         //     .then(response => response.json())
         //     .then(data => {
         //         if (data.error) {
@@ -55,9 +56,9 @@ const EventsPage = ({ seodata, eventsProp }) => {
         //     .catch(error => {
         //         console.error('Error:', error);
         //     });
-        if (eventsProp && eventsProp?.data) {
-            const sortedNews = eventsProp?.data.sort((a, b) => new Date(b.attributes.date) - new Date(a.attributes.date));
-            setEventsPage({ ...eventsProp, data: sortedNews });
+        if (eventData && eventData?.data && eventData?.data?.length > 0) {
+            const sortedNews = eventData.data.sort((a, b) => new Date(b.attributes.date) - new Date(a.attributes.date));
+            setEventsPage({ ...eventsPage, data: sortedNews });
         }
     }, []);
 
@@ -112,12 +113,12 @@ const EventsPage = ({ seodata, eventsProp }) => {
 
     return (
         <>
-            <Head>
-                <title>{seoData.title}</title>
-                {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
-                {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
-            </Head>
             <Fragment>
+                <Head>
+                    <title>{seoData.title}</title>
+                    {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
+                    {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
+                </Head>
                 <NavBar />
                 {/* {seoData && (
                     <Seo
@@ -138,11 +139,11 @@ const EventsPage = ({ seodata, eventsProp }) => {
                                     currentPosts.map((post) => (
                                         <div className='col-lg-4' key={post.id}>
                                             <div className="card wrap-news">
-                                                <img src={`${siteUrl}${post.attributes.image?.data?.attributes?.url}`} className="wrap-img-top" alt="..." />
+                                                <img src={`${GlobalSiteUrl}${post.attributes.image?.data?.attributes?.url}`} className="wrap-img-top" alt="..." />
                                                 <div className="card-body">
                                                     <p className="card-text-news">{post.attributes.date}</p>
                                                     <p className="card-text-news">{post.attributes.title}</p>
-                                                    <Link href={`/individual-event-page/${post.id}`} className="text-muted-news">read more</Link>
+                                                    <Link href={`/global-individual-events/${post.id}`} className="text-muted-news">read more</Link>
                                                 </div>
                                             </div>
                                         </div>
@@ -179,4 +180,4 @@ const EventsPage = ({ seodata, eventsProp }) => {
     );
 }
 
-export default EventsPage;
+export default GlobalEvents;
