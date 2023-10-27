@@ -7,24 +7,51 @@ import {
   FaPhoneAlt,
   FaEnvelopeOpen,
   FaAngleDown,
-  FaRegEnvelopeOpen,
-  FaRegPaperPlane,
 } from "react-icons/fa";
 
 
 const MenuPopup = ({ onClose }) => {
-  let publicUrl = process.env.PUBLIC_URL + "/";
   const [menuData, setMenuData] = useState([]);
+  const [schoolData, setschoolData] = useState([]);
+  const [apiData, setApiData] = useState(null);
+
+  const isProduction = process.env.NODE_ENV === "production";
+
+  const siteUrl = isProduction
+    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
+    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
+
 
   useEffect(() => {
     fetchMenuData();
   }, []);
 
-  const isProduction = process.env.NODE_ENV === "production";
+  useEffect(() => {
+    // Fetch the API data
+    fetch(`${siteUrl}/api/menus/10?nested&populate=*`)
+      .then((response) => response.json())
+      .then((data) => {
+        // Extract menu items from the API response
+        const items = data.data.attributes.items.data;
+        setschoolData(items);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
 
-  const siteUrl = isProduction
-      ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-      : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
+  useEffect(() => {
+    // Make the API call using fetch
+    fetch(`${siteUrl}/api/navbar-menu-headers?populate=*`)
+      .then((response) => response.json())
+      .then((data) => {
+        // Set the API data in the state
+        setApiData(data);
+      })
+      .catch((error) => {
+        console.error('Error fetching data from the API:', error);
+      });
+  }, []);
 
   const fetchMenuData = async () => {
     try {
@@ -41,7 +68,6 @@ const MenuPopup = ({ onClose }) => {
     }
   };
 
-
   return (
     <div className="popup-menu">
       <div className="popup-card-menu">
@@ -51,53 +77,71 @@ const MenuPopup = ({ onClose }) => {
               <div className="popupNav">
                 <span className="logomenu">
                   <a href="/">
-                    <img
-                      src={
-                        publicUrl +
-                        "assets/img/ssrvm-logo.svg"
-                      }
-                      alt="Transpro"
-                      className="logopopupy"
-                    />
+                    {apiData && apiData.data && apiData.data.length > 0 && (
+                      <img
+                        src={`${siteUrl}${apiData.data[0].attributes.logo?.data?.attributes?.url}`}
+                        className="logopopupy"
+                        alt="navbar logo"
+                      />
+                    )}
                   </a>
                 </span>
                 <span className="borderDesign">
-                  <div className="dropdown1 .logotext">
-                    <button className="dropbtn1">
-                      BANGALORE SOUTH
+                  <div class="dropdown1 .logotext">
+                    <button class="dropbtn1">
+                      {schoolData.length > 0 && schoolData[0].attributes.title}
                       <FaAngleDown className="arrowleft" />
                     </button>
-                    <div className="dropdown-content1">
-                      <a href="#">BANGALORE SOUTH</a>
-                      <a href="https://bangaloreeast.ssrvm.org/">
-                        BANGALORE EAST
-                      </a>
+                    <div class="dropdown-content1">
+                      {schoolData.map((item) => (
+                        <a key={item.id} href={item.attributes.url} target={item.attributes.target}>
+                          {item.attributes.title}
+                        </a>
+                      ))}
                     </div>
                   </div>
-                  <span className="marginLeft40 marginmenuleft">
-                    <FaPhoneAlt className="marginright" />
-                    <a href="tel:+4733378901"> +91 9999 999 999 </a>
-                  </span>{" "}
-                  <span className="emailpopup">
-                    <FaEnvelopeOpen className="marginright" />
-                    <a href="mailto:someone@example.com">Email</a>
-                  </span>
-                  <a href="#" className="facebook">
-                    {" "}
-                    <FaFacebookF className="socialFont" />
-                  </a>
-                  <a href="#" className="twitter">
-                    <FaTwitter className="socialFont" />
-                  </a>
-                  <a
-                    href="https://www.youtube.com/channel/UCz1tS-oRzKeElBOd6pIjgLQ"
-                    className="youtube"
-                  >
-                    <FaYoutube className="socialFont" />
-                  </a>
-                  <a href="#" className="instagram">
-                    <FaInstagram className="socialFont" />
-                  </a>
+
+                  {apiData && apiData.data && apiData.data.length > 0 && (
+                    <span className="marginLeft40 marginmenuleft">
+                      <FaPhoneAlt className="marginright" />
+                      <a href={apiData.data[0].attributes.number_link}>
+                        {apiData.data[0].attributes.number}
+                      </a>
+                    </span>
+                  )}
+
+                  {apiData && apiData.data && apiData.data.length > 0 && (
+                    <span className="emailpopup">
+                      <FaEnvelopeOpen className="marginright" />
+                      <a href={apiData.data[0].attributes.email_link}>
+                        Email
+                      </a>
+                    </span>
+                  )}
+
+                  {apiData && apiData.data && apiData.data.length > 0 && (
+                    <a href={apiData.data[0].attributes.facebook_link} className="facebook">
+                      <FaFacebookF className="socialFont" />
+                    </a>
+                  )}
+
+                  {apiData && apiData.data && apiData.data.length > 0 && (
+                    <a href={apiData.data[0].attributes.twitter_link} className="twitter">
+                      <FaTwitter className="socialFont" />
+                    </a>
+                  )}
+                  {apiData && apiData.data && apiData.data.length > 0 && (
+                    <a href={apiData.data[0].attributes.youtube_link} className="youtube">
+                      <FaYoutube className="socialFont" />
+                    </a>
+                  )}
+
+                  {apiData && apiData.data && apiData.data.length > 0 && (
+                    <a href={apiData.data[0].attributes.insta_link} className="instagram">
+                      <FaInstagram className="socialFont" />
+                    </a>
+                  )}
+
                   <button className="close-btn-menu" onClick={onClose}>
                     Close Menu &times;
                   </button>
@@ -194,20 +238,6 @@ const MenuPopup = ({ onClose }) => {
                       ))}
                 </ul>
 
-                {/* <h6 className="menufont">Campus & Facility</h6>
-                <ul className="submenu_options">
-                  {menuData.length > 0 &&
-                    menuData
-                      .find((section) => section.attributes.title === 'Campus & Facility')
-                      ?.attributes.children.data.map((menuItem) => (
-                        <li key={menuItem.id}>
-                          <a href={menuItem.attributes.url}>
-                            {menuItem.attributes.title}
-                          </a>
-                        </li>
-                      ))}
-                </ul> */}
-
                 <h6 className="menufont">Miscellaneous</h6>
                 <ul className="submenu_options">
                   {menuData.length > 0 &&
@@ -221,62 +251,6 @@ const MenuPopup = ({ onClose }) => {
                         </li>
                       ))}
                 </ul>
-
-                {/* <h6 className="menufont">Parents Corner</h6>
-                <ul className="submenu_options">
-                  {menuData.length > 0 &&
-                    menuData
-                      .find((section) => section.attributes.title === 'Parents Corner')
-                      ?.attributes.children.data.map((menuItem) => (
-                        <li key={menuItem.id}>
-                          <a href={menuItem.attributes.url}>
-                            {menuItem.attributes.title}
-                          </a>
-                        </li>
-                      ))}
-                </ul>
-
-                <h6 className="menufont">Alumni</h6>
-                <ul className="submenu_options">
-                  {menuData.length > 0 &&
-                    menuData
-                      .find((section) => section.attributes.title === 'Alumni')
-                      ?.attributes.children.data.map((menuItem) => (
-                        <li key={menuItem.id}>
-                          <a href={menuItem.attributes.url}>
-                            {menuItem.attributes.title}
-                          </a>
-                        </li>
-                      ))}
-                </ul>
-
-                <h6 className="menufont">News</h6>
-                <ul className="submenu_options">
-                  {menuData.length > 0 &&
-                    menuData
-                      .find((section) => section.attributes.title === 'News')
-                      ?.attributes.children.data.map((menuItem) => (
-                        <li key={menuItem.id}>
-                          <a href={menuItem.attributes.url}>
-                            {menuItem.attributes.title}
-                          </a>
-                        </li>
-                      ))}
-                </ul>
-
-                <h6 className="menufont">Events</h6>
-                <ul className="submenu_options">
-                  {menuData.length > 0 &&
-                    menuData
-                      .find((section) => section.attributes.title === 'Events')
-                      ?.attributes.children.data.map((menuItem) => (
-                        <li key={menuItem.id}>
-                          <a href={menuItem.attributes.url}>
-                            {menuItem.attributes.title}
-                          </a>
-                        </li>
-                      ))}
-                </ul> */}
               </div>
 
               <div className="col-sm-3 borderLfet">
@@ -307,55 +281,24 @@ const MenuPopup = ({ onClose }) => {
                         </li>
                       ))}
                 </ul>
-
-
-                {/* <h6 className="menufont">Blog</h6>
-                <ul className="submenu_options">
-                  {menuData.length > 0 &&
-                    menuData
-                      .find((section) => section.attributes.title === 'Blog')
-                      ?.attributes.children.data.map((menuItem) => (
-                        <li key={menuItem.id}>
-                          <a href={menuItem.attributes.url}>
-                            {menuItem.attributes.title}
-                          </a>
-                        </li>
-                      ))}
-                </ul>
-
-
-                <h6 className="menufont">Careers</h6>
-                <ul className="submenu_options">
-                  {menuData.length > 0 &&
-                    menuData
-                      .find((section) => section.attributes.title === 'Careers')
-                      ?.attributes.children.data.map((menuItem) => (
-                        <li key={menuItem.id}>
-                          <a href={menuItem.attributes.url}>
-                            {menuItem.attributes.title}
-                          </a>
-                        </li>
-                      ))}
-                </ul>
-
-                <h6 className="menufont">Contact</h6>
-                <ul className="submenu_options">
-                  {menuData.length > 0 &&
-                    menuData
-                      .find((section) => section.attributes.title === 'Contact')
-                      ?.attributes.children.data.map((menuItem) => (
-                        <li key={menuItem.id}>
-                          <a href={menuItem.attributes.url}>
-                            {menuItem.attributes.title}
-                          </a>
-                        </li>
-                      ))}
-                </ul> */}
-
               </div>
             </div>
 
-
+            <div className="other-links mt-4 mb-4">
+              <h6 className="menufont">Others</h6>
+              <ul className="submenu_options">
+                {menuData.length > 0 &&
+                  menuData
+                    .find((section) => section.attributes.title === 'Others')
+                    ?.attributes.children.data.map((menuItem) => (
+                      <li key={menuItem.id}>
+                        <a href={menuItem.attributes.url}>
+                          {menuItem.attributes.title}
+                        </a>
+                      </li>
+                    ))}
+              </ul>
+            </div>
 
             <div className="row menuFooter">
               <div className="col-sm-6">
@@ -365,9 +308,9 @@ const MenuPopup = ({ onClose }) => {
                 <div>
                   <p className="bottom_comp_sec_social colorBlack">
                     Connect with SSRVM Trust:{" "}
-                    <ul className="head_nav_menu social-link">
+                    <ul class="head_nav_menu social-link">
                       <li>
-                        <a href="#" className="facebook">
+                        <a href="#" class="facebook">
                           <svg
                             stroke="currentColor"
                             fill="currentColor"
@@ -382,7 +325,7 @@ const MenuPopup = ({ onClose }) => {
                         </a>
                       </li>
                       <li>
-                        <a href="#" className="twitter">
+                        <a href="#" class="twitter">
                           <svg
                             stroke="currentColor"
                             fill="currentColor"
@@ -399,7 +342,7 @@ const MenuPopup = ({ onClose }) => {
                       <li>
                         <a
                           href="https://www.youtube.com/channel/UCz1tS-oRzKeElBOd6pIjgLQ"
-                          className="youtube"
+                          class="youtube"
                         >
                           <svg
                             stroke="currentColor"
@@ -415,7 +358,7 @@ const MenuPopup = ({ onClose }) => {
                         </a>
                       </li>
                       <li>
-                        <a href="#" className="instagram">
+                        <a href="#" class="instagram">
                           <svg
                             stroke="currentColor"
                             fill="currentColor"

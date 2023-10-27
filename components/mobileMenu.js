@@ -17,8 +17,8 @@ const MobileMenu = ({ onClose }) => {
   const isProduction = process.env.NODE_ENV === "production";
 
   const siteUrl = isProduction
-      ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-      : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
+    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
+    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
 
 
   const fetchMenuData = async () => {
@@ -40,7 +40,7 @@ const MobileMenu = ({ onClose }) => {
     <div className="popup-menu-mobile">
       <div className="popup-card-menu-mobile">
         <div className="container-fluid">
-          <div className="row">
+          <div className="row g-0">
             <div className="popupNavMobile">
               <span className="borderDesignMobile">
                 <a href="#" className="facebook">
@@ -68,8 +68,8 @@ const MobileMenu = ({ onClose }) => {
               </span>
             </div>
           </div>
-          <div className="row">
-            <div className="displayFlex">
+          <div className="row g-0">
+            <div className="displayFlex mobi-flex">
               <ul className="submenu_options">
                 <h6 className="menufont fontSizeMenu">About</h6>
                 {menuData.length > 0 &&
@@ -98,9 +98,10 @@ const MobileMenu = ({ onClose }) => {
                       </li>
                     ))}
               </ul>
+
             </div>
 
-            <div className="displayFlex">
+            <div className="displayFlex mobi-flex">
               <ul className="submenu_options">
                 <h6 className="menufont fontSizeMenu">Admissions</h6>
                 {menuData.length > 0 &&
@@ -129,7 +130,7 @@ const MobileMenu = ({ onClose }) => {
               </ul>
             </div>
 
-            <div className="displayFlex">
+            <div className="displayFlex mobi-flex">
               <ul className="submenu_options">
                 <h6 className="menufont fontSizeMenu">Philosophy</h6>
                 {menuData.length > 0 &&
@@ -159,7 +160,7 @@ const MobileMenu = ({ onClose }) => {
               </ul>
             </div>
 
-            <div className="displayFlex">
+            <div className="displayFlex mobi-flex">
               <ul className="submenu_options">
                 <h6 className="menufont fontSizeMenu">Miscellaneous</h6>
                 {menuData.length > 0 &&
@@ -200,6 +201,22 @@ const MobileMenu = ({ onClose }) => {
                     ))}
               </ul>
             </div>
+
+            <div className="other-links my-4 mobile-other">
+              <h6 className="menufont">Others</h6>
+              <ul className="submenu_options">
+                {menuData.length > 0 &&
+                  menuData
+                    .find((section) => section.attributes.title === 'Others')
+                    ?.attributes.children.data.map((menuItem) => (
+                      <li key={menuItem.id}>
+                        <a href={menuItem.attributes.url}>
+                          {menuItem.attributes.title}
+                        </a>
+                      </li>
+                    ))}
+              </ul>
+            </div>
           </div>
 
           <div className="row menuFooter">
@@ -210,9 +227,9 @@ const MobileMenu = ({ onClose }) => {
               <div>
                 <p className="bottom_comp_sec_social colorBlack">
                   Connect with SSRVM Trust:{" "}
-                  <ul className="head_nav_menu social-link">
+                  <ul class="head_nav_menu social-link">
                     <li>
-                      <a href="#" className="facebook">
+                      <a href="#" class="facebook">
                         <svg
                           stroke="currentColor"
                           fill="currentColor"
@@ -227,7 +244,7 @@ const MobileMenu = ({ onClose }) => {
                       </a>
                     </li>
                     <li>
-                      <a href="#" className="twitter">
+                      <a href="#" class="twitter">
                         <svg
                           stroke="currentColor"
                           fill="currentColor"
@@ -244,7 +261,7 @@ const MobileMenu = ({ onClose }) => {
                     <li>
                       <a
                         href="https://www.youtube.com/channel/UCz1tS-oRzKeElBOd6pIjgLQ"
-                        className="youtube"
+                        class="youtube"
                       >
                         <svg
                           stroke="currentColor"
@@ -260,7 +277,7 @@ const MobileMenu = ({ onClose }) => {
                       </a>
                     </li>
                     <li>
-                      <a href="#" className="instagram">
+                      <a href="#" class="instagram">
                         <svg
                           stroke="currentColor"
                           fill="currentColor"
