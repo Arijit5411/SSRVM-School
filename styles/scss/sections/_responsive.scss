@@ -1545,12 +1545,13 @@
     color: #1f3dff;
     padding: 5px;
   }
-  .card-img-top
-    {
-        width: 100%;
-        height: 220px !important;
-        margin: auto;
-        }
+
+  .card-img-top {
+    width: 100%;
+    height: 220px !important;
+    margin: auto;
+  }
+
   .feature-slider .slick-prev {
     top: 100px;
     width: 45px;
@@ -1594,13 +1595,16 @@
     margin-top: -31% !important;
     background-image: url(../../../public/assets/img/banner/Teaching-Methodology-Mob.jpg);
   }
+
   .teacherHeading {
     font-size: 31px;
     padding-top: 7%;
-}
-.techerlife-new {
-  margin-top: -29%;
-}
+  }
+
+  .techerlife-new {
+    margin-top: -29%;
+  }
+
   h1.wrap-training-teach {
 
     color: #210D7D;
@@ -1621,11 +1625,13 @@
     margin-top: -32% !important;
     background-image: url(../../../public/assets/img/banner/ShraddhaTrainigMob.jpg) !important;
   }
+
   .newsbtm {
     border-radius: 55px;
     margin-top: 0px;
     margin-left: 0px;
   }
+
   h1.wrap-training-item {
     color: #210D7D;
     font-size: 36px;
@@ -1654,11 +1660,11 @@
     font-size: 27px !important;
     color: #230f7e;
   }
-  .contactReaponsive
-{
-  margin-top: -8px !important;
+
+  .contactReaponsive {
+    margin-top: -8px !important;
     margin-bottom: 2rem !important;
-}
+  }
 
   img.image-curriculum {
     border-radius: 13px;
@@ -1704,9 +1710,10 @@
   .mobiletoppadding {
     padding-top: 35px;
   }
+
   .top-section40-new {
     padding-top: 39px;
-}
+  }
 
   // .newsletter
   // {
@@ -1893,7 +1900,7 @@
 
   .wrap-teacher-item {
     margin-top: -100px;
-    margin-left:30px;
+    margin-left: 30px;
   }
 
   .techerlife {
@@ -1905,64 +1912,74 @@
     margin-top: -31%;
     background: #EFE9E1;
   }
+
   img.wrap-img-top1 {
     height: 200px;
     width: 100%;
-}
-.card-text-school {
-  color: #210D7D;
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 0px;
-}
-.card-text-news {
-  color: #210D7D;
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 21px;
-}
-.more-news-home {
-  margin-bottom: -84px;
-  text-align: right;
-}
-.IstHomeBackground1
-{
-  background-image: none !important;
-}
-.principal-mess:before {
-  content: "";
-  background-size: cover;
-  top: 118px;
-  left: 0;
-  width: 28%;
-  height: 10%;
-  position: absolute;
-}
-.slick-prev {
-  left: 0px;
-}
-.boxMargin
-{
-  margin-left: 30px !important;
-}
-.top-section15-new {
-  padding-top: 20px;
-}
+  }
+
+  .card-text-school {
+    color: #210D7D;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 0px;
+  }
+
+  .card-text-news {
+    color: #210D7D;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 21px;
+  }
+
+  .more-news-home {
+    margin-bottom: -84px;
+    text-align: right;
+  }
+
+  .IstHomeBackground1 {
+    background-image: none !important;
+  }
+
+  .principal-mess:before {
+    content: "";
+    background-size: cover;
+    top: 118px;
+    left: 0;
+    width: 28%;
+    height: 10%;
+    position: absolute;
+  }
+
+  .slick-prev {
+    left: 0px;
+  }
+
+  .boxMargin {
+    margin-left: 30px !important;
+  }
+
+  .top-section15-new {
+    padding-top: 20px;
+  }
+
   .principal-mess-item {
-    padding: 0% 1% 5% 3%;
+    padding: 0% 3% 5% 3%;
     background-color: #f7f2f2;
     margin-top: 30%;
     margin-bottom: 10%;
+    text-align: justify;
   }
 
   .principal-mess-item p {
     font-size: 16px;
   }
-.marginTopHeader
-{
-  margin-top: 10%;
 
-}
+  .marginTopHeader {
+    margin-top: 10%;
+
+  }
+
   .reverseFlex {
     flex-direction: column-reverse;
   }
@@ -2081,10 +2098,11 @@
 #mc_embed_signup .foot {
   display: block !important;
 }
-.linehightdesktop
-{
+
+.linehightdesktop {
   line-height: initial;
 }
+
 table {
   caption-side: bottom;
   width: 100%;

@@ -11,7 +11,7 @@ const siteUrl = isProduction
     : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
 
 export const getStaticProps = async () => {
-    const res = await fetch(`${siteUrl}/api/seos`)
+    const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
     const res1 = await fetch(`${siteUrl}/api/committee-members?populate=*`)
 
     const data = await res.json()
@@ -49,7 +49,7 @@ const CommitteeMembers = ({ seodata, commitee_Data }) => {
 
     useEffect(() => {
         // Fetch SEO data from your API
-        // fetch(`${siteUrl}/api/seos`) // Replace with the actual API endpoint
+        // fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`) // Replace with the actual API endpoint
         //   .then((response) => response.json())
         //   .then((data) => {
         //     console.log('API response data:', data); // Log the API response data

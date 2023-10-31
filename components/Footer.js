@@ -129,7 +129,7 @@ const Footer = () => {
                           <a href="#">{footerData.attributes.key4}</a>
                         </li>
                         <li>
-                          <a href="#">{footerData.attributes.key5}</a>
+                          <a href="/appointment-booking">{footerData.attributes.key5}</a>
                         </li>
                       </ul>
                       <hr className="new1"></hr>

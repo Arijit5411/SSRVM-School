@@ -404,7 +404,8 @@ nav.nav_menu.navbar.navbar-area.navbar-area-1.navbar-area-3.navbar-expand-lg {
     border-radius: 5px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
     width: 50%;
-    margin-top: -18%;
+    margin-top: 5%;
+    // margin-top: -18%;
     margin-left: 30%;
 }
 
@@ -1109,4 +1110,10 @@ label.not_rob {
 .other-links ul.submenu_options>li {
     width: 25%;
     padding: 0 20px;
+}
+
+.table>:not(caption)>*>*,
+.table> :not(caption)>*>*,
+table {
+    background-color: transparent !important;
 }

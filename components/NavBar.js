@@ -225,7 +225,7 @@ const NavBar = () => {
           >
             <FaInstagram className="socialFont" />
           </a>
-          <a href="/monthly-calendar" className="calender">
+          <a href="/appointment-booking" className="calender">
             <FaCalendarAlt className="calendarText" />
           </a>
           {data && (

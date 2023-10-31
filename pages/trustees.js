@@ -13,7 +13,7 @@ const siteUrl = isProduction
 const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in"
 
 export const getStaticProps = async () => {
-    const res = await fetch(`${siteUrl}/api/seos`)
+    const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
     const res1 = await fetch(`${GlobalSiteUrl}/api/trustees?populate=*`)
 
     const data = await res.json()
@@ -46,7 +46,7 @@ const Trustees = ({ seodata, trusteeData }) => {
 
     useEffect(() => {
         // Fetch SEO data from your API
-        // fetch(`${siteUrl}/api/seos`)
+        // fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
         //     .then((response) => response.json())
         //     .then((data) => {
         //         console.log('API response data:', data);
