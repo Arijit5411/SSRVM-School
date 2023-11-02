@@ -11,7 +11,7 @@ const siteUrl = isProduction
     : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
 
 export const getStaticProps = async () => {
-    const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50?pagination[start]=0&pagination[limit]=50`)
+    const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
 
     const data = await res.json()
 
@@ -82,7 +82,7 @@ const AppointmentBooking = ({ seodata }) => {
 
     useEffect(() => {
         // Fetch SEO data from your API
-        // fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50?pagination[start]=0&pagination[limit]=50`)
+        // fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
         //     .then((response) => response.json())
         //     .then((data) => {
         //         console.log('API response data:', data);
@@ -171,6 +171,21 @@ const AppointmentBooking = ({ seodata }) => {
                     }
                 );
 
+                const mailRes = await fetch(
+                    `/api/appointmentMail`, {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(requestData?.data)
+                })
+
+                if (mailRes.status === 200) {
+                    console.log('Mail send sucess!');
+                } else {
+                    console.log(mailRes);
+                }
+
                 if (response.ok) {
                     // The API call was successful, you can perform further actions here
                     console.log("API call successful");
@@ -241,6 +256,7 @@ const AppointmentBooking = ({ seodata }) => {
                                     <input
                                         className="input_certi"
                                         type="tel"
+                                        maxLength={10}
                                         id="contactNumber"
                                         name="contactNumber"
                                         placeholder="Contact Number"
@@ -316,7 +332,7 @@ const AppointmentBooking = ({ seodata }) => {
 
                                     {!formState.showChildDetails && (
                                         <div>
-                                            <label>
+                                            <label className="me-1">
                                                 Are you looking for admission for your child?
                                             </label>
                                             <label>
@@ -331,6 +347,7 @@ const AppointmentBooking = ({ seodata }) => {
                                             </label>
                                             <label>
                                                 <input
+                                                    className="ms-1"
                                                     type="radio"
                                                     name="admissionForChild"
                                                     value="no"
