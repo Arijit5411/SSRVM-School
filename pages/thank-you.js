@@ -10,9 +10,9 @@ const ThankYou = () => {
                 <NavBar />
                 <section>
                     <div className="vh-100 d-flex justify-content-center align-items-center">
-                        <div className="col-md-6">
+                        <div className="col-md-6 col-11">
                             <div className="border border-3 border-success"></div>
-                            <div className="card  bg-white shadow p-5">
+                            <div className="card  bg-white shadow p-md-5 p-4">
                                 <div className="mb-4 text-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" className="text-success bi bi-check-circle" width="120" height="100"
                                         fill="currentColor" viewBox="0 0 16 16">
@@ -22,7 +22,7 @@ const ThankYou = () => {
                                     </svg>
                                 </div>
                                 <div className="text-center">
-                                    <h1>Thank You !</h1>
+                                    <h1>Thank You!</h1>
                                     <p>We've send the link to your inbox. Lorem ipsum dolor sit,lorem lorem </p>
                                     <a href='/'>
                                         <button className="btn-thank">Back Home</button>
