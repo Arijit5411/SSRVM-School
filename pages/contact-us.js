@@ -12,7 +12,7 @@ const siteUrl = isProduction
     : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
 
 export const getStaticProps = async () => {
-    const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50?pagination[start]=0&pagination[limit]=50`)
+    const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
 
     const data = await res.json()
 
@@ -93,9 +93,11 @@ const ContactUs = ({ seodata }) => {
             newErrors.message = "Message is required.";
         }
 
-        const phonePattern = /^\d{10}$/;
-        if (!phonePattern.test(contactNumber)) {
-            newErrors.contactNumber = "Please enter a valid 10-digit phone number.";
+        // const phonePattern = /^\d{18}$/;
+        // if (!phonePattern.test(contactNumber)) {
+        if (!contactNumber) {
+            // newErrors.contactNumber = "Please enter a valid 10-digit phone number.";
+            newErrors.contactNumber = "Contact number is required.";
         }
 
         if (!isRobot) {
@@ -132,6 +134,15 @@ const ContactUs = ({ seodata }) => {
                 // Handle non-successful response here (e.g., show an error message)
                 console.error("API request failed:", response.statusText);
                 return;
+            } else {
+                await fetch(
+                    `/api/contactMail`, {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(requestData?.data)
+                })
             }
 
             // Reset form fields on successful submission
@@ -152,7 +163,7 @@ const ContactUs = ({ seodata }) => {
 
     useEffect(() => {
         // Fetch SEO data from your API
-        // fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50?pagination[start]=0&pagination[limit]=50`) // Replace with the actual API endpoint
+        // fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`) // Replace with the actual API endpoint
         //     .then((response) => response.json())
         //     .then((data) => {
         //         console.log('API response data:', data); // Log the API response data
@@ -201,7 +212,7 @@ const ContactUs = ({ seodata }) => {
                             <h1 className="principal-mess lineHight">Contact</h1>
                         </div>
                     </section>
-                    <section class="first-sec-contact_us">
+                    <section className="first-sec-contact_us">
                         <ContactAddress />
                     </section>
                     <section className="form-contact-us container mt-5">
@@ -244,7 +255,6 @@ const ContactUs = ({ seodata }) => {
                                         <input
                                             className="input_certi"
                                             type="tel"
-                                            maxLength={10}
                                             id="contactNumber"
                                             name="contactNumber"
                                             value={contactNumber}
