@@ -17,16 +17,17 @@ const HomeBlog = () => {
     : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
 
   useEffect(() => {
-    fetch(`${siteUrl}/api/blogs?populate=*`)
+    fetch(`${siteUrl}/api/blogs?sort=id:desc&populate=*`)
       .then((response) => response.json())
       .then((data) => {
         if (data.error) {
           console.error("Error:", data.error.message);
         } else {
-          const sortedBlogs = data.data.sort(
-            (a, b) => new Date(b.attributes.date) - new Date(a.attributes.date)
-          );
-          setBlog({ ...data, data: sortedBlogs });
+          // const sortedBlogs = data.data.sort(
+          //   (a, b) => new Date(b.attributes.date) - new Date(a.attributes.date)
+          // );
+          // setBlog({ ...data, data: sortedBlogs });
+          setBlog({ ...data, data: data.data });
         }
       })
       .catch((error) => {

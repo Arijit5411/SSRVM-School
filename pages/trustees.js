@@ -139,7 +139,8 @@ const Trustees = ({ seodata, trusteeData }) => {
                                             <img src={`${GlobalSiteUrl}${trustee.attributes.image?.data?.attributes?.url}`} alt={trustee.attributes.name} className="trustees-img" />
                                         </div>
                                         <div className="wrap-text-trustees">
-                                            <h6 className="wrap-trustees-item">{trustee.attributes.name}</h6>
+                                            <h5 className="wrap-trustees-item">{trustee.attributes.name}</h5>
+                                            <p className="trust-designation">{trustee.attributes.designation}</p>
                                             <p>
                                                 {expandedStates[`isExpanded${index}`] ? (
                                                     <>

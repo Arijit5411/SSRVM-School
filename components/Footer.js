@@ -59,7 +59,7 @@ const Footer = () => {
                           src={footerData.attributes.map_link}
                           width="600"
                           height="150"
-                          allowfullscreen=""
+                          allowFullScreen=""
                           loading="lazy"
                           referrerPolicy="no-referrer-when-downgrade"
                         ></iframe>
@@ -95,16 +95,20 @@ const Footer = () => {
                         <div className="single-contact-inner">
                           <div className="details">
                             <p className="address">
-                              <FaPhoneAlt className="fColor marginright" />
-                              {footerData.attributes.phone_no}
+                              <a className="text-white" href={`tel:${footerData.attributes.phone_no}`}>
+                                <FaPhoneAlt className="fColor marginright" />
+                                {footerData.attributes.phone_no}
+                              </a>
                             </p>
                           </div>
                         </div>
                         <div className="single-contact-inner">
                           <div className="details">
                             <p className="address">
-                              <FaEnvelopeOpen className="fColor marginright" />
-                              {footerData.attributes.mail_adddress}
+                              <a className="text-white" href={`mailto:${footerData.attributes.mail_adddress}`}>
+                                <FaEnvelopeOpen className="fColor marginright" />
+                                {footerData.attributes.mail_adddress}
+                              </a>
                             </p>
                           </div>
                         </div>
@@ -115,41 +119,42 @@ const Footer = () => {
                     <div className="footer-widget widget widget_nav_menu">
                       <ul>
                         <li>
-                          <a href="#">{footerData.attributes.key1}</a>
+                          <a href={footerData.attributes.key1_link}>{footerData.attributes.key1}</a>
                         </li>
                         <li>
-                          <a href="./admissions">
+                          <a href={footerData.attributes.key2_link}>
                             {footerData.attributes.key2}
                           </a>
                         </li>
                         <li>
-                          <a href="#">{footerData.attributes.key3}</a>
+                          <a href={footerData.attributes.key3_link}>{footerData.attributes.key3}</a>
                         </li>
                         <li>
-                          <a href="#">{footerData.attributes.key4}</a>
+                          <a href={footerData.attributes.key4_link}>{footerData.attributes.key4}</a>
                         </li>
                         <li>
-                          <a href="/appointment-booking">{footerData.attributes.key5}</a>
+                          <a href={footerData.attributes.key5_link}>{footerData.attributes.key5}</a>
                         </li>
                       </ul>
                       <hr className="new1"></hr>
                       <ul className="footerTopPadding">
+                        <h4 className="text-light">{footerData.attributes.key6}</h4>
+                        {/* <li>
+                          <a href={footerData.attributes.key6_link}>{footerData.attributes.key6}</a>
+                        </li> */}
                         <li>
-                          <a href="#">{footerData.attributes.key6}</a>
-                        </li>
-                        <li>
-                          <a href="./admissions">
+                          <a href={footerData.attributes.key7_link}>
                             {footerData.attributes.key7}
                           </a>
                         </li>
                         <li>
-                          <a href="#">{footerData.attributes.key8}</a>
+                          <a href={footerData.attributes.key8_link}>{footerData.attributes.key8}</a>
                         </li>
                         <li>
-                          <a href="#">{footerData.attributes.key9}</a>
+                          <a href={footerData.attributes.key9_link}>{footerData.attributes.key9}</a>
                         </li>
                         <li>
-                          <a href="#">{footerData.attributes.key10}</a>
+                          <a href={footerData.attributes.key10_link}>{footerData.attributes.key10}</a>
                         </li>
                       </ul>
                     </div>
@@ -158,16 +163,16 @@ const Footer = () => {
                     <div className="footer-widget widget widget_nav_menu">
                       <ul>
                         <li>
-                          <a href="#">{footerData.attributes.key11}</a>
+                          <a href={footerData.attributes.key11_link}>{footerData.attributes.key11}</a>
                         </li>
                         <li>
-                          <a href="#">{footerData.attributes.key12}</a>
+                          <a href={footerData.attributes.key12_link}>{footerData.attributes.key12}</a>
                         </li>
                         <li>
-                          <a href="./blogs">{footerData.attributes.key13}</a>
+                          <a href={footerData.attributes.key13_link}>{footerData.attributes.key13}</a>
                         </li>
                         <li>
-                          <a href="./quick-links">
+                          <a href={footerData.attributes.key14_link}>
                             {footerData.attributes.key14}
                           </a>
                         </li>

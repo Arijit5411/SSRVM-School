@@ -10,9 +10,10 @@ import {
   FaYoutube,
   FaAngleDown,
   FaCalendarAlt,
-  FaSnapchat,
+  FaWhatsapp,
 } from "react-icons/fa";
 import MobileMenu from "./mobileMenu";
+import ImportantAnnouncment from "./ImportantAnnouncment";
 
 const NavBar = () => {
   let publicUrl = process.env.PUBLIC_URL + "/";
@@ -23,6 +24,7 @@ const NavBar = () => {
   const [data, setData] = useState(null);
   const [menuData, setMenuData] = useState([]);
   const [schoolData, setschoolData] = useState([]);
+  const [social, setSocial] = useState([])
 
 
   // Function to toggle the popup
@@ -55,26 +57,26 @@ const NavBar = () => {
     ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
     : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
 
-  useEffect(() => {
-    // Fetch data from the API
-    fetch(`${siteUrl}/api/whatsapp-chats`)
-      .then((response) => response.json())
-      .then((responseData) => {
-        if (
-          responseData &&
-          responseData.data &&
-          responseData.data[0] &&
-          responseData.data[0].attributes
-        ) {
-          setData(responseData.data[0].attributes);
-        } else {
-          console.error("API response is missing expected data structure.");
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching data from the API:", error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   // Fetch data from the API
+  //   fetch(`${siteUrl}/api/whatsapp-chats`)
+  //     .then((response) => response.json())
+  //     .then((responseData) => {
+  //       if (
+  //         responseData &&
+  //         responseData.data &&
+  //         responseData.data[0] &&
+  //         responseData.data[0].attributes
+  //       ) {
+  //         setData(responseData.data[0].attributes);
+  //       } else {
+  //         console.error("API response is missing expected data structure.");
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching data from the API:", error);
+  //     });
+  // }, []);
 
   useEffect(() => {
     // Fetch menu data from the API endpoint
@@ -105,15 +107,30 @@ const NavBar = () => {
       });
   }, []);
 
+  useEffect(() => {
+    // Fetch the API data
+    fetch(`${siteUrl}/api/navbar-menu-headers?populate=*`)
+      .then((response) => response.json())
+      .then((data) => {
+        // Extract menu items from the API response
+        const items = data?.data[0]?.attributes;
+        setSocial(items);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
+
   return (
     <>
       <div className="mobilehide">
         <header className="navbar-are">
           <nav
             className={
-              "navbar navbar-area-1  navbar-area-3 navbar-area navbar-expand-lg"
+              "navbar navbar-area-1  navbar-area-3 navbar-area navbar-expand-lg d-flex flex-column"
             }
           >
+            <ImportantAnnouncment />
             <div className="container nav-container">
               <div className="responsive-mobile-menu">
                 <button
@@ -134,7 +151,7 @@ const NavBar = () => {
               <div className="logo">
                 <Link href="/">
                   <img
-                    src={publicUrl + "assets/img/ssrvm-logo.svg"}
+                    src={siteUrl + "/uploads/ssrvm_logo_6bd2ba23df.svg"}
                     alt="Transpro"
                   />
                 </Link>
@@ -193,6 +210,10 @@ const NavBar = () => {
                     </span>
                   </li>
                 </ul>
+
+                <div className="admission">
+                  <button onClick={togglePopup1}>Admission Enquiry</button>
+                </div>
               </div>
             </div>
             {/* Conditionally render the popup */}
@@ -201,44 +222,45 @@ const NavBar = () => {
         </header>
         <div className="sticky-icon">
           <a
-            href="https://www.facebook.com/ssrvm.official" target="new"
+            title="Facebook"
+            href={social?.facebook_link} target="new"
             className="facebook"
           >
             {" "}
             <FaFacebookF className="socialFont" />
           </a>
 
-          <a href="https://twitter.com/ssrvm" className="twitter" target="new">
+          <a title="Twitter" href={social?.twitter_link} className="twitter" target="new">
             <FaTwitter className="socialFont" />
           </a>
 
           <a
-            href="https://www.youtube.com/channel/UCz1tS-oRzKeElBOd6pIjgLQ" target="new"
+            title="Youtube"
+            href={social?.youtube_link} target="new"
             className="youtube"
           >
             <FaYoutube className="socialFont" />
           </a>
 
           <a
-            href="https://www.instagram.com/ssrvm.official/" target="new"
+            title="Instagram"
+            href={social?.insta_link} target="new"
             className="instagram"
           >
             <FaInstagram className="socialFont" />
           </a>
-          <a href="/appointment-booking" className="calender">
+          <a title="Appointment" href="/appointment-booking" className="calender bg-icon">
             <FaCalendarAlt className="calendarText" />
           </a>
-          {data && (
+          {social?.whatsapp_link?.length > 0 && (
             <div id="api-response">
-              <a href={data.whatsapp_number} className="chat" target="_blank">
-                <FaSnapchat className="calendarText" />
+              <a title="Whatsapp" href={social?.whatsapp_link} className="chat bg-icon" target="_blank">
+                <FaWhatsapp className="calendarText" />
               </a>
             </div>
           )}
         </div>
-        <div className="admission">
-          <button onClick={togglePopup1}>Admission Enquiry</button>
-        </div>
+
         {showPopup1 && <AdmissionEnquiry onClose={togglePopup1} />}
 
         {/* navbar end */}
@@ -246,6 +268,7 @@ const NavBar = () => {
 
       <div className="desktophide">
         {/* navbar start */}
+        <ImportantAnnouncment />
         <header className="navbar-area">
           <nav className="mobileshowmenu">
             <div className="container nav-container">
@@ -271,7 +294,7 @@ const NavBar = () => {
               <div className="logo">
                 <Link className="logo-1" href="/">
                   <img
-                    src={publicUrl + "assets/img/ssrvm-logo.svg"}
+                    src={siteUrl + "/uploads/ssrvm_logo_6bd2ba23df.svg"}
                     className="mobileLogo"
                   />
                 </Link>

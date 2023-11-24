@@ -38,14 +38,14 @@ const HomeAdmissionProcess = () => {
                         <h3>{event.attributes.admission_format}</h3>
                         <p>{event.attributes.admission_format_description}</p>
                         <button type="button" className="btn-home">
-                          <a href="/admissions">Know more</a>
+                          <a href={event.attributes.admission_format_link}>Know more</a>
                         </button>
                       </div>
                       <div className="service-single-item pd-top-45">
                         <h3>{event.attributes.application_format}</h3>
                         <p>{event.attributes.application_format_description}</p>
                         <button type="button" className="btn-home">
-                          <a href="/admissions">Know more</a>
+                          <a href={event.attributes.application_format_link}>Know more</a>
                         </button>
                       </div>
                     </div>

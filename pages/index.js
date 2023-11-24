@@ -9,6 +9,8 @@ import ImpAnmnt from "../components/ImpAnmnt";
 import VideoAreaOne from '../components/Video';
 import Seo from "@/components/Seo";
 import Head from "next/head";
+import MandatoryDisclosure from "@/components/MandatoryDisclosure";
+import ImportantAnnouncment from "@/components/ImportantAnnouncment";
 // import Seo from './Seo';
 // const BannerSlider = React.lazy(() => import("../components/BannerSlider"));
 // const Footer = React.lazy(() => import("../components/Footer"));
@@ -25,7 +27,7 @@ const siteUrl = isProduction
 
 
 export const getStaticProps = async () => {
-  const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50?pagination[start]=0&pagination[limit]=50`)
+  const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
 
   const data = await res.json()
 
@@ -46,7 +48,7 @@ const Home = ({ seodata }) => {
 
   useEffect(() => {
     // Fetch SEO data from your API
-    // fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50?pagination[start]=0&pagination[limit]=50`) // Replace with the actual API endpoint
+    // fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`) // Replace with the actual API endpoint
     //   .then((response) => response.json())
     //   .then((data) => {
     //     console.log('API response data:', data); // Log the API response data
@@ -74,6 +76,7 @@ const Home = ({ seodata }) => {
 
   return (
     <>
+      {console.log(seoData)}
       <Head>
         <title>{seoData.title}</title>
         {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
@@ -87,9 +90,10 @@ const Home = ({ seodata }) => {
         />
       )} */}
       {/* <Suspense fallback={<Preloader />}> */}
+      {/* <ImportantAnnouncment /> */}
       <NavBar />
-
       <BannerSliderOne />
+      <MandatoryDisclosure />
       <ImpAnmnt />
       <HomeAbout />
       <Footer />

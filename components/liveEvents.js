@@ -12,7 +12,7 @@ const LiveEvents = () => {
 
   useEffect(() => {
     // Fetch the list of live events on component mount
-    fetch(`${siteUrl}/api/enable-disables?populate=*`)
+    fetch(`${siteUrl}/api/enable-disables?sort=id:desc&populate=*`)
       .then((response) => response.json())
       .then((data) => {
         setEvents(data.data);

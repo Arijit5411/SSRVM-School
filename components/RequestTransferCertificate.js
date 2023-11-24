@@ -63,7 +63,14 @@ const RequestTransferCertificate = () => {
                 if (response.ok) {
                     const responseData = await response.json();
                     console.log("API response:", responseData);
-
+                    await fetch(
+                        `/api/requestTransferCertMail`, {
+                        method: 'POST',
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(requestData?.data)
+                    })
                     // Clear the form after successful submission
                     setFormValues({
                         fullName: "",
@@ -97,13 +104,14 @@ const RequestTransferCertificate = () => {
         // Validation for Contact Number (should not be empty, must be numeric, and have a minimum length of 10)
         if (!data.contactNumber.trim()) {
             errors.contactNumber = "Contact Number is required.";
-        } else if (
-            !/^\d+$/.test(data.contactNumber) ||
-            data.contactNumber.length < 10
-        ) {
-            errors.contactNumber =
-                "Contact Number must be a minimum of 10 digits and contain only numbers.";
         }
+        // else if (
+        //     !/^\d+$/.test(data.contactNumber) ||
+        //     data.contactNumber.length < 10
+        // ) {
+        //     errors.contactNumber =
+        //         "Contact Number must be a minimum of 10 digits and contain only numbers.";
+        // }
 
         // Validation for Date of Birth (should not be empty)
         if (!data.dateOfBirth) {

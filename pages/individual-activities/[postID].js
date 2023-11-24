@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import Video from "@/components/Video";
 // import { useParams } from 'react-router-dom';
 import { useRouter } from 'next/router';
+import Slider from "react-slick";
 
 const SportsAndArts = () => {
     const router = useRouter();
@@ -58,6 +59,27 @@ const SportsAndArts = () => {
 
 
     const { title, description, card_color, image_gallery, video_link } = activityData || {};
+
+    const settingss = {
+        dots: false,
+        arrows: true,
+        infinite: true,
+        speed: 1000,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        initialSlide: 1,
+        autoplay: true,
+        autoplaySpeed: 5000,
+    };
+
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1
+    }
+
     return (
         <>
             <NavBar />
@@ -74,34 +96,78 @@ const SportsAndArts = () => {
                 ) : (
                     <>
                         <section className="container">
-                            <h4 className="heading_down_sports marginTop50">Images from our sports activities</h4>
+                            <h4 className="heading_down_sports marginTop50">Images</h4>
                             <div className="row">
-                                {image_gallery && image_gallery.map((imageItem, index) => (
-                                    <div className="col-lg-4" key={index}>
-                                        <img
-                                            src={siteUrl + imageItem.image_gal?.data?.attributes?.url}
-                                            alt={`Image ${index}`}
-                                            className="image_box_sports"
-                                        />
+                                <div className="d-none d-md-flex gap-4">
+                                    <div className="row w-100">
+                                        {image_gallery && image_gallery.length > 0 ? image_gallery.map((imageItem, index) => (
+                                            <div className="col-lg-4" key={index}>
+                                                <img
+                                                    src={siteUrl + imageItem.image_gal?.data?.attributes?.url}
+                                                    alt={`Image ${index}`}
+                                                    className="image_box_sports"
+                                                />
+                                            </div>
+                                        )) : <h5 className="text-center">No images available!</h5>
+                                        }
                                     </div>
-                                ))}
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="d-md-none px-3 mb-5">
+                                    <div className="row w-100">
+                                        <Slider {...settings}>
+                                            {image_gallery && image_gallery.length > 0 ? image_gallery.map((imageItem, index) => (
+                                                <div className="col" key={index}>
+                                                    <img
+                                                        src={siteUrl + imageItem.image_gal?.data?.attributes?.url}
+                                                        alt={`Image ${index}`}
+                                                        className="image_box_sports mb-1"
+                                                    />
+                                                </div>
+                                            )) : <h5 className="text-center">No images available!</h5>
+                                            }
+                                        </Slider>
+                                    </div>
+                                </div>
                             </div>
                         </section>
 
                         <section className="container">
-                            <h4 className="heading_down_sports marginTop50">Videos Title</h4>
+                            <h4 className="heading_down_sports marginTop50">Videos</h4>
                             <div className="row">
-                                {video_link && video_link.map((videoItem, index) => (
-                                    <div className="col-lg-4" key={index}>
-                                        {videoItem.video ? (
-                                            <Video videoUrl={videoItem.video} />
-                                        ) : (
-                                            <p>No video link available</p>
-                                        )}
-                                        <h4>Video to watch</h4>
+                                <div className="d-none d-md-flex gap-4">
+                                    <div className="row w-100">
+                                        {video_link && video_link.length > 0 ? video_link.map((videoItem, index) => (
+                                            <div className="col-lg-4" key={index}>
+                                                {videoItem.video ? (
+                                                    <Video videoUrl={videoItem.video} />
+                                                ) : (
+                                                    <p>No video link available</p>
+                                                )}
+                                                <h4>Video to watch</h4>
+                                            </div>
+                                        )) : <h5 className="text-center">No videos available!</h5>
+                                        }
                                     </div>
-                                ))}
-
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="d-md-none px-3 mb-5">
+                                    <Slider {...settings}>
+                                        {video_link && video_link?.length > 0 ? video_link.map((videoItem, index) => (
+                                            <div className="col-lg-4" key={index}>
+                                                {videoItem.video ? (
+                                                    <Video videoUrl={videoItem.video} />
+                                                ) : (
+                                                    <p>No video link available</p>
+                                                )}
+                                                <h4>Video to watch</h4>
+                                            </div>
+                                        )) : <h5 className="text-center">No videos available!</h5>
+                                        }
+                                    </Slider>
+                                </div>
                             </div>
                         </section>
 

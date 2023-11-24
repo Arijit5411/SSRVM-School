@@ -124,6 +124,21 @@ const AdmissionEnquiry = ({ onClose }) => {
         if (response.ok) {
           const responseData = await response.json();
           console.log("API Response:", responseData);
+          try {
+            const res = await fetch(
+              `/api/admissionEnquiryMail`, {
+              method: 'POST',
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify(requestData?.data)
+            })
+            if (res.status === 200) {
+              console.log('Mail sent success');
+            }
+          } catch (error) {
+            console.log(error);
+          }
           // Handle the API response if needed
 
           // Clear form data after successful submission

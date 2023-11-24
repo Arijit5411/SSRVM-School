@@ -227,9 +227,9 @@ const MobileMenu = ({ onClose }) => {
               <div>
                 <p className="bottom_comp_sec_social colorBlack">
                   Connect with SSRVM Trust:{" "}
-                  <ul class="head_nav_menu social-link">
+                  <ul className="head_nav_menu social-link">
                     <li>
-                      <a href="#" class="facebook">
+                      <a href="#" className="facebook">
                         <svg
                           stroke="currentColor"
                           fill="currentColor"
@@ -244,7 +244,7 @@ const MobileMenu = ({ onClose }) => {
                       </a>
                     </li>
                     <li>
-                      <a href="#" class="twitter">
+                      <a href="#" className="twitter">
                         <svg
                           stroke="currentColor"
                           fill="currentColor"
@@ -261,7 +261,7 @@ const MobileMenu = ({ onClose }) => {
                     <li>
                       <a
                         href="https://www.youtube.com/channel/UCz1tS-oRzKeElBOd6pIjgLQ"
-                        class="youtube"
+                        className="youtube"
                       >
                         <svg
                           stroke="currentColor"
@@ -277,7 +277,7 @@ const MobileMenu = ({ onClose }) => {
                       </a>
                     </li>
                     <li>
-                      <a href="#" class="instagram">
+                      <a href="#" className="instagram">
                         <svg
                           stroke="currentColor"
                           fill="currentColor"

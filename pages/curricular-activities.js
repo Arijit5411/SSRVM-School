@@ -12,7 +12,7 @@ const siteUrl = isProduction
 
 export const getStaticProps = async () => {
     const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
-    const res1 = await fetch(`${siteUrl}/api/co-curricular-activities-pages?populate=*`)
+    const res1 = await fetch(`${siteUrl}/api/co-curricular-activities-pages?populate[images][populate]=*`)
 
     const data = await res.json()
     const data1 = await res1.json()
@@ -84,6 +84,23 @@ const Co_curricular_Activities = ({ seodata, activities }) => {
     const image_3 = `${siteUrl}${cocurricularActivities?.image_3?.data?.attributes?.url}`;
     const image_4 = `${siteUrl}${cocurricularActivities?.image_4?.data?.attributes?.url}`;
 
+    const [currentImage, setCurrentImage] = useState(0);
+
+    const goToPrevious = () => {
+        setCurrentImage((prevImage) =>
+            prevImage === 0 ? images.length - 1 : prevImage - 1
+        );
+    };
+
+    const goToNext = () => {
+        setCurrentImage((prevImage) =>
+            prevImage === images.length - 1 ? 0 : prevImage + 1
+        );
+    };
+
+    // const images = [image_1, image_2, image_3, image_4];
+    const images = cocurricularActivities?.images?.slice(4);
+
     return (
         <>
             <Fragment>
@@ -131,7 +148,18 @@ const Co_curricular_Activities = ({ seodata, activities }) => {
 
                     <section className="container wrap-news-sec-2">
                         <div className="row">
-                            <div className="col-lg-6">
+                            {
+                                cocurricularActivities?.images && cocurricularActivities?.images.length > 0 && cocurricularActivities?.images.slice(0, 4).map(img => {
+                                    return (
+                                        <div key={img?.id} className="col-lg-6">
+                                            <div className="card wrap-sust-proj">
+                                                <img src={`${siteUrl}${img?.image?.data?.attributes?.url}`} className="wrap-img-proj" alt="..." />
+                                            </div>
+                                        </div>
+                                    )
+                                })
+                            }
+                            {/* <div className="col-lg-6">
                                 <div className="card wrap-sust-proj">
                                     <img src={image_1} className="wrap-img-proj" alt="..." />
                                 </div>
@@ -150,9 +178,38 @@ const Co_curricular_Activities = ({ seodata, activities }) => {
                                 <div className="card wrap-sust-proj">
                                     <img src={image_4} className="wrap-img-proj" alt="..." />
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </section>
+                    {console.log('gg', images, cocurricularActivities?.images)}
+                    {console.log('ggg', images)}
+                    {
+                        images && images?.length > 0 && (
+                            <section className="wrap-state-se1">
+                                <div className="image-gallery">
+                                    {
+                                        images?.length > 1 && (
+                                            <div className="arrow-ssa left-arrow" onClick={goToPrevious}>
+                                                &larr;
+                                            </div>
+                                        )
+                                    }
+                                    <img
+                                        src={`${siteUrl}${images[currentImage]?.image?.data?.attributes?.url}`}
+                                        alt="Gallery Image"
+                                        className="life-at-ssa"
+                                    />
+                                    {
+                                        images.length > 1 && (
+                                            <div className="arrow-ssa right-arrow" onClick={goToNext}>
+                                                &rarr;
+                                            </div>
+                                        )
+                                    }
+                                </div>
+                            </section>
+                        )
+                    }
                 </div>
                 <Footer />
             </Fragment>

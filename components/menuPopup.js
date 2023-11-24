@@ -87,12 +87,12 @@ const MenuPopup = ({ onClose }) => {
                   </a>
                 </span>
                 <span className="borderDesign">
-                  <div class="dropdown1 .logotext">
-                    <button class="dropbtn1">
+                  <div className="dropdown1 .logotext">
+                    <button className="dropbtn1">
                       {schoolData.length > 0 && schoolData[0].attributes.title}
                       <FaAngleDown className="arrowleft" />
                     </button>
-                    <div class="dropdown-content1">
+                    <div className="dropdown-content1">
                       {schoolData.map((item) => (
                         <a key={item.id} href={item.attributes.url} target={item.attributes.target}>
                           {item.attributes.title}
@@ -308,9 +308,10 @@ const MenuPopup = ({ onClose }) => {
                 <div>
                   <p className="bottom_comp_sec_social colorBlack">
                     Connect with SSRVM Trust:{" "}
-                    <ul class="head_nav_menu social-link">
+                    <ul className="head_nav_menu social-link">
                       <li>
-                        <a href="#" class="facebook">
+                        <a href={apiData?.data[0]?.attributes?.facebook_link}
+                          className="facebook">
                           <svg
                             stroke="currentColor"
                             fill="currentColor"
@@ -325,7 +326,8 @@ const MenuPopup = ({ onClose }) => {
                         </a>
                       </li>
                       <li>
-                        <a href="#" class="twitter">
+                        <a href={apiData?.data[0]?.attributes?.twitter_link}
+                          className="twitter">
                           <svg
                             stroke="currentColor"
                             fill="currentColor"
@@ -341,8 +343,8 @@ const MenuPopup = ({ onClose }) => {
                       </li>
                       <li>
                         <a
-                          href="https://www.youtube.com/channel/UCz1tS-oRzKeElBOd6pIjgLQ"
-                          class="youtube"
+                          href={apiData?.data[0]?.attributes?.youtube_link}
+                          className="youtube"
                         >
                           <svg
                             stroke="currentColor"
@@ -358,7 +360,7 @@ const MenuPopup = ({ onClose }) => {
                         </a>
                       </li>
                       <li>
-                        <a href="#" class="instagram">
+                        <a href={apiData?.data[0]?.attributes?.insta_link} className="instagram">
                           <svg
                             stroke="currentColor"
                             fill="currentColor"

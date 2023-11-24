@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Video from "../components/Video";
+import Slider from "react-slick";
 
 const ParentSpeakVideo = () => {
   const [videos, setVideos] = useState([]);
@@ -30,13 +31,22 @@ const ParentSpeakVideo = () => {
       });
   }, [siteUrl]);
 
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1
+  }
+
   return (
     <>
       <h2 className="title pd-bottom-20">Parents Speak</h2>
 
       <div className="row justify-content-center">
+        {/* <div className="d-none d-md-block"> */}
         {videos.map((videoItem, index) => (
-          <div className="col-lg-6 col-md-6" key={index}>
+          <div className="col-lg-6 col-md-6 d-none d-md-block" key={index}>
             {videoItem.attributes.video_link ? (
               <Video videoUrl={videoItem.attributes.video_link} />
             ) : (
@@ -44,6 +54,20 @@ const ParentSpeakVideo = () => {
             )}
           </div>
         ))}
+        {/* </div> */}
+        <div className="d-md-none px-3 mb-5">
+          <Slider {...settings}>
+            {videos.map((videoItem, index) => (
+              <div className="col-lg-6 col-md-6" key={index}>
+                {videoItem.attributes.video_link ? (
+                  <Video videoUrl={videoItem.attributes.video_link} />
+                ) : (
+                  <p>No video link available</p>
+                )}
+              </div>
+            ))}
+          </Slider>
+        </div>
       </div>
     </>
   );

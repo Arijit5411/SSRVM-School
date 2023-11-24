@@ -22,11 +22,11 @@ const Video = ({ videoUrl }) => {
             width="635"
             height="395"
             src={`https://www.youtube.com/embed/${videoId}`}
-            frameborder="0"
-            allowfullscreen
+            frameBorder="0"
+            allowFullScreen
           ></iframe>
           <span
-            className='video-play-btn cursor-pointer'
+            className='video-play-btn cursor-pointer d-none d-md-flex'
             data-effect='mfp-zoom-in'
             onClick={() => setOpen(true)}
           >

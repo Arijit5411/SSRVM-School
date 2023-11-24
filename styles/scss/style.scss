@@ -1,3 +1,4 @@
+@import 'node_modules/react-modal-video/scss/modal-video.scss';
 //== Global Design
 @import "global/_mixins";
 @import "global/_variables";
@@ -1044,6 +1045,12 @@ label.not_rob {
 
     p {
         color: #fff !important;
+    }
+}
+
+@media only screen and (max-width: 350px) {
+    .education-card-mobile {
+        font-size: 18px;
     }
 }
 

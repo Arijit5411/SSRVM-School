@@ -14,6 +14,7 @@ import HomeGlobalBlogs from "./HomeGlobalBlogs";
 import HomeGlobalEvents from "./HomeGlobalEvents";
 
 const HomeAbout = () => {
+  const [gfounder, setGfounder] = useState(null)
   const [homeAbout, setHomeAbout] = useState(null);
   const [activeTab, setActiveTab] = useState("News");
   const [events, setEvents] = useState([]);
@@ -45,6 +46,18 @@ const HomeAbout = () => {
       });
   }, []);
 
+  useEffect(() => {
+    fetch(`${GlobalSiteUrl}/api/global-home-founder?populate=*`)
+      .then((response) => response.json())
+      .then((data) => {
+        setGfounder(data.data.attributes);
+        // setGfounder(data.data[0].attributes);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, []);
+
 
   useEffect(() => {
     // Fetch the list of live events on component mount
@@ -69,8 +82,8 @@ const HomeAbout = () => {
       });
   }, []);
 
-  const founded_by = `${homeAbout?.founded_by}`;
-  const founded_by_description = `${homeAbout?.founded_by_description}`;
+  const founded_by = `${gfounder?.founded_by}`;
+  const founded_by_description = `${gfounder?.founded_by_description}`;
 
   return (
     <>
@@ -81,9 +94,9 @@ const HomeAbout = () => {
             <div className="row justify-content-start">
               <div className="col-lg-6 remove-col-padding">
                 <span className="subtitles">{founded_by}</span>
-                <h2 className="title">{homeAbout?.gurudev_ssrs}</h2>
+                <h2 className="title">{gfounder?.gurudev_ssrs}</h2>
                 <img
-                  src="assets/img/about/3-Gurdev.jpg"
+                  src={`${GlobalSiteUrl}${gfounder?.founded_by_image?.data?.attributes?.url}`}
                   alt="school"
                   className="image-Banner-Round"
                 />
@@ -109,14 +122,14 @@ const HomeAbout = () => {
             </div>
           </div>
         </div>
-        <div className="section-3">
+        <div className="section-3" style={{ background: `url(${GlobalSiteUrl}${gfounder?.banner_image?.data?.attributes?.url})`, backgroundSize: '100%' }}>
           <div className="container">
             <div className="row">
               <p>
-                {homeAbout?.banner_description && (
+                {gfounder?.banner_description && (
                   <span
                     dangerouslySetInnerHTML={{
-                      __html: homeAbout?.banner_description.replace(
+                      __html: gfounder?.banner_description.replace(
                         /\n/g,
                         "<br />"
                       ),
@@ -188,7 +201,7 @@ const HomeAbout = () => {
               {blogs.map(
                 (blog) =>
                   blog.attributes.enable_disable && (
-                    <Tab eventKey="Global Events" title="Global Events">
+                    <Tab key={blog.id} eventKey="Global Events" title="Global Events">
                       <HomeGlobalEvents />
                     </Tab>
                   )

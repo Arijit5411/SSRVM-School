@@ -65,7 +65,7 @@ const DownloadResult = () => {
   return (
     <>
       <div className="desktophide">
-      <h4>Download Results</h4>
+        <h4>Download Results</h4>
         <div className="head">
           <div className="dropdown">
             <p>Download Results for class:</p>
@@ -85,7 +85,7 @@ const DownloadResult = () => {
         <div className="row g-4 mt-0">{renderContent2()}</div>
       </div>
       <div className="mobilehide">
-        <div className="head">
+        <div className="head flex-md-row flex-column mt-md-0 mt-2">
           <div>
             <h4>Download Results</h4>
           </div>

@@ -13,7 +13,7 @@ const siteUrl = isProduction
 
 export const getStaticProps = async () => {
     const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
-    const res1 = await fetch(`${siteUrl}/api/newspages?populate=*`)
+    const res1 = await fetch(`${siteUrl}/api/newspages?sort=id:desc&populate=*`)
 
     const data = await res.json()
     const data1 = await res1.json()
@@ -52,8 +52,8 @@ const News = ({ seodata, newsProp }) => {
         //         console.error('Error:', error);
         //     });
         if (newsProp && newsProp?.data && newsProp?.data?.length > 0) {
-            const sortedNews = newsProp.data.sort((a, b) => new Date(b.attributes.date) - new Date(a.attributes.date));
-            setNews({ ...newsProp, data: sortedNews });
+            // const sortedNews = newsProp.data.sort((a, b) => new Date(b.attributes.date) - new Date(a.attributes.date));
+            setNews({ ...newsProp, data: newsProp?.data });
         }
     }, []);
 

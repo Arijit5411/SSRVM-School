@@ -1,0 +1,186 @@
+import React, { Fragment, useState, useEffect } from "react";
+import NavBar from "../components/NavBar";
+import Footer from "../components/Footer";
+// import Seo from './Seo';
+import Head from "next/head";
+
+const isProduction = process.env.NODE_ENV === 'production';
+
+const siteUrl = isProduction
+    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
+    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
+
+export const getStaticProps = async () => {
+    const res = await fetch(`${siteUrl}/api/seos`)
+    const res1 = await fetch(`${siteUrl}/api/magazines?sort=id:desc&populate=*`)
+
+    const data = await res.json()
+    const data1 = await res1.json()
+
+    return {
+        props: {
+            seodata: data,
+            magazineData: data1
+        }
+    }
+}
+
+const School_Magazine = ({ seodata, magazineData }) => {
+    const [schoolMagazines, setSchoolMagazines] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [seoData, setSeoData] = useState({
+        title: '',
+        metaTitle: '',
+        metaDescription: '',
+    });
+
+    const magazinesPerPage = 8;
+
+    useEffect(() => {
+        // fetch(`${siteUrl}/api/magazines?populate=*`)
+        //     .then((response) => response.json())
+        //     .then((data) => {
+        //         const sortedMagazines = data.data
+        //             .sort((a, b) => {//sorting according to the edition of the magazine
+        //                 const editionA = parseInt(a.attributes.title.split(" ")[0]);
+        //                 const editionB = parseInt(b.attributes.title.split(" ")[0]);
+        //                 return editionB - editionA;
+        //             });
+        //         setSchoolMagazines(sortedMagazines);
+        //     })
+        //     .catch((error) => {
+        //         console.error("Error:", error);
+        //     });
+        if (magazineData && magazineData?.data && magazineData?.data?.length > 0) {
+            // const sortedMagazines = magazineData.data
+            //     .sort((a, b) => {//sorting according to the edition of the magazine
+            //         const editionA = parseInt(a.attributes.title.split(" ")[0]);
+            //         const editionB = parseInt(b.attributes.title.split(" ")[0]);
+            //         return editionB - editionA;
+            //     });
+            // setSchoolMagazines(sortedMagazines);
+            setSchoolMagazines(magazineData?.data);
+        }
+    }, []);
+
+    useEffect(() => {
+        // Fetch SEO data from your API
+        // fetch(`${siteUrl}/api/seos`) // Replace with the actual API endpoint
+        //     .then((response) => response.json())
+        //     .then((data) => {
+        //         console.log('API response data:', data); // Log the API response data
+        //         if (data && data.data && data.data.length > 0) {
+        //             const seoAttributes = data.data[16].attributes;
+        //             setSeoData({
+        //                 title: seoAttributes.title || '',
+        //                 metaTitle: seoAttributes.metaTitle || '',
+        //                 metaDescription: seoAttributes.metaDescription || '',
+        //             });
+        //         }
+        //     })
+        //     .catch((error) => {
+        //         console.error('Error fetching SEO data:', error);
+        //     });
+        if (seodata && seodata?.data && seodata?.data?.length > 0) {
+            const seoAttributes = seodata.data[16].attributes;
+            setSeoData({
+                title: seoAttributes.title || '',
+                metaTitle: seoAttributes.metaTitle || '',
+                metaDescription: seoAttributes.metaDescription || '',
+            })
+        }
+    }, []);
+
+    // for pagination
+    const indexOfLastMagazine = currentPage * magazinesPerPage;
+    const indexOfFirstMagazine = indexOfLastMagazine - magazinesPerPage;
+    const currentMagazines = schoolMagazines.slice(indexOfFirstMagazine, indexOfLastMagazine);
+
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+    //for pagination arrow button
+    const handlePrevPage = () => {
+        if (currentPage > 1) {
+            paginate(currentPage - 1);
+        }
+    };
+
+    const handleNextPage = () => {
+        if (currentPage < Math.ceil(schoolMagazines.length / magazinesPerPage)) {
+            paginate(currentPage + 1);
+        }
+    };
+
+    return (
+        <>
+            <Fragment>
+                <Head>
+                    <title>{seoData.title}</title>
+                    {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
+                    {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
+                </Head>
+                <NavBar />
+
+                {/* {seoData && (
+                    <Seo
+                        title={seoData.title}
+                        metaTitle={seoData.metaTitle}
+                        metaDescription={seoData.metaDescription}
+                    />
+                )} */}
+
+                <div className='top-section1'>
+                    <div className="container">
+                        <h1 className="principal-mess">School Magazine
+                            <a href="/press-releases">
+                                <button className='newsbtm publishButton'>
+                                    View other Publications
+                                </button>
+                            </a>
+                        </h1>
+                    </div>
+                    <section className="container wrap-news-sec-2">
+                        <div className="row">
+                            {currentMagazines.map((magazine) => (
+                                <div className="col-lg-3 col-6" key={magazine.id}>
+                                    <div className="card wrap-news">
+                                        <img
+                                            src={siteUrl + magazine.attributes.image.data.attributes.url}
+                                            className="wrap-img-top1 wrap-side-col"
+                                            alt="..."
+                                        />
+                                        <div className="card-body">
+                                            <p className="card-text-school">{magazine.attributes.title}</p>
+                                            <a href={siteUrl + magazine.attributes.download_pdf.data.attributes.url} className="text-muted-mag" download>
+                                                Download
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                        {/* Pagination Controls */}
+                        <div className="pagination-blog">
+                            {currentPage > 1 && (
+                                <button onClick={handlePrevPage}>&larr; Prev</button>
+                            )}
+
+                            {Array.from({ length: Math.ceil(schoolMagazines.length / magazinesPerPage) }, (_, index) => (
+                                <button key={index} onClick={() => paginate(index + 1)} className={currentPage === index + 1 ? "active" : ""} >
+                                    {index + 1}
+                                </button>
+                            ))}
+
+                            {currentPage < Math.ceil(schoolMagazines.length / magazinesPerPage) && (
+                                <button onClick={handleNextPage}>Next &rarr;</button>
+                            )}
+                        </div>
+                    </section>
+                </div>
+                <Footer />
+            </Fragment>
+        </>
+    );
+};
+
+export default School_Magazine;

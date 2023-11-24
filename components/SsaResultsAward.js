@@ -74,17 +74,19 @@ const SsaResultsAward = () => {
                     <div className="partner-slider owl-carousel">
                         <Slider {...settings}>
                             {images.map((imageData, index) => (
-                                <div key={index} className="result-three-gallery-item">
-                                    {console.log("Image URL:", `${siteUrl}${imageData?.attributes?.image?.data?.attributes?.url}`)} {/* Add this line */}
-                                    <img
-                                        src={`${siteUrl}${imageData?.attributes?.image?.data?.attributes?.url}`}
-                                        alt={imageData.attributes.name}
-                                        width="400"
-                                        height="300"
-                                        onLoad={() => console.log("Image loaded")} // Add this line
-                                    />
-                                    <h4>{imageData.attributes.name}</h4>
-                                    <p>{imageData.attributes.details}</p>
+                                <div className="row">
+                                    <div key={index} className="result-three-gallery-item">
+                                        {console.log("Image URL:", `${siteUrl}${imageData?.attributes?.image?.data?.attributes?.url}`)} {/* Add this line */}
+                                        <img
+                                            src={`${siteUrl}${imageData?.attributes?.image?.data?.attributes?.url}`}
+                                            alt={imageData.attributes.name}
+                                            width="400"
+                                            height="300"
+                                            onLoad={() => console.log("Image loaded")} // Add this line
+                                        />
+                                        <h4>{imageData.attributes.name}</h4>
+                                        <p>{imageData.attributes.details}</p>
+                                    </div>
                                 </div>
                             ))}
 

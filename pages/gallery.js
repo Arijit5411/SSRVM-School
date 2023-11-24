@@ -16,7 +16,7 @@ const siteUrl = isProduction
     : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
 
 export const getStaticProps = async () => {
-    const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50?pagination[start]=0&pagination[limit]=50`)
+    const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
 
     const data = await res.json()
 
@@ -30,6 +30,7 @@ export const getStaticProps = async () => {
 const Gallery = ({ seodata }) => {
     const [selectedOption, setSelectedOption] = useState('Photos');
     const [selectedYear, setSelectedYear] = useState('All');
+    const [years, setYears] = useState(['All'])
     const [folderName, setFolderName] = useState('');
     const [folders, setFolders] = useState([]);
     const [selectedFolder, setSelectedFolder] = useState(null);
@@ -54,7 +55,7 @@ const Gallery = ({ seodata }) => {
 
     useEffect(() => {
         // Fetch SEO data from your API
-        // fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50?pagination[start]=0&pagination[limit]=50`) // Replace with the actual API endpoint
+        // fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`) // Replace with the actual API endpoint
         //     .then((response) => response.json())
         //     .then((data) => {
         //         console.log('API response data:', data); // Log the API response data
@@ -79,7 +80,6 @@ const Gallery = ({ seodata }) => {
             })
         }
     }, []);
-
 
     useEffect(() => {
         // Fetch API_KEY and ROOT_FOLDER_ID from your API endpoint
@@ -146,6 +146,7 @@ const Gallery = ({ seodata }) => {
         fetch(`https://www.googleapis.com/drive/v3/files?q='${parentId}' in parents&key=${apiConfig.API_KEY}`)
             .then((response) => response.json())
             .then((data) => {
+                console.log('gg', data)
                 const allFiles = data.files;
                 const folderFiles = allFiles.filter(file => file.mimeType === 'application/vnd.google-apps.folder');
                 setFolders(folderFiles);
@@ -272,6 +273,8 @@ const Gallery = ({ seodata }) => {
                 if (data && data.data && data.data.length > 0) {
                     const { API_KEY, ROOT_FOLDER_ID } = data.data[0].attributes;
                     setApiConfig({ API_KEY, ROOT_FOLDER_ID });
+                    let yrArr = data?.data[0]?.attributes?.year_list.split(",")
+                    setYears(yrArr)
                 } else {
                     console.error('No data found in the API response.');
                 }
@@ -295,6 +298,176 @@ const Gallery = ({ seodata }) => {
         fetchFirstImageURLs();
     }, [subfolders]);
 
+    const AllTabContent = () => {
+        const [currentPage, setCurrentPage] = useState(1);
+        const paginate = (pageNumber) => {
+            setCurrentPage(pageNumber);
+        };
+
+        const handlePrevPage = () => {
+            if (currentPage > 1) {
+                paginate(currentPage - 1);
+            }
+        };
+
+        const handleNextPage = () => {
+            if (currentPage < Math.ceil(arr.length / 4)) {
+                paginate(currentPage + 1);
+            }
+        };
+
+        let arr = subfolders.filter((subfolder) => {
+            // Extract the year from subfolder name
+            const subfolderYear = parseInt(subfolder.name.split('-')[0], 10);
+
+            // Check if the subfolder matches the selected year or "All"
+            return selectedYear === 'All' || subfolderYear === parseInt(selectedYear, 10);
+        })
+            .sort((a, b) => {
+                // Extract the years from subfolder names
+                const yearA = parseInt(a.name.split('-')[0], 10);
+                const yearB = parseInt(b.name.split('-')[0], 10);
+
+                // Sort by year in descending order
+                return yearB - yearA;
+            })
+
+        const indexOfLastAward = currentPage * 3;
+        const indexOfFirstAward = indexOfLastAward - 3;
+        const newArr = arr.slice(indexOfFirstAward, indexOfLastAward);
+
+        return (
+            <>
+                {
+                    newArr.map(subfolder => {
+                        return (
+                            <div className='col-lg-4' key={subfolder.id}>
+                                <div className="card wrap-news">
+                                    <div className="card-body">
+                                        <a
+                                            href="#"
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                handleSubfolderTabSelect(subfolder.id); // Pass the selected subfolder ID
+                                            }}
+                                        >
+                                            <img
+                                                className="card-img-top"
+                                                src={subfolderFirstImageURLs[subfolder.id] || 'default-thumbnail-url.jpg'} // Provide a default thumbnail URL
+                                                alt="Card image cap"
+                                            />
+                                            <h6 className="galleryTitle">{subfolder.name}</h6>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                    })
+                }
+                {
+                    arr.length > 3 && (
+                        <div className="pagination-blog">
+                            {currentPage > 1 && (
+                                <button onClick={handlePrevPage}>&larr; Prev</button>
+                            )}
+
+                            {Array.from({ length: Math.ceil(arr.length / 3) }, (_, index) => (
+                                <button key={index} onClick={() => paginate(index + 1)} className={currentPage === index + 1 ? "active" : ""}>
+                                    {index + 1}
+                                </button>
+                            ))}
+
+                            {currentPage < Math.ceil(arr.length / 4) && (
+                                <button onClick={handleNextPage}>Next &rarr;</button>
+                            )}
+                        </div>
+                    )
+                }
+            </>
+        )
+    }
+
+    const SingleTabContent = ({ folderId }) => {
+
+        const [currentPage, setCurrentPage] = useState(1);
+        const paginate = (pageNumber) => {
+            setCurrentPage(pageNumber);
+        };
+
+        const handlePrevPage = () => {
+            if (currentPage > 1) {
+                paginate(currentPage - 1);
+            }
+        };
+
+        const handleNextPage = () => {
+            if (currentPage < Math.ceil(arr.length / 4)) {
+                paginate(currentPage + 1);
+            }
+        };
+
+        const indexOfLastAward = currentPage * 3;
+        const indexOfFirstAward = indexOfLastAward - 3;
+        let arr = folderSubfolders[folderId]
+        const newArr = arr?.slice(indexOfFirstAward, indexOfLastAward);
+
+
+        return (
+            <>
+                {
+                    newArr?.map((subfolder) => {
+                        // Check if the subfolder matches the selected year or "All"
+                        const subfolderYear = parseInt(subfolder.name.split('-')[0], 10);
+                        if (selectedYear === 'All' || subfolderYear === parseInt(selectedYear, 10)) {
+                            const subfolderThumbnailURL = subfolderFirstImageURLs[subfolder.id] || 'default-thumbnail-url.jpg'; // Provide a default thumbnail URL
+                            return (
+                                <div className='col-lg-4' key={subfolder.id}>
+                                    <div className="card wrap-news">
+                                        <div className="card-body">
+                                            <a
+                                                href="#"
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    handleSubfolderTabSelect(subfolder.id);
+                                                }}
+                                            >
+                                                <img
+                                                    className="card-img-top"
+                                                    src={subfolderThumbnailURL}
+                                                    alt="Card image cap"
+                                                />
+                                                <h4 className="card-text-news">{subfolder.name}</h4>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        }
+                        return null; // Filtered out subfolders won't be rendered
+                    })
+                }
+                {
+                    arr?.length > 3 && (
+                        <div className="pagination-blog">
+                            {currentPage > 1 && (
+                                <button onClick={handlePrevPage}>&larr; Prev</button>
+                            )}
+
+                            {Array.from({ length: Math.ceil(arr.length / 3) }, (_, index) => (
+                                <button key={index} onClick={() => paginate(index + 1)} className={currentPage === index + 1 ? "active" : ""}>
+                                    {index + 1}
+                                </button>
+                            ))}
+
+                            {currentPage < Math.ceil(arr.length / 4) && (
+                                <button onClick={handleNextPage}>Next &rarr;</button>
+                            )}
+                        </div>
+                    )
+                }
+            </>
+        )
+    }
 
     return (
         <>
@@ -338,11 +511,18 @@ const Gallery = ({ seodata }) => {
                                         <div>
                                             <select value={selectedYear} onChange={handleYearChange} className="drop">
                                                 <option value="All">All</option>
-                                                <option value="2021">2021</option>
+                                                {
+                                                    years && years.map(yr => {
+                                                        return (
+                                                            <option value={yr}>{yr}</option>
+                                                        )
+                                                    })
+                                                }
+                                                {/* <option value="2021">2021</option>
                                                 <option value="2020">2020</option>
                                                 <option value="2019">2019</option>
                                                 <option value="2018">2018</option>
-                                                <option value="2017">2017</option>
+                                                <option value="2017">2017</option> */}
                                             </select>
                                         </div>
                                     )}
@@ -350,10 +530,17 @@ const Gallery = ({ seodata }) => {
                                         <div>
                                             <select value={selectedYear} onChange={handleYearChange} className="drop">
                                                 <option value="All">All</option>
-                                                <option value="year 2023">2023</option>
+                                                {
+                                                    years && years.map(yr => {
+                                                        return (
+                                                            <option value={yr}>{yr}</option>
+                                                        )
+                                                    })
+                                                }
+                                                {/* <option value="year 2023">2023</option>
                                                 <option value="year 2022">2022</option>
                                                 <option value="year 2021">2021</option>
-                                                <option value="year 2020">2020</option>
+                                                <option value="year 2020">2020</option> */}
                                                 {/* Add more options as needed */}
                                             </select>
                                         </div>
@@ -369,47 +556,7 @@ const Gallery = ({ seodata }) => {
                             <Tabs defaultActiveKey="All" id="uncontrolled-tab-example" className="mb-3" onSelect={handleFolderTabSelect}>
                                 <Tab eventKey="All" title="All">
                                     <div className="row">
-                                        {subfolders
-                                            .filter((subfolder) => {
-                                                // Extract the year from subfolder name
-                                                const subfolderYear = parseInt(subfolder.name.split('-')[0], 10);
-
-                                                // Check if the subfolder matches the selected year or "All"
-                                                return selectedYear === 'All' || subfolderYear === parseInt(selectedYear, 10);
-                                            })
-                                            .sort((a, b) => {
-                                                // Extract the years from subfolder names
-                                                const yearA = parseInt(a.name.split('-')[0], 10);
-                                                const yearB = parseInt(b.name.split('-')[0], 10);
-
-                                                // Sort by year in descending order
-                                                return yearB - yearA;
-                                            })
-                                            .map((subfolder) => {
-                                                return (
-                                                    <div className='col-lg-4' key={subfolder.id}>
-                                                        <div className="card wrap-news">
-                                                            <div className="card-body">
-                                                                <a
-                                                                    href="#"
-                                                                    onClick={(e) => {
-                                                                        e.preventDefault();
-                                                                        handleSubfolderTabSelect(subfolder.id); // Pass the selected subfolder ID
-                                                                    }}
-                                                                >
-                                                                    <img
-                                                                        className="card-img-top"
-                                                                        src={subfolderFirstImageURLs[subfolder.id] || 'default-thumbnail-url.jpg'} // Provide a default thumbnail URL
-                                                                        alt="Card image cap"
-                                                                    />
-                                                                    <h6 className="galleryTitle">{subfolder.name}</h6>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                );
-                                            })}
-
+                                        <AllTabContent />
                                     </div>
                                 </Tab>
 
@@ -417,36 +564,7 @@ const Gallery = ({ seodata }) => {
                                 {folders.map((folder) => (
                                     <Tab eventKey={folder.id} title={folder.name} key={folder.id}>
                                         <div className="row">
-                                            {folderSubfolders[folder.id]?.map((subfolder) => {
-                                                // Check if the subfolder matches the selected year or "All"
-                                                const subfolderYear = parseInt(subfolder.name.split('-')[0], 10);
-                                                if (selectedYear === 'All' || subfolderYear === parseInt(selectedYear, 10)) {
-                                                    const subfolderThumbnailURL = subfolderFirstImageURLs[subfolder.id] || 'default-thumbnail-url.jpg'; // Provide a default thumbnail URL
-                                                    return (
-                                                        <div className='col-lg-4' key={subfolder.id}>
-                                                            <div className="card wrap-news">
-                                                                <div className="card-body">
-                                                                    <a
-                                                                        href="#"
-                                                                        onClick={(e) => {
-                                                                            e.preventDefault();
-                                                                            handleSubfolderTabSelect(subfolder.id);
-                                                                        }}
-                                                                    >
-                                                                        <img
-                                                                            className="card-img-top"
-                                                                            src={subfolderThumbnailURL}
-                                                                            alt="Card image cap"
-                                                                        />
-                                                                        <h4 className="card-text-news">{subfolder.name}</h4>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    );
-                                                }
-                                                return null; // Filtered out subfolders won't be rendered
-                                            })}
+                                            <SingleTabContent folderId={folder.id} />
                                         </div>
                                     </Tab>
                                 ))}

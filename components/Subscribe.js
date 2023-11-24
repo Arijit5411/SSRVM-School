@@ -13,8 +13,8 @@ const Subscribe = () => {
   const isProduction = process.env.NODE_ENV === "production";
 
   const siteUrl = isProduction
-      ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-      : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
+    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
+    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
 
   useEffect(() => {
     // Initialize fnames and ftypes as empty arrays
@@ -168,8 +168,8 @@ const Subscribe = () => {
 
                         <span id="mce-EMAIL-HELPERTEXT" className="helper_text"></span>
                       </div>
-                      <div id="mce-responses" className="clear foot">
-                        <div className="response" id="mce-error-response" style={{ display: 'none' }}></div>
+                      <div id="mce-responses m-0 w-100" className="clear foot">
+                        <div className="response pt-0" id="mce-error-response" style={{ display: 'none' }}></div>
                         <div className="response" id="mce-success-response" style={{ display: 'none' }}></div>
                       </div>
                       <div aria-hidden="true" style={{ position: 'absolute', left: '-5000px' }}>

@@ -17,16 +17,17 @@ const HomeNews = () => {
     : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
 
   useEffect(() => {
-    fetch(`${siteUrl}/api/newspages?populate=*`)
+    fetch(`${siteUrl}/api/newspages?sort=id:desc&populate=*`)
       .then((response) => response.json())
       .then((data) => {
         if (data.error) {
           console.error("Error:", data.error.message);
         } else {
-          const sortedNews = data.data.sort(
-            (a, b) => new Date(b.attributes.date) - new Date(a.attributes.date)
-          );
-          setNews({ ...data, data: sortedNews });
+          // const sortedNews = data.data.sort(
+          //   (a, b) => new Date(b.attributes.date) - new Date(a.attributes.date)
+          // );
+          // setNews({ ...data, data: sortedNews });
+          setNews({ ...data, data: data.data });
         }
       })
       .catch((error) => {

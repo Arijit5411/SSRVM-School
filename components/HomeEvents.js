@@ -17,16 +17,17 @@ const HomeEvents = () => {
     : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
 
   useEffect(() => {
-    fetch(`${siteUrl}/api/event-pages?populate=*`)
+    fetch(`${siteUrl}/api/event-pages?sort=id:desc&populate=*`)
       .then((response) => response.json())
       .then((data) => {
         if (data.error) {
           console.error("Error:", data.error.message);
         } else {
-          const sortedEvents = data.data.sort(
-            (a, b) => new Date(b.attributes.date) - new Date(a.attributes.date)
-          );
-          setEvents({ ...data, data: sortedEvents });
+          // const sortedEvents = data.data.sort(
+          //   (a, b) => new Date(b.attributes.date) - new Date(a.attributes.date)
+          // );
+          // setEvents({ ...data, data: sortedEvents });
+          setEvents({ ...data, data: data.data });
         }
       })
       .catch((error) => {

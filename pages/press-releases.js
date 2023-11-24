@@ -65,7 +65,7 @@ const PressReleases = ({ seodata }) => {
 
     useEffect(() => {
         // Fetch the press releases data
-        fetch(`${siteUrl}/api/press-releases?populate=*`)
+        fetch(`${siteUrl}/api/press-releases?sort=id:desc&populate=*`)
             .then((response) => response.json())
             .then((data) => {
                 setPressReleases(data.data);
@@ -229,7 +229,8 @@ const PressReleases = ({ seodata }) => {
             <Modal
                 show={showModal}
                 onHide={handleCloseModal}
-                dialogClassName="modal-fullscreen"
+                dialogClassName="modal-fullscreen awa-img"
+                onClick={handleCloseModal}
             >
                 <Modal.Body>
                     <img src={selectedImage} className="modal-image" alt="..." />

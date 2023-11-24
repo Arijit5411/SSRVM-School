@@ -1293,9 +1293,10 @@
 
 .admission {
   z-index: 2;
-  position: fixed;
+  // position: fixed;
+  position: absolute;
+  top: 100%;
   // top: 10%;
-  top: 10%;
   background: #210D7D !important;
   right: 15%;
   color: #210D7D;
@@ -1387,7 +1388,8 @@
 }
 
 .mobileDropDown {
-  margin-left: -62%;
+  // margin-left: -62%;
+  margin-left: -209px;
   position: relative;
   z-index: 999;
   margin-top: 10px;
@@ -1430,7 +1432,7 @@
   transition: all 0.2s linear;
 }
 
-#root>div:nth-child(6)>div.service-area.pd-top-115.pd-bottom-90.pb-lg-0.parentSpeak>div:nth-child(2)>div>div.mobilehide>div>div>div>div>div>div>div>svg.slick-arrow.slick-prev {
+.slideTestimo>svg.slick-arrow.slick-prev {
   left: 97%;
   right: 0;
   z-index: 9;
@@ -1444,3 +1446,18 @@
   transition: all 0.2s linear;
   background-color: #210d7d
 }
+
+// #root>div:nth-child(6)>div.service-area.pd-top-115.pd-bottom-90.pb-lg-0.parentSpeak>div:nth-child(2)>div>div.mobilehide>div>div>div>div>div>div>div>svg.slick-arrow.slick-prev {
+//   left: 97%;
+//   right: 0;
+//   z-index: 9;
+//   top: 60%;
+//   width: 65px;
+//   height: 65px;
+//   border-radius: 50%;
+//   color: #fff !important;
+//   padding: 18px;
+//   margin-left: 33px;
+//   transition: all 0.2s linear;
+//   background-color: #210d7d
+// }

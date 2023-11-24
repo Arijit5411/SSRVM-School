@@ -12,12 +12,15 @@ const siteUrl = isProduction
 
 export const getStaticProps = async () => {
     const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
+    const res1 = await fetch(`${siteUrl}/api/school-total-classes?populate=*`)
 
     const data = await res.json()
+    const data1 = await res1.json()
 
     return {
         props: {
-            seodata: data
+            seodata: data,
+            classes: data1?.data
         }
     }
 }
@@ -42,7 +45,7 @@ const initialErrorState = {
     reasonError: "",
 };
 
-const AppointmentBooking = ({ seodata }) => {
+const AppointmentBooking = ({ seodata, classes }) => {
     const [formState, setFormState] = useState(initialFormState);
     const [errorState, setErrorState] = useState(initialErrorState);
     const [seoData, setSeoData] = useState({
@@ -171,24 +174,23 @@ const AppointmentBooking = ({ seodata }) => {
                     }
                 );
 
-                const mailRes = await fetch(
-                    `/api/appointmentMail`, {
-                    method: 'POST',
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(requestData?.data)
-                })
-
-                if (mailRes.status === 200) {
-                    console.log('Mail send sucess!');
-                } else {
-                    console.log(mailRes);
-                }
-
                 if (response.ok) {
                     // The API call was successful, you can perform further actions here
                     console.log("API call successful");
+                    const mailRes = await fetch(
+                        `/api/appointmentMail`, {
+                        method: 'POST',
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(requestData?.data)
+                    })
+
+                    if (mailRes.status === 200) {
+                        console.log('Mail send sucess!');
+                    } else {
+                        console.log(mailRes);
+                    }
                     // Clear form fields after successful submission
                     setFormState(initialFormState);
                     setErrorState(initialErrorState);
@@ -256,7 +258,6 @@ const AppointmentBooking = ({ seodata }) => {
                                     <input
                                         className="input_certi"
                                         type="tel"
-                                        maxLength={10}
                                         id="contactNumber"
                                         name="contactNumber"
                                         placeholder="Contact Number"
@@ -301,7 +302,14 @@ const AppointmentBooking = ({ seodata }) => {
                                                     onChange={handleInputChange}
                                                 >
                                                     <option value="">Select Class*</option>
-                                                    <option value="Junior KG">Junior KG</option>
+                                                    {
+                                                        classes && classes.length > 0 && classes.map(c => {
+                                                            return (
+                                                                <option value={c?.attributes?.name}>{c?.attributes?.name}</option>
+                                                            )
+                                                        })
+                                                    }
+                                                    {/* <option value="Junior KG">Junior KG</option>
                                                     <option value="Senior KG">Senior KG</option>
                                                     <option value="class I">Class I</option>
                                                     <option value="class II">Class II</option>
@@ -314,7 +322,7 @@ const AppointmentBooking = ({ seodata }) => {
                                                     <option value="class IX">Class IX</option>
                                                     <option value="class X">Class X</option>
                                                     <option value="class XI">Class XI</option>
-                                                    <option value="class XII">Class XII</option>
+                                                    <option value="class XII">Class XII</option> */}
                                                 </select>
                                             </div>
                                             <div className="error">{errorState.reasonError}</div>

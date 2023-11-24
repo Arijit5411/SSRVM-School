@@ -13,16 +13,19 @@ const HomeGlobalBlogs = () => {
     const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in"
 
     useEffect(() => {
-        fetch(`${GlobalSiteUrl}/api/global-blogs?populate=*`)
+        fetch(`${GlobalSiteUrl}/api/global-blogs?sort=id:desc&populate=*`)
+            // fetch(`${GlobalSiteUrl}/api/global-blogs?populate=*`)
             .then((response) => response.json())
             .then((data) => {
+                console.log('gg', data.data);
                 if (data.error) {
                     console.error("Error:", data.error.message);
                 } else {
-                    const sortedBlogs = data.data.sort(
-                        (a, b) => new Date(b.attributes.date) - new Date(a.attributes.date)
-                    );
-                    setBlog({ ...data, data: sortedBlogs });
+                    // const sortedBlogs = data.data.sort(
+                    //     (a, b) => new Date(b.attributes.date) - new Date(a.attributes.date)
+                    // );
+                    // setBlog({ ...data, data: sortedBlogs });
+                    setBlog({ ...data, data: data.data });
                 }
             })
             .catch((error) => {
@@ -47,7 +50,7 @@ const HomeGlobalBlogs = () => {
         speed: 1000,
         slidesToShow: 3,
         slidesToScroll: 1,
-        initialSlide: 0,
+        // initialSlide: 0,
         autoplay: true,
         autoplaySpeed: 3000,
         nextArrow: <SampleNextArrow />,
@@ -80,7 +83,7 @@ const HomeGlobalBlogs = () => {
                         <div className="feature-slider owl-carousel">
                             <Slider {...sliderSettings}>
                                 {Array.isArray(currentPosts) && currentPosts.length > 0 ? (
-                                    currentPosts.map((post, index) => (
+                                    currentPosts.reverse().map((post, index) => (
                                         <div className="item" key={index}>
                                             <div className="card wrap-news">
                                                 <img

@@ -12,7 +12,7 @@ const siteUrl = isProduction
 
 export const getStaticProps = async () => {
     const res = await fetch(`${siteUrl}/api/seos`)
-    const res1 = await fetch(`${siteUrl}/api/school-curriculum-pages?populate=*`)
+    const res1 = await fetch(`${siteUrl}/api/school-curriculum-pages?populate[syllabus_pdf][populate]=*&populate[image_1]=*&populate[image_2]=*`)
 
     const data = await res.json()
     const data1 = await res1.json()
@@ -27,6 +27,7 @@ export const getStaticProps = async () => {
 
 const SchoolCurriculum = ({ seodata, schoolCurr }) => {
     const [schoolCurriculum, setSchoolCurriculum] = useState(null);
+    const [syllabus, setSyllabus] = useState([])
     const [seoData, setSeoData] = useState({
         title: '',
         metaTitle: '',
@@ -44,6 +45,7 @@ const SchoolCurriculum = ({ seodata, schoolCurr }) => {
         //     });
         if (schoolCurr && schoolCurr?.data && schoolCurr?.data?.length > 0) {
             setSchoolCurriculum(schoolCurr?.data[0]?.attributes)
+            setSyllabus(schoolCurr?.data[0]?.attributes?.syllabus_pdf)
         }
     }, []);
 
@@ -199,6 +201,20 @@ const SchoolCurriculum = ({ seodata, schoolCurr }) => {
                     <section className="container sec-third">
                         <h4 className='title'>{syllabusHeading}</h4>
                         <div className='row'>
+                            {
+                                syllabus && syllabus?.length > 0 && syllabus.map(syl => {
+                                    if (syl?.pdf_file?.data && syl?.pdf_file?.data?.attributes?.url.length > 0) {
+                                        return (
+                                            <div className='col-lg-4 wrap-syllabus'>
+                                                <div className='syl-item'>
+                                                    <h4>{syl?.class_name}</h4>
+                                                    <a href={`${siteUrl}${syl?.pdf_file?.data?.attributes?.url}`} download>Download</a>
+                                                </div>
+                                            </div>
+                                        )
+                                    }
+                                })
+                            }
                             {
                                 c12 && (
                                     <div className='col-lg-4 wrap-syllabus'>

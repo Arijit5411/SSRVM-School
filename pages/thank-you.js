@@ -2,8 +2,26 @@ import React, { Fragment } from 'react';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 
-const ThankYou = () => {
+const isProduction = process.env.NODE_ENV === 'production';
 
+const siteUrl = isProduction
+    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
+    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
+
+export const getStaticProps = async () => {
+    const res = await fetch(`${siteUrl}/api/thank-you-page`)
+
+    const data = await res.json()
+
+    return {
+        props: {
+            content: data?.data
+        }
+    }
+}
+
+const ThankYou = ({ content }) => {
+    console.log(content);
     return (
         <>
             <Fragment>
@@ -22,8 +40,8 @@ const ThankYou = () => {
                                     </svg>
                                 </div>
                                 <div className="text-center">
-                                    <h1>Thank You!</h1>
-                                    <p>We've send the link to your inbox. Lorem ipsum dolor sit,lorem lorem </p>
+                                    <h1 dangerouslySetInnerHTML={{ __html: content?.attributes?.Heading }}></h1>
+                                    <p dangerouslySetInnerHTML={{ __html: content?.attributes?.Subheading }}></p>
                                     <a href='/'>
                                         <button className="btn-thank">Back Home</button>
                                     </a>

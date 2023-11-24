@@ -5,10 +5,10 @@ const GlobalLiveEvents = () => {
     const [events, setEvents] = useState([]);
 
     const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in"
-        
+
     useEffect(() => {
         // Fetch the list of live events on component mount
-        fetch(`${GlobalSiteUrl}/api/global-live-event-enable-disables?populate=*`)
+        fetch(`${GlobalSiteUrl}/api/global-live-event-enable-disables?sort=id:desc&populate=*`)
             .then((response) => response.json())
             .then((data) => {
                 setEvents(data.data);
@@ -28,7 +28,7 @@ const GlobalLiveEvents = () => {
                                 <div className="row align-items-center">
                                     <div className="service-item">
                                         <div className="row align-items-center">
-                                            <h4>Global Events</h4>
+                                            {/* <h4>Global Events</h4> */}
                                             <div className="col-sm-8">
                                                 <p>{event.attributes.new_live_event}</p>
                                                 <h3>{event.attributes.event_title}</h3>

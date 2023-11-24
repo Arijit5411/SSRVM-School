@@ -6,6 +6,7 @@ import Tabs from 'react-bootstrap/Tabs';
 // import Seo from './Seo';
 import AdmissionFaq from '../components/admissionFaq';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -16,20 +17,29 @@ const siteUrl = isProduction
 export const getStaticProps = async () => {
     const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
     const res1 = await fetch(`${siteUrl}/api/admission-pages?populate=*`)
+    const res2 = await fetch(`${siteUrl}/api/school-total-classes?populate=*`)
+    const res3 = await fetch(`${siteUrl}/api/admission-pages?fields[0]=procedure_content&populate[procedure_content][populate]=*`)
 
     const data = await res.json()
     const data1 = await res1.json()
+    const data2 = await res2.json()
+    const data3 = await res3.json()
 
     return {
         props: {
             seodata: data,
-            admissionsData: data1
+            admissionsData: data1,
+            t_class: data2?.data,
+            tab_content: data3?.data
         }
     }
 }
 
-const Admissions = ({ seodata, admissionsData }) => {
+const Admissions = ({ seodata, admissionsData, t_class, tab_content }) => {
+    console.log('gg', tab_content)
+    const router = useRouter()
     console.log('main data ===>', admissionsData);
+    const [routeActive, setRouteActive] = useState('Procedure')
     const [admissions, setAdmissions] = useState(null);
     const [seoData, setSeoData] = useState({
         title: '',
@@ -80,6 +90,14 @@ const Admissions = ({ seodata, admissionsData }) => {
         }
     }, []);
 
+    useEffect(() => {
+        if (router.asPath === "/admissions#admission_faq") {
+            setRouteActive('faqs')
+        } else {
+            setRouteActive('Procedure')
+        }
+    }, [])
+
 
     const page_title = `${admissions?.page_title}`
     const subheading_admission = `${admissions?.subheading_admission}`
@@ -94,6 +112,7 @@ const Admissions = ({ seodata, admissionsData }) => {
 
     const box_content_apply = `${admissions?.box_content_apply}`
     const apply_button_box = `${admissions?.apply_button_box}`
+    const apply_button_link = `${admissions?.apply_button_link}`
     const procedure_tab = `${admissions?.procedure_tab}`
     const faqs_tab = `${admissions?.faqs_tab}`
     const faq_heading = `${admissions?.faq_heading}`
@@ -123,7 +142,7 @@ const Admissions = ({ seodata, admissionsData }) => {
     const value3 = `${admissions?.value3}`
     const value4 = `${admissions?.value4}`
 
-    const [selectedOption, setSelectedOption] = useState('class1');
+    const [selectedOption, setSelectedOption] = useState(t_class[0]?.attributes?.name ?? 'Junior KG');
 
     const handleChange = (event) => {
         setSelectedOption(event.target.value);
@@ -357,8 +376,33 @@ const Admissions = ({ seodata, admissionsData }) => {
         }
     }
 
+    const Render = ({ selectedOption }) => {
+        let arr = tab_content[0]?.attributes?.procedure_content.filter(t => {
+            if (t?.school_total_class?.data?.attributes?.name === selectedOption) {
+                return t
+            }
+        })
+
+        return (
+            arr?.length > 0 && arr.map(cont => {
+                return (
+                    <section>
+                        <div className="wrap-mid-admission">
+                            <div className="left-item-admission" dangerouslySetInnerHTML={{ __html: cont?.procedure }}></div>
+                            <div className="right-item-admission" dangerouslySetInnerHTML={{ __html: cont?.content }}></div>
+
+                        </div>
+
+                    </section>
+                )
+            })
+
+        )
+    }
+
     return (
         <>
+            {console.log('main', routeActive)}
             <Fragment>
                 <Head>
                     <title>{seoData.title}</title>
@@ -381,7 +425,7 @@ const Admissions = ({ seodata, admissionsData }) => {
                     </div>
                     <section>
                         <div className="container marginTopHeader">
-                            <div class="row align-items-center">
+                            <div className="row align-items-center">
                                 <div className="col-lg-6">
                                     <h4 className='title'>{subheading_admission}
                                     </h4>
@@ -389,7 +433,7 @@ const Admissions = ({ seodata, admissionsData }) => {
                                         dangerouslySetInnerHTML={{ __html: para_1.replace(/\n/g) }}></span>}
                                     </p>
                                     <div>
-                                        <button className="footerbtn wrap-btn">{apply_button}
+                                        <button className="footerbtn wrap-btn" onClick={() => window.open(`${apply_button_link}`, '_blank')}>{apply_button}
                                         </button>
                                     </div>
                                 </div>
@@ -405,24 +449,31 @@ const Admissions = ({ seodata, admissionsData }) => {
                         <div className="container wrapper-mid-admission">
 
                             <div className="wrap-tag-admission">
-                                <div>
+                                <div id='admission_procedure'>
                                     <h5>{admission_procedure}
                                     </h5>
                                 </div>
                                 <div className="wrap-dropdown-admission">
                                     <select className="dropadmission" value={selectedOption} onChange={handleChange}>
-                                        <option value="class1">{class_pre_primary}</option>
+                                        {
+                                            t_class?.length > 0 && t_class?.map(c => {
+                                                return (
+                                                    <option key={c?.id} value={c?.attributes?.name}>{c?.attributes?.name}</option>
+                                                )
+                                            })
+                                        }
+                                        {/* <option value="class1">{class_pre_primary}</option>
                                         <option value="class2">{class_pre_primary2}</option>
                                         <option value="class3">{class_pre_primary3}</option>
-                                        <option value="class4">{class1}</option>
-
+                                        <option value="class4">{class1}</option> */}
                                     </select>
                                 </div>
                             </div>
 
-                            <Tabs defaultActiveKey="Procedure" id="uncontrolled-tab-example" className="mb-3">
+                            <Tabs activeKey={routeActive} id="controlled-tab-example" className="mb-3" onSelect={(k) => setRouteActive(k)}>
                                 <Tab eventKey="Procedure" title={procedure_tab}>
-                                    {renderContent()}
+                                    {/* {renderContent()} */}
+                                    <Render selectedOption={selectedOption} />
 
                                     <div className="container wrap-sec-admission">
                                         <div>
@@ -431,7 +482,7 @@ const Admissions = ({ seodata, admissionsData }) => {
                                             </h6>
                                         </div>
                                         <div className="wrapbtn-admission">
-                                            <button className="footerbtn wrap-btn">
+                                            <button className="footerbtn wrap-btn" onClick={() => window.open(`${apply_button_link}`, '_blank')}>
                                                 {apply_button_box}
                                             </button>
                                         </div>
@@ -569,10 +620,11 @@ const Admissions = ({ seodata, admissionsData }) => {
                                 </Tab>
                             </Tabs>
                         </div>
+                        <div id='admission_faq'></div>
                     </section>
-                </div>
+                </div >
                 <Footer />
-            </Fragment>
+            </Fragment >
         </>
     )
 }

@@ -85,14 +85,14 @@ const Testimonial = () => {
   return (
     <>
 
-      <div className="mobilehide">
+      <div className="mobilehide testimonial">
         <div className="container">
           <div className="">
             <div className="row">
               <div className="align-self-center">
                 <div className="section-title">
                   <div className="feature-slider owl-carousel">
-                    <Slider {...settings}>
+                    <Slider className="slideTestimo" {...settings}>
                       {filteredParentTestimonials.map((testimonial, index) => (
                         <div className="item" key={index}>
                           <div className="testimonalBox">
@@ -124,34 +124,34 @@ const Testimonial = () => {
 
       <div className="desktophide">
         <div className="container">
-            <div className="row">
-              <div className="align-self-center">
-                <div className="section-title">
-                  <div className="feature-slider owl-carousel">
-                    <Slider {...settings}>
-                      {filteredParentTestimonials.map((testimonial, index) => (
-                        <div className="item" key={index}>
-                          <div className="">
-                            <div className="imgboxMobile">
-                              <img
-                                src={`${siteUrl}${testimonial.attributes.image?.data?.attributes?.url}`}
-                                alt="school"
-                                className="image-Banner-Round"
-                              />
-                            </div>
-                            <div className="box-text">
-                              <h3>{testimonial.attributes.name}</h3>
-                              <h5>{testimonial.attributes.sub_heading}</h5>
-                              <p>{testimonial.attributes.description}</p>
-                            </div>
+          <div className="row">
+            <div className="align-self-center">
+              <div className="section-title">
+                <div className="feature-slider owl-carousel">
+                  <Slider {...settings}>
+                    {filteredParentTestimonials.map((testimonial, index) => (
+                      <div className="item" key={index}>
+                        <div className="">
+                          <div className="imgboxMobile">
+                            <img
+                              src={`${siteUrl}${testimonial.attributes.image?.data?.attributes?.url}`}
+                              alt="school"
+                              className="image-Banner-Round"
+                            />
+                          </div>
+                          <div className="box-text">
+                            <h3>{testimonial.attributes.name}</h3>
+                            <h5>{testimonial.attributes.sub_heading}</h5>
+                            <p>{testimonial.attributes.description}</p>
                           </div>
                         </div>
-                      ))}
-                    </Slider>
+                      </div>
+                    ))}
+                  </Slider>
 
-                  </div>
                 </div>
               </div>
+            </div>
           </div>
         </div>
       </div>

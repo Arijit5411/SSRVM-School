@@ -62,9 +62,10 @@ const TestimonialsForm = () => {
         // Validate Contact Number
         if (!contactNumber.trim()) {
             errors.contactNumber = 'Contact Number is required';
-        } else if (!/^\d{10}$/.test(contactNumber)) {
-            errors.contactNumber = 'Invalid Contact Number (must be 10 digits)';
         }
+        // else if (!/^\d{18}$/.test(contactNumber)) {
+        //     errors.contactNumber = 'Invalid Contact Number (must be 10 digits)';
+        // }
 
         // Validate Message
         if (!message.trim()) {
@@ -106,6 +107,14 @@ const TestimonialsForm = () => {
 
                 if (response.ok) {
                     console.log('Form submitted successfully!');
+                    await fetch(
+                        `/api/feedbackformMail`, {
+                        method: 'POST',
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(payload)
+                    })
                     // Reset the form after successful submission
                     setFormData(initialState);
 
@@ -204,79 +213,79 @@ const TestimonialsForm = () => {
                         <p className="para_after-button">* All fields to be filled</p>
                     </form>
                 </div> */}
-                  <div className="container">
-              <form onSubmit={handleSubmit}>
-                <div className="row">
-                  <div className="col-sm-6">
-               
-                                    <input
-                                        className="input_feedback"
-                                        type="text"
-                                        id="fullName"
-                                        name="fullName"
-                                        value={fullName}
-                                        placeholder="Full Name*"
-                                        onChange={handleChange}
-                                    // required
-                                    />
-                                       {formData.errors.fullName && <p className="error">{formData.errors.fullName}</p>}
-                                    <input
-                                        className="input_feedback"
-                                        type="email"
-                                        id="email"
-                                        name="email"
-                                        value={email}
-                                        placeholder="Email ID*"
-                                        onChange={handleChange}
-                                    />
-                    {formData.errors.email && <p className="error">{formData.errors.email}</p>}
+                <div className="container">
+                    <form onSubmit={handleSubmit}>
+                        <div className="row">
+                            <div className="col-sm-6">
 
-                                    <input
-                                        className="input_feedback"
-                                        type="tel"
-                                        id="contactNumber"
-                                        name="contactNumber"
-                                        value={contactNumber}
-                                        placeholder="Contact Number*"
-                                        onChange={handleChange}
-                                    // required
-                                    />
-                                    {formData.errors.contactNumber && <p className="error">{formData.errors.contactNumber}</p>}
+                                <input
+                                    className="input_feedback"
+                                    type="text"
+                                    id="fullName"
+                                    name="fullName"
+                                    value={fullName}
+                                    placeholder="Full Name*"
+                                    onChange={handleChange}
+                                // required
+                                />
+                                {formData.errors.fullName && <p className="error">{formData.errors.fullName}</p>}
+                                <input
+                                    className="input_feedback"
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    value={email}
+                                    placeholder="Email ID*"
+                                    onChange={handleChange}
+                                />
+                                {formData.errors.email && <p className="error">{formData.errors.email}</p>}
 
-                  </div>
-                  <div className="col-sm-6">
-                                    <textarea
-                                        className="input_textarea-contact input_feedback"
-                                        id="message"
-                                        name="message"
-                                        value={message}
-                                        placeholder="Message*"
-                                        onChange={handleChange}
-                                    />
-                                                      {formData.errors.message && <p className="error">{formData.errors.message}</p>}
+                                <input
+                                    className="input_feedback"
+                                    type="tel"
+                                    id="contactNumber"
+                                    name="contactNumber"
+                                    value={contactNumber}
+                                    placeholder="Contact Number*"
+                                    onChange={handleChange}
+                                // required
+                                />
+                                {formData.errors.contactNumber && <p className="error">{formData.errors.contactNumber}</p>}
 
-                  </div>
+                            </div>
+                            <div className="col-sm-6">
+                                <textarea
+                                    className="input_textarea-contact input_feedback"
+                                    id="message"
+                                    name="message"
+                                    value={message}
+                                    placeholder="Message*"
+                                    onChange={handleChange}
+                                />
+                                {formData.errors.message && <p className="error">{formData.errors.message}</p>}
+
+                            </div>
+                        </div>
+
+                        <div className="col-sm-6">
+                            <label className="labeltitle">
+                                <input
+                                    type="checkbox"
+                                    name="isRobot"
+                                    checked={isRobot}
+                                    onChange={handleChange}
+                                />
+                                I'm not a robot
+                            </label>
+                            {formData.errors.isRobot && <p className="error">{formData.errors.isRobot}</p>}
+                        </div>
+
+                        <button type="submit" className="submit-contact">
+                            Submit
+                        </button>
+                        <p className="para_after-button">* All fields to be filled</p>
+                    </form>
                 </div>
-
-                <div className="col-sm-6">
-                <label className="labeltitle">
-                                        <input
-                                            type="checkbox"
-                                            name="isRobot"
-                                            checked={isRobot}
-                                            onChange={handleChange}
-                                        />
-                                        I'm not a robot
-                                    </label>
-                                    {formData.errors.isRobot && <p className="error">{formData.errors.isRobot}</p>}
-                </div>
-
-                <button type="submit" className="submit-contact">
-                  Submit
-                </button>
-                <p className="para_after-button">* All fields to be filled</p>
-              </form>
-            </div>
             </section>
         </>
     )
