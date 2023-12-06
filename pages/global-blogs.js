@@ -16,7 +16,7 @@ const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in"
 
 export const getStaticProps = async () => {
     const res = await fetch(`${siteUrl}/api/seos`)
-    const res1 = await fetch(`${GlobalSiteUrl}/api/global-blogs?populate=*`)
+    const res1 = await fetch(`${GlobalSiteUrl}/api/global-blogs?sort=date:desc&populate=*`)
 
     const data = await res.json()
     const data1 = await res1.json()
@@ -58,9 +58,10 @@ const GlobalBlogs = ({ seodata, blogData }) => {
         //         console.error('Error:', error);
         //     });
         if (blogData && blogData?.data && blogData?.data?.length > 0) {
-            const sortedBlogs = blogData.data.sort((a, b) => new Date(b.attributes.date) - new Date(a.attributes.date));
+            const sortedBlogs = blogData.data //.sort((a, b) => new Date(b.attributes.date) - new Date(a.attributes.date));
             setBlog({ ...blog, data: sortedBlogs });
         }
+
     }, []);
 
     useEffect(() => {
@@ -95,7 +96,7 @@ const GlobalBlogs = ({ seodata, blogData }) => {
     const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
     const currentPosts = blog?.data?.slice(indexOfFirstPost, indexOfLastPost);
-
+console.log('data',blogData)
     const paginate = pageNumber => setCurrentPage(pageNumber);
 
     //for arrow button in pagination

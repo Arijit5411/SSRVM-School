@@ -15,7 +15,7 @@ export default async function handler(req, res) {
     const data = await response.json()
     const mailList = data?.data?.attributes?.Feedback.split(",")
 
-    const { full_name, email_id, contact_no, message } = req.body;
+    const { full_name, email_id, contact_no, message } = req.body.data;
 
     const transporter = nodemailer.createTransport({
         host: process.env.SMTP_HOST,

@@ -8,6 +8,8 @@ import ScrollToTop from 'react-scroll-to-top'
 import { useEffect } from 'react'
 import AOS from "aos";
 import "aos/dist/aos.css";
+import '../styles/new_custom.css'
+
 
 export default function App({ Component, pageProps }) {
 

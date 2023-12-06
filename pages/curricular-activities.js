@@ -147,11 +147,11 @@ const Co_curricular_Activities = ({ seodata, activities }) => {
                     </section>
 
                     <section className="container wrap-news-sec-2">
-                        <div className="row">
+                        <div className="row grid-data-mobile">
                             {
                                 cocurricularActivities?.images && cocurricularActivities?.images.length > 0 && cocurricularActivities?.images.slice(0, 4).map(img => {
                                     return (
-                                        <div key={img?.id} className="col-lg-6">
+                                        <div key={img?.id} className="col-lg-6 mobile-overlap">
                                             <div className="card wrap-sust-proj">
                                                 <img src={`${siteUrl}${img?.image?.data?.attributes?.url}`} className="wrap-img-proj" alt="..." />
                                             </div>

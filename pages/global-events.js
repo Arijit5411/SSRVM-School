@@ -16,7 +16,7 @@ const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in"
 
 export const getStaticProps = async () => {
     const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
-    const res1 = await fetch(`${GlobalSiteUrl}/api/global-events?populate=*`)
+    const res1 = await fetch(`${GlobalSiteUrl}/api/global-events?sort=date:desc&populate=*`)
 
     const data = await res.json()
     const data1 = await res1.json()
@@ -57,7 +57,8 @@ const GlobalEvents = ({ seodata, eventData }) => {
         //         console.error('Error:', error);
         //     });
         if (eventData && eventData?.data && eventData?.data?.length > 0) {
-            const sortedNews = eventData.data.sort((a, b) => new Date(b.attributes.date) - new Date(a.attributes.date));
+            const sortedNews = eventData.data
+            // sort((a, b) => new Date(b.attributes.date) - new Date(a.attributes.date));
             setEventsPage({ ...eventsPage, data: sortedNews });
         }
     }, []);

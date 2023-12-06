@@ -41,7 +41,7 @@ const ThankYou = ({ content }) => {
                                 </div>
                                 <div className="text-center">
                                     <h1 dangerouslySetInnerHTML={{ __html: content?.attributes?.Heading }}></h1>
-                                    <p dangerouslySetInnerHTML={{ __html: content?.attributes?.Subheading }}></p>
+                                    {/* <p dangerouslySetInnerHTML={{ __html: content?.attributes?.Subheading }}></p> */}
                                     <a href='/'>
                                         <button className="btn-thank">Back Home</button>
                                     </a>

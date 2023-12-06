@@ -1,0 +1,44 @@
+
+@media only screen and (max-width: 576px) {
+    .toggle-btn {
+      top: 80px !important;
+    }
+  
+    .admission {
+      position: static;
+      margin: 0 -15px 20px -15px;
+    }
+  
+    .navbar-area .nav-container {
+      padding-top: 4px;
+    }
+    .para_with_image_art_of_living{
+      padding: 10px;
+      margin-left: 0px;
+    }
+    .button_visit_website_ALF{
+      margin-left: 104px;
+      margin-top: 31rem;
+    }
+    .mobilehide{
+      display: none;
+    }
+    .grid-data-mobile{
+        display: grid;
+        grid-auto-columns: calc(100% - 4rem);
+        grid-auto-flow: column;
+        grid-gap: 0px;
+        overflow-x: auto;
+    }
+   .mobile-overlap{
+    width: 100%;
+   }
+   .life-at-video{
+    height: auto;
+   }
+  
+  }
+  
+  .life-at-video{
+    height: 430px;
+   }
