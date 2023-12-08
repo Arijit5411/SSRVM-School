@@ -286,18 +286,23 @@ const MenuPopup = ({ onClose }) => {
 
             <div className="other-links mt-4 mb-4">
               <h6 className="menufont">Others</h6>
+              <div>
               <ul className="submenu_options">
                 {menuData.length > 0 &&
                   menuData
                     .find((section) => section.attributes.title === 'Others')
                     ?.attributes.children.data.map((menuItem) => (
                       <li key={menuItem.id}>
-                        <a href={menuItem.attributes.url}>
+                        <a href={`${menuItem?.attributes?.url}/${menuItem?.id}`}>
                           {menuItem.attributes.title}
                         </a>
                       </li>
                     ))}
+
               </ul>
+             
+              <div>No data found with given ids</div>
+              </div>
             </div>
 
             <div className="row menuFooter">

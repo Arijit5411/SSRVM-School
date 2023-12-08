@@ -1,18 +1,9 @@
 import React, { useState, useEffect } from "react";
-import {
-  FaFacebookF,
-  FaInstagram,
-  FaTwitter,
-  FaYoutube,
-
-} from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 
 const MobileMenu = ({ onClose }) => {
   const [menuData, setMenuData] = useState([]);
-
-  useEffect(() => {
-    fetchMenuData();
-  }, []);
+  const [social, setSocial] = useState([]);
 
   const isProduction = process.env.NODE_ENV === "production";
 
@@ -20,21 +11,17 @@ const MobileMenu = ({ onClose }) => {
     ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
     : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
 
-
-  const fetchMenuData = async () => {
-    try {
-      const response = await fetch(
-        `${siteUrl}/api/menus/9?nested&populate=*`
-      );
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const data = await response.json();
-      setMenuData(data.data.attributes.items.data);
-    } catch (error) {
-      console.error('Error fetching menu data:', error);
-    }
-  };
+  useEffect(() => {
+    fetch(`${siteUrl}/api/navbar-menu-headers?populate=*`)
+      .then((response) => response.json())
+      .then((data) => {
+        const items = data?.data[0]?.attributes;
+        setSocial(items);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
 
   return (
     <div className="popup-menu-mobile">
@@ -43,23 +30,20 @@ const MobileMenu = ({ onClose }) => {
           <div className="row g-0">
             <div className="popupNavMobile">
               <span className="borderDesignMobile">
-                <a href="#" className="facebook">
+                <a href={social?.facebook_link} className="facebook">
                   {" "}
                   <FaFacebookF className="socialFont" />
                 </a>
 
-                <a href="#" className="twitter">
+                <a href={social?.twitter_link} className="twitter">
                   <FaTwitter className="socialFont" />
                 </a>
 
-                <a
-                  href="https://www.youtube.com/channel/UCz1tS-oRzKeElBOd6pIjgLQ"
-                  className="youtube"
-                >
+                <a href={social?.youtube_link} className="youtube">
                   <FaYoutube className="socialFont" />
                 </a>
 
-                <a href="#" className="instagram">
+                <a href={social?.insta_link} className="instagram">
                   <FaInstagram className="socialFont" />
                 </a>
                 <button className="close-btn-menu" onClick={onClose}>
@@ -74,7 +58,7 @@ const MobileMenu = ({ onClose }) => {
                 <h6 className="menufont fontSizeMenu">About</h6>
                 {menuData.length > 0 &&
                   menuData
-                    .find((section) => section.attributes.title === 'About')
+                    .find((section) => section.attributes.title === "About")
                     ?.attributes.children.data.map((menuItem) => (
                       <li key={menuItem.id}>
                         <a href={menuItem.attributes.url}>
@@ -83,13 +67,15 @@ const MobileMenu = ({ onClose }) => {
                       </li>
                     ))}
               </ul>
-
 
               <ul className="submenu_options">
                 <h6 className="menufont fontSizeMenu">School Information</h6>
                 {menuData.length > 0 &&
                   menuData
-                    .find((section) => section.attributes.title === 'School Information')
+                    .find(
+                      (section) =>
+                        section.attributes.title === "School Information"
+                    )
                     ?.attributes.children.data.map((menuItem) => (
                       <li key={menuItem.id}>
                         <a href={menuItem.attributes.url}>
@@ -98,7 +84,6 @@ const MobileMenu = ({ onClose }) => {
                       </li>
                     ))}
               </ul>
-
             </div>
 
             <div className="displayFlex mobi-flex">
@@ -106,7 +91,9 @@ const MobileMenu = ({ onClose }) => {
                 <h6 className="menufont fontSizeMenu">Admissions</h6>
                 {menuData.length > 0 &&
                   menuData
-                    .find((section) => section.attributes.title === 'Admissions')
+                    .find(
+                      (section) => section.attributes.title === "Admissions"
+                    )
                     ?.attributes.children.data.map((menuItem) => (
                       <li key={menuItem.id}>
                         <a href={menuItem.attributes.url}>
@@ -119,7 +106,9 @@ const MobileMenu = ({ onClose }) => {
                 <h6 className="menufont fontSizeMenu">Life at SSRVM</h6>
                 {menuData.length > 0 &&
                   menuData
-                    .find((section) => section.attributes.title === 'Life at SSRVM')
+                    .find(
+                      (section) => section.attributes.title === "Life at SSRVM"
+                    )
                     ?.attributes.children.data.map((menuItem) => (
                       <li key={menuItem.id}>
                         <a href={menuItem.attributes.url}>
@@ -135,7 +124,9 @@ const MobileMenu = ({ onClose }) => {
                 <h6 className="menufont fontSizeMenu">Philosophy</h6>
                 {menuData.length > 0 &&
                   menuData
-                    .find((section) => section.attributes.title === 'Philosophy')
+                    .find(
+                      (section) => section.attributes.title === "Philosophy"
+                    )
                     ?.attributes.children.data.map((menuItem) => (
                       <li key={menuItem.id}>
                         <a href={menuItem.attributes.url}>
@@ -149,7 +140,9 @@ const MobileMenu = ({ onClose }) => {
                 <h6 className="menufont fontSizeMenu">Student Life</h6>
                 {menuData.length > 0 &&
                   menuData
-                    .find((section) => section.attributes.title === 'Student Life')
+                    .find(
+                      (section) => section.attributes.title === "Student Life"
+                    )
                     ?.attributes.children.data.map((menuItem) => (
                       <li key={menuItem.id}>
                         <a href={menuItem.attributes.url}>
@@ -165,7 +158,9 @@ const MobileMenu = ({ onClose }) => {
                 <h6 className="menufont fontSizeMenu">Miscellaneous</h6>
                 {menuData.length > 0 &&
                   menuData
-                    .find((section) => section.attributes.title === 'Miscellaneous')
+                    .find(
+                      (section) => section.attributes.title === "Miscellaneous"
+                    )
                     ?.attributes.children.data.map((menuItem) => (
                       <li key={menuItem.id}>
                         <a href={menuItem.attributes.url}>
@@ -179,7 +174,7 @@ const MobileMenu = ({ onClose }) => {
                 <h6 className="menufont fontSizeMenu">Academics</h6>
                 {menuData.length > 0 &&
                   menuData
-                    .find((section) => section.attributes.title === 'Academics')
+                    .find((section) => section.attributes.title === "Academics")
                     ?.attributes.children.data.map((menuItem) => (
                       <li key={menuItem.id}>
                         <a href={menuItem.attributes.url}>
@@ -188,10 +183,15 @@ const MobileMenu = ({ onClose }) => {
                       </li>
                     ))}
 
-                <h6 className="menufont fontSizeMenu camp-mar">Campus & Facility</h6>
+                <h6 className="menufont fontSizeMenu camp-mar">
+                  Campus & Facility
+                </h6>
                 {menuData.length > 0 &&
                   menuData
-                    .find((section) => section.attributes.title === 'Campus & Facility')
+                    .find(
+                      (section) =>
+                        section.attributes.title === "Campus & Facility"
+                    )
                     ?.attributes.children.data.map((menuItem) => (
                       <li key={menuItem.id}>
                         <a href={menuItem.attributes.url}>
@@ -207,7 +207,7 @@ const MobileMenu = ({ onClose }) => {
               <ul className="submenu_options">
                 {menuData.length > 0 &&
                   menuData
-                    .find((section) => section.attributes.title === 'Others')
+                    .find((section) => section.attributes.title === "Others")
                     ?.attributes.children.data.map((menuItem) => (
                       <li key={menuItem.id}>
                         <a href={menuItem.attributes.url}>

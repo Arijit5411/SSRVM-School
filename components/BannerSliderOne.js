@@ -67,8 +67,8 @@ const BannerSliderOne = () => {
   };
 
   const [banner, setBanner] = useState([]);
-  const [isVideo, setIsVideo] = useState(false)
-  const [vidUrl, setVidUrl] = useState('')
+  const [isVideo, setIsVideo] = useState(false);
+  const [vidUrl, setVidUrl] = useState("");
 
   const isProduction = process.env.NODE_ENV === "production";
 
@@ -85,69 +85,79 @@ const BannerSliderOne = () => {
       .catch((error) => {
         console.error("Error:", error);
       });
-  }
+  };
 
   const getVideo = () => {
     fetch(`${siteUrl}/api/home-top-video?populate=*`)
       .then((response) => response.json())
       .then((data) => {
         if (data?.data?.attributes?.video_inplaceof_carosuel) {
-          setIsVideo(true)
-          setVidUrl(data?.data?.attributes?.video_link)
+          setIsVideo(true);
+          setVidUrl(data?.data?.attributes?.video_link);
         }
       })
       .catch((error) => {
         console.error("Error:", error);
       });
-  }
+  };
 
   useEffect(() => {
-    getBanners()
-    getVideo()
+    getBanners();
+    getVideo();
   }, []);
 
   return (
     <>
       {/* header start */}
-      {
-        isVideo ? (
-          <div className="videoTop w-100 d-flex flex-row justify-content-center align-items-center">
-            <iframe
-              // width="500"
-              // height="500"
-              width="100%"
-              height="500"
-              src={`${vidUrl}?autoplay=1&mute=1&controls=1&autoplay=0&loop=0`}
-              frameborder="0"
-              allowfullscreen="true"
-            ></iframe>
-          </div>
-        ) : (
-          <div className="home-area home-v2 ">
-            <div className="header-slider header-slider2">
-              <Slider
-                {...settings}
-                asNavFor={state.nav2}
-                ref={(slider) => (slider1 = slider)}
-              >
-                {banner.map((item) => (
-                  <div key={item.id}>
-                    <div
-                      className={`header-bg banner-${item.id}-Color `}
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        backgroundImage: `url(${siteUrl}${item.attributes.image.data.attributes.url})`,
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center center',
-                        backgroundRepeat: 'no-repeat'
-                      }}
-                    >
-                      <div className="container">
-                        <div className="row header-height justify-content-start">
-                          <div className="col-lg-6">
-                            {
-                              item.attributes.heading.length > 0 && item.attributes.description.length > 0 && (
+      {isVideo ? (
+        <div className="videoTop w-100 d-flex flex-row justify-content-center align-items-center">
+          <iframe
+            // width="500"
+            // height="500"
+            width="100%"
+            height="500"
+            src={`${vidUrl}?autoplay=1&mute=1&controls=1&autoplay=0&loop=0`}
+            frameborder="0"
+            allowfullscreen="true"
+          ></iframe>
+        </div>
+      ) : (
+        <div className="home-area home-v2 ">
+          <div className="header-slider header-slider2">
+            <Slider
+              {...settings}
+              asNavFor={state.nav2}
+              ref={(slider) => (slider1 = slider)}
+            >
+              {banner.map((item) => (
+                <div key={item.id}>
+                  <div
+                    className={`home-banner-bg-image header-bg banner-${item.id}-Color `}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      backgroundImage: `url(${siteUrl}${item.attributes.image.data.attributes.url})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center center",
+                      backgroundRepeat: "no-repeat",
+                    }}
+                  >
+                    <div className="container">
+                      <div className="row header-height justify-content-start">
+                        <div className="col-lg-6">
+                          <div className="banner-item-wrap">
+                            <div className="mob-bann-img h-100 d-md-none">
+                              <img
+                                className="w-100 h-100 object-fit-cover"
+                                src={
+                                  siteUrl +
+                                  item.attributes.image.data.attributes.url
+                                }
+                                alt=""
+                              />
+                            </div>
+                            {item.attributes.heading.length > 0 &&
+                              item.attributes.description.length > 0 && (
                                 <div className="header-inner-wrap">
                                   <div className="header-inner">
                                     <h1 className="title animated slideInRight">
@@ -158,47 +168,48 @@ const BannerSliderOne = () => {
                                     </p>
                                   </div>
                                 </div>
-                              )
-                            }
+                              )}
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                ))}
-              </Slider>
-            </div >
-            <div className="header-bottom">
-              <div className="container-fluid">
-                <div className="row">
-                  <div className="col-lg-6"></div>
-                  <div className="col-lg-6">
-                    <div className="header-sm-slider">
-                      <Slider
-                        asNavFor={state.nav1}
-                        ref={(slider) => (slider2 = slider)}
-                        slidesToShow={3}
-                        swipeToSlide={true}
-                        focusOnSelect={true}
-                      >
-                        {banner.map((item) => (
-                          <div key={item.id} className="custom-thumb">
-                            <img
-                              src={`${siteUrl}${item.attributes.image.data.attributes.formats.thumbnail.url}`}
-                              className="img-fluid"
-                              alt=""
-                            />
-                          </div>
-                        ))}
-                      </Slider>
-                    </div>
+                </div>
+              ))}
+            </Slider>
+          </div>
+          <div className="home-area home-v2"></div>
+
+          <div className="header-bottom">
+            <div className="container-fluid">
+              <div className="row">
+                <div className="col-lg-6"></div>
+                <div className="col-lg-6">
+                  <div className="header-sm-slider">
+                    <Slider
+                      asNavFor={state.nav1}
+                      ref={(slider) => (slider2 = slider)}
+                      slidesToShow={3}
+                      swipeToSlide={true}
+                      focusOnSelect={true}
+                    >
+                      {banner.map((item) => (
+                        <div key={item.id} className="custom-thumb">
+                          <img
+                            src={`${siteUrl}${item.attributes.image.data.attributes.formats.thumbnail.url}`}
+                            className="img-fluid"
+                            alt=""
+                          />
+                        </div>
+                      ))}
+                    </Slider>
                   </div>
                 </div>
               </div>
             </div>
-          </div >
-        )
-      }
+          </div>
+        </div>
+      )}
       {/* header end */}
     </>
   );

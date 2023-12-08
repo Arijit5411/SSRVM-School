@@ -1,44 +1,101 @@
-
 @media only screen and (max-width: 576px) {
-    .toggle-btn {
-      top: 80px !important;
-    }
-  
-    .admission {
-      position: static;
-      margin: 0 -15px 20px -15px;
-    }
-  
-    .navbar-area .nav-container {
-      padding-top: 4px;
-    }
-    .para_with_image_art_of_living{
-      padding: 10px;
-      margin-left: 0px;
-    }
-    .button_visit_website_ALF{
-      margin-left: 104px;
-      margin-top: 31rem;
-    }
-    .mobilehide{
-      display: none;
-    }
-    .grid-data-mobile{
-        display: grid;
-        grid-auto-columns: calc(100% - 4rem);
-        grid-auto-flow: column;
-        grid-gap: 0px;
-        overflow-x: auto;
-    }
-   .mobile-overlap{
-    width: 100%;
-   }
-   .life-at-video{
-    height: auto;
-   }
-  
+  .toggle-btn {
+    top: 80px !important;
   }
-  
-  .life-at-video{
-    height: 430px;
-   }
+
+  .admission {
+    position: static;
+    margin: 0 -15px 20px -15px;
+  }
+
+  .navbar-area .nav-container {
+    padding-top: 4px;
+  }
+  .para_with_image_art_of_living {
+    padding: 10px;
+    margin-left: 0px;
+  }
+  .button_visit_website_ALF {
+    margin-left: 104px;
+    margin-top: 31rem;
+  }
+  .mobilehide {
+    display: none;
+  }
+  .grid-data-mobile {
+    display: grid;
+    grid-auto-columns: calc(100% - 4rem);
+    grid-auto-flow: column;
+    grid-gap: 0px;
+    overflow-x: auto;
+  }
+  .mobile-overlap {
+    width: 100%;
+  }
+  .life-at-video {
+    height: auto;
+  }
+
+  /* ============================================================== Home Mobile Banner  */
+  .header-slider.header-slider2 {
+    margin-bottom: 24px;
+  }
+  .header-slider .home-banner-bg-image {
+    background: none !important;
+  }
+  .home-area,
+  .header-height,
+  .home-area.home-v2 .header-bg .header-inner-wrap {
+    height: auto;
+  }
+  .home-area.home-v2 .header-slider .header-bg::before {
+    display: none;
+  }
+  .home-area.home-v2 .header-bg .header-inner-wrap .header-inner {
+    border-radius: 0;
+  }
+  .home-area.home-v2 .header-sm-slider img {
+    object-fit: cover;
+  }
+  .home-area.home-v2 .header-bottom {
+    position: static;
+  }
+  .home-area.home-v2 .header-bg .header-inner-wrap .header-inner .title {
+    font-size: 20px !important;
+    line-height: 1.4;
+    margin-bottom: 10px;
+  }
+  .home-area.home-v2 .header-bg .header-inner-wrap .header-inner .sub-title {
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+  }
+  .mob-bann-img img {
+    height: 60vw;
+  }
+  .home-area.home-v2 .slick-track {
+    display: flex !important;
+  }
+  .home-area.home-v2 .slick-slide {
+    height: auto;
+  }
+  .home-area.home-v2 .slick-slide > div,
+  .home-area.home-v2 .slick-slide > div > div,
+  .home-area.home-v2 .slick-slide > div > div .container,
+  .home-area.home-v2 .slick-slide > div > div .container .header-height,
+  .home-area.home-v2 .banner-item-wrap {
+    height: 100%;
+  }
+  .home-area.home-v2 .banner-item-wrap {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 15px;
+  }
+}
+
+.life-at-video {
+  height: 430px;
+}
+.banner-item-wrap{
+  height: 100%;
+}
