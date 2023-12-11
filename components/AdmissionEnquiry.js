@@ -125,16 +125,15 @@ const AdmissionEnquiry = ({ onClose }) => {
           const responseData = await response.json();
           console.log("API Response:", responseData);
           try {
-            const res = await fetch(
-              `/api/admissionEnquiryMail`, {
-              method: 'POST',
+            const res = await fetch(`/api/admissionEnquiryMail`, {
+              method: "POST",
               headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
               },
-              body: JSON.stringify(requestData?.data)
-            })
+              body: JSON.stringify(requestData?.data),
+            });
             if (res.status === 200) {
-              console.log('Mail sent success');
+              console.log("Mail sent success");
             }
           } catch (error) {
             console.log(error);
@@ -165,134 +164,133 @@ const AdmissionEnquiry = ({ onClose }) => {
   };
 
   return (
-    <div className="popup-menu">
-      <div className="addmissionPopup">
-        <div className="popup-content-menu">
-          <div className="container">
-            <div className="row">
-              <div className="displayFlex">
-                <p className="admissionfont">Admission Enquiry</p>
-                <button className="close-btn-menu-popup" onClick={onClose}>
-                  &times;
-                </button>
-              </div>
-              <div>
-                <form onSubmit={handleSubmit}>
-                  <div className="bottom-sec-contact_popup">
-                    <div>
-                      <div>
-                        <input
-                          className="input_contact_popup"
-                          type="text"
-                          id="fullName"
-                          name="fullName"
-                          value={formData.fullName}
-                          onChange={handleInputChange}
-                          placeholder="Full Name*"
-                        />
-                        {errors.fullName && (
-                          <p className="form-error">{errors.fullName}</p>
-                        )}
-                      </div>
-                      <div>
-                        <input
-                          className="input_contact_popup"
-                          type="text"
-                          id="email"
-                          name="email"
-                          value={formData.email}
-                          onChange={handleInputChange}
-                          placeholder="Email ID*"
-                        />
-                        {errors.email && (
-                          <p className="form-error">{errors.email}</p>
-                        )}
-                      </div>
-                      <div>
-                        <input
-                          className="input_contact_popup"
-                          type="text"
-                          id="contactNumber"
-                          name="contactNumber"
-                          value={formData.contactNumber}
-                          onChange={handleInputChange}
-                          onKeyPress={handleContactNumberKeyPress}
-                          placeholder="Contact Number*"
-                        />
-                        {errors.contactNumber && (
-                          <p className="form-error">{errors.contactNumber}</p>
-                        )}
-                      </div>
-                      <div>
-                        <input
-                          className="input_contact_popup"
-                          type="text"
-                          id="hearAboutUs"
-                          name="hearAboutUs"
-                          value={formData.hearAboutUs}
-                          onChange={handleInputChange}
-                          placeholder="How did you hear about us?"
-                        />
-                        {errors.hearAboutUs && (
-                          <p className="form-error">{errors.hearAboutUs}</p>
-                        )}
-                      </div>
-                      <p className="">* All fields to be filled</p>
-                    </div>
-                    <div>
-                      <div className="input_contact_popup">
-                        <select
-                          id="classDropdown"
-                          name="Class"
-                          value={formData.Class}
-                          onChange={handleInputChange}
-                        >
-                          {classOptions.map((option) => (
-                            <option key={option.value} value={option.value}>
-                              {option.text}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                      {errors.Class && (
-                        <p className="form-error">{errors.Class}</p>
-                      )}
-
-                      <div>
-                        <textarea
-                          className="input_textarea-contact_popup"
-                          id="message"
-                          name="message"
-                          value={formData.message}
-                          onChange={handleInputChange}
-                          placeholder="Message*"
-                        />
-                        {errors.message && (
-                          <p className="form-error">{errors.message}</p>
-                        )}
-                      </div>
-                      <div>
-                        <label className="labelHomeColor">
-                          <input
-                            type="checkbox"
-                            name="isRobot"
-                            checked={formData.isRobot}
-                            onChange={handleInputChange}
-                          />
-                          I'm not a robot
-                        </label>
-                        {errors.isRobot && (
-                          <p className="form-error">{errors.isRobot}</p>
-                        )}
-                        <button type="submit" className="submit-contact_popup">
-                          Submit
-                        </button>
-                      </div>
-                    </div>
+    <div className="popup-menu-form">
+      <div className="popup-container">
+        <div className="poup-content-area admsn-popup">
+          <div className="form-title-area">
+            <h4>Admission Enquiry</h4>
+            <button className="poup-close-btn" onClick={onClose}>
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+          <div className="admsn-form-wrap">
+            <form onSubmit={handleSubmit}>
+              <div className="row g-0 form-input-wrap">
+                <div className="col-lg-6 pe-lg-2">
+                  <div className="form-input">
+                    <input
+                      type="text"
+                      id="fullName"
+                      name="fullName"
+                      value={formData.fullName}
+                      onChange={handleInputChange}
+                      placeholder="Full Name*"
+                    />
+                    {errors.fullName && (
+                      <p className="form-error">{errors.fullName}</p>
+                    )}
                   </div>
-                </form>
+                  <div className="form-input">
+                    <input
+                      type="text"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      placeholder="Email ID*"
+                    />
+                    {errors.email && (
+                      <p className="form-error">{errors.email}</p>
+                    )}
+                  </div>
+                  <div className="form-input">
+                    <input
+                      type="text"
+                      id="contactNumber"
+                      name="contactNumber"
+                      value={formData.contactNumber}
+                      onChange={handleInputChange}
+                      onKeyPress={handleContactNumberKeyPress}
+                      placeholder="Contact Number*"
+                    />
+                    {errors.contactNumber && (
+                      <p className="form-error">{errors.contactNumber}</p>
+                    )}
+                  </div>
+                  <div className="form-input">
+                    <input
+                      type="text"
+                      id="hearAboutUs"
+                      name="hearAboutUs"
+                      value={formData.hearAboutUs}
+                      onChange={handleInputChange}
+                      placeholder="How did you hear about us?"
+                    />
+                    {errors.hearAboutUs && (
+                      <p className="form-error">{errors.hearAboutUs}</p>
+                    )}
+                    <p className="form-req text-white">
+                      * All fields to be filled
+                    </p>
+                  </div>
+                </div>
+                <div className="col-lg-6 ps-lg-2">
+                  <div className="form-input">
+                    <select
+                      id="classDropdown"
+                      name="Class"
+                      value={formData.Class}
+                      onChange={handleInputChange}
+                    >
+                      {classOptions.map((option) => (
+                        <option key={option.value} value={option.value}>
+                          {option.text}
+                        </option>
+                      ))}
+                    </select>
+                    {errors.Class && (
+                      <p className="form-error">{errors.Class}</p>
+                    )}
+                  </div>
+
+                  <div className="form-input textarea-input">
+                    <textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      placeholder="Message*"
+                    />
+                    {errors.message && (
+                      <p className="form-error">{errors.message}</p>
+                    )}
+                  </div>
+                  <div className="form-input checkbox-input">
+                    <div className="checkbox-wrap mt-3">
+                      <input
+                        type="checkbox"
+                        name="isRobot"
+                        id="isRobot"
+                        checked={formData.isRobot}
+                        onChange={handleInputChange}
+                      />
+                      <label className="text-white" htmlFor="isRobot">
+                        I'm not a robot
+                      </label>
+                    </div>
+
+                    {errors.isRobot && (
+                      <p className="form-error">{errors.isRobot}</p>
+                    )}
+                  </div>
+                  <div className="submit-wrap">
+                    <button type="submit" className="submit-btn">
+                      Submit
+                    </button>
+                  </div>
+                </div>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>

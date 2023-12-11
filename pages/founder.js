@@ -264,7 +264,7 @@ const FounderTrust = ({ seodata, founderprop, foundation }) => {
                                         </div>
                                     </section>
                                 </div>
-                                <div className="mobilehide">
+                                <div className="mobilehide-founder">
                                     <section>
                                         <div>
                                             <div class="upper_section_alfSection">
@@ -341,7 +341,7 @@ const FounderTrust = ({ seodata, founderprop, foundation }) => {
                     </div>
                 </div>
             </div>
-            <div className="top-section26 mobilehide">
+            <div className="top-section26 mobilehide-founder">
                 {/* service area end */}
                 <div className="founder-top">
                     <div>

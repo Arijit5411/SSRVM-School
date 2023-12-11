@@ -14,7 +14,7 @@ const siteUrl = isProduction
 
 export const getStaticProps = async () => {
     const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
-    const res1 = await fetch(`${siteUrl}/api/event-pages?sort=id:desc&populate=*`)
+    const res1 = await fetch(`${siteUrl}/api/event-pages?sort=date:desc&populate=*`)
 
     const data = await res.json()
     const data1 = await res1.json()
@@ -28,7 +28,6 @@ export const getStaticProps = async () => {
 }
 
 const EventsPage = ({ seodata, eventsProp }) => {
-
     const [eventsPage, setEventsPage] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const [seoData, setSeoData] = useState({

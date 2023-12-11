@@ -1426,7 +1426,7 @@
 }
 
 //homePage
-@media (min-width:321px) and (max-width:768px) {
+@media only screen and (max-width:768px) {
   .logotext {
     background: #210D7D;
     height: 56px;
@@ -1594,9 +1594,8 @@
   .sticky-icon {
     --icon_size: 36px;
     --icon_font_size: 16px;
-    background-color: rgba(255, 255, 255, 0.23);
-    backdrop-filter: blur(2px);
     border-radius: 6px 0 0 6px;
+    top: 30%;
   }
 
   .member-img {

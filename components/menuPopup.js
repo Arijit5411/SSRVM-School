@@ -30,11 +30,13 @@ const MenuPopup = ({ onClose }) => {
     // Fetch the API data
     fetch(`${siteUrl}/api/menus/10?nested&populate=*`)
       .then((response) => response.json())
+
       .then((data) => {
         // Extract menu items from the API response
         const items = data.data.attributes.items.data;
         setschoolData(items);
       })
+
       .catch((error) => {
         console.error('Error fetching data:', error);
       });
@@ -45,6 +47,7 @@ const MenuPopup = ({ onClose }) => {
     fetch(`${siteUrl}/api/navbar-menu-headers?populate=*`)
       .then((response) => response.json())
       .then((data) => {
+
         // Set the API data in the state
         setApiData(data);
       })
@@ -63,6 +66,7 @@ const MenuPopup = ({ onClose }) => {
       }
       const data = await response.json();
       setMenuData(data.data.attributes.items.data);
+      console.log('data.data.attributes.items.data',data.data.attributes)
     } catch (error) {
       console.error('Error fetching menu data:', error);
     }
@@ -292,8 +296,8 @@ const MenuPopup = ({ onClose }) => {
                   menuData
                     .find((section) => section.attributes.title === 'Others')
                     ?.attributes.children.data.map((menuItem) => (
-                      <li key={menuItem.id}>
-                        <a href={`${menuItem?.attributes?.url}/${menuItem?.id}`}>
+                      <li key={menuItem.url}>
+                        <a href={`${menuItem?.attributes?.url}`}>
                           {menuItem.attributes.title}
                         </a>
                       </li>
@@ -301,7 +305,6 @@ const MenuPopup = ({ onClose }) => {
 
               </ul>
              
-              <div>No data found with given ids</div>
               </div>
             </div>
 

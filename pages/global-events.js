@@ -42,45 +42,46 @@ const GlobalEvents = ({ seodata, eventData }) => {
     const postsPerPage = 6; // Number of events posts per page
 
     useEffect(() => {
-        // fetch(`${GlobalSiteUrl}/api/global-events?populate=*`)
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         if (data.error) {
-        //             console.error('Error:', data.error.message);
-        //         } else {
-        //             // Sort the events posts based on date in descending order
-        //             const sortedNews = data.data.sort((a, b) => new Date(b.attributes.date) - new Date(a.attributes.date));
-        //             setEventsPage({ ...data, data: sortedNews });
-        //         }
-        //     })
-        //     .catch(error => {
-        //         console.error('Error:', error);
-        //     });
+        fetch(`${GlobalSiteUrl}/api/global-events?populate=*`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    console.error('Error:', data.error.message);
+                } else {
+                    // Sort the events posts based on date in descending order
+                    const sortedNews = data.data.sort((a, b) => new Date(b.attributes.date) - new Date(a.attributes.date));
+                    setEventsPage({ ...data, data: sortedNews });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
         if (eventData && eventData?.data && eventData?.data?.length > 0) {
             const sortedNews = eventData.data
             // sort((a, b) => new Date(b.attributes.date) - new Date(a.attributes.date));
             setEventsPage({ ...eventsPage, data: sortedNews });
+            
         }
     }, []);
 
     useEffect(() => {
         // Fetch SEO data from your API
-        // fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`) // Replace with the actual API endpoint
-        //     .then((response) => response.json())
-        //     .then((data) => {
-        //         console.log('API response data:', data); // Log the API response data
-        //         if (data && data.data && data.data.length > 0) {
-        //             const seoAttributes = data.data[25].attributes;
-        //             setSeoData({
-        //                 title: seoAttributes.title || '',
-        //                 metaTitle: seoAttributes.metaTitle || '',
-        //                 metaDescription: seoAttributes.metaDescription || '',
-        //             });
-        //         }
-        //     })
-        //     .catch((error) => {
-        //         console.error('Error fetching SEO data:', error);
-        //     });
+        fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`) // Replace with the actual API endpoint
+            .then((response) => response.json())
+            .then((data) => {
+                console.log('API response data:', data); // Log the API response data
+                if (data && data.data && data.data.length > 0) {
+                    const seoAttributes = data.data[25].attributes;
+                    setSeoData({
+                        title: seoAttributes.title || '',
+                        metaTitle: seoAttributes.metaTitle || '',
+                        metaDescription: seoAttributes.metaDescription || '',
+                    });
+                }
+            })
+            .catch((error) => {
+                console.error('Error fetching SEO data:', error);
+            });
         if (seodata && seodata?.data && seodata?.data?.length > 0) {
             const seoAttributes = seodata.data[25].attributes;
             setSeoData({

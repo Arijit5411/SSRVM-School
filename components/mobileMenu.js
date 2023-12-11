@@ -1,9 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { FaFacebookF, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaTwitter,
+  FaYoutube,
+  FaAngleDown,
+  FaPhoneAlt,
+  FaEnvelopeOpen,
+} from "react-icons/fa";
 
 const MobileMenu = ({ onClose }) => {
   const [menuData, setMenuData] = useState([]);
   const [social, setSocial] = useState([]);
+  const [apiData, setApiData] = useState(null);
+  const [schoolData, setschoolData] = useState([]);
 
   const isProduction = process.env.NODE_ENV === "production";
 
@@ -22,40 +32,62 @@ const MobileMenu = ({ onClose }) => {
         console.error("Error fetching data:", error);
       });
   }, []);
+  useEffect(() => {
+    // Make the API call using fetch
+    fetch(`${siteUrl}/api/navbar-menu-headers?populate=*`)
+      .then((response) => response.json())
+      .then((data) => {
+        // Set the API data in the state
+        setApiData(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data from the API:", error);
+      });
+  }, []);
+  useEffect(() => {
+    // Fetch the API data
+    fetch(`${siteUrl}/api/menus/10?nested&populate=*`)
+      .then((response) => response.json())
+      .then((data) => {
+        // Extract menu items from the API response
+        const items = data.data.attributes.items.data;
+        setschoolData(items);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+  useEffect(() => {
+    fetchMenuData();
+  }, []);
+
+  const fetchMenuData = async () => {
+    try {
+      const response = await fetch(`${siteUrl}/api/menus/9?nested&populate=*`);
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      setMenuData(data.data.attributes.items.data);
+    } catch (error) {
+      console.error("Error fetching menu data:", error);
+    }
+  };
 
   return (
-    <div className="popup-menu-mobile">
-      <div className="popup-card-menu-mobile">
-        <div className="container-fluid">
-          <div className="row g-0">
-            <div className="popupNavMobile">
-              <span className="borderDesignMobile">
-                <a href={social?.facebook_link} className="facebook">
-                  {" "}
-                  <FaFacebookF className="socialFont" />
-                </a>
-
-                <a href={social?.twitter_link} className="twitter">
-                  <FaTwitter className="socialFont" />
-                </a>
-
-                <a href={social?.youtube_link} className="youtube">
-                  <FaYoutube className="socialFont" />
-                </a>
-
-                <a href={social?.insta_link} className="instagram">
-                  <FaInstagram className="socialFont" />
-                </a>
-                <button className="close-btn-menu" onClick={onClose}>
-                  Close Menu &times;
-                </button>
-              </span>
-            </div>
+    <div className="popup-menu">
+      <div className="popup-card-menu">
+        <div>
+          <div className="d-flex align-items-center justify-content-end">
+            <button className="close-btn-menu" onClick={onClose}>
+              &times;
+            </button>
           </div>
-          <div className="row g-0">
-            <div className="displayFlex mobi-flex">
+
+          <div className="row">
+            <div className="col-sm-3">
+              <h6 className="menufont">About</h6>
               <ul className="submenu_options">
-                <h6 className="menufont fontSizeMenu">About</h6>
                 {menuData.length > 0 &&
                   menuData
                     .find((section) => section.attributes.title === "About")
@@ -67,9 +99,107 @@ const MobileMenu = ({ onClose }) => {
                       </li>
                     ))}
               </ul>
-
+              <h6 className="menufont">Philosophy</h6>
               <ul className="submenu_options">
-                <h6 className="menufont fontSizeMenu">School Information</h6>
+                {menuData.length > 0 &&
+                  menuData
+                    .find(
+                      (section) => section.attributes.title === "Philosophy"
+                    )
+                    ?.attributes.children.data.map((menuItem) => (
+                      <li key={menuItem.id}>
+                        <a href={menuItem.attributes.url}>
+                          {menuItem.attributes.title}
+                        </a>
+                      </li>
+                    ))}
+              </ul>
+            </div>
+
+            <div className="col-sm-3 borderLfet">
+              <h6 className="menufont">Admissions</h6>
+              <ul className="submenu_options">
+                {menuData.length > 0 &&
+                  menuData
+                    .find(
+                      (section) => section.attributes.title === "Admissions"
+                    )
+                    ?.attributes.children.data.map((menuItem) => (
+                      <li key={menuItem.id}>
+                        <a href={menuItem.attributes.url}>
+                          {menuItem.attributes.title}
+                        </a>
+                      </li>
+                    ))}
+              </ul>
+
+              <h6 className="menufont">Life at SSRVM</h6>
+              <ul className="submenu_options">
+                {menuData.length > 0 &&
+                  menuData
+                    .find(
+                      (section) => section.attributes.title === "Life at SSRVM"
+                    )
+                    ?.attributes.children.data.map((menuItem) => (
+                      <li key={menuItem.id}>
+                        <a href={menuItem.attributes.url}>
+                          {menuItem.attributes.title}
+                        </a>
+                      </li>
+                    ))}
+              </ul>
+
+              <h6 className="menufont">Academics</h6>
+              <ul className="submenu_options">
+                {menuData.length > 0 &&
+                  menuData
+                    .find((section) => section.attributes.title === "Academics")
+                    ?.attributes.children.data.map((menuItem) => (
+                      <li key={menuItem.id}>
+                        <a href={menuItem.attributes.url}>
+                          {menuItem.attributes.title}
+                        </a>
+                      </li>
+                    ))}
+              </ul>
+            </div>
+            <div className="col-sm-3 borderLfet">
+              <h6 className="menufont">Student Life</h6>
+              <ul className="submenu_options">
+                {menuData.length > 0 &&
+                  menuData
+                    .find(
+                      (section) => section.attributes.title === "Student Life"
+                    )
+                    ?.attributes.children.data.map((menuItem) => (
+                      <li key={menuItem.id}>
+                        <a href={menuItem.attributes.url}>
+                          {menuItem.attributes.title}
+                        </a>
+                      </li>
+                    ))}
+              </ul>
+
+              <h6 className="menufont">Miscellaneous</h6>
+              <ul className="submenu_options">
+                {menuData.length > 0 &&
+                  menuData
+                    .find(
+                      (section) => section.attributes.title === "Miscellaneous"
+                    )
+                    ?.attributes.children.data.map((menuItem) => (
+                      <li key={menuItem.id}>
+                        <a href={menuItem.attributes.url}>
+                          {menuItem.attributes.title}
+                        </a>
+                      </li>
+                    ))}
+              </ul>
+            </div>
+
+            <div className="col-sm-3 borderLfet">
+              <h6 className="menufont">School Information</h6>
+              <ul className="submenu_options">
                 {menuData.length > 0 &&
                   menuData
                     .find(
@@ -84,108 +214,9 @@ const MobileMenu = ({ onClose }) => {
                       </li>
                     ))}
               </ul>
-            </div>
 
-            <div className="displayFlex mobi-flex">
+              <h6 className="menufont">Campus & Facility</h6>
               <ul className="submenu_options">
-                <h6 className="menufont fontSizeMenu">Admissions</h6>
-                {menuData.length > 0 &&
-                  menuData
-                    .find(
-                      (section) => section.attributes.title === "Admissions"
-                    )
-                    ?.attributes.children.data.map((menuItem) => (
-                      <li key={menuItem.id}>
-                        <a href={menuItem.attributes.url}>
-                          {menuItem.attributes.title}
-                        </a>
-                      </li>
-                    ))}
-              </ul>
-              <ul className="submenu_options academic-mer">
-                <h6 className="menufont fontSizeMenu">Life at SSRVM</h6>
-                {menuData.length > 0 &&
-                  menuData
-                    .find(
-                      (section) => section.attributes.title === "Life at SSRVM"
-                    )
-                    ?.attributes.children.data.map((menuItem) => (
-                      <li key={menuItem.id}>
-                        <a href={menuItem.attributes.url}>
-                          {menuItem.attributes.title}
-                        </a>
-                      </li>
-                    ))}
-              </ul>
-            </div>
-
-            <div className="displayFlex mobi-flex">
-              <ul className="submenu_options">
-                <h6 className="menufont fontSizeMenu">Philosophy</h6>
-                {menuData.length > 0 &&
-                  menuData
-                    .find(
-                      (section) => section.attributes.title === "Philosophy"
-                    )
-                    ?.attributes.children.data.map((menuItem) => (
-                      <li key={menuItem.id}>
-                        <a href={menuItem.attributes.url}>
-                          {menuItem.attributes.title}
-                        </a>
-                      </li>
-                    ))}
-              </ul>
-
-              <ul className="submenu_options">
-                <h6 className="menufont fontSizeMenu">Student Life</h6>
-                {menuData.length > 0 &&
-                  menuData
-                    .find(
-                      (section) => section.attributes.title === "Student Life"
-                    )
-                    ?.attributes.children.data.map((menuItem) => (
-                      <li key={menuItem.id}>
-                        <a href={menuItem.attributes.url}>
-                          {menuItem.attributes.title}
-                        </a>
-                      </li>
-                    ))}
-              </ul>
-            </div>
-
-            <div className="displayFlex mobi-flex">
-              <ul className="submenu_options">
-                <h6 className="menufont fontSizeMenu">Miscellaneous</h6>
-                {menuData.length > 0 &&
-                  menuData
-                    .find(
-                      (section) => section.attributes.title === "Miscellaneous"
-                    )
-                    ?.attributes.children.data.map((menuItem) => (
-                      <li key={menuItem.id}>
-                        <a href={menuItem.attributes.url}>
-                          {menuItem.attributes.title}
-                        </a>
-                      </li>
-                    ))}
-              </ul>
-
-              <ul className="submenu_options academic-mer">
-                <h6 className="menufont fontSizeMenu">Academics</h6>
-                {menuData.length > 0 &&
-                  menuData
-                    .find((section) => section.attributes.title === "Academics")
-                    ?.attributes.children.data.map((menuItem) => (
-                      <li key={menuItem.id}>
-                        <a href={menuItem.attributes.url}>
-                          {menuItem.attributes.title}
-                        </a>
-                      </li>
-                    ))}
-
-                <h6 className="menufont fontSizeMenu camp-mar">
-                  Campus & Facility
-                </h6>
                 {menuData.length > 0 &&
                   menuData
                     .find(
@@ -201,16 +232,20 @@ const MobileMenu = ({ onClose }) => {
                     ))}
               </ul>
             </div>
+          </div>
 
-            <div className="other-links my-4 mobile-other">
-              <h6 className="menufont">Others</h6>
+          <div className=" mt-4 mb-4">
+            <h6 className="menufont">Others</h6>
+            <div>
               <ul className="submenu_options">
                 {menuData.length > 0 &&
                   menuData
                     .find((section) => section.attributes.title === "Others")
                     ?.attributes.children.data.map((menuItem) => (
                       <li key={menuItem.id}>
-                        <a href={menuItem.attributes.url}>
+                        <a
+                          href={`${menuItem?.attributes?.url}/${menuItem?.id}`}
+                        >
                           {menuItem.attributes.title}
                         </a>
                       </li>
@@ -229,7 +264,10 @@ const MobileMenu = ({ onClose }) => {
                   Connect with SSRVM Trust:{" "}
                   <ul className="head_nav_menu social-link">
                     <li>
-                      <a href="#" className="facebook">
+                      <a
+                        href={apiData?.data[0]?.attributes?.facebook_link}
+                        className="facebook"
+                      >
                         <svg
                           stroke="currentColor"
                           fill="currentColor"
@@ -244,7 +282,10 @@ const MobileMenu = ({ onClose }) => {
                       </a>
                     </li>
                     <li>
-                      <a href="#" className="twitter">
+                      <a
+                        href={apiData?.data[0]?.attributes?.twitter_link}
+                        className="twitter"
+                      >
                         <svg
                           stroke="currentColor"
                           fill="currentColor"
@@ -260,7 +301,7 @@ const MobileMenu = ({ onClose }) => {
                     </li>
                     <li>
                       <a
-                        href="https://www.youtube.com/channel/UCz1tS-oRzKeElBOd6pIjgLQ"
+                        href={apiData?.data[0]?.attributes?.youtube_link}
                         className="youtube"
                       >
                         <svg
@@ -277,7 +318,10 @@ const MobileMenu = ({ onClose }) => {
                       </a>
                     </li>
                     <li>
-                      <a href="#" className="instagram">
+                      <a
+                        href={apiData?.data[0]?.attributes?.insta_link}
+                        className="instagram"
+                      >
                         <svg
                           stroke="currentColor"
                           fill="currentColor"
