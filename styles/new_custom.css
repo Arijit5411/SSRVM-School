@@ -207,7 +207,7 @@
   }
   .popup-card-menu {
     margin-top: 55px;
-    padding: 0px 0px 0px 25px;
+    padding: 0px 0px 0px 15px;
   }
 
   .logopopupy {
@@ -269,6 +269,13 @@
   .home-area.home-v2 .header-slider .header-bg::before {
     display: none;
   }
+  .header-bg {
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat!important;
+    background-size: cover!important;
+    background-position: center center!important;
+  }
   .home-area.home-v2 .header-bg .header-inner-wrap .header-inner {
     border-radius: 0;
   }
@@ -308,5 +315,19 @@
     flex-direction: column;
     overflow: hidden;
     border-radius: 15px;
+  }
+}
+
+/* ============================================================================================= Home Banner Desktop  */
+@media only screen and (min-width: 767px) {
+  .home-area {
+    min-height: calc(100vh - 80px);
+  }
+  .header-bg {
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat!important;
+    background-size: cover!important;
+    min-height: 680px;
   }
 }

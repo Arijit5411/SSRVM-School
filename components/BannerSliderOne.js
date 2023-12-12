@@ -133,14 +133,7 @@ const BannerSliderOne = () => {
                 <div key={item.id}>
                   <div
                     className={`home-banner-bg-image header-bg banner-${item.id}-Color `}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      backgroundImage: `url(${siteUrl}${item.attributes.image.data.attributes.url})`,
-                      backgroundSize: "cover",
-                      backgroundPosition: "center center",
-                      backgroundRepeat: "no-repeat",
-                    }}
+                    style={{backgroundImage: `url(${siteUrl}${item.attributes.image.data.attributes.url})`}}
                   >
                     <div className="container">
                       <div className="row header-height justify-content-start">

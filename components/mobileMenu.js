@@ -1,19 +1,13 @@
 import React, { useState, useEffect } from "react";
-import {
-  FaFacebookF,
-  FaInstagram,
-  FaTwitter,
-  FaYoutube,
-  FaAngleDown,
-  FaPhoneAlt,
-  FaEnvelopeOpen,
-} from "react-icons/fa";
+
+const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in";
 
 const MobileMenu = ({ onClose }) => {
   const [menuData, setMenuData] = useState([]);
   const [social, setSocial] = useState([]);
   const [apiData, setApiData] = useState(null);
   const [schoolData, setschoolData] = useState([]);
+  const [globalsocial, setGlobalSocial] = useState();
 
   const isProduction = process.env.NODE_ENV === "production";
 
@@ -74,6 +68,18 @@ const MobileMenu = ({ onClose }) => {
     }
   };
 
+  useEffect(() => {
+    fetch(`${GlobalSiteUrl}/api/global-trust-data?populate=*`)
+      .then((response) => response.json())
+      .then((data) => {
+        setGlobalSocial(data.data.attributes);
+        // setGfounder(data.data[0].attributes);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, []);
+
   return (
     <div className="popup-menu">
       <div className="popup-card-menu">
@@ -84,10 +90,10 @@ const MobileMenu = ({ onClose }) => {
             </button>
           </div>
 
-          <div className="row">
-            <div className="col-sm-3">
+          <div className="d-flex justify-content-between gap-3">
+            <div>
               <h6 className="menufont">About</h6>
-              <ul className="submenu_options">
+              <ul className="submenu_options w-100">
                 {menuData.length > 0 &&
                   menuData
                     .find((section) => section.attributes.title === "About")
@@ -99,8 +105,10 @@ const MobileMenu = ({ onClose }) => {
                       </li>
                     ))}
               </ul>
+            </div>
+            <div>
               <h6 className="menufont">Philosophy</h6>
-              <ul className="submenu_options">
+              <ul className="submenu_options w-100">
                 {menuData.length > 0 &&
                   menuData
                     .find(
@@ -115,10 +123,11 @@ const MobileMenu = ({ onClose }) => {
                     ))}
               </ul>
             </div>
-
-            <div className="col-sm-3 borderLfet">
+          </div>
+          <div className="d-flex justify-content-between gap-3">
+            <div>
               <h6 className="menufont">Admissions</h6>
-              <ul className="submenu_options">
+              <ul className="submenu_options w-100">
                 {menuData.length > 0 &&
                   menuData
                     .find(
@@ -132,9 +141,10 @@ const MobileMenu = ({ onClose }) => {
                       </li>
                     ))}
               </ul>
-
+            </div>
+            <div>
               <h6 className="menufont">Life at SSRVM</h6>
-              <ul className="submenu_options">
+              <ul className="submenu_options w-100">
                 {menuData.length > 0 &&
                   menuData
                     .find(
@@ -148,9 +158,12 @@ const MobileMenu = ({ onClose }) => {
                       </li>
                     ))}
               </ul>
-
+            </div>
+          </div>
+          <div className="d-flex  justify-content-between gap-3">
+            <div>
               <h6 className="menufont">Academics</h6>
-              <ul className="submenu_options">
+              <ul className="submenu_options w-100">
                 {menuData.length > 0 &&
                   menuData
                     .find((section) => section.attributes.title === "Academics")
@@ -163,9 +176,9 @@ const MobileMenu = ({ onClose }) => {
                     ))}
               </ul>
             </div>
-            <div className="col-sm-3 borderLfet">
+            <div>
               <h6 className="menufont">Student Life</h6>
-              <ul className="submenu_options">
+              <ul className="submenu_options w-100">
                 {menuData.length > 0 &&
                   menuData
                     .find(
@@ -179,9 +192,12 @@ const MobileMenu = ({ onClose }) => {
                       </li>
                     ))}
               </ul>
-
+            </div>
+          </div>
+          <div className="d-flex justify-content-between gap-3">
+            <div>
               <h6 className="menufont">Miscellaneous</h6>
-              <ul className="submenu_options">
+              <ul className="submenu_options w-100">
                 {menuData.length > 0 &&
                   menuData
                     .find(
@@ -196,10 +212,9 @@ const MobileMenu = ({ onClose }) => {
                     ))}
               </ul>
             </div>
-
-            <div className="col-sm-3 borderLfet">
+            <div>
               <h6 className="menufont">School Information</h6>
-              <ul className="submenu_options">
+              <ul className="submenu_options w-100">
                 {menuData.length > 0 &&
                   menuData
                     .find(
@@ -214,9 +229,12 @@ const MobileMenu = ({ onClose }) => {
                       </li>
                     ))}
               </ul>
-
+            </div>
+          </div>
+          <div className="d-flex justify-content-between gap-3">
+            <div>
               <h6 className="menufont">Campus & Facility</h6>
-              <ul className="submenu_options">
+              <ul className="submenu_options w-100">
                 {menuData.length > 0 &&
                   menuData
                     .find(
@@ -232,8 +250,8 @@ const MobileMenu = ({ onClose }) => {
                     ))}
               </ul>
             </div>
+            <div></div>
           </div>
-
           <div className=" mt-4 mb-4">
             <h6 className="menufont">Others</h6>
             <div>
@@ -264,10 +282,7 @@ const MobileMenu = ({ onClose }) => {
                   Connect with SSRVM Trust:{" "}
                   <ul className="head_nav_menu social-link">
                     <li>
-                      <a
-                        href={apiData?.data[0]?.attributes?.facebook_link}
-                        className="facebook"
-                      >
+                      <a href={globalsocial?.Facebook} className="facebook">
                         <svg
                           stroke="currentColor"
                           fill="currentColor"
@@ -282,10 +297,7 @@ const MobileMenu = ({ onClose }) => {
                       </a>
                     </li>
                     <li>
-                      <a
-                        href={apiData?.data[0]?.attributes?.twitter_link}
-                        className="twitter"
-                      >
+                      <a href={globalsocial?.Twitter} className="twitter">
                         <svg
                           stroke="currentColor"
                           fill="currentColor"
@@ -300,10 +312,7 @@ const MobileMenu = ({ onClose }) => {
                       </a>
                     </li>
                     <li>
-                      <a
-                        href={apiData?.data[0]?.attributes?.youtube_link}
-                        className="youtube"
-                      >
+                      <a href={globalsocial?.Youtube} className="youtube">
                         <svg
                           stroke="currentColor"
                           fill="currentColor"
@@ -318,10 +327,7 @@ const MobileMenu = ({ onClose }) => {
                       </a>
                     </li>
                     <li>
-                      <a
-                        href={apiData?.data[0]?.attributes?.insta_link}
-                        className="instagram"
-                      >
+                      <a href={globalsocial?.Instagram} className="instagram">
                         <svg
                           stroke="currentColor"
                           fill="currentColor"

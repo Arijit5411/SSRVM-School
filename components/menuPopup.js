@@ -8,12 +8,15 @@ import {
   FaEnvelopeOpen,
   FaAngleDown,
 } from "react-icons/fa";
+const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in";
 
 
 const MenuPopup = ({ onClose }) => {
   const [menuData, setMenuData] = useState([]);
   const [schoolData, setschoolData] = useState([]);
   const [apiData, setApiData] = useState(null);
+  const [globalsocial, setGlobalSocial] = useState();
+
 
   const isProduction = process.env.NODE_ENV === "production";
 
@@ -42,6 +45,21 @@ const MenuPopup = ({ onClose }) => {
       });
   }, []);
 
+
+  useEffect(() => {
+    fetch(`${GlobalSiteUrl}/api/global-trust-data?populate=*`)
+      .then((response) => response.json())
+      .then((data) => {
+        setGlobalSocial(data.data.attributes);
+        // setGfounder(data.data[0].attributes);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, []);
+
+
+
   useEffect(() => {
     // Make the API call using fetch
     fetch(`${siteUrl}/api/navbar-menu-headers?populate=*`)
@@ -66,7 +84,6 @@ const MenuPopup = ({ onClose }) => {
       }
       const data = await response.json();
       setMenuData(data.data.attributes.items.data);
-      console.log('data.data.attributes.items.data',data.data.attributes)
     } catch (error) {
       console.error('Error fetching menu data:', error);
     }
@@ -123,25 +140,25 @@ const MenuPopup = ({ onClose }) => {
                     </span>
                   )}
 
-                  {apiData && apiData.data && apiData.data.length > 0 && (
-                    <a href={apiData.data[0].attributes.facebook_link} className="facebook">
+                  {globalsocial && globalsocial.Facebook && globalsocial.Facebook.length > 0 && (
+                    <a href={globalsocial.Facebook} className="facebook">
                       <FaFacebookF className="socialFont" />
                     </a>
                   )}
 
-                  {apiData && apiData.data && apiData.data.length > 0 && (
-                    <a href={apiData.data[0].attributes.twitter_link} className="twitter">
+                  {globalsocial && globalsocial.Twitter && globalsocial.Twitter.length > 0 && (
+                    <a href={globalsocial.Twitter} className="twitter">
                       <FaTwitter className="socialFont" />
                     </a>
                   )}
-                  {apiData && apiData.data && apiData.data.length > 0 && (
-                    <a href={apiData.data[0].attributes.youtube_link} className="youtube">
+                  {globalsocial && globalsocial.Youtube && globalsocial.Youtube.length > 0 && (
+                    <a href={globalsocial.Youtube} className="youtube">
                       <FaYoutube className="socialFont" />
                     </a>
                   )}
 
-                  {apiData && apiData.data && apiData.data.length > 0 && (
-                    <a href={apiData.data[0].attributes.insta_link} className="instagram">
+                  {globalsocial && globalsocial.Instagram && globalsocial.Instagram.length > 0 && (
+                    <a href={globalsocial.Instagram} className="instagram">
                       <FaInstagram className="socialFont" />
                     </a>
                   )}
@@ -157,7 +174,7 @@ const MenuPopup = ({ onClose }) => {
             <div className="row">
               <div className="col-sm-3">
                 <h6 className="menufont">About</h6>
-                <ul className="submenu_options">
+                <ul className="submenu_options ">
                   {menuData.length > 0 &&
                     menuData
                       .find((section) => section.attributes.title === 'About')
@@ -291,7 +308,7 @@ const MenuPopup = ({ onClose }) => {
             <div className="other-links mt-4 mb-4">
               <h6 className="menufont">Others</h6>
               <div>
-              <ul className="submenu_options">
+              <ul className="submenu_options others-menus">
                 {menuData.length > 0 &&
                   menuData
                     .find((section) => section.attributes.title === 'Others')
@@ -318,7 +335,7 @@ const MenuPopup = ({ onClose }) => {
                     Connect with SSRVM Trust:{" "}
                     <ul className="head_nav_menu social-link">
                       <li>
-                        <a href={apiData?.data[0]?.attributes?.facebook_link}
+                        <a href={globalsocial?.Facebook}
                           className="facebook">
                           <svg
                             stroke="currentColor"
@@ -334,7 +351,7 @@ const MenuPopup = ({ onClose }) => {
                         </a>
                       </li>
                       <li>
-                        <a href={apiData?.data[0]?.attributes?.twitter_link}
+                        <a href={globalsocial?.Twitter}
                           className="twitter">
                           <svg
                             stroke="currentColor"
@@ -351,7 +368,7 @@ const MenuPopup = ({ onClose }) => {
                       </li>
                       <li>
                         <a
-                          href={apiData?.data[0]?.attributes?.youtube_link}
+                          href={globalsocial?.Youtube}
                           className="youtube"
                         >
                           <svg
@@ -368,7 +385,7 @@ const MenuPopup = ({ onClose }) => {
                         </a>
                       </li>
                       <li>
-                        <a href={apiData?.data[0]?.attributes?.insta_link} className="instagram">
+                        <a href={globalsocial?.Instagram} className="instagram">
                           <svg
                             stroke="currentColor"
                             fill="currentColor"

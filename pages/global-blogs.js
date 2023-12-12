@@ -16,7 +16,7 @@ const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in"
 
 export const getStaticProps = async () => {
     const res = await fetch(`${siteUrl}/api/seos`)
-    const res1 = await fetch(`${GlobalSiteUrl}/api/global-blogs?sort=date:desc&populate=*`)
+    const res1 = await fetch(`${GlobalSiteUrl}/api/global-blogs?sort=id:desc&populate=*`)
 
     const data = await res.json()
     const data1 = await res1.json()

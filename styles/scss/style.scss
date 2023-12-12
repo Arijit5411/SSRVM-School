@@ -1111,6 +1111,14 @@ label.not_rob {
     padding: 0 20px;
 }
 
+.other-links ul.submenu_options.others-menus {
+    gap: 20px 0;
+}
+.other-links ul.submenu_options.others-menus > li, 
+.other-links ul.submenu_options.others-menus > li > a{
+    line-height: 1.4;
+}
+
 .table>:not(caption)>*>*,
 .table> :not(caption)>*>*,
 table {

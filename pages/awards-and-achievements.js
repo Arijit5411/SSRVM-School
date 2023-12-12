@@ -14,7 +14,7 @@ const siteUrl = isProduction
 
 export const getStaticProps = async () => {
     const res = await fetch(`${siteUrl}/api/seos`)
-    const res1 = await fetch(`${siteUrl}/api/awards-and-achievements?populate=*`)
+    const res1 = await fetch(`${siteUrl}/api/awards-and-achievements?sort=id:desc&populate=*`)
 
     const data = await res.json()
     const data1 = await res1.json()

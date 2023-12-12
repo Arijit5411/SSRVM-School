@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import Marquee from "react-fast-marquee";
 
@@ -28,17 +29,33 @@ const ImportantAnnouncment = () => {
 
   return (
     <>
-      <div
-        className={`importantDiv cursor-pointer ${
-          !data?.data[0]?.attributes?.switch && "d-none"
-        }`}
-      >
-        <Marquee className="imp">
-          <span className="mx-3 impSpan">
-            {data?.data[0]?.attributes?.Text.toUpperCase()}!!!
-          </span>
-        </Marquee>
-      </div>
+      {data?.data[0]?.attributes?.Link ? (
+        <Link className="d-block w-100" href={data?.data[0]?.attributes?.Link} target="_blank">
+          <div
+            className={`importantDiv cursor-pointer ${
+              !data?.data[0]?.attributes?.switch && "d-none"
+            }`}
+          >
+            <Marquee className="imp">
+              <span className="mx-3 impSpan">
+                {data?.data[0]?.attributes?.Text.toUpperCase()}!!!
+              </span>
+            </Marquee>
+          </div>
+        </Link>
+      ) : (
+        <div
+          className={`importantDiv cursor-pointer ${
+            !data?.data[0]?.attributes?.switch && "d-none"
+          }`}
+        >
+          <Marquee className="imp">
+            <span className="mx-3 impSpan">
+              {data?.data[0]?.attributes?.Text.toUpperCase()}!!!
+            </span>
+          </Marquee>
+        </div>
+      )}
     </>
   );
 };
