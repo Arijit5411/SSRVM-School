@@ -158,7 +158,7 @@ const AppointmentBooking = ({ seodata, classes }) => {
     //   isValid = false;
     // }
     if (!formState.selectedReasion) {
-      newErrorState.selectedReasioError = "Please select the Reasion";
+      newErrorState.selectedReasioError = "Please select the Reason";
       isValid = false;
     }
     if (!formState.preferedDate) {
@@ -371,7 +371,7 @@ const AppointmentBooking = ({ seodata, classes }) => {
 
                       <div className="input_contact_popup">
                         <select value={selectedOption} onChange={handleChange}>
-                          <option value="">Select Reasion</option>
+                          <option value="">Select Reason</option>
                           <option value="To meet Principal">
                             To meet Principal
                           </option>
@@ -441,7 +441,7 @@ const AppointmentBooking = ({ seodata, classes }) => {
                       </div>
                       <div className="input_contact_popup mt-3">
                         <select value={selectedOption} onChange={handleChange}>
-                          <option value="">Select Reasion</option>
+                          <option value="">Select Reason</option>
 
                           <option value="To meet Principal">
                             To meet Principal
