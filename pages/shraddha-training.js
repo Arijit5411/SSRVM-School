@@ -109,19 +109,12 @@ const ShraddhaTraining = ({ seodata, shraddha }) => {
           <div className="loader">Loading...</div>
         ) : (
           <section>
-            <div className="d-flex mt-5 gap-5 p-5">
+            <div className="gap-5 shardha-training">
               <div className="w-100 mt-5">
                 <div>
-                  <h2 className="d-flex">
-                    {shardhaData?.title && (
-                      <div
-                        className="d-flex"
-                        dangerouslySetInnerHTML={{
-                          __html: shardhaData?.title.replace(/\n/g, "<br />"),
-                        }}
-                      ></div>
-                    )}
-                  </h2>
+                   <h2 className="wrap-training-teach">
+                  {shardhaData ? shardhaData.title : "No Title Available"}
+                </h2>
                   <div className="fontSize22">
                     {shardhaData?.content && (
                       <span
@@ -134,16 +127,16 @@ const ShraddhaTraining = ({ seodata, shraddha }) => {
                 </div>
               </div>
               <div className="w-100 mt-5">
-                <div className="fontSize22">
-                  <span>
+                <div>
+                 
                     <img
-                      className="rounded-3"
+                      className="rounded-3 w-100"
                       src={
                         GlobalSiteUrl +
                         shardhaData.Shardha_Image.data.attributes.url
                       }
                     ></img>
-                  </span>
+                  
                 </div>
               </div>
             </div>

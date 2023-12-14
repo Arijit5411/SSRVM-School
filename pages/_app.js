@@ -9,8 +9,7 @@ import { useEffect } from 'react'
 import AOS from "aos";
 import "aos/dist/aos.css";
 import '../styles/new_custom.css'
-
-
+import '../node_modules/react-datetime/css/react-datetime.css'
 export default function App({ Component, pageProps }) {
 
   useEffect(() => {

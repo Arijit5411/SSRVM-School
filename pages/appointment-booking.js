@@ -2,23 +2,19 @@ import React, { Fragment, useState, useEffect } from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import Head from "next/head";
-// import Seo from './Seo';
-
+import DatePicker from "react-datetime";
+import moment from "moment";
 const isProduction = process.env.NODE_ENV === "production";
-
 const siteUrl = isProduction
   ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
   : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
-
 export const getStaticProps = async () => {
   const res = await fetch(
     `${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`
   );
   const res1 = await fetch(`${siteUrl}/api/school-total-classes?populate=*`);
-
   const data = await res.json();
   const data1 = await res1.json();
-
   return {
     props: {
       seodata: data,
@@ -26,16 +22,21 @@ export const getStaticProps = async () => {
     },
   };
 };
-
 const initialFormState = {
-  childStudying: "",
   showChildDetails: false,
   showAdmissionDetails: false,
+  showAdmition: false,
+  showTextBox: false,
+  childStudying: "",
   fullName: "",
   email: "",
   contactNumber: "",
   selectedClass: "",
   admissionForChild: "",
+  addmissionNumber: "",
+  selectedReasion: "",
+  anyOtherQuestion: "",
+  preferedDate: "",
 };
 
 const initialErrorState = {
@@ -44,10 +45,16 @@ const initialErrorState = {
   contactNumberError: "",
   selectedClassError: "",
   reasonError: "",
+  admissionNumberError: "",
+  selectedReasioError: "",
+  // anyOtherQuestionError: "",
+  dateError: "",
 };
 
 const AppointmentBooking = ({ seodata, classes }) => {
   const [formState, setFormState] = useState(initialFormState);
+  const [selectedOption, setSelectedOption] = useState("");
+
   const [errorState, setErrorState] = useState(initialErrorState);
   const [seoData, setSeoData] = useState({
     title: "",
@@ -55,6 +62,17 @@ const AppointmentBooking = ({ seodata, classes }) => {
     metaDescription: "",
   });
 
+  const handleChange = (event) => {
+    let reasonState = false;
+    if (event.target.value === "Any other reason") reasonState = true;
+
+    setFormState({
+      ...formState,
+      showTextBox: reasonState,
+      selectedReasion: event.target.value,
+    });
+    setSelectedOption(event.target.value);
+  };
   const handleChildStudyingChange = (event) => {
     const value = event.target.value;
     setFormState({
@@ -64,11 +82,21 @@ const AppointmentBooking = ({ seodata, classes }) => {
       showAdmissionDetails: false,
     });
   };
-
+  const handleAnyReasionChange = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setFormState({
+      ...state,
+      showTextBox: event.target.value,
+    });
+  };
   const handleAdmissionChange = (event) => {
+    const value = event.target.value;
     setFormState({
       ...formState,
-      admissionForChild: event.target.value,
+      admissionForChild: value,
+      showAdmition: value === "yes",
+      showAdmissionDetails: false,
     });
   };
 
@@ -85,25 +113,8 @@ const AppointmentBooking = ({ seodata, classes }) => {
   };
 
   useEffect(() => {
-    // Fetch SEO data from your API
-    // fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
-    //     .then((response) => response.json())
-    //     .then((data) => {
-    //         console.log('API response data:', data);
-    //         if (data && data.data && data.data.length > 0) {
-    //             const seoAttributes = data.data[47].attributes;
-    //             setSeoData({
-    //                 title: seoAttributes.title || '',
-    //                 metaTitle: seoAttributes.metaTitle || '',
-    //                 metaDescription: seoAttributes.metaDescription || '',
-    //             });
-    //         }
-    //     })
-    //     .catch((error) => {
-    //         console.error('Error fetching SEO data:', error);
-    //     });
     if (seodata && seodata?.data && seodata?.data?.length > 0) {
-      const seoAttributes = seodata.data[47].attributes;
+      const seoAttributes = seodata?.data[47]?.attributes;
       setSeoData({
         title: seoAttributes.title || "",
         metaTitle: seoAttributes.metaTitle || "",
@@ -112,6 +123,10 @@ const AppointmentBooking = ({ seodata, classes }) => {
     }
   }, []);
 
+  const yesterday = moment().subtract(1, "day");
+  const disablePastDt = (current) => {
+    return current.isAfter(yesterday);
+  };
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -138,13 +153,32 @@ const AppointmentBooking = ({ seodata, classes }) => {
         "Please select the class your child is studying in.";
       isValid = false;
     }
-
-    if (formState.showChildDetails && !formState.reason) {
-      newErrorState.reasonError = "Please provide a reason.";
+    // if (!formState.anyOtherQuestion) {
+    //   newErrorState.anyOtherQuestionError = "Please enter any other question.";
+    //   isValid = false;
+    // }
+    if (!formState.selectedReasion) {
+      newErrorState.selectedReasioError = "Please select the Reasion.";
+      isValid = false;
+    }
+    if (!formState.preferedDate) {
+      newErrorState.dateError = "Please select a future Date.";
       isValid = false;
     }
 
-    if (!formState.showChildDetails && !formState.admissionForChild) {
+    if (!formState.addmissionNumber) {
+      newErrorState.admissionNumberError = "Please provide a Admission Number.";
+      isValid = false;
+    }
+    if (!formState.preferedDate) {
+      newErrorState.dateError = "Please Select any future date";
+      isValid = false;
+    }
+
+    if (
+      !formState.admissionForChild === "yes" &&
+      !formState.admissionForChild
+    ) {
       isValid = false;
     }
 
@@ -159,8 +193,11 @@ const AppointmentBooking = ({ seodata, classes }) => {
             contact_no: formState.contactNumber,
             studying_in_our_school: formState.childStudying,
             yes_studying_class: formState.selectedClass,
-            appointment_reason: formState.reason,
             looking_for_admission: formState.admissionForChild,
+            addmition_number: formState.addmissionNumber,
+            select_reasion: formState.selectedReasion,
+            any_other_question: formState.anyOtherQuestion,
+            prefered_date: formState.preferedDate,
           },
         };
 
@@ -173,7 +210,6 @@ const AppointmentBooking = ({ seodata, classes }) => {
         });
 
         if (response.ok) {
-          // The API call was successful, you can perform further actions here
           console.log("API call successful");
           const mailRes = await fetch(`/api/appointmentMail`, {
             method: "POST",
@@ -188,13 +224,11 @@ const AppointmentBooking = ({ seodata, classes }) => {
           } else {
             console.log(mailRes);
           }
-          // Clear form fields after successful submission
           setFormState(initialFormState);
           setErrorState(initialErrorState);
 
           window.location.href = "/thank-you";
         } else {
-          // Handle API call error
           console.log("API call failed");
         }
       } catch (error) {
@@ -202,7 +236,16 @@ const AppointmentBooking = ({ seodata, classes }) => {
       }
     }
   };
-
+  let inputProps = {
+    placeholder: "Please Select a Future Date",
+  };
+  const handleInputChangeDate = (event) => {
+    const value = event;
+    setFormState({
+      ...formState,
+      preferedDate: value,
+    });
+  };
   return (
     <Fragment>
       <Head>
@@ -213,15 +256,6 @@ const AppointmentBooking = ({ seodata, classes }) => {
         )}
       </Head>
       <NavBar />
-
-      {/* {seoData && (
-                <Seo
-                    title={seoData.title}
-                    metaTitle={seoData.metaTitle}
-                    metaDescription={seoData.metaDescription}
-                />
-            )} */}
-
       <div className="top-section1">
         <div className="container">
           <h1 className="principal-mess">Appointment Booking</h1>
@@ -263,13 +297,24 @@ const AppointmentBooking = ({ seodata, classes }) => {
                     value={formState.contactNumber}
                     onChange={handleInputChange}
                   />
+                  <div className="error">{errorState.dateError}</div>
+                  <DatePicker
+                    timeFormat={false}
+                    inputProps={inputProps}
+                    name="preferedDate"
+                    id="preferedDate"
+                    isValidDate={disablePastDt}
+                    value={formState.preferedDate}
+                    onChange={(e) => {
+                      handleInputChangeDate(e);
+                    }}
+                  />
                 </div>
                 <div className="col-sm-6">
                   <label className="labelSize">
                     Is your child studying in our school?
                   </label>
-                  <br />
-                  <label className="labelSize">
+                  <label className="labelSize" style={{ marginLeft: "10px" }}>
                     <input
                       type="radio"
                       value="yes"
@@ -312,16 +357,53 @@ const AppointmentBooking = ({ seodata, classes }) => {
                             })}
                         </select>
                       </div>
-                      <div className="error">{errorState.reasonError}</div>
+
+                      <div className="error">
+                        {errorState.admissionNumberError}
+                      </div>
                       <textarea
                         className="input_contact_reason"
                         type="text"
-                        id="reason"
-                        name="reason"
-                        placeholder="Reason*"
-                        value={formState.reason}
+                        id="addmissionNumber"
+                        name="addmissionNumber"
+                        placeholder="Enter Admission Number*"
+                        value={formState.addmissionNumber}
                         onChange={handleInputChange}
                       />
+                      <div className="error">
+                        {errorState.selectedReasioError}
+                      </div>
+                      <div className="input_contact_popup">
+                        <select value={selectedOption} onChange={handleChange}>
+                          <option value="">Select Reasion</option>
+                          <option value="To meet Principal">
+                            To meet Principal
+                          </option>
+                          <option value="To meet class teacher">
+                            To meet class teacher
+                          </option>
+                          <option
+                            onClick={(e) => handleAnyReasionChange(e)}
+                            value="Any other reason"
+                          >
+                            Any other reason
+                          </option>
+                        </select>
+                      </div>
+                      {/* <div className="error">
+                        {errorState.anyOtherQuestionError}
+                      </div> */}
+                      {formState.showTextBox && (
+                        <textarea
+                          className="input_contact_reason"
+                          type="text"
+                          id="anyOtherQuestion"
+                          name="anyOtherQuestion"
+                          placeholder="Any Other questions*"
+                          value={formState.anyOtherQuestion}
+                          onChange={handleInputChange}
+                        />
+                      )}
                     </div>
                   )}
 
@@ -351,6 +433,108 @@ const AppointmentBooking = ({ seodata, classes }) => {
                         />
                         No
                       </label>
+                    </div>
+                  )}
+
+                  {!formState.showAdmition && !formState.showChildDetails && (
+                    <div>
+                      <div className="input_contact_popup">
+                        <select value={selectedOption} onChange={handleChange}>
+                          <option value="">Select Reasion</option>
+
+                          <option value="To meet Principal">
+                            To meet Principal
+                          </option>
+                          <option value="To meet class teacher">
+                            To meet class teacher
+                          </option>
+                          <option
+                            onClick={(e) => handleAnyReasionChange(e)}
+                            value="Any other reason"
+                          >
+                            Any other reason
+                          </option>
+                        </select>
+                      </div>
+                      {/* <div className="error">
+                        {errorState.anyOtherQuestionError}
+                      </div> */}
+                      {formState.showTextBox && (
+                        <textarea
+                          className="input_contact_reason"
+                          type="text"
+                          id="anyOtherQuestion"
+                          name="anyOtherQuestion"
+                          placeholder="Any Other questions*"
+                          value={formState.anyOtherQuestion}
+                          onChange={handleInputChange}
+                        />
+                      )}
+                    </div>
+                  )}
+
+                  {formState.showAdmition && (
+                    <div>
+                      <div className="error">
+                        {errorState.selectedClassError}
+                      </div>
+                      <div className="input_contact_popup">
+                        <select
+                          id="classDropdown"
+                          name="selectedClass"
+                          value={formState.selectedClass}
+                          onChange={handleInputChange}
+                        >
+                          <option value="">Select Class*</option>
+                          {classes &&
+                            classes.length > 0 &&
+                            classes.map((c) => {
+                              return (
+                                <option value={c?.attributes?.name}>
+                                  {c?.attributes?.name}
+                                </option>
+                              );
+                            })}
+                        </select>
+                      </div>
+
+                      <div>
+                        <label className="me-1">
+                          Would you like us to call you back?
+                        </label>
+                        <label>
+                          <input
+                            type="radio"
+                            name="admissionForChild"
+                            value="yes"
+                            checked={formState.admissionForChild === "yes"}
+                            onChange={handleAdmissionChange}
+                          />
+                          Yes
+                        </label>
+                        <label>
+                          <input
+                            className="ms-1"
+                            type="radio"
+                            name="admissionForChild"
+                            value="no"
+                            checked={formState.admissionForChild === "no"}
+                            onChange={handleAdmissionChange}
+                          />
+                          No
+                        </label>
+                      </div>
+
+                      {/* <div className="error">{errorState.reasonError}</div> */}
+                      <textarea
+                        className="input_contact_reason"
+                        type="text"
+                        id="anyOtherQuestion"
+                        name="anyOtherQuestion"
+                        placeholder="Any Other questions*"
+                        value={formState.anyOtherQuestion}
+                        onChange={handleInputChange}
+                      />
                     </div>
                   )}
 

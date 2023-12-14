@@ -21,10 +21,12 @@ export default async function handler(req, res) {
     contact_no,
     studying_in_our_school,
     yes_studying_class,
-    appointment_reason,
     looking_for_admission,
+    addmition_number,
+    select_reasion,
+    any_other_question,
+    prefered_date
   } = req.body;
-
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
     port: process.env.SMTP_PORT,
@@ -39,7 +41,7 @@ export default async function handler(req, res) {
       from: `<${process.env.SMTP_USER}>`,
       to: mailList,
       // to: 'husain.fakih@teampumpkin.com',
-      //  to:'alka.rashinkar@teampumpkin.com',
+      // to: "alka.rashinkar@teampumpkin.com",
       subject: `Appointment - ${full_name} - ${contact_no} `,
       text: `Appointment Information`,
       html: `<p>Full Name: <b>${full_name}</b></p>
@@ -51,12 +53,30 @@ export default async function handler(req, res) {
                         ? yes_studying_class
                         : "No Class Selected"
                     }</b></p>
-                    <p>Reason: <b>${
-                      appointment_reason ? appointment_reason : "No Reason"
-                    }</b></p>
+                  
                     <p>Looking for Addmission: <b>${
                       looking_for_admission ? looking_for_admission : "No"
                     }</b></p>
+
+                    <p>Admission Number: <b>${
+                      addmition_number
+                        ? addmition_number
+                        : "Admission Number not Entered"
+                    }</b></p>
+                    <p>Selected Reason: <b>${
+                      select_reasion
+                        ? select_reasion
+                        : "Not Selected Any Reasion"
+                    }</b></p>
+                    <p>Any Other Questions: <b>${
+                      any_other_question
+                        ? any_other_question
+                        : "No Any Question"
+                    }</b></p>
+                    <p>Prefered Date: <b>${
+                      prefered_date ? prefered_date : "No Date Selected"
+                    }</b></p>
+                    
 
                     </p>`,
     });

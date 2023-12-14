@@ -99,16 +99,7 @@ const TeachingMethodology = ({ seodata, teaching }) => {
       </Head>
       <Fragment>
         <NavBar />
-
-        {/* {seoData && (
-                    <Seo
-                        title={seoData.title}
-                        metaTitle={seoData.metaTitle}
-                        metaDescription={seoData.metaDescription}
-                    />
-                )} */}
-
-        <div className="d-flex mt-5 p-5 gap-5">
+        <div className="gap-5 shardha-training">
           <div className="w-100 mt-5">
             {loading ? (
               <p>Loading...</p>
@@ -117,15 +108,14 @@ const TeachingMethodology = ({ seodata, teaching }) => {
                 <h2 className="wrap-training-teach">
                   {teachingData ? teachingData.title : "No Title Available"}
                 </h2>
-                <p className="teachText">
+                <p className="fs-4">
                   {teachingData ? teachingData.content : "No Content Available"}
                 </p>
               </>
             )}
           </div>
           <div className="w-100 mt-5">
-            <div className="fontSize22">
-              <span>
+            <div>
                 <img
                   className="rounded-3"
                   src={
@@ -133,7 +123,6 @@ const TeachingMethodology = ({ seodata, teaching }) => {
                     teachingData?.Content_Image?.data?.attributes?.url
                   }
                 ></img>
-              </span>
             </div>
           </div>
         </div>

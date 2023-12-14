@@ -4,7 +4,12 @@
 .banner-item-wrap {
   height: 100%;
 }
-
+.shardha-training{
+  display: flex;
+  flex-direction: row;
+  margin-top: 100px;
+  padding: 50px;
+}
 /* ============================================================================================================== Popup  */
 
 .popup-menu-form {
@@ -172,6 +177,12 @@
   .mobilehide-founder {
     display: none;
   }
+.shardha-training{
+  display: flex;
+  flex-direction: column;
+  margin-top: 0px;
+  padding: 20px;
+}
 
   /* =======popup style=========== */
   .admsn-popup {

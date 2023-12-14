@@ -76,13 +76,14 @@ button.button_class {
 }
 
 .input_contact_reason {
-    border-radius: 2rem;
+    border-radius: 10px;
     margin-bottom: 1rem;
     color: #210D7D;
     padding: 4px;
     width: 32rem;
     border: 2px solid #210D7D;
     padding-left: 1rem;
+    padding: 8px 18px;
 }
 
 ::-webkit-input-placeholder {
@@ -1003,11 +1004,14 @@ label.not_rob {
     }
 }
 
-.appoinmentStyle {
-    padding-top: 5%;
-    margin-bottom: 5%;
+    .appoinmentStyle {
+        padding-top: 2%;
+        margin-bottom: 0%;
+        padding-bottom: 2%;
+        border-radius: 25px;
+    }
 
-}
+
 
 .founder-mobile {
     background: #F6F2F4;
