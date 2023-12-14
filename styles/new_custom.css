@@ -10,6 +10,9 @@
   margin-top: 100px;
   padding: 50px;
 }
+.feature-inner{
+  margin-top: 160px;
+}
 /* ============================================================================================================== Popup  */
 
 .popup-menu-form {
@@ -183,6 +186,10 @@
   margin-top: 0px;
   padding: 20px;
 }
+.feature-inner{
+  margin-top: 0px;
+}
+
 
   /* =======popup style=========== */
   .admsn-popup {

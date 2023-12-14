@@ -27,12 +27,12 @@ const initialFormState = {
   showAdmissionDetails: false,
   showAdmition: false,
   showTextBox: false,
-  childStudying: "",
+  childStudying: "yes",
   fullName: "",
   email: "",
   contactNumber: "",
   selectedClass: "",
-  admissionForChild: "",
+  admissionForChild: "no",
   addmissionNumber: "",
   selectedReasion: "",
   anyOtherQuestion: "",
@@ -134,23 +134,23 @@ const AppointmentBooking = ({ seodata, classes }) => {
     const newErrorState = { ...initialErrorState };
 
     if (!formState.fullName) {
-      newErrorState.fullNameError = "Please enter your full name.";
+      newErrorState.fullNameError = "Please enter your Full Name";
       isValid = false;
     }
 
     if (!formState.email) {
-      newErrorState.emailError = "Please enter your email.";
+      newErrorState.emailError = "Please enter your Email ID";
       isValid = false;
     }
 
     if (!formState.contactNumber) {
-      newErrorState.contactNumberError = "Please enter your contact number.";
+      newErrorState.contactNumberError = "Please enter your Contact Number";
       isValid = false;
     }
 
     if (formState.childStudying === "yes" && !formState.selectedClass) {
       newErrorState.selectedClassError =
-        "Please select the class your child is studying in.";
+        "Please select the class your child is studying in";
       isValid = false;
     }
     // if (!formState.anyOtherQuestion) {
@@ -158,20 +158,16 @@ const AppointmentBooking = ({ seodata, classes }) => {
     //   isValid = false;
     // }
     if (!formState.selectedReasion) {
-      newErrorState.selectedReasioError = "Please select the Reasion.";
+      newErrorState.selectedReasioError = "Please select the Reasion";
       isValid = false;
     }
     if (!formState.preferedDate) {
-      newErrorState.dateError = "Please select a future Date.";
+      newErrorState.dateError = "Please select Appointment Date";
       isValid = false;
     }
 
     if (!formState.addmissionNumber) {
-      newErrorState.admissionNumberError = "Please provide a Admission Number.";
-      isValid = false;
-    }
-    if (!formState.preferedDate) {
-      newErrorState.dateError = "Please Select any future date";
+      newErrorState.admissionNumberError = "Please provide a Admission Number";
       isValid = false;
     }
 
@@ -237,7 +233,7 @@ const AppointmentBooking = ({ seodata, classes }) => {
     }
   };
   let inputProps = {
-    placeholder: "Please Select a Future Date",
+    placeholder: "Select Appointment Date",
   };
   const handleInputChangeDate = (event) => {
     const value = event;
@@ -314,31 +310,33 @@ const AppointmentBooking = ({ seodata, classes }) => {
                   <label className="labelSize">
                     Is your child studying in our school?
                   </label>
-                  <label className="labelSize" style={{ marginLeft: "10px" }}>
-                    <input
-                      type="radio"
-                      value="yes"
-                      checked={formState.childStudying === "yes"}
-                      onChange={handleChildStudyingChange}
-                    />
-                    Yes
-                  </label>
-                  <label className="labelSize marginLrtLabel">
-                    <input
-                      type="radio"
-                      value="no"
-                      checked={formState.childStudying === "no"}
-                      onChange={handleChildStudyingChange}
-                    />
-                    No
-                  </label>
+                  <span style={{ marginLeft: "25px" }}>
+                    <label className="labelSize" style={{ marginLeft: "10px" }}>
+                      <input
+                        type="radio"
+                        value="yes"
+                        checked={formState.childStudying === "yes"}
+                        onChange={handleChildStudyingChange}
+                      />
+                      Yes
+                    </label>
+                    <label className="labelSize marginLrtLabel">
+                      <input
+                        type="radio"
+                        value="no"
+                        checked={formState.childStudying === "no"}
+                        onChange={handleChildStudyingChange}
+                      />
+                      No
+                    </label>
+                  </span>
 
                   {formState.showChildDetails && (
                     <div>
                       <div className="error">
                         {errorState.selectedClassError}
                       </div>
-                      <div className="input_contact_popup">
+                      <div className="input_contact_popup mt-3">
                         <select
                           id="classDropdown"
                           name="selectedClass"
@@ -370,9 +368,7 @@ const AppointmentBooking = ({ seodata, classes }) => {
                         value={formState.addmissionNumber}
                         onChange={handleInputChange}
                       />
-                      <div className="error">
-                        {errorState.selectedReasioError}
-                      </div>
+
                       <div className="input_contact_popup">
                         <select value={selectedOption} onChange={handleChange}>
                           <option value="">Select Reasion</option>
@@ -409,36 +405,41 @@ const AppointmentBooking = ({ seodata, classes }) => {
 
                   {!formState.showChildDetails && (
                     <div>
-                      <label className="me-1">
+                      <label className="mt-3">
                         Are you looking for admission for your child?
                       </label>
-                      <label>
-                        <input
-                          type="radio"
-                          name="admissionForChild"
-                          value="yes"
-                          checked={formState.admissionForChild === "yes"}
-                          onChange={handleAdmissionChange}
-                        />
-                        Yes
-                      </label>
-                      <label>
-                        <input
-                          className="ms-1"
-                          type="radio"
-                          name="admissionForChild"
-                          value="no"
-                          checked={formState.admissionForChild === "no"}
-                          onChange={handleAdmissionChange}
-                        />
-                        No
-                      </label>
+                      <span style={{ marginLeft: "20px" }}>
+                        <label>
+                          <input
+                            type="radio"
+                            name="admissionForChild"
+                            value="yes"
+                            checked={formState.admissionForChild === "yes"}
+                            onChange={handleAdmissionChange}
+                          />
+                          Yes
+                        </label>
+                        <label>
+                          <input
+                            className="ms-1"
+                            type="radio"
+                            name="admissionForChild"
+                            value="no"
+                            checked={formState.admissionForChild === "no"}
+                            onChange={handleAdmissionChange}
+                          />
+                          No
+                        </label>
+                      </span>
                     </div>
                   )}
 
                   {!formState.showAdmition && !formState.showChildDetails && (
                     <div>
-                      <div className="input_contact_popup">
+                      <div className="error">
+                        {errorState.selectedReasioError}
+                      </div>
+                      <div className="input_contact_popup mt-3">
                         <select value={selectedOption} onChange={handleChange}>
                           <option value="">Select Reasion</option>
 
@@ -478,7 +479,7 @@ const AppointmentBooking = ({ seodata, classes }) => {
                       <div className="error">
                         {errorState.selectedClassError}
                       </div>
-                      <div className="input_contact_popup">
+                      <div className="input_contact_popup mt-3">
                         <select
                           id="classDropdown"
                           name="selectedClass"

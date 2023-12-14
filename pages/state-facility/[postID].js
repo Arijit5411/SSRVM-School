@@ -64,7 +64,7 @@ const State_Facility = () => {
     <>
       <Fragment>
         <NavBar />
-        <div className="top-section1-new1" style={{marginTop:'160px'}}>
+        <div className="top-section1-new1 feature-inner">
           {loading ? (
             <p>Loading post...</p>
           ) : (
@@ -140,10 +140,14 @@ const State_Facility = () => {
                           content.Content_Image?.data?.attributes?.url;
 
                         return (
-                          <div className="row g-3 mt-5 " key={index}>
+                          <div className="row g-3  " key={index}>
                             {content.Content && (
                               <div
-                                className={dataImage ? "col-lg-6 mt-5 p-3" : "col-lg-12 mt-5 p-3"}
+                                className={
+                                  dataImage
+                                    ? "col-lg-6 mt-5 p-3"
+                                    : "col-lg-12 mt-5 p-3"
+                                }
                               >
                                 <ReactMarkdown>{content.Content}</ReactMarkdown>
                               </div>
@@ -151,7 +155,9 @@ const State_Facility = () => {
                             {dataImage && (
                               <div
                                 className={
-                                  content.Content ? "col-lg-6 mt-5 p-3"  : "col-lg-12 mt-5 p-3"
+                                  content.Content
+                                    ? "col-lg-6 mt-5 p-3"
+                                    : "col-lg-12 mt-5 p-3"
                                 }
                               >
                                 <img

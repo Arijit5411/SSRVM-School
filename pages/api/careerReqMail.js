@@ -17,7 +17,7 @@ export default async function handler(req, res) {
 
     const { full_name, email_id, contact_no, telephone_number, position_applied, preferred_location, category, gender, dob, address_for_communication, permanent_address,
         marital_status, qualifications, specialized_skills, last_employment, years_of_experience, hiring_type, ready_to_relocate, work_preferred_location,
-        reason_to_join, salary_expectations
+        reason_to_join, salary_expectations,uploded_resume,upload_photograph
     } = req.body;
 
     const transporter = nodemailer.createTransport({
@@ -32,8 +32,9 @@ export default async function handler(req, res) {
     try {
         await transporter.sendMail({
             from: `<${process.env.SMTP_USER}>`,
-            to: mailList,
+            // to: mailList,
             // to: 'husain.fakih@teampumpkin.com',
+            to: "alka.rashinkar@teampumpkin.com",
             subject: `Career Apply Mail - ${full_name} - ${contact_no} `,
             text: `Career form`,
             html: `<p>Full Name: <b>${full_name}</b></p>
@@ -56,7 +57,10 @@ export default async function handler(req, res) {
                     <p>Ready to relocate?: <b>${ready_to_relocate}</b></p>
                     <p>Preffered location for work: <b>${work_preferred_location}</b></p>
                     <p>Reason to join: <b>${reason_to_join}</b></p>
+                    <p>Resume: <b>${uploded_resume}</b></p>
+                    <p>Photograph: <b>${upload_photograph}</b></p>
                     <p>Expected Salary: <b>${salary_expectations}</b></p>`
+                    
         });
         console.log('Email sent successfully');
         res.status(200).json({ message: 'Email sent successfully' });

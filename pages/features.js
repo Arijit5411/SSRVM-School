@@ -1,164 +1,184 @@
-import React, { Fragment, useState, useEffect } from 'react';
-import NavBar from '../components/NavBar';
-import Footer from '../components/Footer';
-// import { Link } from 'react-router-dom';
-import Link from 'next/link';
-// import Seo from './Seo';
-import Head from 'next/head';
+import React, { Fragment, useState, useEffect } from "react";
+import NavBar from "../components/NavBar";
+import Footer from "../components/Footer";
+import Link from "next/link";
+import Head from "next/head";
 
-const isProduction = process.env.NODE_ENV === 'production';
+const isProduction = process.env.NODE_ENV === "production";
 
 const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
+  ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
+  : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
 
 export const getStaticProps = async () => {
-    const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
-    const res1 = await fetch(`${siteUrl}/api/features?populate=*`)
+  const res = await fetch(
+    `${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`
+  );
+  const res1 = await fetch(`${siteUrl}/api/features?populate=*`);
 
-    const data = await res.json()
-    const data1 = await res1.json()
+  const data = await res.json();
+  const data1 = await res1.json();
 
-    return {
-        props: {
-            seodata: data,
-            featuresData: data1
-        }
-    }
-}
+  return {
+    props: {
+      seodata: data,
+      featuresData: data1,
+    },
+  };
+};
 
 const Features = ({ seodata, featuresData }) => {
-    const [features, setFeatures] = useState([]);
-    const [seoData, setSeoData] = useState({
-        title: '',
-        metaTitle: '',
-        metaDescription: '',
-    });
+  const [features, setFeatures] = useState([]);
+  console.log("feature data", features);
+  const [seoData, setSeoData] = useState({
+    title: "",
+    metaTitle: "",
+    metaDescription: "",
+  });
 
-    useEffect(() => {
-        // fetch(`${siteUrl}/api/features?populate=*`)
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         setFeatures(data.data);
-        //     })
-        //     .catch(error => {
-        //         console.error('Error:', error);
-        //     });
-        if (featuresData && featuresData?.data && featuresData?.data?.length > 0) {
-            setFeatures(featuresData.data);
-        }
-    }, [siteUrl]);
+  useEffect(() => {
+    // fetch(`${siteUrl}/api/features?populate=*`)
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         setFeatures(data.data);
+    //     })
+    //     .catch(error => {
+    //         console.error('Error:', error);
+    //     });
+    if (featuresData && featuresData?.data && featuresData?.data?.length > 0) {
+      setFeatures(featuresData.data);
+    }
+  }, [siteUrl]);
 
-    useEffect(() => {
-        // Fetch SEO data from your API
-        // fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
-        //     .then((response) => response.json())
-        //     .then((data) => {
-        //         console.log('API response data:', data);
-        //         if (data && data.data && data.data.length > 0) {
-        //             const seoAttributes = data.data[41].attributes;
-        //             setSeoData({
-        //                 title: seoAttributes.title || '',
-        //                 metaTitle: seoAttributes.metaTitle || '',
-        //                 metaDescription: seoAttributes.metaDescription || '',
-        //             });
-        //         }
-        //     })
-        //     .catch((error) => {
-        //         console.error('Error fetching SEO data:', error);
-        //     });
-        if (seodata && seodata?.data && seodata?.data?.length > 0) {
-            const seoAttributes = seodata.data[41].attributes;
-            setSeoData({
-                title: seoAttributes.title || '',
-                metaTitle: seoAttributes.metaTitle || '',
-                metaDescription: seoAttributes.metaDescription || '',
-            })
-        }
-    }, []);
+  useEffect(() => {
+    // Fetch SEO data from your API
+    // fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
+    //     .then((response) => response.json())
+    //     .then((data) => {
+    //         console.log('API response data:', data);
+    //         if (data && data.data && data.data.length > 0) {
+    //             const seoAttributes = data.data[41].attributes;
+    //             setSeoData({
+    //                 title: seoAttributes.title || '',
+    //                 metaTitle: seoAttributes.metaTitle || '',
+    //                 metaDescription: seoAttributes.metaDescription || '',
+    //             });
+    //         }
+    //     })
+    //     .catch((error) => {
+    //         console.error('Error fetching SEO data:', error);
+    //     });
+    if (seodata && seodata?.data && seodata?.data?.length > 0) {
+      const seoAttributes = seodata.data[41].attributes;
+      setSeoData({
+        title: seoAttributes.title || "",
+        metaTitle: seoAttributes.metaTitle || "",
+        metaDescription: seoAttributes.metaDescription || "",
+      });
+    }
+  }, []);
 
-    return (
-        <>
-            <Fragment>
-                <Head>
-                    <title>{seoData.title}</title>
-                    {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
-                    {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
-                </Head>
-                <NavBar />
+  return (
+    <>
+      <Fragment>
+        <Head>
+          <title>{seoData.title}</title>
+          {seoData.metaTitle && (
+            <meta name="title" content={seoData.metaTitle} />
+          )}
+          {seoData.metaTitle && (
+            <meta name="description" content={seoData.metaDescription} />
+          )}
+        </Head>
+        <NavBar />
 
-                {/* {seoData && (
-                    <Seo
-                        title={seoData.title}
-                        metaTitle={seoData.metaTitle}
-                        metaDescription={seoData.metaDescription}
-                    />
-                )} */}
-
-                <div className="top-section1-new">
-                    <section className="wrap-item-principal-se1 pri-item marginmobile">
-                        <div className="container">
-                            <div className="row">
-                                <div className="col-lg-7">
-                                    <h1 className="principal-mess principalTtile">Features</h1>
-                                    <p className="wrap-features desktophide">
-                                        Contrary to popular belief, Lorem Ipsum is not simply random text. It has
-                                        roots in a piece of classical Latin literature from 45 BC, making it over 2000
-                                        years old. Richard McClintock, a Latin professor at Hampden-Sydney Col-
-                                        lege in Virginia, looked up one of the more obscure Latin words, consecte-
-                                        tur, from a Lorem Ipsum passage, and going through the cites of the word
-                                        in classical literature, discovered the undoubtable source. Lorem Ipsum
-                                    </p>
-                                    <p className="wrap-features mobilehide">
-                                        Contrary to popular belief, Lorem Ipsum is not simply random text. It has<br></br>
-                                        roots in a piece of classical Latin literature from 45 BC, making it over 2000<br></br>
-                                        years old. Richard McClintock, a Latin professor at Hampden-Sydney Col-<br></br>
-                                        lege in Virginia, looked up one of the more obscure Latin words, consecte-<br></br>
-                                        tur, from a Lorem Ipsum passage, and going through the cites of the word<br></br>
-                                        in classical literature, discovered the undoubtable source. Lorem Ipsum<br></br>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                    <section className="container">
-                        {features.map((feature, index) => (
-                            <div className={`row mb-3 ${index % 2 === 0 ? '' : 'reverseFlexFeature'}`} key={feature.id}>
-                                <div className="col-lg-6 wrap-bg-colour">
-                                    <div className="wrap-fea-item">
-                                        <h4 className="wrap-fea-heading">{feature.attributes.heading}</h4>
-                                        <p className="wrap-fea-pargrap">
-                                            {/* {feature.attributes.sub_heading} */}
-                                            {feature.attributes.sub_heading
-                                                ?.split('\n')
-                                                ?.slice(0, 3)
-                                                ?.map((line, index) => (
-                                                    <span key={index}>{line}<br /></span>
-                                                ))}
-                                        </p>
-
-                                    </div>
-                                    <div className="btn-wrapper mt-0">
-                                        <div className="btn-wrap">
-
-                                            <Link href={`/state-facility/${feature.id}`} className="def-btn btn-1 mt-3">Know more</Link>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-lg-6">
-                                    <div className="apartments-plan-img">
-                                        <img src={`${siteUrl}${feature.attributes.image_top?.data?.attributes?.url}`} alt="Transpro" className="wrap-img-feacture" />
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </section>
-
+        <div className="top-section1-new pb-5">
+          <section className="wrap-item-principal-se1 pri-item marginmobile">
+            <div className="container">
+              <div className="row">
+                <div className="col-lg-7">
+                  <h1 className="principal-mess principalTtile">Features</h1>
+                  <p className="wrap-features desktophide">
+                    Contrary to popular belief, Lorem Ipsum is not simply random
+                    text. It has roots in a piece of classical Latin literature
+                    from 45 BC, making it over 2000 years old. Richard
+                    McClintock, a Latin professor at Hampden-Sydney Col- lege in
+                    Virginia, looked up one of the more obscure Latin words,
+                    consecte- tur, from a Lorem Ipsum passage, and going through
+                    the cites of the word in classical literature, discovered
+                    the undoubtable source. Lorem Ipsum
+                  </p>
+                  <p className="wrap-features mobilehide">
+                    Contrary to popular belief, Lorem Ipsum is not simply random
+                    text. It has<br></br>
+                    roots in a piece of classical Latin literature from 45 BC,
+                    making it over 2000<br></br>
+                    years old. Richard McClintock, a Latin professor at
+                    Hampden-Sydney Col-<br></br>
+                    lege in Virginia, looked up one of the more obscure Latin
+                    words, consecte-<br></br>
+                    tur, from a Lorem Ipsum passage, and going through the cites
+                    of the word<br></br>
+                    in classical literature, discovered the undoubtable source.
+                    Lorem Ipsum<br></br>
+                  </p>
                 </div>
-                <Footer />
-            </Fragment>
-        </>
-    );
-}
+              </div>
+            </div>
+          </section>
+          <section className="container">
+            {features.map((feature, index) => (
+              <div
+                className={`row g-0 ${
+                  index % 2 === 0 ? "" : "reverseFlexFeature"
+                }`}
+                key={feature.id}
+              >
+                <div className="col-lg-6 wrap-bg-colour">
+                  <div className="wrap-fea-item">
+                    <h4 className="wrap-fea-heading">
+                      {feature.attributes.heading}
+                    </h4>
+                    <p className="wrap-fea-pargrap">
+                      {feature.attributes.sub_heading
+                        ?.split("\n")
+                        ?.slice(0, 3)
+                        ?.map((line, index) => (
+                          <span key={index}>
+                            {line}
+                            <br />
+                          </span>
+                        ))}
+                    </p>
+                    <div className="btn-wrapper mt-4">
+                      <div className="btn-wrap">
+                        <Link
+                          href={`/state-facility/${feature.id}`}
+                          className="def-btn btn-1"
+                        >
+                          Know more
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-lg-6">
+                  <div className="h-100">
+                    <img
+                      src={`${siteUrl}${feature.attributes?.Thumbnail?.data?.attributes?.url}`}
+                      alt={feature.attributes.heading}
+                      className="w-100 h-100 object-fit-cover"
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </section>
+        </div>
+        <Footer />
+      </Fragment>
+    </>
+  );
+};
 
 export default Features;

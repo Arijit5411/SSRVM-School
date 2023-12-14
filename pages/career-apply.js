@@ -214,13 +214,9 @@ const CareerApply = ({ seodata }) => {
       errors.qualification = "Qualification is required.";
     }
 
-    if (!skills) {
-      errors.skills = "Skills are required.";
-    }
+    
 
-    if (!employment) {
-      errors.employment = "Employment details are required.";
-    }
+    
 
     if (!experience) {
       errors.experience = "Experience details are required.";
@@ -286,22 +282,25 @@ const CareerApply = ({ seodata }) => {
       work_preferred_location: preferredLocation,
       reason_to_join: reasonToJoin,
       salary_expectations: salaryExpectations,
+      // uploded_resume:resume.name,
+      // upload_photograph:photograph.name
+
     };
 
     const formDataToSend = new FormData();
     formDataToSend.append("data", JSON.stringify(data));
-    formDataToSend.append("files.uploded_resume", formData.resume);
-    formDataToSend.append("files.upload_photograph", formData.photograph);
+    formDataToSend.append("files.uploded_resume", formData.resume.name);
+    formDataToSend.append("files.upload_photograph", formData.photograph.name);
 
     try {
       const response = await fetch(`${siteUrl}/api/career-applies`, {
+        mode: 'no-cors',
         method: "POST",
         body: formDataToSend,
       });
 
       if (response.ok) {
         const responseData = await response.json();
-        // Handle successful response
         console.log("API call successful");
         if (responseData.data) {
           const submittedData = responseData.data.attributes;
@@ -336,8 +335,8 @@ const CareerApply = ({ seodata }) => {
             hiringType: "",
             readyToRelocate: "",
             reasonToJoin: "",
-            resume: null,
-            photograph: null,
+            resume: "",
+            photograph: "",
             salaryExpectations: "",
           });
 
@@ -871,6 +870,7 @@ const CareerApply = ({ seodata }) => {
                           onChange={handleChange}
                         >
                           <option value="">Select an option</option>
+
                           {salaryExpectationsApi?.map((option) => (
                             <option key={option} value={option.Salary}>
                               {option.Salary}

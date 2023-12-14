@@ -73,7 +73,7 @@ export default async function handler(req, res) {
                         ? any_other_question
                         : "No Any Question"
                     }</b></p>
-                    <p>Prefered Date: <b>${
+                    <p>Appointment Date: <b>${
                       prefered_date ? prefered_date : "No Date Selected"
                     }</b></p>
                     
