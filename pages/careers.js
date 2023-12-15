@@ -100,7 +100,6 @@ const Careers = ({ seodata, careerProp }) => {
     const job_role_para2 = `${careers?.job_role[0]?.job_role_para2}`;
     const exerience_heading = `${careers?.job_role[0]?.exerience_heading}`;
     const desc_experience = `${careers?.job_role[0]?.desc_experience}`;
-
     return (
         <>
             <Head>
@@ -220,7 +219,7 @@ const Careers = ({ seodata, careerProp }) => {
                                             aria-expanded="false"
                                             aria-controls="collapseTwo"
                                         >
-                                            {assistant_teacher_heading}
+                                            {assistant_teacher_heading?assistant_teacher_heading:"Heading Not Available"}
                                             {/* Status of Affiliation: */}
                                         </button>
                                     </h2>
@@ -254,7 +253,7 @@ const Careers = ({ seodata, careerProp }) => {
                                             aria-expanded="false"
                                             aria-controls="collapseThree"
                                         >
-                                            {senior_teaching_staff}
+                                            {senior_teaching_staff?senior_teaching_staff:"Heading Not Available"}
                                             {/* List of Members of School Management Committee: */}
                                         </button>
                                     </h2>
@@ -288,7 +287,7 @@ const Careers = ({ seodata, careerProp }) => {
                                             aria-expanded="false"
                                             aria-controls="collapseFour"
                                         >
-                                            {assistant_teacher_post}
+                                            {assistant_teacher_post?assistant_teacher_post:"Heading Not Available"}
                                             {/* Area of School Campus: */}
                                         </button>
                                     </h2>
