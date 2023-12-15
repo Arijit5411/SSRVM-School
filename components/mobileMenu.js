@@ -274,7 +274,7 @@ const MobileMenu = ({ onClose }) => {
 
           <div className="row menuFooter">
             <div className="col-sm-6">
-              <p className="colorBlack">Visit the SSRVM Trust Website</p>
+              <a href={globalsocial?.Website_Link} className="colorBlack">Visit the SSRVM Trust Website</a>
             </div>
             <div className="col-sm-6">
               <div>

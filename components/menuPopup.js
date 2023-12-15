@@ -59,7 +59,6 @@ const MenuPopup = ({ onClose }) => {
   }, []);
 
 
-
   useEffect(() => {
     // Make the API call using fetch
     fetch(`${siteUrl}/api/navbar-menu-headers?populate=*`)
@@ -327,7 +326,8 @@ const MenuPopup = ({ onClose }) => {
 
             <div className="row menuFooter">
               <div className="col-sm-6">
-                <p className="colorBlack">Visit the SSRVM Trust Website</p>
+                <a href={globalsocial?.Website_Link} className="colorBlack">Visit the SSRVM Trust Website</a>
+
               </div>
               <div className="col-sm-6">
                 <div>

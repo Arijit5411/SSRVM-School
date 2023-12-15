@@ -69,70 +69,12 @@ const State_Facility = () => {
             <p>Loading post...</p>
           ) : (
             <div>
-              {/* <section className="wrap-state-se1">
-                <div className="container">
-                  <div className="row wrap-top-section">
-                    <div className="col-lg-6">
-                      <div className="wrap-state">
-                        <h1>{stateFacility?.heading}</h1>
-                        <p>{stateFacility?.sub_heading}</p>
-                      </div>
-                      <p>
-                        {stateFacility?.left_content && (
-                          <span
-                            dangerouslySetInnerHTML={{
-                              __html: stateFacility?.left_content.replace(
-                                /\n/g,
-                                "<br />"
-                              ),
-                            }}
-                          ></span>
-                        )}
-                      </p>
-                    </div>
-                    <div className="col-lg-6">
-                      <div className="wrap-state-fact">
-                        <img
-                          src={`${siteUrl}${stateFacility?.image_top?.data?.attributes?.url}`}
-                          alt={stateFacility?.Title}
-                          className="wrap-fact-item"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section> */}
-
-              {/* <section className="wrap-state-se3">
-                <div className="container">
-                  <div className="row mt-3 mb-5">
-                    <div className="col-lg-6">
-                      <div className="wrap-state-fact1">
-                        <img
-                          src={`${siteUrl}${stateFacility?.image_bottom?.data?.attributes?.url}`}
-                          alt={stateFacility?.Title}
-                          className="wrap-fact-item1"
-                        />
-                      </div>
-                    </div>
-                    <div className="col-lg-6">
-                      <p>
-                        {stateFacility?.right_content && (
-                          <span
-                            dangerouslySetInnerHTML={{
-                              __html:
-                                stateFacility?.right_content.replace(/\n/g),
-                            }}
-                          ></span>
-                        )}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </section> */}
-
               <section>
                 <div className="container ">
+                  <div className="wrap-state">
+                    <h1>{stateFacility?.heading}</h1>
+                    <p>{stateFacility?.sub_heading}</p>
+                  </div>
                   <div className="feature-contet-list">
                     {contentData &&
                       contentData.map((content, index) => {
@@ -140,24 +82,19 @@ const State_Facility = () => {
                           content.Content_Image?.data?.attributes?.url;
 
                         return (
-                          <div className="row g-3  " key={index}>
+                          <div className="row gy-4 gy-md-5 mb-3 mb-md-5" key={index}>
                             {content.Content && (
                               <div
-                                className={
-                                  dataImage
-                                    ? "col-lg-6 mt-5 p-3"
-                                    : "col-lg-12 mt-5 p-3"
-                                }
+                                className={dataImage ? "col-lg-6" : "col-lg-12"}
                               >
                                 <ReactMarkdown>{content.Content}</ReactMarkdown>
                               </div>
                             )}
+
                             {dataImage && (
                               <div
                                 className={
-                                  content.Content
-                                    ? "col-lg-6 mt-5 p-3"
-                                    : "col-lg-12 mt-5 p-3"
+                                  content.Content ? "col-lg-6" : "col-lg-12"
                                 }
                               >
                                 <img

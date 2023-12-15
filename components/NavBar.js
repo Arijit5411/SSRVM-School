@@ -24,8 +24,8 @@ const NavBar = () => {
   const [data, setData] = useState(null);
   const [menuData, setMenuData] = useState([]);
   const [schoolData, setschoolData] = useState([]);
-  const [social, setSocial] = useState([])
-
+  const [social, setSocial] = useState([]);
+  const [enableDisable, setEnableDisable] = useState(false);
 
   // Function to toggle the popup
   const togglePopup = () => {
@@ -38,7 +38,9 @@ const NavBar = () => {
     setShowPopup2(!showPopup2);
   };
   // Control sidebar navigation
-  let items = typeof document !== 'undefined' && document.querySelectorAll(".menu-item-has-children > a");
+  let items =
+    typeof document !== "undefined" &&
+    document.querySelectorAll(".menu-item-has-children > a");
   // let items = useRef()
   for (let i in items) {
     if (items.hasOwnProperty(i)) {
@@ -89,7 +91,7 @@ const NavBar = () => {
         }
       })
       .catch((error) => {
-        console.error('Error fetching menu data:', error);
+        console.error("Error fetching menu data:", error);
       });
   }, []);
 
@@ -103,7 +105,7 @@ const NavBar = () => {
         setschoolData(items);
       })
       .catch((error) => {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       });
   }, []);
 
@@ -117,7 +119,22 @@ const NavBar = () => {
         setSocial(items);
       })
       .catch((error) => {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    // Fetch the API data
+    fetch(`${siteUrl}/api/admission-enable-disables?populate=*`)
+      .then((response) => response.json())
+      .then((data) => {
+        // Extract menu items from the API response
+        const items = data?.data[0]?.attributes;
+        console.log("data in button", items);
+        setEnableDisable(items);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
       });
   }, []);
 
@@ -173,7 +190,11 @@ const NavBar = () => {
                   </button>
                   <div className="dropdown-content">
                     {schoolData.map((item) => (
-                      <a key={item.id} href={item.attributes.url} target={item.attributes.target}>
+                      <a
+                        key={item.id}
+                        href={item.attributes.url}
+                        target={item.attributes.target}
+                      >
                         {item.attributes.title}
                       </a>
                     ))}
@@ -185,22 +206,37 @@ const NavBar = () => {
                     {menuData.map((menuItem, index) => (
                       <li
                         key={index}
-                        className={menuItem.attributes.children && menuItem.attributes.children.data.length > 0 ? 'menu-item-has-children' : ''}
+                        className={
+                          menuItem.attributes.children &&
+                          menuItem.attributes.children.data.length > 0
+                            ? "menu-item-has-children"
+                            : ""
+                        }
                       >
-                        <a ref={items} href={menuItem.attributes.url} target={menuItem.attributes.target}>
+                        <a
+                          ref={items}
+                          href={menuItem.attributes.url}
+                          target={menuItem.attributes.target}
+                        >
                           {menuItem.attributes.title}
                         </a>
-                        {menuItem.attributes.children && menuItem.attributes.children.data.length > 0 && (
-                          <ul className="sub-menu">
-                            {menuItem.attributes.children.data.map((childItem, childIndex) => (
-                              <li key={childIndex}>
-                                <a href={childItem.attributes.url} target={childItem.attributes.target}>
-                                  {childItem.attributes.title}
-                                </a>
-                              </li>
-                            ))}
-                          </ul>
-                        )}
+                        {menuItem.attributes.children &&
+                          menuItem.attributes.children.data.length > 0 && (
+                            <ul className="sub-menu">
+                              {menuItem.attributes.children.data.map(
+                                (childItem, childIndex) => (
+                                  <li key={childIndex}>
+                                    <a
+                                      href={childItem.attributes.url}
+                                      target={childItem.attributes.target}
+                                    >
+                                      {childItem.attributes.title}
+                                    </a>
+                                  </li>
+                                )
+                              )}
+                            </ul>
+                          )}
                       </li>
                     ))}
                   </>
@@ -210,10 +246,11 @@ const NavBar = () => {
                     </span>
                   </li>
                 </ul>
-
-                <div className="admission">
-                  <button onClick={togglePopup1}>Admission Enquiry</button>
-                </div>
+                {enableDisable.Admission_Form_Button === true && (
+                  <div className="admission d-none d-md-block">
+                    <button onClick={togglePopup1}>Admission Enquiry</button>
+                  </div>
+                )}
               </div>
             </div>
             {/* Conditionally render the popup */}
@@ -223,20 +260,27 @@ const NavBar = () => {
         <div className="sticky-icon">
           <a
             title="Facebook"
-            href={social?.facebook_link} target="new"
+            href={social?.facebook_link}
+            target="new"
             className="facebook"
           >
             {" "}
             <FaFacebookF className="socialFont" />
           </a>
 
-          <a title="Twitter" href={social?.twitter_link} className="twitter" target="new">
+          <a
+            title="Twitter"
+            href={social?.twitter_link}
+            className="twitter"
+            target="new"
+          >
             <FaTwitter className="socialFont" />
           </a>
 
           <a
             title="Youtube"
-            href={social?.youtube_link} target="new"
+            href={social?.youtube_link}
+            target="new"
             className="youtube"
           >
             <FaYoutube className="socialFont" />
@@ -244,17 +288,27 @@ const NavBar = () => {
 
           <a
             title="Instagram"
-            href={social?.insta_link} target="new"
+            href={social?.insta_link}
+            target="new"
             className="instagram"
           >
             <FaInstagram className="socialFont" />
           </a>
-          <a title="Appointment" href="/appointment-booking" className="calender bg-icon">
+          <a
+            title="Appointment"
+            href="/appointment-booking"
+            className="calender bg-icon"
+          >
             <FaCalendarAlt className="calendarText" />
           </a>
           {social?.whatsapp_link?.length > 0 && (
             <div id="api-response">
-              <a title="Whatsapp" href={social?.whatsapp_link} className="chat bg-icon" target="_blank">
+              <a
+                title="Whatsapp"
+                href={social?.whatsapp_link}
+                className="chat bg-icon"
+                target="_blank"
+              >
                 <FaWhatsapp className="calendarText" />
               </a>
             </div>
@@ -272,6 +326,11 @@ const NavBar = () => {
         <header className="navbar-area">
           <nav className="mobileshowmenu">
             <div className="container nav-container">
+              {enableDisable.Admission_Form_Button === true && (
+                <div className="admission d-md-none">
+                  <button onClick={togglePopup1}>Admission Enquiry</button>
+                </div>
+              )}
               <div className="responsive-mobile-menu">
                 <button
                   onClick={togglePopup2}
@@ -285,10 +344,6 @@ const NavBar = () => {
                 >
                   Menu
                 </button>
-
-                <div className="admission">
-                  <button onClick={togglePopup1}>Admission Enquiry</button>
-                </div>
                 {showPopup2 && <MobileMenu onClose={togglePopup2} />}
               </div>
               <div className="logo">
@@ -305,7 +360,11 @@ const NavBar = () => {
                   </button>
                   <div className="dropdown-content">
                     {schoolData.map((item) => (
-                      <a key={item.id} href={item.attributes.url} target={item.attributes.target}>
+                      <a
+                        key={item.id}
+                        href={item.attributes.url}
+                        target={item.attributes.target}
+                      >
                         {item.attributes.title}
                       </a>
                     ))}
