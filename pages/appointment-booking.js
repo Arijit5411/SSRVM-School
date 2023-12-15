@@ -27,7 +27,7 @@ const initialFormState = {
   showAdmissionDetails: false,
   showAdmition: false,
   showTextBox: false,
-  childStudying: "yes",
+  childStudying: "no",
   fullName: "",
   email: "",
   contactNumber: "",

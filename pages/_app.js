@@ -10,6 +10,10 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import '../styles/new_custom.css'
 import '../node_modules/react-datetime/css/react-datetime.css'
+import '../node_modules/react-toastify/dist/ReactToastify.css'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export default function App({ Component, pageProps }) {
 
   useEffect(() => {
@@ -24,6 +28,7 @@ export default function App({ Component, pageProps }) {
 
   return (
     <>
+      <ToastContainer/>
       <RouteScrollToTop />
       <Component {...pageProps} />
       <ScrollToTop smooth color='#210D7D' />

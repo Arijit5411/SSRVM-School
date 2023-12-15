@@ -4134,7 +4134,7 @@ img.wrap-fact-item1 {
 
 // =============================================================Transfer certificate=============================================
 
-.input_certi {
+.input_certi, input.form-control {
   border-radius: 2rem;
   margin-bottom: 10px;
   color: #210D7D;
@@ -4145,6 +4145,8 @@ img.wrap-fact-item1 {
   padding-left: 1rem;
   background-color: #F6F2F4;
 }
+
+
 
 .downloadButton {
   border-radius: 30px;
