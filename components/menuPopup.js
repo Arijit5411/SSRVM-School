@@ -51,7 +51,6 @@ const MenuPopup = ({ onClose }) => {
       .then((response) => response.json())
       .then((data) => {
         setGlobalSocial(data.data.attributes);
-        // setGfounder(data.data[0].attributes);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -139,25 +138,25 @@ const MenuPopup = ({ onClose }) => {
                     </span>
                   )}
 
-                  {globalsocial && globalsocial.Facebook && globalsocial.Facebook.length > 0 && (
-                    <a href={globalsocial.Facebook} className="facebook">
+                  {apiData && apiData.data[0].attributes.facebook_link && apiData.data[0].attributes.facebook_link.length > 0 && (
+                    <a href={apiData.data[0].attributes.facebook_link} className="facebook">
                       <FaFacebookF className="socialFont" />
                     </a>
                   )}
 
-                  {globalsocial && globalsocial.Twitter && globalsocial.Twitter.length > 0 && (
-                    <a href={globalsocial.Twitter} className="twitter">
+                  {apiData && apiData.data[0].attributes.twitter_link && apiData.data[0].attributes.twitter_link.length > 0 && (
+                    <a href={apiData.data[0].attributes.twitter_link} className="twitter">
                       <FaTwitter className="socialFont" />
                     </a>
                   )}
-                  {globalsocial && globalsocial.Youtube && globalsocial.Youtube.length > 0 && (
-                    <a href={globalsocial.Youtube} className="youtube">
+                  {apiData && apiData.data[0].attributes.youtube_link && apiData.data[0].attributes.youtube_link.length > 0 && (
+                    <a href={apiData.data[0].attributes.youtube_link} className="youtube">
                       <FaYoutube className="socialFont" />
                     </a>
                   )}
 
-                  {globalsocial && globalsocial.Instagram && globalsocial.Instagram.length > 0 && (
-                    <a href={globalsocial.Instagram} className="instagram">
+                  {apiData && apiData.data[0].attributes.insta_link && apiData.data[0].attributes.insta_link.length > 0 && (
+                    <a href={apiData.data[0].attributes.insta_link} className="instagram">
                       <FaInstagram className="socialFont" />
                     </a>
                   )}

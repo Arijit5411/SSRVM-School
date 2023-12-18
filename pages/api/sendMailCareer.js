@@ -4,13 +4,8 @@ export default async function handler(req, res) {
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Method not allowed' });
     }
-
-    // const response = await fetch(`${process.env.STRAPI_URI}/api/email`)
-    // const data = await response.json()
-    // const mailList = data?.data?.attributes?.Career_Form.split(",")
-
     const {
-        category,
+        categoryNew,
         position,
         locationSelect,
         fname,
@@ -66,10 +61,10 @@ export default async function handler(req, res) {
             to: mailList,
             // to: 'subhajit.karmakar@teampumpkin.com',
             // to: 'alka.rashinkar@teampumpkin.com',
-            subject: `SSRVM Trust Career Form, for -->${category}, ${position}, ${locationSelect}`,
+            subject: `SSRVM Trust Career Form, for -->${categoryNew}, ${position}, ${locationSelect}`,
             text: `SSRVM Trust Career Form`,
             html: `
-                    <p>Category: <b>${category}</b></p>
+                    <p>Category: <b>${categoryNew}</b></p>
                     <p>Position: <b>${position}</b></p>
                     <p>Preferred Location: <b>${locationSelect}</b></p>
                     <p>Full Name: <b>${fname}</b></p>

@@ -168,6 +168,60 @@
   display: none;
 }
 
+/* ===============================================Career page===================== */
+.job-details h1 {
+  font-size: 36px;
+  line-height: 1.2;
+}
+.job-details h2 {
+  font-size: 36px;
+  line-height: 1.2;
+}
+.job-details h3 {
+  font-size: 24px;
+  line-height: 1.3;
+}
+.job-details h4 {
+  font-size: 20px;
+  line-height: 1.4;
+}
+.job-details h5 {
+  font-size: 18px;
+  line-height: 1.5;
+}
+.job-details h6 {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.job-opening-list .MuiAccordionSummary-content > h4 {
+  margin: 0;
+}
+.job-opening-list .MuiPaper-root{
+  box-shadow: none!important;
+}
+.job-opening-list .Mui-expanded{
+  margin: 0!important;
+  min-height: 60px!important;
+  align-items: center!important;
+}
+.job-opening-list .MuiAccordionSummary-root{
+  padding: 10px 20px!important;
+}
+.job-opening-list .MuiAccordionDetails-root{
+  padding: 20px 20px 30px 20px!important;
+  background-color: #f2f2f2;
+}
+
+.job-opening-list .MuiPaper-root:before{
+  display: none!important;
+}
+.job-opening-list .MuiPaper-root.MuiPaper-elevation {
+  border-bottom: 1px solid #dbdbdb;
+}
+
+
+
 /* =============================================================================== Career Form  */
 /* -------------------- form */
 .def-form {

@@ -25,6 +25,7 @@ export default async function handler(req, res) {
     addmition_number,
     select_reasion,
     any_other_question,
+    any_other_reason,
     prefered_date
   } = req.body;
   const transporter = nodemailer.createTransport({
@@ -67,6 +68,11 @@ export default async function handler(req, res) {
                       select_reasion
                         ? select_reasion
                         : "Not Selected Any Reasion"
+                    }</b></p>
+                    <p>Any Other Text Reason: <b>${
+                      any_other_reason
+                        ? any_other_reason
+                        : "Not Any Reasion Text"
                     }</b></p>
                     <p>Any Other Questions: <b>${
                       any_other_question

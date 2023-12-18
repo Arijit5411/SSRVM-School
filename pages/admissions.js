@@ -36,7 +36,6 @@ export const getStaticProps = async () => {
 }
 
 const Admissions = ({ seodata, admissionsData, t_class, tab_content }) => {
-    console.log('gg', tab_content)
     const router = useRouter()
     console.log('main data ===>', admissionsData);
     const [routeActive, setRouteActive] = useState('Procedure')

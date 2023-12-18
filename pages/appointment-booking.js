@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import Head from "next/head";
 import DatePicker from "react-datetime";
 import moment from "moment";
+import DropdownReason from "@/components/DropdownReason";
 const isProduction = process.env.NODE_ENV === "production";
 const siteUrl = isProduction
   ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
@@ -23,19 +24,22 @@ export const getStaticProps = async () => {
   };
 };
 const initialFormState = {
-  showChildDetails: false,
+  showChildDetails: true,
   showAdmissionDetails: false,
-  showAdmition: false,
+  showAdmission: true,
+  showCallback: false,
   showTextBox: false,
-  childStudying: "",
+  childStudying: "yes",
   fullName: "",
   email: "",
   contactNumber: "",
   selectedClass: "",
   admissionForChild: "",
+  callbackAdmission: "yes",
   addmissionNumber: "",
   selectedReasion: "",
   anyOtherQuestion: "",
+  anyOtherReason: "",
   preferedDate: "",
 };
 
@@ -47,7 +51,6 @@ const initialErrorState = {
   reasonError: "",
   admissionNumberError: "",
   selectedReasioError: "",
-  // anyOtherQuestionError: "",
   dateError: "",
 };
 
@@ -79,24 +82,23 @@ const AppointmentBooking = ({ seodata, classes }) => {
       ...formState,
       childStudying: value,
       showChildDetails: value === "yes",
-      showAdmissionDetails: false,
     });
   };
-  const handleAnyReasionChange = (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-    setFormState({
-      ...state,
-      showTextBox: event.target.value,
-    });
-  };
+
   const handleAdmissionChange = (event) => {
     const value = event.target.value;
     setFormState({
       ...formState,
       admissionForChild: value,
-      showAdmition: value === "yes",
-      showAdmissionDetails: false,
+      showAdmission: value === "yes",
+    });
+  };
+  const handleChangeCallbackChange = (event) => {
+    const value = event.target.value;
+    setFormState({
+      ...formState,
+      callbackAdmission: value,
+      showCallback: value === "yes",
     });
   };
 
@@ -153,10 +155,7 @@ const AppointmentBooking = ({ seodata, classes }) => {
         "Please select the class your child is studying in";
       isValid = false;
     }
-    // if (!formState.anyOtherQuestion) {
-    //   newErrorState.anyOtherQuestionError = "Please enter any other question.";
-    //   isValid = false;
-    // }
+
     if (!formState.selectedReasion) {
       newErrorState.selectedReasioError = "Please select the Reason";
       isValid = false;
@@ -190,9 +189,11 @@ const AppointmentBooking = ({ seodata, classes }) => {
             studying_in_our_school: formState.childStudying,
             yes_studying_class: formState.selectedClass,
             looking_for_admission: formState.admissionForChild,
+            would_you_like_call_back: formState.callbackAdmission,
             addmition_number: formState.addmissionNumber,
             select_reasion: formState.selectedReasion,
             any_other_question: formState.anyOtherQuestion,
+            any_other_reason: formState.anyOtherReason,
             prefered_date: formState.preferedDate,
           },
         };
@@ -331,12 +332,12 @@ const AppointmentBooking = ({ seodata, classes }) => {
                     </label>
                   </span>
 
-                  {formState.showChildDetails && (
+                  {formState.showChildDetails ? (
                     <div>
                       <div className="error">
                         {errorState.selectedClassError}
                       </div>
-                      <div className="input_contact_popup mt-3">
+                      <div className="input_contact_popup">
                         <select
                           id="classDropdown"
                           name="selectedClass"
@@ -369,176 +370,169 @@ const AppointmentBooking = ({ seodata, classes }) => {
                         onChange={handleInputChange}
                       />
 
-                      <div className="input_contact_popup">
-                        <select value={selectedOption} onChange={handleChange}>
-                          <option value="">Select Reason</option>
-                          <option value="To meet Principal">
-                            To meet Principal
-                          </option>
-                          <option value="To meet class teacher">
-                            To meet class teacher
-                          </option>
-                          <option
-                            onClick={(e) => handleAnyReasionChange(e)}
-                            value="Any other reason"
-                          >
-                            Any other reason
-                          </option>
-                        </select>
-                      </div>
-                      {/* <div className="error">
-                        {errorState.anyOtherQuestionError}
-                      </div> */}
-                      {formState.showTextBox && (
-                        <textarea
-                          className="input_contact_reason"
-                          type="text"
-                          id="anyOtherQuestion"
-                          name="anyOtherQuestion"
-                          placeholder="Any Other questions*"
-                          value={formState.anyOtherQuestion}
-                          onChange={handleInputChange}
-                        />
-                      )}
-                    </div>
-                  )}
-
-                  {!formState.showChildDetails && (
-                    <div>
-                      <label className="mt-3">
-                        Are you looking for admission for your child?
-                      </label>
-                      <span style={{ marginLeft: "20px" }}>
-                        <label>
-                          <input
-                            type="radio"
-                            name="admissionForChild"
-                            value="yes"
-                            checked={formState.admissionForChild === "yes"}
-                            onChange={handleAdmissionChange}
-                          />
-                          Yes
-                        </label>
-                        <label>
-                          <input
-                            className="ms-1"
-                            type="radio"
-                            name="admissionForChild"
-                            value="no"
-                            checked={formState.admissionForChild === "no"}
-                            onChange={handleAdmissionChange}
-                          />
-                          No
-                        </label>
-                      </span>
-                    </div>
-                  )}
-
-                  {!formState.showAdmition && !formState.showChildDetails && (
-                    <div>
                       <div className="error">
                         {errorState.selectedReasioError}
                       </div>
-                      <div className="input_contact_popup mt-3">
-                        <select value={selectedOption} onChange={handleChange}>
-                          <option value="">Select Reason</option>
+                      <DropdownReason {...{ selectedOption, handleChange }} />
 
-                          <option value="To meet Principal">
-                            To meet Principal
-                          </option>
-                          <option value="To meet class teacher">
-                            To meet class teacher
-                          </option>
-                          <option
-                            onClick={(e) => handleAnyReasionChange(e)}
-                            value="Any other reason"
-                          >
-                            Any other reason
-                          </option>
-                        </select>
-                      </div>
-                      {/* <div className="error">
-                        {errorState.anyOtherQuestionError}
-                      </div> */}
                       {formState.showTextBox && (
                         <textarea
                           className="input_contact_reason"
                           type="text"
-                          id="anyOtherQuestion"
-                          name="anyOtherQuestion"
-                          placeholder="Any Other questions*"
-                          value={formState.anyOtherQuestion}
+                          id="anyOtherReason"
+                          name="anyOtherReason"
+                          placeholder="Any Other Reason*"
+                          value={formState.anyOtherReason}
                           onChange={handleInputChange}
                         />
                       )}
                     </div>
+                  ) : (
+                    formState.childStudying === "no" && (
+                      <>
+                        <div>
+                          <label className="mt-3">
+                            Are you looking for admission for your child?
+                          </label>
+                          <span style={{ marginLeft: "20px" }}>
+                            <label>
+                              <input
+                                type="radio"
+                                name="admissionForChild"
+                                value="yes"
+                                checked={formState.admissionForChild === "yes"}
+                                onChange={handleAdmissionChange}
+                              />
+                              Yes
+                            </label>
+                            <label>
+                              <input
+                                className="ms-1"
+                                type="radio"
+                                name="admissionForChild"
+                                value="no"
+                                checked={formState.admissionForChild === "no"}
+                                onChange={handleAdmissionChange}
+                              />
+                              No
+                            </label>
+                          </span>
+                        </div>
+
+                        {formState.admissionForChild === "yes" ? (
+                          <div>
+                            <div className="error">
+                              {errorState.selectedClassError}
+                            </div>
+
+                            <div className="input_contact_popup">
+                              <select
+                                id="classDropdown"
+                                name="selectedClass"
+                                value={formState.selectedClass}
+                                onChange={handleInputChange}
+                              >
+                                <option value="">Select Class*</option>
+                                {classes &&
+                                  classes.length > 0 &&
+                                  classes.map((c) => {
+                                    return (
+                                      <option value={c?.attributes?.name}>
+                                        {c?.attributes?.name}
+                                      </option>
+                                    );
+                                  })}
+                              </select>
+                            </div>
+
+                            <div>
+                              <label className="me-1">
+                                Would you like us to call you back?
+                              </label>
+                              <label>
+                                <input
+                                  type="radio"
+                                  name="callbackAdmission"
+                                  value="yes"
+                                  checked={
+                                    formState.callbackAdmission === "yes"
+                                  }
+                                  onChange={handleChangeCallbackChange}
+                                />
+                                Yes
+                              </label>
+                              <label>
+                                <input
+                                  className="ms-1"
+                                  type="radio"
+                                  name="callbackAdmission"
+                                  value="no"
+                                  checked={formState.callbackAdmission === "no"}
+                                  onChange={handleChangeCallbackChange}
+                                />
+                                No
+                              </label>
+                            </div>
+
+                            {formState.callbackAdmission === "yes" ? (
+                              <textarea
+                                className="input_contact_reason"
+                                type="text"
+                                id="anyOtherQuestion"
+                                name="anyOtherQuestion"
+                                placeholder="Any Other Question*"
+                                value={formState.anyOtherQuestion}
+                                onChange={handleInputChange}
+                              />
+                            ) : (
+                              <>
+                                <div className="error">
+                                  {errorState.selectedReasioError}
+                                </div>
+                                <div>
+                                  <DropdownReason
+                                    {...{ selectedOption, handleChange }}
+                                  />
+                                  {formState.showTextBox && (
+                                    <textarea
+                                      className="input_contact_reason"
+                                      type="text"
+                                      id="anyOtherReason"
+                                      name="anyOtherReason"
+                                      placeholder="Any Other Reason*"
+                                      value={formState.anyOtherReason}
+                                      onChange={handleInputChange}
+                                    />
+                                  )}
+                                </div>
+                              </>
+                            )}
+                          </div>
+                        ) : (
+                          <div>
+                            <div className="error">
+                              {errorState.selectedReasioError}
+                            </div>
+                            <DropdownReason
+                              {...{ selectedOption, handleChange }}
+                            />
+
+                            {formState.showTextBox && (
+                              <textarea
+                                className="input_contact_reason"
+                                type="text"
+                                id="anyOtherReason"
+                                name="anyOtherReason"
+                                placeholder="Any Other Reason*"
+                                value={formState.anyOtherReason}
+                                onChange={handleInputChange}
+                              />
+                            )}
+                          </div>
+                        )}
+                      </>
+                    )
                   )}
-
-                  {formState.showAdmition && (
-                    <div>
-                      <div className="error">
-                        {errorState.selectedClassError}
-                      </div>
-                      <div className="input_contact_popup mt-3">
-                        <select
-                          id="classDropdown"
-                          name="selectedClass"
-                          value={formState.selectedClass}
-                          onChange={handleInputChange}
-                        >
-                          <option value="">Select Class*</option>
-                          {classes &&
-                            classes.length > 0 &&
-                            classes.map((c) => {
-                              return (
-                                <option value={c?.attributes?.name}>
-                                  {c?.attributes?.name}
-                                </option>
-                              );
-                            })}
-                        </select>
-                      </div>
-
-                      <div>
-                        <label className="me-1">
-                          Would you like us to call you back?
-                        </label>
-                        <label>
-                          <input
-                            type="radio"
-                            name="admissionForChild"
-                            value="yes"
-                            checked={formState.admissionForChild === "yes"}
-                            onChange={handleAdmissionChange}
-                          />
-                          Yes
-                        </label>
-                        <label>
-                          <input
-                            className="ms-1"
-                            type="radio"
-                            name="admissionForChild"
-                            value="no"
-                            checked={formState.admissionForChild === "no"}
-                            onChange={handleAdmissionChange}
-                          />
-                          No
-                        </label>
-                      </div>
-
-                      {/* <div className="error">{errorState.reasonError}</div> */}
-                      <textarea
-                        className="input_contact_reason"
-                        type="text"
-                        id="anyOtherQuestion"
-                        name="anyOtherQuestion"
-                        placeholder="Any Other questions*"
-                        value={formState.anyOtherQuestion}
-                        onChange={handleInputChange}
-                      />
-                    </div>
-                  )}
-
                   {formState.showAdmissionDetails && (
                     <div>{/* ... (Admission details) */}</div>
                   )}

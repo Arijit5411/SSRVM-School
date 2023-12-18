@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import { toast } from "react-toastify";
 import axios from "axios";
 import NavBar from "./NavBar";
+import Link from "next/link";
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -13,8 +14,13 @@ const siteUrl = isProduction
 const CareerForm = () => {
   const [inputKey, setInputKey] = useState("");
   const [salaryExpectationsApi, setSalaryExpectation] = useState([]);
+  const [jobRole, setJobRole] = useState([]);
+  const [location, setLocation] = useState([]);
+  const [category, setCategory] = useState([]);
+
+  setJobRole;
   const initialValues = {
-    category: "",
+    categoryNew: "",
     position: "",
     locationSelect: "",
     fname: "",
@@ -39,20 +45,6 @@ const CareerForm = () => {
     salaryExp: "",
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`${siteUrl}/api/career?populate=*`);
-        const data = await response.json();
-        console.log("data in carrierappy", data);
-        setSalaryExpectation(data.data.attributes.Salary_Expectations);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
   const validationSchema = Yup.object({
     category: Yup.string().required("Category is required"),
     position: Yup.string().required("Position is required"),
@@ -175,16 +167,35 @@ const CareerForm = () => {
     onSubmit,
   });
 
+  useEffect(() => {
+    fetch(`${siteUrl}/api/careers-pages?populate=*`)
+      .then((response) => response.json())
+      .then((data) => {
+        setJobRole(data?.data[0]?.attributes);
+        setLocation(data?.data[0]?.attributes);
+        setCategory(data?.data[0]?.attributes);
+        setSalaryExpectation(data?.data[0]?.attributes);
+      })
+
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, []);
+
   return (
     <>
       <NavBar />
       <section className="section pt-0">
         <div className="container">
           <section className="wrap-item-principal-se1 back-to-ca">
-            <a className="backto-btn" href="/careers">
+            <Link
+              className="backto-btn d-inline-flex align-items-center gap-2 position-relative"
+              style={{ zIndex: "99" }}
+              href="/careers"
+            >
               <img src="assets/img/blog/13-arrow-left.png" alt="Transpro" />
               <span>Back to Careers</span>
-            </a>
+            </Link>
             <div className="container">
               <div className="wrap-item-text1 news-item">
                 <h1 className="principal-mess">Careers</h1>
@@ -219,12 +230,13 @@ const CareerForm = () => {
                         onBlur={formik.handleBlur}
                       >
                         <option value="">Select Position</option>
-                        <option value="Software Engineer">
-                            Software Engineer
-                          </option>
-                          <option value="Data Analyst">Data Analyst</option>
-                          <option value="UI/UX Designer">UI/UX Designer</option>
+                        {jobRole?.Job_Role?.map(function (d) {
+                          if (d.Job_Role !== null) {
+                            return <option key={d.id}>{d.Job_Role}</option>;
+                          }
+                        })}
                       </select>
+
                       {formik.touched.position && formik.errors.position && (
                         <div className="error-message ms-3">
                           {formik.errors.position}
@@ -245,11 +257,13 @@ const CareerForm = () => {
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                       >
-                        <option value="">Select Position</option>
-                        <option value="">Select preferred location</option>
-                          <option value="New York">New York</option>
-                          <option value="San Francisco">San Francisco</option>
-                          <option value="London">London</option>
+                        <option value="">Select Location</option>
+
+                        {location?.Preferred_Locations?.map(function (d) {
+                          if (d.Preferred_Locations !== null) {
+                            return <option key={d.id}>{d.Location}</option>;
+                          }
+                        })}
                       </select>
                       {formik.touched.locationSelect &&
                         formik.errors.locationSelect && (
@@ -266,15 +280,20 @@ const CareerForm = () => {
                       </label>
                       <select
                         className="fw-600 color-1"
-                        name="category"
-                        value={formik.values.category}
+                        name="categoryNew"
+                        value={formik.values.categoryNew}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                       >
                         <option value="">Select category</option>
-                          <option value="IT">IT</option>
-                          <option value="Marketing">Marketing</option>
-                          <option value="Finance">Finance</option>
+                        {category?.Job_Categories?.map(function (d) {
+                          if (d.Job_Categories !== null) {
+                            return <option key={d.id}>{d.Category}</option>;
+                          }
+                        })}
+                        {/* <option value="IT">IT</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Finance">Finance</option> */}
                       </select>
                       {formik.touched.category && formik.errors.category && (
                         <div className="error-message ms-3">
@@ -410,10 +429,10 @@ const CareerForm = () => {
                         onBlur={formik.handleBlur}
                       >
                         <option value="">Select marital status</option>
-                          <option value="single">Single</option>
-                          <option value="married">Married</option>
-                          <option value="divorced">Divorced</option>
-                          <option value="widowed">Widowed</option>
+                        <option value="single">Single</option>
+                        <option value="married">Married</option>
+                        <option value="divorced">Divorced</option>
+                        <option value="widowed">Widowed</option>
                       </select>
                       {formik.touched.martialStatus &&
                         formik.errors.martialStatus && (
@@ -480,30 +499,31 @@ const CareerForm = () => {
                       )}
                     </div>
                   </div>
-                 
-                   <div>
-                        <label className="job_position_first-sec">
-                          Qualification*:
-                        </label>
-                        <br></br>
-                        <select
-                          className="input_personal marital"
-                          name="qualification"
-                          value={formik.values.qualification}
-                          onChange={formik.handleChange}
-                        >
-                          <option value="">Select your Qualification</option>
-                          <option value="highschool">High School</option>
-                          <option value="bachelors">Bachelor's Degree</option>
-                          <option value="masters">Master's Degree</option>
-                          <option value="doctorate">Doctorate</option>
-                        </select>
-                        {formik.errors.qualification && (
-                          <span className="error-message ms-3">
-                            {formik.errors.qualification}
-                          </span>
-                        )}
-                      </div>
+                  <div className="col-12 col-md-6 col-lg-6">
+                    <div className="input-wrap color-1">
+                      <label className="fs-16 fs-lg-16 fw-700 color-1 mb-2">
+                        Qualification*:
+                      </label>
+                      <br></br>
+                      <select
+                        className="fw-600 color-1"
+                        name="qualification"
+                        value={formik.values.qualification}
+                        onChange={formik.handleChange}
+                      >
+                        <option value="">Select your Qualification</option>
+                        <option value="highschool">High School</option>
+                        <option value="bachelors">Bachelor's Degree</option>
+                        <option value="masters">Master's Degree</option>
+                        <option value="doctorate">Doctorate</option>
+                      </select>
+                      {formik.errors.qualification && (
+                        <span className="error-message ms-3">
+                          {formik.errors.qualification}
+                        </span>
+                      )}
+                    </div>
+                  </div>
                   <div className="col-12 col-md-6 col-lg-6">
                     <div className="input-wrap color-1">
                       <label className="fs-16 fs-lg-16 fw-700 color-1 mb-2">
@@ -579,10 +599,10 @@ const CareerForm = () => {
                         onBlur={formik.handleBlur}
                       >
                         <option value="">-- Select Hiring Type --</option>
-                          <option value="Full-time">Full-time</option>
-                          <option value="Part-time">Part-time</option>
-                          <option value="Contract">Contract</option>
-                          <option value="Internship">Internship</option>
+                        <option value="Full-time">Full-time</option>
+                        <option value="Part-time">Part-time</option>
+                        <option value="Contract">Contract</option>
+                        <option value="Internship">Internship</option>
                       </select>
                       {formik.touched.hiringType &&
                         formik.errors.hiringType && (
@@ -593,29 +613,28 @@ const CareerForm = () => {
                     </div>
                   </div>
                   <div className="col-12 col-md-6 col-lg-6">
-                   
-                      <div>
-                        <label className="label_top job_position_first-sec">
-                          Are you ready to relocate (if required)?*:
-                        </label>
-                        <br />
-                        <select
-                          className="input_personal marital"
-                          name="relocation"
-                          value={formik.values.relocation}
-                          onChange={formik.handleChange}
-                        >
-                          <option value="">Select an option</option>
-                          <option value="yes">Yes</option>
-                          <option value="no">No</option>
-                        </select>
-                        {formik.touched.relocation &&
+                    <div className="input-wrap color-1">
+                      <label className="fs-16 fs-lg-16 fw-700 color-1 mb-2">
+                        Are you ready to relocate (if required)?*:
+                      </label>
+                      <br />
+                      <select
+                        className="input_personal marital"
+                        name="relocation"
+                        value={formik.values.relocation}
+                        onChange={formik.handleChange}
+                      >
+                        <option value="">Select an option</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                      </select>
+                      {formik.touched.relocation &&
                         formik.errors.relocation && (
                           <div className="error-message ms-3">
                             {formik.errors.relocation}
                           </div>
                         )}
-                      </div>
+                    </div>
                   </div>
                   <div className="col-12">
                     <div className="d-inline-block fs-16 fs-lg-16 fw-700 color-1 mb-2">
@@ -774,7 +793,7 @@ const CareerForm = () => {
                       )}
                     </div>
                   </div>
-                  <div className="d-flex gap-3">
+                
                     <div className="col-12 col-md-6 col-lg-6">
                       <div className="input-wrap color-1">
                         <div className="d-inline-block fs-16 fs-lg-16 fw-700 color-1 mb-2">
@@ -811,26 +830,29 @@ const CareerForm = () => {
                         )}
                       </div>
                     </div>
+                    <div className="col-12 col-md-6 col-lg-6">
+                      <div className="input-wrap color-1">
+                        <label className="fs-16 fs-lg-16 fw-700 color-1 mb-2">
+                          Salary Expectations (INR)*:
+                        </label>
+                        <br />
+                        <select
+                          className=" fw-600 color-1"
+                          name="salaryExp"
+                          value={formik.values.salaryExp}
+                          onChange={formik.handleChange}
+                        >
+                          <option value="">Select an option</option>
 
-                    <div className="label_top">
-                      <label className="job_position_first-sec">
-                        Salary Expectations (INR)*:
-                      </label>
-                      <br />
-                      <select
-                        className="input_personal marital h-auto border-0 mt-2"
-                        name="salaryExp"
-                        value={formik.values.salaryExp}
-                        onChange={formik.handleChange}
-                      >
-                        <option value="">Select an option</option>
-
-                        {salaryExpectationsApi?.map((option) => (
-                          <option key={option} value={option.Salary}>
-                            {option.Salary}
-                          </option>
-                        ))}
-                      </select>
+                          {salaryExpectationsApi?.Salary_Expectations?.map(
+                            function (d) {
+                              if (d.Salary_Expectations !== null) {
+                                return <option key={d.id}>{d.Salary}</option>;
+                              }
+                            }
+                          )}
+                        </select>
+                      </div>
                     </div>
                   </div>
 
@@ -853,7 +875,7 @@ const CareerForm = () => {
                     </button>
                   </div>
                 </div>
-              </div>
+              
             </form>
           </div>
         </div>

@@ -45,7 +45,6 @@ export async function getStaticProps({ params }) {
 }
 
 const OtherPage = ({ data }) => {
-  console.log(data?.attributes);
 
   return (
     <>
