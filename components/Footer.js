@@ -6,13 +6,14 @@ import {
   FaYoutube,
   FaPhoneAlt,
   FaEnvelopeOpen,
-  FaRegEnvelopeOpen,
-  FaRegPaperPlane,
 } from "react-icons/fa";
 import Subscribe from "./Subscribe";
+const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in";
 
 const Footer = () => {
   const [footerData, setFooterData] = useState(null);
+  const [globalsocial, setGlobalSocial] = useState();
+
 
   const isProduction = process.env.NODE_ENV === "production";
 
@@ -29,6 +30,17 @@ const Footer = () => {
       })
       .catch((error) => {
         console.error("Error fetching footer data:", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    fetch(`${GlobalSiteUrl}/api/global-trust-data?populate=*`)
+      .then((response) => response.json())
+      .then((data) => {
+        setGlobalSocial(data.data.attributes);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
       });
   }, []);
 
@@ -188,23 +200,24 @@ const Footer = () => {
               <div className="container">
                 <div className="row">
                   <div className="col-lg-6">
-                    <div className="copyright-text">
+                    <div className="copyright-text ">
                       <span className="fColor">
-                        <a href="https://www.ssrvm.org/" target="_blank">
-                          {footerData.attributes.visit_ssrvm_website}
-                        </a>
+                       
+                          <a  target="_blank" href={globalsocial?.Website_Link} className="text-white">Visit the SSRVM Trust Website</a>
+
+                      
                       </span>
                     </div>
                   </div>
                   <div className="col-lg-6">
                     <div className="footer-social">
                       <span className="fPadTop fColor">
-                        {footerData.attributes.connect_with_ssrvm_trust}
+                      Connect with SSRVM Trust:{" "}
                       </span>
                       <ul className="social-link">
                         <li>
                           <a
-                            href="https://www.facebook.com/ssrvm.official"
+                            href={globalsocial?.Facebook}
                             className="facebook"
                           >
                             {" "}
@@ -213,7 +226,7 @@ const Footer = () => {
                         </li>
                         <li>
                           <a
-                            href="https://twitter.com/ssrvm"
+                            href={globalsocial?.Twitter}
                             className="twitter"
                           >
                             <FaTwitter />
@@ -221,7 +234,7 @@ const Footer = () => {
                         </li>
                         <li>
                           <a
-                            href="https://www.youtube.com/channel/UCz1tS-oRzKeElBOd6pIjgLQ"
+                            href={globalsocial?.Youtube}
                             className="youtube"
                           >
                             <FaYoutube />
@@ -229,7 +242,7 @@ const Footer = () => {
                         </li>
                         <li>
                           <a
-                            href="https://www.instagram.com/ssrvm.official/"
+                            href={globalsocial?.Instagram}
                             className="instagram"
                           >
                             <FaInstagram />

@@ -84,7 +84,6 @@ const ShraddhaTraining = ({ seodata, shraddha }) => {
       setLoading(false);
     }
   }, []);
-  console.log("data in shardha training", shardhaData);
   return (
     <>
       <Head>

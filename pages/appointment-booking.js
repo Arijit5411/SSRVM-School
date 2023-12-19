@@ -49,8 +49,6 @@ const initialErrorState = {
   contactNumberError: "",
   selectedClassError: "",
   reasonError: "",
-  admissionNumberError: "",
-  selectedReasioError: "",
   dateError: "",
 };
 
@@ -150,23 +148,14 @@ const AppointmentBooking = ({ seodata, classes }) => {
       isValid = false;
     }
 
-    if (formState.childStudying === "yes" && !formState.selectedClass) {
+    if (!formState.selectedClass) {
       newErrorState.selectedClassError =
         "Please select the class your child is studying in";
       isValid = false;
     }
 
-    if (!formState.selectedReasion) {
-      newErrorState.selectedReasioError = "Please select the Reason";
-      isValid = false;
-    }
     if (!formState.preferedDate) {
       newErrorState.dateError = "Please select Appointment Date";
-      isValid = false;
-    }
-
-    if (!formState.addmissionNumber) {
-      newErrorState.admissionNumberError = "Please provide a Admission Number";
       isValid = false;
     }
 
@@ -356,10 +345,6 @@ const AppointmentBooking = ({ seodata, classes }) => {
                             })}
                         </select>
                       </div>
-
-                      <div className="error">
-                        {errorState.admissionNumberError}
-                      </div>
                       <textarea
                         className="input_contact_reason"
                         type="text"
@@ -370,9 +355,6 @@ const AppointmentBooking = ({ seodata, classes }) => {
                         onChange={handleInputChange}
                       />
 
-                      <div className="error">
-                        {errorState.selectedReasioError}
-                      </div>
                       <DropdownReason {...{ selectedOption, handleChange }} />
 
                       {formState.showTextBox && (
@@ -486,9 +468,6 @@ const AppointmentBooking = ({ seodata, classes }) => {
                               />
                             ) : (
                               <>
-                                <div className="error">
-                                  {errorState.selectedReasioError}
-                                </div>
                                 <div>
                                   <DropdownReason
                                     {...{ selectedOption, handleChange }}
@@ -510,9 +489,6 @@ const AppointmentBooking = ({ seodata, classes }) => {
                           </div>
                         ) : (
                           <div>
-                            <div className="error">
-                              {errorState.selectedReasioError}
-                            </div>
                             <DropdownReason
                               {...{ selectedOption, handleChange }}
                             />

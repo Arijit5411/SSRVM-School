@@ -130,7 +130,6 @@ const NavBar = () => {
       .then((data) => {
         // Extract menu items from the API response
         const items = data?.data[0]?.attributes;
-        console.log("data in button", items);
         setEnableDisable(items);
       })
       .catch((error) => {
