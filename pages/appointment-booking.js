@@ -40,7 +40,7 @@ const initialFormState = {
   selectedReasion: "",
   anyOtherQuestion: "",
   anyOtherReason: "",
-  preferedDate: "",
+  preferedDate: new Date(),
 };
 
 const initialErrorState = {

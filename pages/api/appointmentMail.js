@@ -26,6 +26,7 @@ export default async function handler(req, res) {
     select_reasion,
     any_other_question,
     any_other_reason,
+    would_you_like_call_back,
     prefered_date
   } = req.body;
   const transporter = nodemailer.createTransport({
@@ -79,11 +80,14 @@ export default async function handler(req, res) {
                         ? any_other_question
                         : "No Any Question"
                     }</b></p>
+                    <p>Would You Like to Call Back: <b>${
+                      would_you_like_call_back
+                        ? would_you_like_call_back
+                        : "Not select any  Option"
+                    }</b></p>
                     <p>Appointment Date: <b>${
                       prefered_date ? prefered_date : "No Date Selected"
                     }</b></p>
-                    
-
                     </p>`,
     });
     console.log("Email sent successfully");
