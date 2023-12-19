@@ -36,7 +36,7 @@ const GalleryVideo = (props) => {
 
                 // Check if "All" is selected, if not, filter by the selected year
                 if (selectedYear !== 'All') {
-                    filteredData = videosData.filter(item => item.year === selectedYear);
+                    filteredData = videosData.filter(item => item.year === "year "+selectedYear);
                 }
 
                 setTabs(tabsData);

@@ -54,23 +54,7 @@ const Gallery = ({ seodata }) => {
     });
 
     useEffect(() => {
-        // Fetch SEO data from your API
-        // fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`) // Replace with the actual API endpoint
-        //     .then((response) => response.json())
-        //     .then((data) => {
-        //         console.log('API response data:', data); // Log the API response data
-        //         if (data && data.data && data.data.length > 0) {
-        //             const seoAttributes = data.data[35].attributes;
-        //             setSeoData({
-        //                 title: seoAttributes.title || '',
-        //                 metaTitle: seoAttributes.metaTitle || '',
-        //                 metaDescription: seoAttributes.metaDescription || '',
-        //             });
-        //         }
-        //     })
-        //     .catch((error) => {
-        //         console.error('Error fetching SEO data:', error);
-        //     });
+       
         if (seodata && seodata?.data && seodata?.data?.length > 0) {
             const seoAttributes = seodata.data[35].attributes;
             setSeoData({
@@ -82,7 +66,6 @@ const Gallery = ({ seodata }) => {
     }, []);
 
     useEffect(() => {
-        // Fetch API_KEY and ROOT_FOLDER_ID from your API endpoint
         fetchApiConfigFromApi();
     }, []);
 
@@ -110,7 +93,6 @@ const Gallery = ({ seodata }) => {
     }, [selectedSubfolder]);
 
     useEffect(() => {
-        // Use Promise.all to fetch first image URLs for all subfolders
         const fetchFirstImageURLs = async () => {
             const urls = await Promise.all(
                 subfolders.map((subfolder) => getThumbnailImage(subfolder.id))
@@ -252,7 +234,6 @@ const Gallery = ({ seodata }) => {
 
             if (imagesInSubfolder.length > 0) {
                 const firstImageURL = `https://drive.google.com/uc?id=${imagesInSubfolder[0].id}`;
-                console.log("First Image URL:", firstImageURL); // Log the constructed URL
                 return firstImageURL;
             } else {
                 console.log("No images found in subfolder");
@@ -283,7 +264,6 @@ const Gallery = ({ seodata }) => {
                 console.error('Error fetching API config from API:', error);
             });
     };
-    // Modify the useEffect for fetching first image URLs
     useEffect(() => {
         const fetchFirstImageURLs = async () => {
             const urls = {};
@@ -294,7 +274,6 @@ const Gallery = ({ seodata }) => {
             setSubfolderFirstImageURLs(urls);
         };
 
-        // Fetch first image URLs when subfolders change
         fetchFirstImageURLs();
     }, [subfolders]);
 
@@ -432,7 +411,7 @@ const Gallery = ({ seodata }) => {
                                                 }}
                                             >
                                                 <img
-                                                    className="card-img-top"
+                                                    className="card-img-top test"
                                                     src={subfolderThumbnailURL}
                                                     alt="Card image cap"
                                                 />
@@ -468,7 +447,6 @@ const Gallery = ({ seodata }) => {
             </>
         )
     }
-
     return (
         <>
             <Fragment>
@@ -478,15 +456,6 @@ const Gallery = ({ seodata }) => {
                     {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
                 </Head>
                 <NavBar />
-
-                {/* {seoData && (
-                    <Seo
-                        title={seoData.title}
-                        metaTitle={seoData.metaTitle}
-                        metaDescription={seoData.metaDescription}
-                    />
-                )} */}
-
                 <div className='top-section1-new'>
                     <div className="container">
                         <h1 className="principal-mess">Gallery</h1>
@@ -498,7 +467,6 @@ const Gallery = ({ seodata }) => {
                         <div className='row'>
                             <div className='gallery-dropdown'>
                                 <div>
-                                    {/* Dropdown for selecting Photos or Videos */}
                                     <select value={selectedOption} onChange={handleOptionChange} className="drop">
                                         <option value="Photos">Photos</option>
                                         <option value="Videos">Videos</option>
@@ -506,7 +474,6 @@ const Gallery = ({ seodata }) => {
                                 </div>
 
                                 <div>
-                                    {/* Conditionally render the year dropdown based on selected option */}
                                     {selectedOption === 'Photos' && (
                                         <div>
                                             <select value={selectedYear} onChange={handleYearChange} className="drop">
@@ -514,15 +481,11 @@ const Gallery = ({ seodata }) => {
                                                 {
                                                     years && years.map(yr => {
                                                         return (
+                                                        
                                                             <option value={yr}>{yr}</option>
                                                         )
                                                     })
                                                 }
-                                                {/* <option value="2021">2021</option>
-                                                <option value="2020">2020</option>
-                                                <option value="2019">2019</option>
-                                                <option value="2018">2018</option>
-                                                <option value="2017">2017</option> */}
                                             </select>
                                         </div>
                                     )}
@@ -537,11 +500,6 @@ const Gallery = ({ seodata }) => {
                                                         )
                                                     })
                                                 }
-                                                {/* <option value="year 2023">2023</option>
-                                                <option value="year 2022">2022</option>
-                                                <option value="year 2021">2021</option>
-                                                <option value="year 2020">2020</option> */}
-                                                {/* Add more options as needed */}
                                             </select>
                                         </div>
                                     )}
