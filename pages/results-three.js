@@ -1,7 +1,6 @@
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
-import GooglePieChart from "@/components/GooglePieChart";
 import Slider from "react-slick";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import DownloadResult from "@/components/DownloadResult";

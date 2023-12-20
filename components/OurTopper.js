@@ -234,7 +234,7 @@ function OurToppers() {
     return (
         <>
             {console.log('gg', tdata, standard)}
-            <div className="container pd-top-75 mobilehide">
+            <div className="container pd-top-75 mobilehide-result">
                 <div className="head">
                     <div>
                         <h4>Our Toppers</h4>

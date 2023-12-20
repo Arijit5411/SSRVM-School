@@ -84,7 +84,7 @@ const DownloadResult = () => {
         </div>
         <div className="row g-4 mt-0">{renderContent2()}</div>
       </div>
-      <div className="mobilehide">
+      <div className="mobilehide-result">
         <div className="head flex-md-row flex-column mt-md-0 mt-2">
           <div>
             <h4>Download Results</h4>

@@ -421,6 +421,9 @@
   .education-card-mobile {
     display: block;
   }
+  .mobilehide-result{
+    display: none;
+  }
 }
 
 @media only screen and (max-width: 576px) {
