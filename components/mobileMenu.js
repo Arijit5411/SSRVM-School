@@ -262,7 +262,7 @@ const MobileMenu = ({ onClose }) => {
                     ?.attributes.children.data.map((menuItem) => (
                       <li key={menuItem.id}>
                         <a
-                          href={`${menuItem?.attributes?.url}/${menuItem?.id}`}
+                          href={`${menuItem?.attributes?.url}`}
                         >
                           {menuItem.attributes.title}
                         </a>

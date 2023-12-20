@@ -93,7 +93,8 @@ const Results_three = () => {
                                                     <img src={`${siteUrl}${graphItem?.image?.data?.attributes?.url}`} alt='Transpro' />
                                                 </div>
                                             </div>
-                                        ))}
+                                        )
+                                        )}
                                     </Slider>
 
                                 </div>

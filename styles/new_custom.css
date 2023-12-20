@@ -408,7 +408,16 @@
   color: #2d318d;
   background-color: #fff;
 }
-
+.mobile-hide-result-chart{
+  display: none
+}
+/* .desktop-hide-result-chart{
+  display: block;
+} */
+.result2-chart{
+  display: flex;
+  gap: 20px;
+}
 /* ==================================== Only Desktop  */
 @media only screen and (min-width: 767px) {
   .feature-contet-list.other-page-x1 > .row:nth-child(even) {
@@ -423,6 +432,17 @@
   }
   .mobilehide-result{
     display: none;
+  }
+  .mobile-hide-result-chart{
+    display: block;
+  }
+  .desktop-hide-result-chart{
+    display: none;
+  }
+  .result2-chart{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
   }
 }
 

@@ -132,13 +132,7 @@ const Results = ({ seodata, graphData }) => {
                 {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
             </Head>
             <NavBar />
-            {/* {seoData && (
-                <Seo
-                    title={seoData.title}
-                    metaTitle={seoData.metaTitle}
-                    metaDescription={seoData.metaDescription}
-                />
-            )} */}
+           
             <Fragment>
                 <div className="top-section1-results">
                     <div className="container">
