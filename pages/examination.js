@@ -187,13 +187,8 @@ const Examination = ({ seodata, optionData }) => {
                             <div className="container">
                                 <div className="wrap-item-timing">
                                     <h1 className="wrap-heading-sch">{page_title}
-                                        {/* Examination */}
                                     </h1>
-                                    <p className="wrap-proj mobilehide">
-                                        {paragraph_1 && <span
-                                            dangerouslySetInnerHTML={{ __html: paragraph_1.replace(/\n/g, "<br />") }}></span>}
-                                    </p>
-                                    <p className="wrap-proj desktophide">
+                                    <p className="wrap-proj">
                                         {paragraph_1 && <span
                                             dangerouslySetInnerHTML={{ __html: paragraph_1.replace(/\n/g) }}></span>}
                                     </p>

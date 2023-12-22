@@ -52,6 +52,9 @@
   justify-content: space-between;
   margin-bottom: 20px;
 }
+.top-policy{
+  margin-bottom: 0!important;
+}
 .poup-close-btn {
   color: #fff;
   display: inline-flex;
@@ -418,6 +421,9 @@
   display: flex;
   gap: 20px;
 }
+.pub-sec{
+  margin-top: 150px;
+}
 /* ==================================== Only Desktop  */
 @media only screen and (min-width: 767px) {
   .feature-contet-list.other-page-x1 > .row:nth-child(even) {
@@ -431,6 +437,16 @@
     display: block;
   }
   .mobilehide-result{
+    display: none;
+  }
+  /* .mobilehide-publication{
+    display: none;
+  } */
+  .pub-sec{
+    margin-top: 0px;
+  }
+  
+  .mobilehide-international{
     display: none;
   }
   .mobile-hide-result-chart{

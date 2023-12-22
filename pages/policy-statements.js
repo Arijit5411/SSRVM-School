@@ -96,13 +96,13 @@ const Policy_Statements = ({ seodata, policy }) => {
                     />
                 )} */}
 
-                <div className="top-section1">
+                <div className="top-section1 top-policy">
                     <div className="container">
                         <h1 className="principal-mess">Policy Statements</h1>
                     </div>
 
                     <div className="generic-text-box">
-                        <div dangerouslySetInnerHTML={{ __html: policyStatements.content }} />
+                        <span dangerouslySetInnerHTML={{ __html: policyStatements.content }} />
                     </div>
                 </div>
                 <Footer />

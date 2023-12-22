@@ -4014,15 +4014,13 @@ img.wrap-img-top1.wrap-img-colour {
 
 .newsbtm-school-item {
   border-radius: 55px;
-  margin-top: 10px;
-  border: 1px solid;
-  background-color: #c91b0f;
-  color: #fff;
-  padding: 5px 25px 5px 25px;
-  height: 40px;
-  margin-left: 1%;
-  line-height: 19px;
-  font-size: 21px;
+    border: 1px solid;
+    background-color: #c91b0f;
+    color: #fff;
+    width: 205px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 //====================================================== School_Timings Page CSS ==============

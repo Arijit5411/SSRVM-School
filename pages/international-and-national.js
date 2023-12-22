@@ -73,7 +73,7 @@ const International_and_National = ({ intandnat }) => {
                 <div className='top-section1-new'>
                     <section className="internationalpadding pri-item">
                         <div className="container">
-                            <div className="wrap-item-text1 mobilehide">
+                            <div className="wrap-item-text1 mobilehide-international">
                                 <h1 className="principal-mess nationalfont">{page_title && <span dangerouslySetInnerHTML={{ __html: page_title.replace(/\n/g, "<br />") }}></span>}
                                 </h1>
                                 <p className="wrap-features">{descriptive_para && <span dangerouslySetInnerHTML={{ __html: descriptive_para.replace(/\n/g, "<br />") }}></span>}
