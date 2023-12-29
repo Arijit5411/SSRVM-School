@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
+import { determineStrapiUrl } from "@/utils/strapiUtils";
 
 const CertificateTwo = () => {
     const [formData, setFormData] = useState({
@@ -88,6 +89,10 @@ const CertificateTwo = () => {
 
         window.location.href = "/thank-you";
     };
+    const homeUrl = router.pathname === '/' ? '/' : `/${router.pathname}`;
+
+    const siteUrl = determineStrapiUrl(homeUrl);
+
 
     return (
         <>
@@ -150,7 +155,7 @@ const CertificateTwo = () => {
                         </div>
                     </section>
                 </div>
-                <Footer />
+                <Footer siteUrl={siteUrl}/>
             </Fragment>
         </>
     );

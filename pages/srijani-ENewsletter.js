@@ -90,7 +90,7 @@ const SrijaniENewsletter = ({ seodata, newsletter,siteUrl }) => {
                 {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
             </Head>
             <Fragment>
-                <NavBar />
+                <NavBar siteUrl={siteUrl}/>
                 {/* {seoData && (
                     <Seo
                         title={seoData.title}

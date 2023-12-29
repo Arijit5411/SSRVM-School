@@ -23,7 +23,8 @@ export const getServerSideProps = async (context) => {
     return {
         props: {
             seodata: data,
-            value: data1
+            value: data1,
+            siteUrl
         }
     };
 } catch (error) {
@@ -36,7 +37,7 @@ export const getServerSideProps = async (context) => {
   };
 }
 };
-const ValueBasedEducation = ({ seodata, value }) => {
+const ValueBasedEducation = ({ seodata, value,siteUrl }) => {
     const [valueData, setValueData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [seoData, setSeoData] = useState({

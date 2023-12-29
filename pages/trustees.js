@@ -23,6 +23,7 @@ export const getServerSideProps = async (context) => {
         props: {
             seodata: data,
             trusteeData: data1,
+            siteUrl
             
         }
     };
@@ -37,7 +38,7 @@ export const getServerSideProps = async (context) => {
 }
 };
 
-const Trustees = ({ seodata, trusteeData, }) => {
+const Trustees = ({ seodata, trusteeData, siteUrl}) => {
     const [expandedStates, setExpandedStates] = useState({});
     const [seoData, setSeoData] = useState({
         title: '',

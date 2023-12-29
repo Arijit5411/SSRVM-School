@@ -20,7 +20,8 @@ export const getServerSideProps = async (context) => {
     return {
         props: {
             seodata: data,
-            virtual: data1
+            virtual: data1,
+            siteUrl
         }
     };
 } catch (error) {
@@ -35,7 +36,7 @@ export const getServerSideProps = async (context) => {
 };
 
 
-const VirtualTour = ({ seodata, virtual }) => {
+const VirtualTour = ({ seodata, virtual,siteUrl }) => {
 
     const [virtualTour, setVirtualTour] = useState(null);
     const [seoData, setSeoData] = useState({

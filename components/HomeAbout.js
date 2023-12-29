@@ -184,7 +184,7 @@ const HomeAbout = ({siteUrl}) => {
                 (event) =>
                   event.attributes.enable_disable && (
                     <Tab key={event.id} eventKey="Global Blogs" title="Global Blogs">
-                      <HomeGlobalBlogs />
+                      <HomeGlobalBlogs siteUrl={siteUrl}/>
                     </Tab>
                   )
               )}

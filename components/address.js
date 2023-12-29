@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { FaPhoneAlt, FaEnvelopeOpen } from "react-icons/fa";
-import { determineStrapiUrl } from "@/utils/strapiUtils";
 
 const ContactAddress = ({siteUrl}) => {
     const [contactData, setContactData] = useState(null);
