@@ -5,11 +5,12 @@ import Head from "next/head";
 import DatePicker from "react-datetime";
 import moment from "moment";
 import DropdownReason from "@/components/DropdownReason";
-const isProduction = process.env.NODE_ENV === "production";
-const siteUrl = isProduction
-  ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-  : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
-export const getStaticProps = async () => {
+
+import { determineStrapiUrl } from "@/utils/strapiUtils";
+
+export const getServerSideProps = async (context) => {
+  try {
+    const siteUrl = determineStrapiUrl(context);
   const res = await fetch(
     `${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`
   );
@@ -20,9 +21,20 @@ export const getStaticProps = async () => {
     props: {
       seodata: data,
       classes: data1?.data,
+      siteUrl
     },
-  };
+  }
+  } catch (error) {
+    console.error("Error fetching data:", error.message);
+
+    return {
+      props: {
+        data: [],
+      },
+    };
+  }
 };
+
 const initialFormState = {
   showChildDetails: true,
   showAdmissionDetails: false,
@@ -52,7 +64,7 @@ const initialErrorState = {
   dateError: "",
 };
 
-const AppointmentBooking = ({ seodata, classes }) => {
+const AppointmentBooking = ({ seodata, classes ,siteUrl}) => {
   const [formState, setFormState] = useState(initialFormState);
   const [selectedOption, setSelectedOption] = useState("");
 
@@ -241,7 +253,7 @@ const AppointmentBooking = ({ seodata, classes }) => {
           <meta name="description" content={seoData.metaDescription} />
         )}
       </Head>
-      <NavBar />
+      <NavBar siteUrl={siteUrl}/>
       <div className="top-section1">
         <div className="container">
           <h1 className="principal-mess">Appointment Booking</h1>
@@ -523,7 +535,7 @@ const AppointmentBooking = ({ seodata, classes }) => {
           </form>
         </section>
       </div>
-      <Footer />
+      <Footer siteUrl={siteUrl}/>
     </Fragment>
   );
 };

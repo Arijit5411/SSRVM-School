@@ -92,7 +92,7 @@ const CertificateTwo = () => {
     return (
         <>
             <Fragment>
-                <NavBar />
+                <NavBar siteUrl={siteUrl}/>
                 <div className="top-section1">
                     <div className="container">
                         <h1 className="principal-mess">Transfer Certificate</h1>

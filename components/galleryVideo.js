@@ -3,17 +3,10 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import Video from '../components/Video';
 
-const GalleryVideo = (props) => {
-    const selectedYear = props.selectedYear
+const GalleryVideo = ({selectedYear,siteUrl}) => {
     const [videos, setVideos] = useState([]);
     const [tabs, setTabs] = useState([]);
     const [activeTab, setActiveTab] = useState('All');
-
-    const isProduction = process.env.NODE_ENV === "production";
-
-    const siteUrl = isProduction
-        ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-        : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
 
     useEffect(() => {
         // Fetch data from the API

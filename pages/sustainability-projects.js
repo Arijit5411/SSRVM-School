@@ -4,13 +4,12 @@ import Footer from '../components/Footer';
 // import Seo from './Seo';
 import Head from 'next/head';
 
-const isProduction = process.env.NODE_ENV === 'production';
 
-const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
+import { determineStrapiUrl } from "@/utils/strapiUtils";
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async (context) => {
+  try {
+    const siteUrl = determineStrapiUrl(context);
     const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
     const res1 = await fetch(`${siteUrl}/api/sustainability-projects-pages?populate[projects][populate]=*&populate=*`)
 
@@ -20,12 +19,22 @@ export const getStaticProps = async () => {
     return {
         props: {
             seodata: data,
-            project: data1
+            project: data1,
+            siteUrl
         }
-    }
-}
+    };
+} catch (error) {
+  console.error("Error fetching data:", error.message);
 
-const Sustainability_Projects = ({ seodata, project }) => {
+  return {
+    props: {
+      data: [],
+    },
+  };
+}
+};
+
+const Sustainability_Projects = ({ seodata, project,siteUrl }) => {
     const [sustainabilityProjects, setSustainabilityProjects] = useState(null);
     const [seoData, setSeoData] = useState({
         title: '',
@@ -102,7 +111,7 @@ const Sustainability_Projects = ({ seodata, project }) => {
                     {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
                     {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
                 </Head>
-                <NavBar />
+                <NavBar siteUrl={siteUrl}/>
 
                 {/* {seoData && (
                     <Seo
@@ -198,7 +207,7 @@ const Sustainability_Projects = ({ seodata, project }) => {
                     </section>
 
                 </div >
-                <Footer />
+                <Footer siteUrl={siteUrl}/>
             </Fragment >
         </>
     );

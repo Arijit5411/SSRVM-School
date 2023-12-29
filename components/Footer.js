@@ -10,16 +10,9 @@ import {
 import Subscribe from "./Subscribe";
 const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in";
 
-const Footer = () => {
+const Footer = ({siteUrl}) => {
   const [footerData, setFooterData] = useState(null);
   const [globalsocial, setGlobalSocial] = useState();
-
-
-  const isProduction = process.env.NODE_ENV === "production";
-
-  const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
 
   useEffect(() => {
     // Make the API call when the component mounts
@@ -48,7 +41,7 @@ const Footer = () => {
     <>
       {/* footer area start */}
       <footer className="footer-area-3">
-        <Subscribe />
+        <Subscribe siteUrl={siteUrl}/>
         {footerData && (
           <div>
             {/* Widget Area Starts */}

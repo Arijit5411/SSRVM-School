@@ -4,14 +4,12 @@ import Footer from '@/components/Footer';
 import Head from 'next/head';
 // import Seo from './Seo';
 
-const isProduction = process.env.NODE_ENV === 'production';
 
-const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
+import { determineStrapiUrl } from "@/utils/strapiUtils";
 
-export const getStaticProps = async () => {
-    const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
+export const getServerSideProps = async (context) => {
+  try {
+    const siteUrl = determineStrapiUrl(context);       const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
     const res1 = await fetch(`${siteUrl}/api/examinations?populate[syllabus][populate]=*&populate[schedule][populate]=*&populate=*`)
 
     const data = await res.json()
@@ -20,12 +18,21 @@ export const getStaticProps = async () => {
     return {
         props: {
             seodata: data,
-            optionData: data1
+            optionData: data1,
+            siteUrl
         }
     }
-}
+} catch (error) {
+  console.error("Error fetching data:", error.message);
 
-const Examination = ({ seodata, optionData }) => {
+  return {
+    props: {
+      data: [],
+    },
+  };
+}
+};
+const Examination = ({ seodata, optionData,siteUrl }) => {
     const [selectedOption, setSelectedOption] = useState('class0');
     const [seoData, setSeoData] = useState({
         title: '',
@@ -173,7 +180,7 @@ const Examination = ({ seodata, optionData }) => {
                     {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
                     {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
                 </Head>
-                <NavBar />
+                <NavBar siteUrl={siteUrl}/>
                 {/* {seoData && (
                     <Seo
                         title={seoData.title}
@@ -282,7 +289,7 @@ const Examination = ({ seodata, optionData }) => {
 
                     </section>
                 )}
-                <Footer />
+                <Footer siteUrl={siteUrl}/>
 
             </Fragment>
         </>

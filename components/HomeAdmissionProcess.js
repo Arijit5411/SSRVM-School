@@ -1,15 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 
-const HomeAdmissionProcess = () => {
+const HomeAdmissionProcess = ({siteUrl}) => {
   const [admission, setAdmission] = useState([]);
-
-  const isProduction = process.env.NODE_ENV === "production";
-
-  const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
-
   useEffect(() => {
     fetch(`${siteUrl}/api/home-admission-enables?populate=*`)
       .then((response) => response.json())

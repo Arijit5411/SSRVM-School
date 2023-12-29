@@ -4,13 +4,12 @@ import Footer from "../components/Footer";
 import Head from "next/head";
 // import Seo from './Seo';
 
-const isProduction = process.env.NODE_ENV === "production";
 
-const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
+import { determineStrapiUrl } from "@/utils/strapiUtils";
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async (context) => {
+  try {
+    const siteUrl = determineStrapiUrl(context);
     const res = await fetch(`${siteUrl}/api/seos`)
     const res1 = await fetch(`${siteUrl}/api/career-guidance-pages?populate=*`)
 
@@ -20,13 +19,23 @@ export const getStaticProps = async () => {
     return {
         props: {
             seodata: data,
-            careerGuide: data1
+            careerGuide: data1,
+            siteUrl
         }
     }
+} catch (error) {
+  console.error("Error fetching data:", error.message);
+
+  return {
+    props: {
+      data: [],
+    },
+  };
 }
+};
 
 
-const CareerGuidance = ({ seodata, careerGuide }) => {
+const CareerGuidance = ({ seodata, careerGuide,siteUrl }) => {
     const [careerGuidance, setCareerGuidance] = useState(null);
     const [seoData, setSeoData] = useState({
         title: '',
@@ -93,7 +102,7 @@ const CareerGuidance = ({ seodata, careerGuide }) => {
                 {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
             </Head>
             <Fragment>
-                <NavBar />
+                <NavBar siteUrl={siteUrl}/>
                 <div className="top-section-new mobiletoppadding">
                     <div className="container">
                         <h1 className="principal-mess mob_head linehightdesktop">{page_title}</h1>
@@ -116,7 +125,7 @@ const CareerGuidance = ({ seodata, careerGuide }) => {
                         </div>
                     </section>
                 </div>
-                <Footer />
+                <Footer siteUrl={siteUrl} />
             </Fragment>
         </>
     );

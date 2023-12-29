@@ -1,14 +1,8 @@
 import React, { useEffect, useState } from "react";
-import DatePicker from "react-datepicker"; // Import react-datepicker
-import "react-datepicker/dist/react-datepicker.css";
+// import DatePicker from "react-datepicker"; // Import react-datepicker
+// import "react-datepicker/dist/react-datepicker.css";
 
-const isProduction = process.env.NODE_ENV === "production";
-
-const siteUrl = isProduction
-  ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-  : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
-
-const RequestTransferCertificate = () => {
+const RequestTransferCertificate = ({siteUrl}) => {
   const [formValues, setFormValues] = useState({
     fullName: "",
     contactNumber: "",
@@ -237,7 +231,7 @@ const RequestTransferCertificate = () => {
                   )}
                 </div>
 
-                <div className="col-sm-6">
+                {/* <div className="col-sm-6">
                   <DatePicker
                     className="input_certi"
                     selected={formValues.dateOfBirth}
@@ -256,7 +250,7 @@ const RequestTransferCertificate = () => {
                   {formErrors.dateOfBirth && (
                     <span className="error">{formErrors.dateOfBirth}</span>
                   )}
-                </div>
+                </div> */}
 
                 <div className="col-sm-6">
                   <input

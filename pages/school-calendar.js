@@ -1,24 +1,31 @@
 import React, { Fragment, useEffect, useState } from 'react';
 
-const isProduction = process.env.NODE_ENV === "production";
+import { determineStrapiUrl } from "@/utils/strapiUtils";
 
-const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
-
-export const getStaticProps = async () => {
+export const getServerSideProps = async (context) => {
+  try {
+    const siteUrl = determineStrapiUrl(context);
     const res = await fetch(`${siteUrl}/api/calender-downloads?populate=*`)
 
     const data = await res.json()
 
     return {
         props: {
-            calendar: data
+            calendar: data,
+            siteUrl
         }
-    }
-}
+    };
+} catch (error) {
+  console.error("Error fetching data:", error.message);
 
-const School_Calender = ({ calendar }) => {
+  return {
+    props: {
+      data: [],
+    },
+  };
+}
+};
+const School_Calender = ({ calendar,siteUrl }) => {
     const [calendarData, setCalendarData] = useState([]);
 
     useEffect(() => {

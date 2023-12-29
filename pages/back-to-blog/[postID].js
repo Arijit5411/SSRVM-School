@@ -6,19 +6,23 @@ import ReactMarkdown from 'react-markdown';
 import RecentPostsSidebar from '@/components/RecentPostsSidebar';
 import { useRouter } from 'next/router';
 
+import { determineStrapiUrl } from "@/utils/strapiUtils";
+
 const BackToBlog = () => {
 
     const router = useRouter();
 
+    
+    const homeUrl = router.pathname === '/' ? '/' : `/${router.pathname}`;
+    const siteUrl = determineStrapiUrl(homeUrl);
+
     const [blog, setBlog] = useState(null);
+    const [publicUrl, setPublicUrl] = useState();
+
     const { postID } = router.query;
+
     const [loading, setLoading] = useState(true);
 
-    const isProduction = process.env.NODE_ENV === 'production';
-
-    const siteUrl = isProduction
-        ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-        : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
 
     useEffect(() => {
         if (postID) {
@@ -46,16 +50,19 @@ const BackToBlog = () => {
         },
     };
 
+    useEffect(() => {
+        setPublicUrl(window.location.origin)
+      }, [publicUrl]);
     return (
         <>
-            <NavBar />
+            <NavBar siteUrl={siteUrl}/>
             <div className='top-section4 desktophide'>
                 <section className="wrap-item-blog-se1 first-section position-relative">
                     <div className='container'>
                         <div className="row">
                             <div className='col-content'>
                                 <a className='backto-btn' href='/blogs'>
-                                    <img src={process.env.PUBLIC_URL + "/assets/img/blog/13-arrow-left.png"} alt="Transpro" />
+                                    <img src={publicUrl + "/assets/img/blog/13-arrow-left.png"} alt="Transpro" />
                                     <span>
                                         Back to Blog
                                     </span>
@@ -80,7 +87,7 @@ const BackToBlog = () => {
                                     </div>
                                 )}
                             </div>
-                            <RecentPostsSidebar />
+                            <RecentPostsSidebar siteUrl={siteUrl}/>
 
                         </div>
                     </div>
@@ -94,13 +101,13 @@ const BackToBlog = () => {
                                 {/* Sidebar content */}
                                 <div className='col-content'>
                                     <a className='backto-btn' href='/blogs'>
-                                        <img src={process.env.PUBLIC_URL + "/assets/img/blog/13-arrow-left.png"} alt="Transpro" />
+                                        <img src={publicUrl + "/assets/img/blog/13-arrow-left.png"} alt="Transpro" />
                                         <span>
                                             Back to Blog
                                         </span>
                                     </a>
 
-                                    <RecentPostsSidebar />
+                                    <RecentPostsSidebar siteUrl={siteUrl}/>
 
 
                                 </div>
@@ -128,7 +135,7 @@ const BackToBlog = () => {
                     </div>
                 </section>
             </div>
-            <Footer />
+            <Footer siteUrl={siteUrl}/>
         </>
     );
 }

@@ -4,26 +4,30 @@ import Footer from "../components/Footer";
 import GooglePieChart from "../components/GooglePieChart";
 import OurToppers from "@/components/OurTopper";
 import DownloadResult from "@/components/DownloadResult";
-
-const isProduction = process.env.NODE_ENV === "production";
-
-const siteUrl = isProduction
-  ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-  : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
-
-export const getStaticProps = async () => {
+import { determineStrapiUrl } from "@/utils/strapiUtils";
+export const getServerSideProps = async (context) => {
+  try {
+    const siteUrl = determineStrapiUrl(context);
   const res = await fetch(`${siteUrl}/api/result2?populate=*`);
-
   const data = await res.json();
-
   return {
     props: {
       chart: data?.data,
+      siteUrl
     },
   };
+} catch (error) {
+  console.error("Error fetching data:", error.message);
+
+  return {
+    props: {
+      data: [],
+    },
+  };
+}
 };
 
-const Results_two = ({ chart }) => {
+const Results_two = ({ chart,siteUrl }) => {
   const [piechartData, setPiechartData] = useState([]);
 
   const [title, setTitle] = useState([]);
@@ -57,7 +61,7 @@ const Results_two = ({ chart }) => {
   console.log("data in ", piechartData);
   return (
     <>
-      <NavBar />
+      <NavBar siteUrl={siteUrl}/>
       <Fragment>
         <div className="top-section1">
           <div className="container">
@@ -99,7 +103,7 @@ const Results_two = ({ chart }) => {
           </section>
 
           <section className="container wrap-item-1 mb-5">
-            <DownloadResult />
+            <DownloadResult siteUrl={siteUrl}/>
           </section>
         </div>
         <Footer />

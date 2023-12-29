@@ -6,20 +6,19 @@ import Footer from "@/components/Footer";
 import RecentEventsSidebar from "@/components/RecentEventsSidebar";
 import ReactMarkdown from 'react-markdown';
 import GlobalRecentEvents from "@/components/GlobalRecentEvents";
+import { determineStrapiUrl } from "@/utils/strapiUtils";
+
+
+
+const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in"
+
 
 const GlobalIndividualEvents = () => {
     const router = useRouter()
     const [events, setEvents] = useState(null);
     const { postID } = router.query;
     const [loading, setLoading] = useState(true);
-    const isProduction = process.env.NODE_ENV === "production";
-
-    const siteUrl = isProduction
-        ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-        : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
-
-    const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in"
-
+    const [publicUrl, setPublicUrl] = useState();
 
     useEffect(() => {
         if (postID) {
@@ -41,15 +40,24 @@ const GlobalIndividualEvents = () => {
         }
     }, [postID]);
 
+
+
+
     const components = {
         img: ({ src, alt }) => {
             return <img src={`${GlobalSiteUrl}${src}`} alt={alt} />;
         },
     };
+    useEffect(() => {
+        setPublicUrl(window.location.origin) 
+      }, [publicUrl]);
 
+      const homeUrl = router.pathname === '/' ? '/' : `/${router.pathname}`;
+
+      const siteUrl = determineStrapiUrl(homeUrl);
     return (
         <>
-            <NavBar />
+            <NavBar siteUrl={siteUrl}/>
             <div className="top-section4-new desktophide">
                 <section className="wrap-item-blog-se1 first-section position-relative">
                     <div className="container">
@@ -58,7 +66,7 @@ const GlobalIndividualEvents = () => {
                                 <a className="backto-btn" href="/global-events">
                                     <img
                                         src={
-                                            process.env.PUBLIC_URL +
+                                            publicUrl +
                                             "/assets/img/blog/13-arrow-left.png"
                                         }
                                         alt="Transpro"
@@ -91,7 +99,7 @@ const GlobalIndividualEvents = () => {
                                 )}
                             </div>
                             <div className="container">
-                                <GlobalRecentEvents />
+                                <GlobalRecentEvents siteUrl={siteUrl}/>
                             </div>
                         </div>
                     </div>
@@ -107,7 +115,7 @@ const GlobalIndividualEvents = () => {
                                     <a className="backto-btn" href="/global-events">
                                         <img
                                             src={
-                                                process.env.PUBLIC_URL +
+                                                publicUrl +
                                                 "/assets/img/blog/13-arrow-left.png"
                                             }
                                             alt="Transpro"
@@ -115,7 +123,7 @@ const GlobalIndividualEvents = () => {
                                         <span>Back to Events</span>
                                     </a>
 
-                                    <GlobalRecentEvents />
+                                    <GlobalRecentEvents siteUrl={siteUrl}/>
                                 </div>
                             </div>
                             <div className="col-lg-9 col-2">
@@ -144,7 +152,7 @@ const GlobalIndividualEvents = () => {
                     </div>
                 </section>
             </div>
-            <Footer />
+            <Footer siteUrl={siteUrl}/>
         </>
     );
 };

@@ -4,13 +4,11 @@ import Footer from "../components/Footer";
 // import Seo from './Seo';
 import Head from "next/head";
 
-const isProduction = process.env.NODE_ENV === 'production';
+import { determineStrapiUrl } from "@/utils/strapiUtils";
 
-const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
-
-export const getStaticProps = async () => {
+export const getServerSideProps = async (context) => {
+  try {
+    const siteUrl = determineStrapiUrl(context);
     const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
     const res1 = await fetch(`${siteUrl}/api/srijani-enewsletters?populate=*`)
 
@@ -20,12 +18,21 @@ export const getStaticProps = async () => {
     return {
         props: {
             seodata: data,
-            newsletter: data1
+            newsletter: data1,
+            siteUrl
         }
-    }
-}
+    };
+} catch (error) {
+  console.error("Error fetching data:", error.message);
 
-const SrijaniENewsletter = ({ seodata, newsletter }) => {
+  return {
+    props: {
+      data: [],
+    },
+  };
+}
+};
+const SrijaniENewsletter = ({ seodata, newsletter,siteUrl }) => {
     const [newsletters, setNewsletters] = useState([]);
     const [seoData, setSeoData] = useState({
         title: '',
@@ -111,7 +118,7 @@ const SrijaniENewsletter = ({ seodata, newsletter }) => {
                         </div>
                     </section>
                 </div>
-                <Footer />
+                <Footer siteUrl={siteUrl}/>
             </Fragment>
         </>
     );

@@ -2,15 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 const GlobalRecentBlogs = () => {
     const [recentPosts, setRecentPosts] = useState([]);
-    const isProduction = process.env.NODE_ENV === 'production';
-
-    const siteUrl = isProduction
-        ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-        : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
-
     const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in"
-
-
     useEffect(() => {
         fetch(`${GlobalSiteUrl}/api/global-blogs?_limit=3&_sort=createdAt:desc`)
             .then(response => {

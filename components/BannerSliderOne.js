@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import Slider from "react-slick";
 
-const BannerSliderOne = () => {
+const BannerSliderOne = ({siteUrl}) => {
   const [state, setState] = useState({
     nav1: null,
     nav2: null,
@@ -69,12 +69,6 @@ const BannerSliderOne = () => {
   const [banner, setBanner] = useState([]);
   const [isVideo, setIsVideo] = useState(false);
   const [vidUrl, setVidUrl] = useState("");
-
-  const isProduction = process.env.NODE_ENV === "production";
-
-  const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
 
   const getBanners = () => {
     fetch(`${siteUrl}/api/home-top-banners?populate=*`)

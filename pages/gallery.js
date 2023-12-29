@@ -9,25 +9,35 @@ import GalleryVideo from '../components/galleryVideo';
 import Head from 'next/head';
 // import Seo from './Seo';
 
-const isProduction = process.env.NODE_ENV === 'production';
+import { determineStrapiUrl } from "@/utils/strapiUtils";
 
-const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
+export const getServerSideProps = async (context) => {
+  try {
+    const siteUrl = determineStrapiUrl(context);
 
-export const getStaticProps = async () => {
     const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
 
     const data = await res.json()
 
     return {
         props: {
-            seodata: data
+            seodata: data,
+            siteUrl
         }
-    }
-}
+    };
+} catch (error) {
+  console.error("Error fetching data:", error.message);
 
-const Gallery = ({ seodata }) => {
+  return {
+    props: {
+      data: [],
+    },
+  };
+}
+};
+
+
+const Gallery = ({ seodata,siteUrl }) => {
     const [selectedOption, setSelectedOption] = useState('Photos');
     const [selectedYear, setSelectedYear] = useState('All');
     const [years, setYears] = useState(['All'])
@@ -455,7 +465,7 @@ const Gallery = ({ seodata }) => {
                     {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
                     {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
                 </Head>
-                <NavBar />
+                <NavBar siteUrl={siteUrl}/>
                 <div className='top-section1-new'>
                     <div className="container">
                         <h1 className="principal-mess">Gallery</h1>
@@ -508,7 +518,7 @@ const Gallery = ({ seodata }) => {
                             </div>
                         </div>
                         {selectedOption === 'Videos' ? (
-                            <GalleryVideo selectedYear={selectedYear} />
+                            <GalleryVideo selectedYear={selectedYear} siteUrl={siteUrl}/>
                         ) : (
 
                             <Tabs defaultActiveKey="All" id="uncontrolled-tab-example" className="mb-3" onSelect={handleFolderTabSelect}>
@@ -532,7 +542,7 @@ const Gallery = ({ seodata }) => {
 
                     </div>
                 </div>
-                <Footer />
+                <Footer siteUrl={siteUrl}/>
             </Fragment>
             {lightboxOpen && (
                 <Lightbox

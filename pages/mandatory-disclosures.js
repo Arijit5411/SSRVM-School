@@ -4,13 +4,13 @@ import Footer from "../components/Footer";
 import Head from "next/head";
 // import Seo from './Seo';
 
-const isProduction = process.env.NODE_ENV === "production";
 
-const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
 
-export const getStaticProps = async () => {
+import { determineStrapiUrl } from "@/utils/strapiUtils";
+
+export const getServerSideProps = async (context) => {
+  try {
+    const siteUrl = determineStrapiUrl(context);
     const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
     const res1 = await fetch(`${siteUrl}/api/generic-text-pages`)
 
@@ -20,12 +20,22 @@ export const getStaticProps = async () => {
     return {
         props: {
             seodata: data,
-            generic: data1
+            generic: data1,
+            siteUrl
         }
-    }
-}
+    };
+} catch (error) {
+  console.error("Error fetching data:", error.message);
 
-const Mandatory_Disclosures = ({ seodata, generic }) => {
+  return {
+    props: {
+      data: [],
+    },
+  };
+}
+};
+
+const Mandatory_Disclosures = ({ seodata, generic,siteUrl }) => {
     const [genericTextPage, setGenericTextPage] = useState(null);
     const [seoData, setSeoData] = useState({
         title: '',
@@ -90,7 +100,7 @@ const Mandatory_Disclosures = ({ seodata, generic }) => {
                     {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
                     {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
                 </Head>
-                <NavBar />
+                <NavBar siteUrl={siteUrl}/>
 
                 {/* {seoData && (
                     <Seo
@@ -113,7 +123,7 @@ const Mandatory_Disclosures = ({ seodata, generic }) => {
                         </div>
                     </div>
                 </div>
-                <Footer />
+                <Footer siteUrl={siteUrl}/>
             </Fragment>
         </>
     );

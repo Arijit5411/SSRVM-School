@@ -12,12 +12,12 @@ const BackToNews = () => {
     const [news, setNews] = useState(null);
     const { postId } = router.query;
     const [loading, setLoading] = useState(true);
+    const [publicUrl, setPublicUrl] = useState();
 
-    const isProduction = process.env.NODE_ENV === 'production';
 
-    const siteUrl = isProduction
-        ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-        : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
+    const homeUrl = router.pathname === '/' ? '/' : `/${router.pathname}`;
+    const siteUrl = determineStrapiUrl(homeUrl);
+
 
     useEffect(() => {
         if (postId) {
@@ -44,16 +44,19 @@ const BackToNews = () => {
             return <img src={`${siteUrl}${src}`} alt={alt} />;
         },
     };
+    useEffect(() => {
+        setPublicUrl(window.location.origin)
+      }, [publicUrl]);
 
     return (
         <>
-            <NavBar />
+            <NavBar siteUrl={siteUrl}/>
             <div className='top-section4-new desktophide'>
                 <section className="wrap-item-blog-se1 first-section position-relative">
                     <div className='container'>
                         <div className='col-content'>
                             <a className='backto-btn' href='/news'>
-                                <img src={process.env.PUBLIC_URL + "/assets/img/blog/13-arrow-left.png"} alt="Transpro" />
+                                <img src={publicUrl + "/assets/img/blog/13-arrow-left.png"} alt="Transpro" />
                                 <span>
                                     Back to News
                                 </span>
@@ -82,7 +85,7 @@ const BackToNews = () => {
                                 </div>
                             )}
                             <div className="row">
-                                <RecentNewsSidebar />
+                                <RecentNewsSidebar siteUrl={siteUrl}/>
 
                             </div>
                         </div>
@@ -97,13 +100,13 @@ const BackToNews = () => {
                                 {/* Sidebar content */}
                                 <div className='col-content'>
                                     <a className='backto-btn' href='/news'>
-                                        <img src={process.env.PUBLIC_URL + "/assets/img/blog/13-arrow-left.png"} alt="Transpro" />
+                                        <img src={publicUrl + "/assets/img/blog/13-arrow-left.png"} alt="Transpro" />
                                         <span>
                                             Back to News
                                         </span>
                                     </a>
 
-                                    <RecentNewsSidebar />
+                                    <RecentNewsSidebar siteUrl={siteUrl}/>
 
 
                                 </div>
@@ -131,7 +134,7 @@ const BackToNews = () => {
                     </div>
                 </section>
             </div>
-            <Footer />
+            <Footer siteUrl={siteUrl}/>
         </>
     );
 }

@@ -9,13 +9,12 @@ import Head from "next/head";
 import Slider from "react-slick";
 // import Seo from './Seo';
 
-const isProduction = process.env.NODE_ENV === 'production';
 
-const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
+import { determineStrapiUrl } from "@/utils/strapiUtils";
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async (context) => {
+  try {
+    const siteUrl = determineStrapiUrl(context);
     const res = await fetch(`${siteUrl}/api/seos`)
     const res1 = await fetch(`${siteUrl}/api/testimonial-pages?populate=*`)
 
@@ -25,13 +24,23 @@ export const getStaticProps = async () => {
     return {
         props: {
             seodata: data,
-            testimonial: data1
+            testimonial: data1,
+            siteUrl
         }
-    }
+    };
+} catch (error) {
+  console.error("Error fetching data:", error.message);
+
+  return {
+    props: {
+      data: [],
+    },
+  };
 }
+};
 
 
-const Testimonials = ({ seodata, testimonial }) => {
+const Testimonials = ({ seodata, testimonial,siteUrl }) => {
     const [selectedOption, setSelectedOption] = useState('Students');
     const [selectedYear, setSelectedYear] = useState('year 2023');
     const [seoData, setSeoData] = useState({
@@ -179,12 +188,12 @@ const Testimonials = ({ seodata, testimonial }) => {
     return (
         <>
             <Fragment>
-                <NavBar />
+                <NavBar siteUrl={siteUrl}/>
 
                 <div className="top-section1">
                     <div className="container">
                         <h1 className="principal-mess">Testimonials</h1>
-                        <TestimonialsVideo />
+                        <TestimonialsVideo siteUrl={siteUrl}/>
                     </div>
 
                     <section className="container marginTopExternal">
@@ -249,9 +258,9 @@ const Testimonials = ({ seodata, testimonial }) => {
                         </div>
                     </section>
 
-                    <TestimonialsForm />
+                    <TestimonialsForm siteUrl={siteUrl}/>
                 </div>
-                <Footer />
+                <Footer siteUrl={siteUrl}/>
             </Fragment>
         </>
     );

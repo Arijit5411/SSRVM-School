@@ -4,15 +4,16 @@ import Footer from '../components/Footer';
 import Head from 'next/head';
 // import Seo from './Seo';
 
-const isProduction = process.env.NODE_ENV === "production";
 
-const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
 
 const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in"
 
-export const getStaticProps = async () => {
+import { determineStrapiUrl } from "@/utils/strapiUtils";
+
+export const getServerSideProps = async (context) => {
+  try {
+    const siteUrl = determineStrapiUrl(context);
+
     const res = await fetch(`${siteUrl}/api/seos`)
     const res1 = await fetch(`${GlobalSiteUrl}/api/value-based-educations?populate=*`)
 
@@ -24,9 +25,17 @@ export const getStaticProps = async () => {
             seodata: data,
             value: data1
         }
-    }
-}
+    };
+} catch (error) {
+  console.error("Error fetching data:", error.message);
 
+  return {
+    props: {
+      data: [],
+    },
+  };
+}
+};
 const ValueBasedEducation = ({ seodata, value }) => {
     const [valueData, setValueData] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -91,7 +100,7 @@ const ValueBasedEducation = ({ seodata, value }) => {
                 {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
             </Head>
             <Fragment>
-                <NavBar />
+                <NavBar siteUrl={siteUrl}/>
 
                 {/* {seoData && (
                     <Seo
@@ -122,7 +131,7 @@ const ValueBasedEducation = ({ seodata, value }) => {
                     </section>
 
                 )}
-                <Footer />
+                <Footer siteUrl={siteUrl}/>
             </Fragment>
         </>
     );

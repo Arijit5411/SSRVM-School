@@ -4,14 +4,13 @@ import Footer from "../components/Footer";
 // import Seo from './Seo';
 import Head from "next/head";
 
-const isProduction = process.env.NODE_ENV === "production";
 
-const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
 
-export const getStaticProps = async () => {
-    const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
+import { determineStrapiUrl } from "@/utils/strapiUtils";
+
+export const getServerSideProps = async (context) => {
+  try {
+    const siteUrl = determineStrapiUrl(context);    const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
     const res1 = await fetch(`${siteUrl}/api/school-infos?populate=*`)
 
     const data = await res.json()
@@ -20,12 +19,22 @@ export const getStaticProps = async () => {
     return {
         props: {
             seodata: data,
-            schoolInfo_data: data1
+            schoolInfo_data: data1,
+            siteUrl
         }
-    }
-}
+    };
+} catch (error) {
+  console.error("Error fetching data:", error.message);
 
-const SchoolInfo = ({ seodata, schoolInfo_data }) => {
+  return {
+    props: {
+      data: [],
+    },
+  };
+}
+};
+
+const SchoolInfo = ({ seodata, schoolInfo_data,siteUrl }) => {
     const [schoolInfoList, setSchoolInfoList] = useState([]);
     const [seoData, setSeoData] = useState({
         title: '',
@@ -87,7 +96,7 @@ const SchoolInfo = ({ seodata, schoolInfo_data }) => {
                 {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
             </Head>
             <Fragment>
-                <NavBar />
+                <NavBar siteUrl={siteUrl}/>
                 {/* {seoData && (
                     <Seo
                         title={seoData.title}
@@ -134,7 +143,7 @@ const SchoolInfo = ({ seodata, schoolInfo_data }) => {
                     </div>
                 </div>
 
-                <Footer />
+                <Footer siteUrl={siteUrl}/>
             </Fragment>
         </>
     );

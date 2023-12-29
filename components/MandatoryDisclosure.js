@@ -1,17 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Marquee from 'react-fast-marquee';
 
-const MandatoryDisclosure = () => {
-
+const MandatoryDisclosure = ({siteUrl}) => {
     const [data, setData] = useState()
-
-    const isProduction = process.env.NODE_ENV === 'production';
-
-    const siteUrl = isProduction
-        ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-        : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
-
-
     const getData = async () => {
         try {
             const res = await fetch(`${siteUrl}/api/home-disclosure-enable-disables?populate=*`)

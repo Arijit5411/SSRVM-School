@@ -6,6 +6,8 @@ import Video from "@/components/Video";
 import { useRouter } from 'next/router';
 import Slider from "react-slick";
 
+import { determineStrapiUrl } from "@/utils/strapiUtils";
+
 const SportsAndArts = () => {
     const router = useRouter();
 
@@ -14,10 +16,9 @@ const SportsAndArts = () => {
     const { postID } = router.query;
     const [nextPostExists, setNextPostExists] = useState(true);
 
-    const isProduction = process.env.NODE_ENV === 'production';
-    const siteUrl = isProduction
-        ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-        : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
+
+    const homeUrl = router.pathname === '/' ? '/' : `/${router.pathname}`;
+    const siteUrl = determineStrapiUrl(homeUrl);
 
 
     const navigateToNextPost = () => {
@@ -82,7 +83,7 @@ const SportsAndArts = () => {
 
     return (
         <>
-            <NavBar />
+            <NavBar siteUrl={siteUrl}/>
             <div className="top-section15-new">
                 <div className="container">
                     <h1 className="principal-mess wrap-sports-arts sport_mob lineHight">{title}</h1>
@@ -184,7 +185,7 @@ const SportsAndArts = () => {
                     </>
                 )}
             </div>
-            <Footer />
+            <Footer siteUrl={siteUrl}/>
         </>
     );
 };

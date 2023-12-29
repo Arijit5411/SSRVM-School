@@ -4,15 +4,8 @@ import "slick-carousel/slick/slick-theme.css";
 import MarqueeAward from "../components/marqueeAward";
 import Slider from "react-slick";
 
-const Award = () => {
+const Award = ({siteUrl}) => {
   const [awards, setAwards] = useState([]);
-
-  const isProduction = process.env.NODE_ENV === "production";
-
-  const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
-
   useEffect(() => {
     const fetchAwards = async () => {
       try {
@@ -96,7 +89,7 @@ const Award = () => {
 
             <div className="col-sm-3">
               <h2 className="title pd-bottom-20 marginTop72 ">Recent Awards</h2>
-              <MarqueeAward />
+              <MarqueeAward siteUrl={siteUrl}/>
             </div>
           </div>
         </div>

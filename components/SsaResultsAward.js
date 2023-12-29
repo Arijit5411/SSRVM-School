@@ -4,15 +4,8 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const SsaResultsAward = () => {
+const SsaResultsAward = ({siteUrl}) => {
     const [images, setImages] = useState([]);
-
-    const isProduction = process.env.NODE_ENV === 'production';
-
-    const siteUrl = isProduction
-        ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-        : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
-
     useEffect(() => {
         // Fetch data from the API
         fetch(`${siteUrl}/api/ssa-results-awards?populate=*`)

@@ -15,12 +15,7 @@ class AnnouncementPopup extends Component {
   };
 
   render() {
-    const { announcement } = this.props;
-    const isProduction = process.env.NODE_ENV === "production";
-    const siteUrl = isProduction
-      ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-      : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
-
+    const { announcement ,siteUrl} = this.props;
     return (
       <>
         <button type="button" className="btn-home" onClick={this.openModal}>

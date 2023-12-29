@@ -8,15 +8,14 @@ import SsrvmTrust from "../components/SsrvmTrust";
 import SsrvmTrustMobile from "../components/SsrvmTrustMobile";
 import Head from "next/head";
 
-const isProduction = process.env.NODE_ENV === "production";
-
-const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
 
 const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in"
 
-export const getStaticProps = async () => {
+import { determineStrapiUrl } from "@/utils/strapiUtils";
+
+export const getServerSideProps = async (context) => {
+  try {
+    const siteUrl = determineStrapiUrl(context);
     const res = await fetch(`${siteUrl}/api/seos`)
     const res1 = await fetch(`${GlobalSiteUrl}/api/founder-pages?populate=*`)
     const res2 = await fetch(`${GlobalSiteUrl}/api/art-of-living-foundations?populate=*`)
@@ -29,12 +28,22 @@ export const getStaticProps = async () => {
         props: {
             seodata: data,
             founderprop: data1,
-            foundation: data2
+            foundation: data2,
+            siteUrl
         }
-    }
-}
+    };
+} catch (error) {
+  console.error("Error fetching data:", error.message);
 
-const FounderTrust = ({ seodata, founderprop, foundation }) => {
+  return {
+    props: {
+      data: [],
+    },
+  };
+}
+};
+
+const FounderTrust = ({ seodata, founderprop, foundation,siteUrl }) => {
     const [founder, setFounder] = useState(null);
     const [foundationData, setFoundationData] = useState(null);
     const [seoData, setSeoData] = useState({
@@ -121,7 +130,7 @@ const FounderTrust = ({ seodata, founderprop, foundation }) => {
                 {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
                 {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
             </Head>
-            <NavBar />
+            <NavBar siteUrl={siteUrl}/>
 
             {/* {seoData && (
         <Seo
@@ -495,7 +504,7 @@ const FounderTrust = ({ seodata, founderprop, foundation }) => {
                     </div>
                 </div>
             </div>
-            <Footer />
+            <Footer siteUrl={siteUrl}/>
         </>
     );
 };

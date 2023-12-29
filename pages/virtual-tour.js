@@ -4,13 +4,13 @@ import Footer from '../components/Footer';
 import Head from 'next/head';
 // import Seo from './Seo';
 
-const isProduction = process.env.NODE_ENV === 'production';
 
-const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
 
-export const getStaticProps = async () => {
+import { determineStrapiUrl } from "@/utils/strapiUtils";
+
+export const getServerSideProps = async (context) => {
+  try {
+    const siteUrl = determineStrapiUrl(context);
     const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
     const res1 = await fetch(`${siteUrl}/api/virtual-tours`)
 
@@ -22,8 +22,18 @@ export const getStaticProps = async () => {
             seodata: data,
             virtual: data1
         }
-    }
+    };
+} catch (error) {
+  console.error("Error fetching data:", error.message);
+
+  return {
+    props: {
+      data: [],
+    },
+  };
 }
+};
+
 
 const VirtualTour = ({ seodata, virtual }) => {
 
@@ -83,7 +93,7 @@ const VirtualTour = ({ seodata, virtual }) => {
                 {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
                 {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
             </Head>
-            <NavBar />
+            <NavBar siteUrl={siteUrl}/>
             {/* {seoData && (
                 <Seo
                     title={seoData.title}
@@ -110,7 +120,7 @@ const VirtualTour = ({ seodata, virtual }) => {
 
                 </div>
             )}
-            <Footer />
+            <Footer siteUrl={siteUrl}/>
 
         </>
     )

@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 import ReactMarkdown from "react-markdown";
+import { determineStrapiUrl } from "@/utils/strapiUtils";
 
 // import { useParams } from 'react-router-dom';
 import { useRouter } from "next/router";
@@ -13,13 +14,9 @@ const State_Facility = () => {
   const [loading, setLoading] = useState(true);
   // const { postID } = useParams();
   const { postID } = router.query;
-
-  const isProduction = process.env.NODE_ENV === "production";
-
-  const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
-
+  const homeUrl = router.pathname === '/' ? '/' : `/${router.pathname}`;
+  const siteUrl = determineStrapiUrl(homeUrl);
+ 
   useEffect(() => {
     if (postID) {
       fetch(`${siteUrl}/api/features/${postID}?populate=*`)
@@ -63,7 +60,7 @@ const State_Facility = () => {
   return (
     <>
       <Fragment>
-        <NavBar />
+        <NavBar siteUrl={siteUrl}/>
         <div className="top-section1-new1 feature-inner">
           {loading ? (
             <p>Loading post...</p>
@@ -113,7 +110,7 @@ const State_Facility = () => {
             </div>
           )}
         </div>
-        <Footer />
+        <Footer siteUrl={siteUrl}/>
       </Fragment>
     </>
   );

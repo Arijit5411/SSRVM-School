@@ -4,13 +4,12 @@ import Footer from '../components/Footer';
 import Head from 'next/head';
 // import Seo from './Seo';
 
-const isProduction = process.env.NODE_ENV === 'production';
 
-const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
+    import { determineStrapiUrl } from "@/utils/strapiUtils";
 
-export const getStaticProps = async () => {
+    export const getServerSideProps = async (context) => {
+      try {
+        const siteUrl = determineStrapiUrl(context);
     const res = await fetch(`${siteUrl}/api/seos`)
     const res1 = await fetch(`${siteUrl}/api/school-curriculum-pages?populate[syllabus_pdf][populate]=*&populate[image_1]=*&populate[image_2]=*`)
 
@@ -20,12 +19,22 @@ export const getStaticProps = async () => {
     return {
         props: {
             seodata: data,
-            schoolCurr: data1
+            schoolCurr: data1,
+            siteUrl
         }
-    }
-}
+    };
+} catch (error) {
+  console.error("Error fetching data:", error.message);
 
-const SchoolCurriculum = ({ seodata, schoolCurr }) => {
+  return {
+    props: {
+      data: [],
+    },
+  };
+}
+};
+
+const SchoolCurriculum = ({ seodata, schoolCurr ,siteUrl}) => {
     const [schoolCurriculum, setSchoolCurriculum] = useState(null);
     const [syllabus, setSyllabus] = useState([])
     const [seoData, setSeoData] = useState({
@@ -158,7 +167,7 @@ const SchoolCurriculum = ({ seodata, schoolCurr }) => {
                 {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
             </Head>
             <Fragment>
-                <NavBar />
+                <NavBar siteUrl={siteUrl}/>
                 {/* {seoData && (
                     <Seo
                         title={seoData.title}
@@ -358,7 +367,7 @@ const SchoolCurriculum = ({ seodata, schoolCurr }) => {
                         </div>
                     </section>
                 </div>
-                <Footer />
+                <Footer siteUrl={siteUrl}/>
             </Fragment>
         </>
     );

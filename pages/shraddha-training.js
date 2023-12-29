@@ -4,15 +4,15 @@ import Footer from "../components/Footer";
 // import Seo from './Seo';
 import Head from "next/head";
 
-const isProduction = process.env.NODE_ENV === "production";
-
-const siteUrl = isProduction
-  ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-  : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
 
 const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in";
 
-export const getStaticProps = async () => {
+import { determineStrapiUrl } from "@/utils/strapiUtils";
+
+export const getServerSideProps = async (context) => {
+  try {
+    const siteUrl = determineStrapiUrl(context);
+
   const res = await fetch(`${siteUrl}/api/seos`);
   const res1 = await fetch(
     `${GlobalSiteUrl}/api/shraddha-trainings?populate=*`
@@ -25,11 +25,21 @@ export const getStaticProps = async () => {
     props: {
       seodata: data,
       shraddha: data1,
+      siteUrl
     },
   };
+} catch (error) {
+  console.error("Error fetching data:", error.message);
+
+  return {
+    props: {
+      data: [],
+    },
+  };
+}
 };
 
-const ShraddhaTraining = ({ seodata, shraddha }) => {
+const ShraddhaTraining = ({ seodata, shraddha,siteUrl }) => {
   const [shardhaData, setShardhaData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [seoData, setSeoData] = useState({
@@ -94,7 +104,7 @@ const ShraddhaTraining = ({ seodata, shraddha }) => {
         )}
       </Head>
       <Fragment>
-        <NavBar />
+        <NavBar siteUrl={siteUrl}/>
 
         {/* {seoData && (
                     <Seo
@@ -142,7 +152,7 @@ const ShraddhaTraining = ({ seodata, shraddha }) => {
           </section>
         )}
 
-        <Footer />
+        <Footer siteUrl={siteUrl}/>
       </Fragment>
     </>
   );

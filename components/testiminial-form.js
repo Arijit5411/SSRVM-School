@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const TestimonialsForm = () => {
+const TestimonialsForm = ({siteUrl}) => {
     const initialState = {
         fullName: '',
         email: '',
@@ -19,13 +19,6 @@ const TestimonialsForm = () => {
     const [formData, setFormData] = useState(initialState);
 
     const { fullName, email, contactNumber, message, isRobot } = formData;
-
-    const isProduction = process.env.NODE_ENV === "production";
-
-    const siteUrl = isProduction
-        ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-        : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
-
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
         const fieldValue = type === 'checkbox' ? checked : value;

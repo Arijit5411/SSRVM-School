@@ -254,7 +254,7 @@ const CertificateThree = () => {
                 </div>
             </section>
 
-            <Footer />
+            <Footer/>
         </>
     );
 };

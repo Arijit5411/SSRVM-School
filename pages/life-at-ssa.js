@@ -6,13 +6,12 @@ import Slider from "react-slick";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 // import Seo from './Seo';
 
-const isProduction = process.env.NODE_ENV === "production";
+import { determineStrapiUrl } from "@/utils/strapiUtils";
 
-const siteUrl = isProduction
-  ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-  : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
+export const getServerSideProps = async (context) => {
+  try {
+    const siteUrl = determineStrapiUrl(context);
 
-export const getStaticProps = async () => {
   const res = await fetch(
     `${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`
   );
@@ -34,12 +33,21 @@ export const getStaticProps = async () => {
       seodata: data,
       lifeatssa: data1,
       videolist: data2,
+      siteUrl
     },
   };
+} catch (error) {
+  console.error("Error fetching data:", error.message);
+
+  return {
+    props: {
+      data: [],
+    },
+  };
+}
 };
 
-const LifeAtSriAcademy = ({ seodata, lifeatssa,videolist }) => {
-    console.log('data>>',videolist)
+const LifeAtSriAcademy = ({ seodata, lifeatssa,videolist,siteUrl }) => {
   const [lifeAtSriAcademy, setLifeAtSriAcademy] = useState(null);
   const [videolistData, setvideolistData] = useState(null);
 
@@ -174,7 +182,7 @@ const LifeAtSriAcademy = ({ seodata, lifeatssa,videolist }) => {
             <meta name="description" content={seoData.metaDescription} />
           )}
         </Head>
-        <NavBar />
+        <NavBar siteUrl={siteUrl}/>
         {/* {seoData && (
                     <Seo
                         title={seoData.title}
@@ -275,7 +283,7 @@ const LifeAtSriAcademy = ({ seodata, lifeatssa,videolist }) => {
                     </section> */}
         </div>
 
-        <Footer />
+        <Footer siteUrl={siteUrl}/>
       </Fragment>
     </>
   );

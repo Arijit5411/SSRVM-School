@@ -1,39 +1,44 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment } from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 
-const isProduction = process.env.NODE_ENV === "production";
+import { determineStrapiUrl } from "@/utils/strapiUtils";
+export const getServerSideProps = async (context) => {
+  try {
+    const siteUrl = determineStrapiUrl(context);
+    const res = await fetch(`${siteUrl}/api/core-school-teams?populate=*`);
+    const data = await res.json();
+    return {
+      props: {
+        data,
+        siteUrl,
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching data:", error.message);
 
-const siteUrl = isProduction
-  ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-  : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
+    return {
+      props: {
+        data: [],
+      },
+    };
+  }
+};
 
-const SchoolTeam = () => {
-  const [schoolteam, setSchoolTeam] = useState([]);
-  useEffect(() => {
-    fetch(`${siteUrl}/api/core-school-teams?populate=*`)
-      .then((response) => response.json())
-      .then((data) => {
-        setSchoolTeam(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }, []);
-
+const SchoolTeam = ({ data, siteUrl }) => {
   return (
     <>
       <Fragment>
-        <NavBar />
+        <NavBar siteUrl={siteUrl} />
         <div className="top-section1-new">
           <div className="container">
             <h1 className="principal-mess">Team</h1>
           </div>
           <section className="container marginTopHeader">
             <div className="container">
-              {schoolteam?.data &&
-                schoolteam?.data.length > 0 &&
-                schoolteam?.data.map((post) => {
+              {data?.data &&
+                data?.data.length > 0 &&
+                data?.data.map((post) => {
                   return (
                     <div className="col-lg-6" key={post.id}>
                       <div className="wrap-item-member">
@@ -66,7 +71,7 @@ const SchoolTeam = () => {
             </div>
           </section>
         </div>
-        <Footer />
+        <Footer siteUrl={siteUrl} />
       </Fragment>
     </>
   );

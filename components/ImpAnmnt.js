@@ -5,15 +5,9 @@ import AnnouncementPopup from "./AnnouncementPopup";
 import LiveEvents from "./liveEvents";
 import GlobalLiveEvents from "./GlobalLiveEvents";
 
-const ImpAnmnt = () => {
+const ImpAnmnt = ({siteUrl}) => {
   const [events, setEvents] = useState([]);
   const [announcements, setAnnouncements] = useState([]);
-
-  const isProduction = process.env.NODE_ENV === "production";
-
-  const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
 
   useEffect(() => {
     // Fetch both the list of live events and important announcements on component mount
@@ -114,6 +108,7 @@ const ImpAnmnt = () => {
                                   <p>{announcement.attributes.heading}</p>
                                   <AnnouncementPopup
                                     announcement={announcement}
+                                    siteUrl={siteUrl}
                                   />
                                 </div>
                               </div>
@@ -128,8 +123,8 @@ const ImpAnmnt = () => {
             </div>
           )
       )}
-      <LiveEvents />
-      <GlobalLiveEvents />
+      <LiveEvents siteUrl={siteUrl}/>
+      <GlobalLiveEvents siteUrl={siteUrl} />
     </div>
   );
 };

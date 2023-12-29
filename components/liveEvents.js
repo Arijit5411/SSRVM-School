@@ -1,15 +1,8 @@
 import React, { useState, useEffect } from "react";
 import WatchVideo from "./WatchVideos";
 
-const LiveEvents = () => {
+const LiveEvents = ({siteUrl}) => {
   const [events, setEvents] = useState([]);
-
-  const isProduction = process.env.NODE_ENV === "production";
-
-  const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
-
   useEffect(() => {
     // Fetch the list of live events on component mount
     fetch(`${siteUrl}/api/enable-disables?sort=id:desc&populate=*`)

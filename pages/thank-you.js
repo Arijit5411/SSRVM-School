@@ -2,30 +2,40 @@ import React, { Fragment } from 'react';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 
-const isProduction = process.env.NODE_ENV === 'production';
 
-const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
+import { determineStrapiUrl } from "@/utils/strapiUtils";
 
-export const getStaticProps = async () => {
-    const res = await fetch(`${siteUrl}/api/thank-you-page`)
+export const getServerSideProps = async (context) => {
+  try {
+    const siteUrl = determineStrapiUrl(context);
+        const res = await fetch(`${siteUrl}/api/thank-you-page`)
 
     const data = await res.json()
 
     return {
         props: {
-            content: data?.data
-        }
-    }
-}
+            content: data?.data,
+            siteUrl
 
-const ThankYou = ({ content }) => {
+        }
+    };
+} catch (error) {
+  console.error("Error fetching data:", error.message);
+
+  return {
+    props: {
+      data: [],
+    },
+  };
+}
+};
+
+const ThankYou = ({ content,siteUrl }) => {
     console.log(content);
     return (
         <>
             <Fragment>
-                <NavBar />
+                <NavBar siteUrl={siteUrl}/>
                 <section>
                     <div className="vh-100 d-flex justify-content-center align-items-center">
                         <div className="col-md-6 col-11">
@@ -51,7 +61,7 @@ const ThankYou = ({ content }) => {
                     </div>
                 </section >
 
-                <Footer />
+                <Footer siteUrl={siteUrl}/>
             </Fragment >
         </>
     );

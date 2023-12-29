@@ -6,15 +6,15 @@ import Link from 'next/link';
 import Head from 'next/head';
 // import Seo from './Seo';
 
-const isProduction = process.env.NODE_ENV === 'production';
 
-const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
 
 const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in"
 
-export const getStaticProps = async () => {
+import { determineStrapiUrl } from "@/utils/strapiUtils";
+
+export const getServerSideProps = async (context) => {
+  try {
+    const siteUrl = determineStrapiUrl(context);
     const res = await fetch(`${siteUrl}/api/seos`)
     const res1 = await fetch(`${GlobalSiteUrl}/api/global-blogs?sort=id:desc&populate=*`)
 
@@ -24,12 +24,23 @@ export const getStaticProps = async () => {
     return {
         props: {
             seodata: data,
-            blogData: data1
+            blogData: data1,
+            siteUrl
         }
-    }
-}
+    };
+} catch (error) {
+  console.error("Error fetching data:", error.message);
 
-const GlobalBlogs = ({ seodata, blogData }) => {
+  return {
+    props: {
+      data: [],
+    },
+  };
+}
+};
+
+
+const GlobalBlogs = ({ seodata, blogData,siteUrl }) => {
 
     const [blog, setBlog] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
@@ -115,7 +126,7 @@ console.log('data',blogData)
                 {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
                 {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
             </Head>
-            <NavBar />
+            <NavBar siteUrl={siteUrl}/>
 
             {/* {seoData && (
                 <Seo
@@ -173,7 +184,7 @@ console.log('data',blogData)
                 )}
 
             </div>
-            <Footer />
+            <Footer siteUrl={siteUrl}/>
         </Fragment>
     </>
     );

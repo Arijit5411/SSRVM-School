@@ -4,14 +4,13 @@ import Footer from "../components/Footer";
 import Head from "next/head";
 // import Seo from './Seo';
 
-const isProduction = process.env.NODE_ENV === "production";
 
-const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
+import { determineStrapiUrl } from "@/utils/strapiUtils";
 
-export const getStaticProps = async () => {
-    const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
+export const getServerSideProps = async (context) => {
+  try {
+    const siteUrl = determineStrapiUrl(context); 
+       const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
     const res1 = await fetch(`${siteUrl}/api/committee-members?populate=*`)
 
     const data = await res.json()
@@ -20,12 +19,22 @@ export const getStaticProps = async () => {
     return {
         props: {
             seodata: data,
-            commitee_Data: data1
+            commitee_Data: data1,
+            siteUrl
         }
     }
-}
+} catch (error) {
+  console.error("Error fetching data:", error.message);
 
-const CommitteeMembers = ({ seodata, commitee_Data }) => {
+  return {
+    props: {
+      data: [],
+    },
+  };
+}
+};
+
+const CommitteeMembers = ({ seodata, commitee_Data ,siteUrl}) => {
     const [committeeMembers, setCommitteeMembers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [seoData, setSeoData] = useState({
@@ -88,7 +97,7 @@ const CommitteeMembers = ({ seodata, commitee_Data }) => {
                 {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
                 {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
             </Head>
-            <NavBar />
+            <NavBar siteUrl={siteUrl}/>
             {/* {seoData && (
                 <Seo
                     title={seoData.title}
@@ -127,7 +136,7 @@ const CommitteeMembers = ({ seodata, commitee_Data }) => {
                     )}
                 </section>
             </div>
-            <Footer />
+            <Footer siteUrl={siteUrl}/>
         </Fragment>
     );
 };

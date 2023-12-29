@@ -19,26 +19,33 @@ import ImportantAnnouncment from "@/components/ImportantAnnouncment";
 // const ImpAnmnt = React.lazy(() => import("../components/ImpAnmnt"));
 // const VideoAreaOne = React.lazy(() => import("../components/Video"));
 
-const isProduction = process.env.NODE_ENV === 'production';
+import { determineStrapiUrl } from "@/utils/strapiUtils";
 
-const siteUrl = isProduction
-  ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-  : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
-
-
-export const getStaticProps = async () => {
+export const getServerSideProps = async (context) => {
+  try {
+    const siteUrl = determineStrapiUrl(context);
   const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
 
   const data = await res.json()
 
   return {
     props: {
-      seodata: data
+      seodata: data,
+      siteUrl
     }
-  }
-}
+  };
+} catch (error) {
+  console.error("Error fetching data:", error.message);
 
-const Home = ({ seodata }) => {
+  return {
+    props: {
+      data: [],
+    },
+  };
+}
+};
+
+const Home = ({ seodata ,siteUrl}) => {
 
   const [seoData, setSeoData] = useState({
     title: '',
@@ -91,12 +98,12 @@ const Home = ({ seodata }) => {
       )} */}
       {/* <Suspense fallback={<Preloader />}> */}
       {/* <ImportantAnnouncment /> */}
-      <NavBar />
-      <BannerSliderOne />
-      <MandatoryDisclosure />
-      <ImpAnmnt />
-      <HomeAbout />
-      <Footer />
+      <NavBar siteUrl={siteUrl}/>
+      <BannerSliderOne siteUrl={siteUrl}/>
+      <MandatoryDisclosure siteUrl={siteUrl}/>
+      <ImpAnmnt siteUrl={siteUrl}/>
+      <HomeAbout siteUrl={siteUrl}/>
+      <Footer siteUrl={siteUrl}/>
       {/* </Suspense> */}
     </>
   );

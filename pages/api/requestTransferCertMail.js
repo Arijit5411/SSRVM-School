@@ -1,15 +1,13 @@
 import nodemailer from 'nodemailer';
+import { determineStrapiUrl } from "@/utils/strapiUtils";
 
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
-    const isProduction = process.env.NODE_ENV === "production";
-
-    const siteUrl = isProduction
-        ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-        : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
+    const host = req.headers.host;
+    const siteUrl = determineStrapiUrl(host);
 
     const response = await fetch(`${siteUrl}/api/email`)
     const data = await response.json()

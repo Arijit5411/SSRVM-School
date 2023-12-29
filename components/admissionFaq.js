@@ -1,16 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 
-const AdmissionFaq = () => {
-
+const AdmissionFaq = ({siteUrl}) => {
     const [faqs, setFaqs] = useState([]);
-
-    const isProduction = process.env.NODE_ENV === "production";
-
-    const siteUrl = isProduction
-        ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-        : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
-
     useEffect(() => {
         fetch(`${siteUrl}/api/admission-faqs`)
             .then((response) => response.json())
@@ -21,9 +13,6 @@ const AdmissionFaq = () => {
                 console.error("Error fetching data:", error);
             });
     }, []);
-
-
-
     return (
         <>
             <section className="container wrap-accord-faq-admission">

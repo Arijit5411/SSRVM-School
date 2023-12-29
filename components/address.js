@@ -1,15 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { FaPhoneAlt, FaEnvelopeOpen } from "react-icons/fa";
+import { determineStrapiUrl } from "@/utils/strapiUtils";
 
-const ContactAddress = () => {
+const ContactAddress = ({siteUrl}) => {
     const [contactData, setContactData] = useState(null);
-
-    const isProduction = process.env.NODE_ENV === 'production';
-
-    const siteUrl = isProduction
-        ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-        : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
-
     useEffect(() => {
         fetch(`${siteUrl}/api/contact-us-locations?populate=*`)
             .then((response) => response.json())

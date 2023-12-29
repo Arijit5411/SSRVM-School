@@ -5,13 +5,13 @@ import Link from 'next/link';
 import Head from 'next/head';
 // import Seo from './Seo';
 
-const isProduction = process.env.NODE_ENV === 'production';
+import { determineStrapiUrl } from "@/utils/strapiUtils";
 
-const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
+export const getServerSideProps = async (context) => {
+  try {
+    const siteUrl = determineStrapiUrl(context);
 
-export const getStaticProps = async () => {
+
     const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
     const res1 = await fetch(`${siteUrl}/api/newspages?sort=id:desc&populate=*`)
 
@@ -21,12 +21,22 @@ export const getStaticProps = async () => {
     return {
         props: {
             seodata: data,
-            newsProp: data1
+            newsProp: data1,
+            siteUrl
         }
-    }
-}
+    };
+} catch (error) {
+  console.error("Error fetching data:", error.message);
 
-const News = ({ seodata, newsProp }) => {
+  return {
+    props: {
+      data: [],
+    },
+  };
+}
+};
+
+const News = ({ seodata, newsProp,siteUrl }) => {
     const [news, setNews] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const [seoData, setSeoData] = useState({
@@ -110,7 +120,7 @@ const News = ({ seodata, newsProp }) => {
             {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
         </Head>
         <Fragment>
-            <NavBar />
+            <NavBar siteUrl={siteUrl}/>
 
             {/* {seoData && (
                 <Seo
@@ -176,7 +186,7 @@ const News = ({ seodata, newsProp }) => {
                     <p>Loading news posts...</p>
                 )}
             </div>
-            <Footer />
+            <Footer siteUrl={siteUrl}/>
         </Fragment >
     </>
     );

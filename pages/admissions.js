@@ -8,13 +8,11 @@ import AdmissionFaq from '../components/admissionFaq';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
-const isProduction = process.env.NODE_ENV === 'production';
+import { determineStrapiUrl } from "@/utils/strapiUtils";
 
-const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
-
-export const getStaticProps = async () => {
+export const getServerSideProps = async (context) => {
+  try {
+    const siteUrl = determineStrapiUrl(context);
     const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
     const res1 = await fetch(`${siteUrl}/api/admission-pages?populate=*`)
     const res2 = await fetch(`${siteUrl}/api/school-total-classes?populate=*`)
@@ -30,12 +28,22 @@ export const getStaticProps = async () => {
             seodata: data,
             admissionsData: data1,
             t_class: data2?.data,
-            tab_content: data3?.data
+            tab_content: data3?.data,
+            siteUrl
         }
     }
-}
+} catch (error) {
+    console.error("Error fetching data:", error.message);
 
-const Admissions = ({ seodata, admissionsData, t_class, tab_content }) => {
+    return {
+      props: {
+        data: [],
+      },
+    };
+  }
+};
+
+const Admissions = ({ seodata, admissionsData, t_class, tab_content, siteUrl }) => {
     const router = useRouter()
     console.log('main data ===>', admissionsData);
     const [routeActive, setRouteActive] = useState('Procedure')
@@ -408,7 +416,7 @@ const Admissions = ({ seodata, admissionsData, t_class, tab_content }) => {
                     {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
                     {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
                 </Head>
-                <NavBar />
+                <NavBar siteUrl={siteUrl}/>
 
                 {/* {seoData && (
                     <Seo
@@ -492,7 +500,7 @@ const Admissions = ({ seodata, admissionsData, t_class, tab_content }) => {
                                     <h4 className='title'>
                                         {faq_heading}
                                     </h4>
-                                    <AdmissionFaq />
+                                    <AdmissionFaq siteUrl={siteUrl}/>
                                     {/* <section className="container wrap-accord-faq-admission">
                                         <div className="row g-4 ">
 
@@ -622,7 +630,7 @@ const Admissions = ({ seodata, admissionsData, t_class, tab_content }) => {
                         <div id='admission_faq'></div>
                     </section>
                 </div >
-                <Footer />
+                <Footer siteUrl={siteUrl}/>
             </Fragment >
         </>
     )

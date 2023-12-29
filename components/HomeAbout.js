@@ -13,7 +13,7 @@ import HomeGallery from "./HomeGallery";
 import HomeGlobalBlogs from "./HomeGlobalBlogs";
 import HomeGlobalEvents from "./HomeGlobalEvents";
 
-const HomeAbout = () => {
+const HomeAbout = ({siteUrl}) => {
   const [gfounder, setGfounder] = useState(null)
   const [homeAbout, setHomeAbout] = useState(null);
   const [activeTab, setActiveTab] = useState("News");
@@ -25,16 +25,7 @@ const HomeAbout = () => {
   const handleTabSelect = (tabKey) => {
     setActiveTab(tabKey);
   };
-
-  const isProduction = process.env.NODE_ENV === "production";
-
-  const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
-
   const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in"
-
-
   useEffect(() => {
     fetch(`${siteUrl}/api/home-abouts?populate=*`)
       .then((response) => response.json())
@@ -142,21 +133,21 @@ const HomeAbout = () => {
           </div>
         </div>
 
-        <HomeAdmissionProcess />
+        <HomeAdmissionProcess siteUrl={siteUrl}/>
 
-        <DummyHeader />
+        <DummyHeader siteUrl={siteUrl}/>
 
-        <HomeGallery />
+        <HomeGallery siteUrl={siteUrl}/>
 
-        <Award />
+        <Award siteUrl={siteUrl}/>
         {/* service area start */}
         <div className="service-area pd-top-115 pd-bottom-90 pb-lg-0 parentSpeak">
           <div className="container">
-            <ParentSpeakVideo />
+            <ParentSpeakVideo siteUrl={siteUrl} />
           </div>
           <div className="container">
             <div className="row">
-              <Testimonial />
+              <Testimonial siteUrl={siteUrl}/>
             </div>
           </div>
         </div>
@@ -179,14 +170,14 @@ const HomeAbout = () => {
                   className="service-area  pb-lg-0"
                   style={{ background: "url(assets/img/service/bg.png)" }}
                 >
-                  <HomeNews />
+                  <HomeNews siteUrl={siteUrl} />
                 </div>
               </Tab>
               <Tab eventKey="Events" title="Events">
-                <HomeEvents />
+                <HomeEvents siteUrl={siteUrl}/>
               </Tab>
               <Tab eventKey="Blogs" title="Blogs">
-                <HomeBlog />
+                <HomeBlog siteUrl={siteUrl}/>
               </Tab>
 
               {events.map(
@@ -202,7 +193,7 @@ const HomeAbout = () => {
                 (blog) =>
                   blog.attributes.enable_disable && (
                     <Tab key={blog.id} eventKey="Global Events" title="Global Events">
-                      <HomeGlobalEvents />
+                      <HomeGlobalEvents siteUrl={siteUrl}/>
                     </Tab>
                   )
               )}

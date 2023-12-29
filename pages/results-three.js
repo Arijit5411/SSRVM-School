@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useRef, useState } from "react";
+import React, { Fragment } from "react";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 import Slider from "react-slick";
@@ -6,29 +6,35 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import DownloadResult from "@/components/DownloadResult";
 import SsaResultsAward from "@/components/SsaResultsAward";
 
-const Results_three = () => {
-    const [graph, setGraph] = useState([]);
+import { determineStrapiUrl } from "@/utils/strapiUtils";
 
-    const isProduction = process.env.NODE_ENV === 'production';
+export const getServerSideProps = async (context) => {
+  try {
+    const siteUrl = determineStrapiUrl(context);
 
-    const siteUrl = isProduction
-        ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-        : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
+    const res = await fetch(`${siteUrl}/api/result-graphs?populate=*`);
 
-    useEffect(() => {
-        fetch(`${siteUrl}/api/result-graphs?populate=*`)
-            .then(response => response.json())
-            .then(data => {
-                const graphData = data.data.map(item => item.attributes);
-                setGraph(graphData);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+    const data = await res.json();
 
-    }, [siteUrl]);
+    return {
+      props: {
+        data,
+        siteUrl,
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching data:", error.message);
 
+    return {
+      props: {
+        data: [],
+      },
+    };
+  }
+};
 
+const Results_three = ({data,siteUrl}) => {
+    console.log('pages',siteUrl)
     function SampleNextArrow(props) {
         const { className, onClick } = props;
         return <FaArrowRight className={className} onClick={onClick} />;
@@ -67,11 +73,11 @@ const Results_three = () => {
             },
         ],
     };
-
+console.log('data in re3',data)
     return (
         <>
             <Fragment>
-                <NavBar />
+                <NavBar siteUrl={siteUrl}/>
                 <div className="top-section1-new">
                     <section className="wrap-item-principal-se1">
                         <div className="container">
@@ -87,10 +93,10 @@ const Results_three = () => {
                             <div className="row">
                                 <div className='partner-slider owl-carousel'>
                                     <Slider {...settings}>
-                                        {graph.map((graphItem, index) => (
+                                        {data.data.map((graphItem, index) => (
                                             <div className='item' key={index}>
                                                 <div className='thumb'>
-                                                    <img src={`${siteUrl}${graphItem?.image?.data?.attributes?.url}`} alt='Transpro' />
+                                                    <img src={`${siteUrl}${graphItem?.attributes?.image?.data?.attributes?.url}`} alt='Transpro' />
                                                 </div>
                                             </div>
                                         )
@@ -118,15 +124,15 @@ const Results_three = () => {
                         </div>
 
                         <div className="container image-gallery">
-                            <SsaResultsAward />
+                            <SsaResultsAward siteUrl={siteUrl}/>
                         </div>
                     </section>
 
                     <section className="container wrap-item-1 mb-4">
-                        <DownloadResult />
+                        <DownloadResult siteUrl={siteUrl}/>
                     </section>
                 </div>
-                <Footer />
+                <Footer siteUrl={siteUrl}/>
             </Fragment>
         </>
     );

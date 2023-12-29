@@ -5,13 +5,11 @@ import School_Calender from "./school-calendar";
 import Head from "next/head";
 // import Seo from './Seo';
 
-const isProduction = process.env.NODE_ENV === "production";
+import { determineStrapiUrl } from "@/utils/strapiUtils";
 
-const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
-
-export const getStaticProps = async () => {
+export const getServerSideProps = async (context) => {
+  try {
+    const siteUrl = determineStrapiUrl(context);
     const res = await fetch(`${siteUrl}/api/seos`)
     const res1 = await fetch(`${siteUrl}/api/monthly-calenders`)
 
@@ -21,12 +19,22 @@ export const getStaticProps = async () => {
     return {
         props: {
             seodata: data,
-            calendar: data1
+            calendar: data1,
+            siteUrl
         }
-    }
-}
+    };
+} catch (error) {
+  console.error("Error fetching data:", error.message);
 
-const GoogleCalendar = ({ seodata, calendar }) => {
+  return {
+    props: {
+      data: [],
+    },
+  };
+}
+};
+
+const GoogleCalendar = ({ seodata, calendar,siteUrl }) => {
     const [calendarData, setCalendarData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [seoData, setSeoData] = useState({
@@ -91,7 +99,7 @@ const GoogleCalendar = ({ seodata, calendar }) => {
                 {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
             </Head>
             <Fragment>
-                <NavBar />
+                <NavBar siteUrl={siteUrl}/>
 
                 {/* {seoData && (
                     <Seo
@@ -128,7 +136,7 @@ const GoogleCalendar = ({ seodata, calendar }) => {
 
                 <School_Calender />
 
-                <Footer />
+                <Footer siteUrl={siteUrl}/>
             </Fragment>
         </>
     );

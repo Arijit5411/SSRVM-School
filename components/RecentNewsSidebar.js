@@ -1,14 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-const RecentNewsSidebar = () => {
+const RecentNewsSidebar = ({siteUrl}) => {
     const [recentPosts, setRecentPosts] = useState([]);
-    const isProduction = process.env.NODE_ENV === 'production';
-
-    const siteUrl = isProduction
-        ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-        : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
-
     useEffect(() => {
         fetch(`${siteUrl}/api/newspages?_limit=3&_sort=createdAt:desc`)
             .then(response => {

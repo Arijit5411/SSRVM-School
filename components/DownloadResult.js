@@ -1,17 +1,12 @@
 import React, { useState, useEffect } from "react";
 // ... Your other imports and code ...
 
-const DownloadResult = () => {
+const DownloadResult = ({siteUrl}) => {
   const [selectedOption2, setSelectedOption2] = useState("XII");
   const [fetchedData, setFetchedData] = useState([]);
   const [dropdownOptions, setDropdownOptions] = useState([]);
 
-  const isProduction = process.env.NODE_ENV === "production";
-
-  const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
-
+  
   useEffect(() => {
     const fetchData = async () => {
       try {

@@ -2,14 +2,8 @@ import React, { useState, useEffect } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const MarqueeAward = () => {
+const MarqueeAward = ({siteUrl}) => {
   const [awards, setAwards] = useState([]);
-  const isProduction = process.env.NODE_ENV === "production";
-
-  const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
-
   useEffect(() => {
     // Make API request to fetch award data
     fetch(`${siteUrl}/api/awards-and-achievements?populate=*`)

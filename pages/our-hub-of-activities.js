@@ -6,13 +6,12 @@ import Link from "next/link";
 import Head from "next/head";
 // import Seo from './Seo';
 
-const isProduction = process.env.NODE_ENV === "production";
+import { determineStrapiUrl } from "@/utils/strapiUtils";
 
-const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
+export const getServerSideProps = async (context) => {
+  try {
+    const siteUrl = determineStrapiUrl(context);
 
-export const getStaticProps = async () => {
     const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
     const res1 = await fetch(`${siteUrl}/api/activities?populate=*`)
 
@@ -22,12 +21,22 @@ export const getStaticProps = async () => {
     return {
         props: {
             seodata: data,
-            hubdata: data1
+            hubdata: data1,
+            siteUrl
         }
-    }
-}
+    };
+} catch (error) {
+  console.error("Error fetching data:", error.message);
 
-const OurHubOfActivities = ({ seodata, hubdata }) => {
+  return {
+    props: {
+      data: [],
+    },
+  };
+}
+};
+
+const OurHubOfActivities = ({ seodata, hubdata,siteUrl }) => {
     const [ourHubOfActivities, setOurHubOfActivities] = useState([]);
     const [seoData, setSeoData] = useState({
         title: '',
@@ -101,7 +110,7 @@ const OurHubOfActivities = ({ seodata, hubdata }) => {
                 {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
             </Head>
             <div className="wrap-item-se1">
-                <NavBar />
+                <NavBar siteUrl={siteUrl}/>
 
                 {/* {seoData && (
                     <Seo
@@ -161,7 +170,7 @@ const OurHubOfActivities = ({ seodata, hubdata }) => {
                         </div>
                     </section>
                 </div>
-                <Footer />
+                <Footer siteUrl={siteUrl}/>
             </div>
         </>
     );

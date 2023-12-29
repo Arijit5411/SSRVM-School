@@ -4,13 +4,14 @@ import Footer from "../components/Footer";
 // import Seo from './Seo';
 import Head from "next/head";
 
-const isProduction = process.env.NODE_ENV === 'production';
 
-const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
 
-export const getStaticProps = async () => {
+import { determineStrapiUrl } from "@/utils/strapiUtils";
+
+export const getServerSideProps = async (context) => {
+  try {
+    const siteUrl = determineStrapiUrl(context);
+
     const res = await fetch(`${siteUrl}/api/seos`)
     const res1 = await fetch(`${siteUrl}/api/magazines?sort=id:desc&populate=*`)
 
@@ -20,12 +21,23 @@ export const getStaticProps = async () => {
     return {
         props: {
             seodata: data,
-            magazineData: data1
+            magazineData: data1,
+            siteUrl
         }
-    }
-}
+    };
+} catch (error) {
+  console.error("Error fetching data:", error.message);
 
-const School_Magazine = ({ seodata, magazineData }) => {
+  return {
+    props: {
+      data: [],
+    },
+  };
+}
+};
+
+
+const School_Magazine = ({ seodata, magazineData,siteUrl }) => {
     const [schoolMagazines, setSchoolMagazines] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [seoData, setSeoData] = useState({
@@ -119,7 +131,7 @@ const School_Magazine = ({ seodata, magazineData }) => {
                     {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
                     {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
                 </Head>
-                <NavBar />
+                <NavBar siteUrl={siteUrl}/>
 
                 {/* {seoData && (
                     <Seo
@@ -177,7 +189,7 @@ const School_Magazine = ({ seodata, magazineData }) => {
                         </div>
                     </section>
                 </div>
-                <Footer />
+                <Footer siteUrl={siteUrl}/>
             </Fragment>
         </>
     );

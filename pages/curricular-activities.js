@@ -4,14 +4,14 @@ import Footer from "../components/Footer";
 import Head from "next/head";
 // import Seo from './Seo';
 
-const isProduction = process.env.NODE_ENV === "production";
 
-const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
 
-export const getStaticProps = async () => {
-    const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
+import { determineStrapiUrl } from "@/utils/strapiUtils";
+
+export const getServerSideProps = async (context) => {
+  try {
+    const siteUrl = determineStrapiUrl(context);   
+       const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
     const res1 = await fetch(`${siteUrl}/api/co-curricular-activities-pages?populate[images][populate]=*`)
 
     const data = await res.json()
@@ -20,12 +20,22 @@ export const getStaticProps = async () => {
     return {
         props: {
             seodata: data,
-            activities: data1
+            activities: data1,
+            siteUrl
         }
     }
-}
+} catch (error) {
+  console.error("Error fetching data:", error.message);
 
-const Co_curricular_Activities = ({ seodata, activities }) => {
+  return {
+    props: {
+      data: [],
+    },
+  };
+}
+};
+
+const Co_curricular_Activities = ({ seodata, activities,siteUrl }) => {
     const [cocurricularActivities, setCocurricularActivities] = useState(null);
     const [seoData, setSeoData] = useState({
         title: '',
@@ -109,7 +119,7 @@ const Co_curricular_Activities = ({ seodata, activities }) => {
                     {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
                     {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
                 </Head>
-                <NavBar />
+                <NavBar siteUrl={siteUrl}/>
 
                 {/* {seoData && (
                     <Seo
@@ -211,7 +221,7 @@ const Co_curricular_Activities = ({ seodata, activities }) => {
                         )
                     }
                 </div>
-                <Footer />
+                <Footer siteUrl={siteUrl}/>
             </Fragment>
         </>
     );

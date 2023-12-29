@@ -9,16 +9,12 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ReactMarkdown from "react-markdown";
 
-// import { Link } from "react-router-dom";
-// import Seo from './Seo';
 
-const isProduction = process.env.NODE_ENV === "production";
+import { determineStrapiUrl } from "@/utils/strapiUtils";
 
-const siteUrl = isProduction
-  ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-  : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
-
-export const getStaticProps = async () => {
+export const getServerSideProps = async (context) => {
+  try {
+    const siteUrl = determineStrapiUrl(context);
   const res = await fetch(
     `${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`
   );
@@ -31,11 +27,21 @@ export const getStaticProps = async () => {
     props: {
       seodata: data,
       careerProp: data1,
+      siteUrl
+    },
+  }
+} catch (error) {
+  console.error("Error fetching data:", error.message);
+
+  return {
+    props: {
+      data: [],
     },
   };
+}
 };
 
-const Careers = ({ seodata, careerProp }) => {
+const Careers = ({ seodata, careerProp,siteUrl }) => {
   const [careers, setCareers] = useState(null);
   const [seoData, setSeoData] = useState({
     title: "",
@@ -127,7 +133,7 @@ const Careers = ({ seodata, careerProp }) => {
         )}
       </Head>
       <Fragment>
-        <NavBar />
+        <NavBar siteUrl={siteUrl}/>
         {/* {seoData && (
                     <Seo
                         title={seoData.title}
@@ -208,7 +214,7 @@ const Careers = ({ seodata, careerProp }) => {
             </section>
           </div>
         )}
-        <Footer />
+        <Footer siteUrl={siteUrl}/>
       </Fragment>
     </>
   );

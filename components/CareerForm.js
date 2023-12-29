@@ -5,12 +5,9 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import NavBar from "./NavBar";
 import Link from "next/link";
-
-const isProduction = process.env.NODE_ENV === "production";
-
-const siteUrl = isProduction
-  ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-  : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
+import { determineStrapiUrl } from "@/utils/strapiUtils";
+  const homeUrl = router.pathname === '/' ? '/' : `/${router.pathname}`;
+  const siteUrl = determineStrapiUrl(homeUrl);
 const CareerForm = () => {
   const [inputKey, setInputKey] = useState("");
   const [salaryExpectationsApi, setSalaryExpectation] = useState([]);
@@ -184,7 +181,7 @@ const CareerForm = () => {
 
   return (
     <>
-      <NavBar />
+      <NavBar siteUrl={siteUrl}/>
       <section className="section pt-0">
         <div className="container">
           <section className="wrap-item-principal-se1 back-to-ca">

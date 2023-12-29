@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const AdmissionEnquiry = ({ onClose }) => {
+const AdmissionEnquiry = ({siteUrl, onClose }) => {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -13,19 +13,10 @@ const AdmissionEnquiry = ({ onClose }) => {
 
   const [errors, setErrors] = useState({});
   const [classOptions, setClassOptions] = useState([]);
-
-  const isProduction = process.env.NODE_ENV === "production";
-
-  const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
-
   useEffect(() => {
-    // Fetch data from the API
     fetch(`${siteUrl}/api/admission-enq-class-dropdowns`)
       .then((response) => response.json())
       .then((data) => {
-        // Extract the class options from the API response
         const classOptions = data.data[0].attributes.school_name.options;
         setClassOptions(classOptions);
       })

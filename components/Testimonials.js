@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import Slider from "react-slick";
 
-const Testimonial = () => {
+const Testimonial = ({siteUrl}) => {
   function SampleNextArrow(props) {
     const { className, onClick } = props;
     return <FaArrowLeft className={className} onClick={onClick} />;
@@ -52,13 +52,6 @@ const Testimonial = () => {
 
   const [parentTestimonials, setParentTestimonials] = useState([]);
   const [filteredParentTestimonials, setFilteredParentTestimonials] = useState([]);
-
-  const isProduction = process.env.NODE_ENV === 'production';
-
-  const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
-
   useEffect(() => {
     const fetchData = async () => {
       try {

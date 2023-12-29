@@ -1,14 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-const DummyHeader = () => {
+const DummyHeader = ({siteUrl}) => {
     const [header, setHeader] = useState([]);
-
-    const isProduction = process.env.NODE_ENV === 'production';
-
-    const siteUrl = isProduction
-        ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-        : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
 
     useEffect(() => {
         fetch(`${siteUrl}/api/home-dummies?populate=*`)

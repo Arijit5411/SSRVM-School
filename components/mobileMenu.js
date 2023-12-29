@@ -2,19 +2,12 @@ import React, { useState, useEffect } from "react";
 
 const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in";
 
-const MobileMenu = ({ onClose }) => {
+const MobileMenu = ({siteUrl, onClose }) => {
   const [menuData, setMenuData] = useState([]);
   const [social, setSocial] = useState([]);
   const [apiData, setApiData] = useState(null);
   const [schoolData, setschoolData] = useState([]);
   const [globalsocial, setGlobalSocial] = useState();
-
-  const isProduction = process.env.NODE_ENV === "production";
-
-  const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
-
   useEffect(() => {
     fetch(`${siteUrl}/api/navbar-menu-headers?populate=*`)
       .then((response) => response.json())

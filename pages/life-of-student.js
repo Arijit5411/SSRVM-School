@@ -4,13 +4,13 @@ import Footer from "../components/Footer";
 import Head from "next/head";
 // import Seo from './Seo';
 
-const isProduction = process.env.NODE_ENV === "production";
+import { determineStrapiUrl } from "@/utils/strapiUtils";
 
-const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
+export const getServerSideProps = async (context) => {
+  try {
+    const siteUrl = determineStrapiUrl(context);
 
-export const getStaticProps = async () => {
+
     const res = await fetch(`${siteUrl}/api/seos`)
     const res1 = await fetch(`${siteUrl}/api/a-day-in-life-of-student-pages`)
 
@@ -20,12 +20,23 @@ export const getStaticProps = async () => {
     return {
         props: {
             seodata: data,
-            student: data1
+            student: data1,
+            siteUrl
         }
-    }
-}
+    };
+} catch (error) {
+  console.error("Error fetching data:", error.message);
 
-const LifeOfStudent = ({ seodata, student }) => {
+  return {
+    props: {
+      data: [],
+    },
+  };
+}
+};
+
+
+const LifeOfStudent = ({ seodata, student,siteUrl }) => {
     const [suudentData, setStudentData] = useState(null);
     const [seoData, setSeoData] = useState({
         title: '',
@@ -82,7 +93,7 @@ const LifeOfStudent = ({ seodata, student }) => {
                 {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
                 {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
             </Head>
-            <NavBar />
+            <NavBar siteUrl={siteUrl}/>
 
             {/* {seoData && (
                 <Seo
@@ -222,7 +233,7 @@ const LifeOfStudent = ({ seodata, student }) => {
                     <p>{suudentData?.paragraph_6}</p>
                 </section>
             </section>
-            <Footer />
+            <Footer siteUrl={siteUrl}/>
         </>
     );
 };

@@ -9,13 +9,12 @@ import DownloadResult from "../components/DownloadResult";
 import Head from "next/head";
 // import Seo from './Seo';
 
-const isProduction = process.env.NODE_ENV === 'production';
 
-const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
+import { determineStrapiUrl } from "@/utils/strapiUtils";
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async (context) => {
+  try {
+    const siteUrl = determineStrapiUrl(context);
     const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
     const res1 = await fetch(`${siteUrl}/api/result-graphs?populate=*`)
 
@@ -25,12 +24,23 @@ export const getStaticProps = async () => {
     return {
         props: {
             seodata: data,
-            graphData: data1
-        }
-    }
-}
+            graphData: data1,
+            siteUrl
 
-const Results = ({ seodata, graphData }) => {
+        }
+    };
+} catch (error) {
+  console.error("Error fetching data:", error.message);
+
+  return {
+    props: {
+      data: [],
+    },
+  };
+}
+};
+
+const Results = ({ seodata, graphData,siteUrl }) => {
 
     const [graph, setGraph] = useState([]);
 
@@ -131,7 +141,7 @@ const Results = ({ seodata, graphData }) => {
                 {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
                 {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
             </Head>
-            <NavBar />
+            <NavBar siteUrl={siteUrl}/>
            
             <Fragment>
                 <div className="top-section1-results">
@@ -158,14 +168,14 @@ const Results = ({ seodata, graphData }) => {
 
                     </div>
                     <section>
-                        <OurToppers />
+                        <OurToppers siteUrl={siteUrl}/>
                     </section>
 
                     <section className="container pd-top-75 pd-bottom-80">
-                        <DownloadResult />
+                        <DownloadResult siteUrl={siteUrl}/>
                     </section>
                 </div>
-                <Footer />
+                <Footer siteUrl={siteUrl}/>
             </Fragment>
         </>
     );

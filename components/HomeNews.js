@@ -5,17 +5,10 @@ import Link from "next/link";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const HomeNews = () => {
+const HomeNews = ({siteUrl}) => {
   const [news, setNews] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 8; // Number of news posts per page
-
-  const isProduction = process.env.NODE_ENV === "production";
-
-  const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
-
   useEffect(() => {
     fetch(`${siteUrl}/api/newspages?sort=id:desc&populate=*`)
       .then((response) => response.json())

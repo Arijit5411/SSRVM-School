@@ -6,13 +6,12 @@ import Link from "next/link";
 import Head from "next/head";
 // import Seo from './Seo';
 
-const isProduction = process.env.NODE_ENV === 'production';
 
-const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
+import { determineStrapiUrl } from "@/utils/strapiUtils";
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async (context) => {
+  try {
+    const siteUrl = determineStrapiUrl(context);
     const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
     const res1 = await fetch(`${siteUrl}/api/quick-links`)
 
@@ -22,12 +21,22 @@ export const getStaticProps = async () => {
     return {
         props: {
             seodata: data,
-            links: data1
+            links: data1,
+            siteUrl
         }
-    }
-}
+    };
+} catch (error) {
+  console.error("Error fetching data:", error.message);
 
-const QuickLinks = ({ seodata, links }) => {
+  return {
+    props: {
+      data: [],
+    },
+  };
+}
+};
+
+const QuickLinks = ({ seodata, links,siteUrl }) => {
     const [quickLinks, setQuickLinks] = useState([]);
     const [seoData, setSeoData] = useState({
         title: '',
@@ -87,7 +96,7 @@ const QuickLinks = ({ seodata, links }) => {
                 {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
             </Head>
             <Fragment>
-                <NavBar />
+                <NavBar siteUrl={siteUrl}/>
                 {/* {seoData && (
                     <Seo
                         title={seoData.title}
@@ -114,7 +123,7 @@ const QuickLinks = ({ seodata, links }) => {
                         </div>
                     </section>
                 </div>
-                <Footer />
+                <Footer siteUrl={siteUrl}/>
             </Fragment>
         </>
     );

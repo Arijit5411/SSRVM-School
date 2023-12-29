@@ -1,14 +1,8 @@
 import React, { useState, useEffect } from "react";
 
-const TestimonialsVideo = () => {
+const TestimonialsVideo = ({siteUrl}) => {
     const [currentVideo, setCurrentVideo] = useState(0);
     const [videos, setVideos] = useState([]);
-
-    const isProduction = process.env.NODE_ENV === 'production';
-
-    const siteUrl = isProduction
-        ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-        : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
 
     useEffect(() => {
         fetch(`${siteUrl}/api/testimonial-videos`)

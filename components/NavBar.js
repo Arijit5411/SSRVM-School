@@ -15,8 +15,7 @@ import {
 import MobileMenu from "./mobileMenu";
 import ImportantAnnouncment from "./ImportantAnnouncment";
 
-const NavBar = () => {
-  let publicUrl = process.env.PUBLIC_URL + "/";
+const NavBar = ({siteUrl}) => {
   const [open, setOpen] = useState(false);
   const [showPopup, setShowPopup] = useState(false); // New state variable for popup
   const [showPopup1, setShowPopup1] = useState(false); // New state variable for popup
@@ -53,11 +52,6 @@ const NavBar = () => {
     }
   }
 
-  const isProduction = process.env.NODE_ENV === "production";
-
-  const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
 
   // useEffect(() => {
   //   // Fetch data from the API
@@ -146,7 +140,7 @@ const NavBar = () => {
               "navbar navbar-area-1  navbar-area-3 navbar-area navbar-expand-lg d-flex flex-column"
             }
           >
-            <ImportantAnnouncment />
+            <ImportantAnnouncment siteUrl={siteUrl}/>
             <div className="container nav-container">
               <div className="responsive-mobile-menu">
                 <button
@@ -253,7 +247,7 @@ const NavBar = () => {
               </div>
             </div>
             {/* Conditionally render the popup */}
-            {showPopup && <MenuPopup onClose={togglePopup} />}
+            {showPopup && <MenuPopup siteUrl={siteUrl} onClose={togglePopup} />}
           </nav>
         </header>
         <div className="sticky-icon">
@@ -314,14 +308,14 @@ const NavBar = () => {
           )}
         </div>
 
-        {showPopup1 && <AdmissionEnquiry onClose={togglePopup1} />}
+        {showPopup1 && <AdmissionEnquiry siteUrl={siteUrl}  onClose={togglePopup1} />}
 
         {/* navbar end */}
       </div>
 
       <div className="desktophide">
         {/* navbar start */}
-        <ImportantAnnouncment />
+        <ImportantAnnouncment siteUrl={siteUrl}/>
         <header className="navbar-area">
           <nav className="mobileshowmenu">
             <div className="container nav-container">
@@ -343,7 +337,7 @@ const NavBar = () => {
                 >
                   Menu
                 </button>
-                {showPopup2 && <MobileMenu onClose={togglePopup2} />}
+                {showPopup2 && <MobileMenu siteUrl={siteUrl} onClose={togglePopup2} />}
               </div>
               <div className="logo">
                 <Link className="logo-1" href="/">

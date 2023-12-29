@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const Subscribe = () => {
+const Subscribe = ({siteUrl}) => {
   const [email, setEmail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -10,11 +10,6 @@ const Subscribe = () => {
 
     setErrorMessage();
   };
-  const isProduction = process.env.NODE_ENV === "production";
-
-  const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
 
   useEffect(() => {
     // Initialize fnames and ftypes as empty arrays

@@ -4,7 +4,7 @@ import Slider from "react-slick";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
 
-const HomeGallery = () => {
+const HomeGallery = ({siteUrl}) => {
     const [subfolders, setSubfolders] = useState([]);
     const [selectedSubfolder, setSelectedSubfolder] = useState(null);
     const [albumImages, setAlbumImages] = useState([]);
@@ -16,11 +16,7 @@ const HomeGallery = () => {
         ROOT_FOLDER_ID: '',
     });
 
-    const isProduction = process.env.NODE_ENV === "production";
-
-    const siteUrl = isProduction
-        ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-        : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
+   
 
     const handleSubfolderClick = (subfolder, index) => {
         setSelectedSubfolder(subfolder);

@@ -4,14 +4,13 @@ import Footer from "../components/Footer";
 import Head from "next/head";
 // import Seo from './Seo';
 
-const isProduction = process.env.NODE_ENV === 'production';
 
-const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
 
-export const getStaticProps = async () => {
-    const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
+import { determineStrapiUrl } from "@/utils/strapiUtils";
+
+export const getServerSideProps = async (context) => {
+  try {
+    const siteUrl = determineStrapiUrl(context);    const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
     const res1 = await fetch(`${siteUrl}/api/policy-statements`)
 
     const data = await res.json()
@@ -20,12 +19,22 @@ export const getStaticProps = async () => {
     return {
         props: {
             seodata: data,
-            policy: data1
+            policy: data1,
+            siteUrl
         }
-    }
-}
+    };
+} catch (error) {
+  console.error("Error fetching data:", error.message);
 
-const Policy_Statements = ({ seodata, policy }) => {
+  return {
+    props: {
+      data: [],
+    },
+  };
+}
+};
+
+const Policy_Statements = ({ seodata, policy ,siteUrl}) => {
     const [seoData, setSeoData] = useState({
         title: '',
         metaTitle: '',
@@ -87,7 +96,7 @@ const Policy_Statements = ({ seodata, policy }) => {
                     {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
                     {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
                 </Head>
-                <NavBar />
+                <NavBar siteUrl={siteUrl}/>
                 {/* {seoData && (
                     <Seo
                         title={seoData.title}
@@ -105,7 +114,7 @@ const Policy_Statements = ({ seodata, policy }) => {
                         <span dangerouslySetInnerHTML={{ __html: policyStatements.content }} />
                     </div>
                 </div>
-                <Footer />
+                <Footer siteUrl={siteUrl}/>
             </Fragment>
         </>
     );

@@ -4,13 +4,13 @@ import Footer from "../components/Footer";
 import Head from "next/head";
 // import Seo from './Seo';
 
-const isProduction = process.env.NODE_ENV === "production";
 
-const siteUrl = isProduction
-  ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-  : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
 
-export const getStaticProps = async () => {
+import { determineStrapiUrl } from "@/utils/strapiUtils";
+
+export const getServerSideProps = async (context) => {
+  try {
+    const siteUrl = determineStrapiUrl(context);
   const res = await fetch(
     `${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`
   );
@@ -25,11 +25,22 @@ export const getStaticProps = async () => {
     props: {
       seodata: data,
       publicationData: data1,
+      siteUrl
     },
   };
+} catch (error) {
+  console.error("Error fetching data:", error.message);
+
+  return {
+    props: {
+      data: [],
+    },
+  };
+}
 };
 
-const Publications = ({ seodata, publicationData }) => {
+
+const Publications = ({ seodata, publicationData,siteUrl }) => {
   const [publications, setPublications] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [seoData, setSeoData] = useState({
@@ -133,7 +144,7 @@ const Publications = ({ seodata, publicationData }) => {
             <meta name="description" content={seoData.metaDescription} />
           )}
         </Head>
-        <NavBar />
+        <NavBar siteUrl={siteUrl}/>
 
         <div className="top-section1">
           <div className="d-flex p-3 justify-content-center pub-sec gap-3">
@@ -208,7 +219,7 @@ const Publications = ({ seodata, publicationData }) => {
             </div>
           </section>
         </div>
-        <Footer />
+        <Footer siteUrl={siteUrl}/>
       </Fragment>
     </>
   );

@@ -5,18 +5,15 @@ import NavBar from '@/components/NavBar';
 import Footer from '@/components/Footer';
 import ReactMarkdown from 'react-markdown';
 import GlobalRecentBlogs from '@/components/GlobalRecentBlogs';
+import { determineStrapiUrl } from "@/utils/strapiUtils";
 
 const GlobalIndividualBlogs = () => {
     const router = useRouter()
     const [blog, setBlog] = useState(null);
     const { postID } = router.query;
     const [loading, setLoading] = useState(true);
+    const [publicUrl, setPublicUrl] = useState();
 
-    const isProduction = process.env.NODE_ENV === 'production';
-
-    const siteUrl = isProduction
-        ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-        : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
 
     const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in"
 
@@ -46,17 +43,26 @@ const GlobalIndividualBlogs = () => {
             return <img src={`${GlobalSiteUrl}${src}`} alt={alt} />;
         },
     };
+    useEffect(() => {
+        setPublicUrl(window.location.origin) 
+      }, [publicUrl]);
+
+
+    // Get the current home URL
+    const homeUrl = router.pathname === '/' ? '/' : `/${router.pathname}`;
+
+    const siteUrl = determineStrapiUrl(homeUrl);
 
     return (
         <>
-            <NavBar />
+            <NavBar siteUrl={siteUrl}/>
             <div className='top-section4 desktophide'>
                 <section className="wrap-item-blog-se1 first-section position-relative">
                     <div className='container'>
                         <div className="row">
                             <div className='col-content'>
                                 <a className='backto-btn' href='/global-blogs'>
-                                    <img src={process.env.PUBLIC_URL + "/assets/img/blog/13-arrow-left.png"} alt="Transpro" />
+                                    <img src={publicUrl + "/assets/img/blog/13-arrow-left.png"} alt="Transpro" />
                                     <span>
                                         Back to Blog
                                     </span>
@@ -82,7 +88,7 @@ const GlobalIndividualBlogs = () => {
                                     </div>
                                 )}
                             </div>
-                            <GlobalRecentBlogs />
+                            <GlobalRecentBlogs siteUrl={siteUrl}/>
 
                         </div>
                     </div>
@@ -96,13 +102,13 @@ const GlobalIndividualBlogs = () => {
                                 {/* Sidebar content */}
                                 <div className='col-content'>
                                     <a className='backto-btn' href='/global-blogs'>
-                                        <img src={process.env.PUBLIC_URL + "/assets/img/blog/13-arrow-left.png"} alt="Transpro" />
+                                        <img src={publicUrl + "/assets/img/blog/13-arrow-left.png"} alt="Transpro" />
                                         <span>
                                             Back to Blog
                                         </span>
                                     </a>
 
-                                    <GlobalRecentBlogs />
+                                    <GlobalRecentBlogs siteUrl={siteUrl}/>
 
 
                                 </div>
@@ -130,7 +136,7 @@ const GlobalIndividualBlogs = () => {
                     </div>
                 </section>
             </div>
-            <Footer />
+            <Footer siteUrl={siteUrl}/>
         </>
     );
 }

@@ -2,13 +2,8 @@ import React, { useState, useEffect } from "react";
 import Video from "../components/Video";
 import Slider from "react-slick";
 
-const ParentSpeakVideo = () => {
-  const [videos, setVideos] = useState([]);
-  const isProduction = process.env.NODE_ENV === "production";
-
-  const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
+const ParentSpeakVideo = ({siteUrl}) => {
+  const [videos, setVideos] = useState([])
 
   useEffect(() => {
     fetch(`${siteUrl}/api/testimonial-videos`)

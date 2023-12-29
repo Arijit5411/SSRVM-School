@@ -2,12 +2,11 @@ import React, { Fragment, useState, useEffect } from 'react';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 
-const isProduction = process.env.NODE_ENV === 'production';
-const siteUrl = isProduction
-    ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-    : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
+import { determineStrapiUrl } from "@/utils/strapiUtils";
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async (context) => {
+  try {
+    const siteUrl = determineStrapiUrl(context);
     // const res = await fetch(`${siteUrl}/api/ssa-collaboration-pages?populate=*`)
     const res = await fetch(`${siteUrl}/api/ssa-collaboration-pages?pagination[pageSize]=100&populate[school_name_and_title][populate]=*&populate[school_name_and_title2][populate]=*`)
 
@@ -15,12 +14,22 @@ export const getStaticProps = async () => {
 
     return {
         props: {
-            intandnat: data
+            intandnat: data,
+            siteUrl
         }
-    }
-}
+    };
+} catch (error) {
+  console.error("Error fetching data:", error.message);
 
-const International_and_National = ({ intandnat }) => {
+  return {
+    props: {
+      data: [],
+    },
+  };
+}
+};
+
+const International_and_National = ({ intandnat,siteUrl }) => {
 
     const [internationalAndNational, setInternationalAndNational] = useState(null);
 
@@ -69,7 +78,7 @@ const International_and_National = ({ intandnat }) => {
     return (
         <>
             <Fragment>
-                <NavBar />
+                <NavBar siteUrl={siteUrl}/>
                 <div className='top-section1-new'>
                     <section className="internationalpadding pri-item">
                         <div className="container">
@@ -213,7 +222,7 @@ const International_and_National = ({ intandnat }) => {
                         </div>
                     </section>
                 </div>
-                <Footer />
+                <Footer siteUrl={siteUrl}/>
             </Fragment>
         </>
     );

@@ -6,13 +6,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Head from "next/head";
 // import Seo from './Seo';
 
-const isProduction = process.env.NODE_ENV === "production";
 
-const siteUrl = isProduction
-  ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-  : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
 
-export const getStaticProps = async () => {
+import { determineStrapiUrl } from "@/utils/strapiUtils";
+
+export const getServerSideProps = async (context) => {
+  try {
+    const siteUrl = determineStrapiUrl(context);
   const res = await fetch(`${siteUrl}/api/seos`);
   const res1 = await fetch(
     `${siteUrl}/api/awards-and-achievements?sort=id:desc&populate=*`
@@ -25,11 +25,21 @@ export const getStaticProps = async () => {
     props: {
       seodata: data,
       awardsData: data1,
+      siteUrl
+    },
+  }
+} catch (error) {
+  console.error("Error fetching data:", error.message);
+
+  return {
+    props: {
+      data: [],
     },
   };
+}
 };
 
-const Awards_And_Achievements = ({ seodata, awardsData }) => {
+const Awards_And_Achievements = ({ seodata, awardsData,siteUrl }) => {
   const [selectedOption, setSelectedOption] = useState("school award");
   const [selectedYear, setSelectedYear] = useState("year 2023");
   const [showModal, setShowModal] = useState(false);
@@ -181,7 +191,7 @@ const Awards_And_Achievements = ({ seodata, awardsData }) => {
             <meta name="description" content={seoData.metaDescription} />
           )}
         </Head>
-        <NavBar />
+        <NavBar siteUrl={siteUrl}/>
 
         {/* {seoData && (
                     <Seo
@@ -335,7 +345,7 @@ const Awards_And_Achievements = ({ seodata, awardsData }) => {
             </div>
           </section>
         </div>
-        <Footer />
+        <Footer siteUrl={siteUrl}/>
         <Modal
           show={showModal}
           onHide={handleCloseModal}

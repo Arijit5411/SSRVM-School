@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function OurToppers() {
+function OurToppers({siteUrl}) {
     const [selectedClass, setSelectedClass] = useState("XII");
     const [classOptions, setClassOptions] = useState([]);
     const [toppersData, setToppersData] = useState([]);
@@ -8,12 +8,6 @@ function OurToppers() {
     const [tdata, setTdata] = useState([])
     const [standard, setStandard] = useState([])
     const [filteredRanks, setFilteredRanks] = useState([])
-
-    const isProduction = process.env.NODE_ENV === "production";
-
-    const siteUrl = isProduction
-        ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-        : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
 
     useEffect(() => {
         // Fetch the API data for class options and toppers
