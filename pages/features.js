@@ -3,14 +3,10 @@ import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import Link from "next/link";
 import Head from "next/head";
-
-
 import { determineStrapiUrl } from "@/utils/strapiUtils";
-
 export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);
-
   const res = await fetch(
     `${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`
   );
@@ -39,7 +35,7 @@ export const getServerSideProps = async (context) => {
 
 const Features = ({ seodata, featuresData,siteUrl }) => {
   const [features, setFeatures] = useState([]);
-  console.log("feature data", features);
+  console.log("feature data", features,featuresData);
   const [seoData, setSeoData] = useState({
     title: "",
     metaTitle: "",
@@ -87,7 +83,7 @@ const Features = ({ seodata, featuresData,siteUrl }) => {
       });
     }
   }, []);
-
+console.log('st url',siteUrl)
   return (
     <>
       <Fragment>

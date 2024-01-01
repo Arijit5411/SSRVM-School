@@ -17,7 +17,6 @@ const HomeGlobalBlogs = () => {
             // fetch(`${GlobalSiteUrl}/api/global-blogs?populate=*`)
             .then((response) => response.json())
             .then((data) => {
-                console.log('gg', data.data);
                 if (data.error) {
                     console.error("Error:", data.error.message);
                 } else {

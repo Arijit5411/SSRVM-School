@@ -2,8 +2,10 @@ import React, { Fragment, useState } from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import { determineStrapiUrl } from "@/utils/strapiUtils";
+import { useRouter } from 'next/router';
 
 const CertificateTwo = () => {
+    const router = useRouter();
     const [formData, setFormData] = useState({
         registration: "",
         dateofbirth: "",

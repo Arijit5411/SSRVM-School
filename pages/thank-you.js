@@ -31,7 +31,6 @@ export const getServerSideProps = async (context) => {
 };
 
 const ThankYou = ({ content,siteUrl }) => {
-    console.log(content);
     return (
         <>
             <Fragment>

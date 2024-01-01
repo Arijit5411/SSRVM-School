@@ -3,8 +3,6 @@ import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 import ReactMarkdown from "react-markdown";
 import { determineStrapiUrl } from "@/utils/strapiUtils";
-
-// import { useParams } from 'react-router-dom';
 import { useRouter } from "next/router";
 
 const State_Facility = () => {
@@ -12,11 +10,9 @@ const State_Facility = () => {
   const [stateFacility, setStateFacility] = useState(null);
   const [contentData, setContentData] = useState(null);
   const [loading, setLoading] = useState(true);
-  // const { postID } = useParams();
   const { postID } = router.query;
   const homeUrl = router.pathname === '/' ? '/' : `/${router.pathname}`;
   const siteUrl = determineStrapiUrl(homeUrl);
- 
   useEffect(() => {
     if (postID) {
       fetch(`${siteUrl}/api/features/${postID}?populate=*`)

@@ -5,10 +5,12 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import NavBar from "./NavBar";
 import Link from "next/link";
+import { useRouter } from 'next/router';
 import { determineStrapiUrl } from "@/utils/strapiUtils";
+const CareerForm = () => {
+  const router = useRouter();
   const homeUrl = router.pathname === '/' ? '/' : `/${router.pathname}`;
   const siteUrl = determineStrapiUrl(homeUrl);
-const CareerForm = () => {
   const [inputKey, setInputKey] = useState("");
   const [salaryExpectationsApi, setSalaryExpectation] = useState([]);
   const [jobRole, setJobRole] = useState([]);

@@ -20,11 +20,9 @@ const MobileMenu = ({siteUrl, onClose }) => {
       });
   }, []);
   useEffect(() => {
-    // Make the API call using fetch
     fetch(`${siteUrl}/api/navbar-menu-headers?populate=*`)
       .then((response) => response.json())
       .then((data) => {
-        // Set the API data in the state
         setApiData(data);
       })
       .catch((error) => {
@@ -32,11 +30,9 @@ const MobileMenu = ({siteUrl, onClose }) => {
       });
   }, []);
   useEffect(() => {
-    // Fetch the API data
     fetch(`${siteUrl}/api/menus/10?nested&populate=*`)
       .then((response) => response.json())
       .then((data) => {
-        // Extract menu items from the API response
         const items = data.data.attributes.items.data;
         setschoolData(items);
       })
@@ -51,6 +47,7 @@ const MobileMenu = ({siteUrl, onClose }) => {
   const fetchMenuData = async () => {
     try {
       const response = await fetch(`${siteUrl}/api/menus/9?nested&populate=*`);
+      console.log('url in mobile',siteUrl)
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -66,13 +63,12 @@ const MobileMenu = ({siteUrl, onClose }) => {
       .then((response) => response.json())
       .then((data) => {
         setGlobalSocial(data.data.attributes);
-        // setGfounder(data.data[0].attributes);
       })
       .catch((error) => {
         console.error("Error:", error);
       });
   }, []);
-
+console.log('data in menu',menuData)
   return (
     <div className="popup-menu">
       <div className="popup-card-menu">
@@ -85,11 +81,11 @@ const MobileMenu = ({siteUrl, onClose }) => {
 
           <div className="d-flex justify-content-between gap-3">
             <div>
-              <h6 className="menufont">About</h6>
+                <h6 className="menufont">{menuData[0]?.attributes?.title}</h6>
               <ul className="submenu_options w-100">
                 {menuData.length > 0 &&
                   menuData
-                    .find((section) => section.attributes.title === "About")
+                    .find((section) => section.attributes.title === menuData[0]?.attributes?.title)
                     ?.attributes.children.data.map((menuItem) => (
                       <li key={menuItem.id}>
                         <a href={menuItem.attributes.url}>
@@ -100,12 +96,12 @@ const MobileMenu = ({siteUrl, onClose }) => {
               </ul>
             </div>
             <div>
-              <h6 className="menufont">Philosophy</h6>
+              <h6 className="menufont">{menuData[1]?.attributes?.title}</h6>
               <ul className="submenu_options w-100">
                 {menuData.length > 0 &&
                   menuData
                     .find(
-                      (section) => section.attributes.title === "Philosophy"
+                      (section) => section.attributes.title === menuData[1]?.attributes?.title
                     )
                     ?.attributes.children.data.map((menuItem) => (
                       <li key={menuItem.id}>
@@ -119,12 +115,12 @@ const MobileMenu = ({siteUrl, onClose }) => {
           </div>
           <div className="d-flex justify-content-between gap-3">
             <div>
-              <h6 className="menufont">Admissions</h6>
+              <h6 className="menufont">{menuData[2]?.attributes?.title}</h6>
               <ul className="submenu_options w-100">
                 {menuData.length > 0 &&
                   menuData
                     .find(
-                      (section) => section.attributes.title === "Admissions"
+                      (section) => section.attributes.title === menuData[2]?.attributes?.title
                     )
                     ?.attributes.children.data.map((menuItem) => (
                       <li key={menuItem.id}>
@@ -136,12 +132,12 @@ const MobileMenu = ({siteUrl, onClose }) => {
               </ul>
             </div>
             <div>
-              <h6 className="menufont">Life at SSRVM</h6>
+              <h6 className="menufont">{menuData[3]?.attributes?.title}</h6>
               <ul className="submenu_options w-100">
                 {menuData.length > 0 &&
                   menuData
                     .find(
-                      (section) => section.attributes.title === "Life at SSRVM"
+                      (section) => section.attributes.title === menuData[3]?.attributes?.title
                     )
                     ?.attributes.children.data.map((menuItem) => (
                       <li key={menuItem.id}>
@@ -155,11 +151,11 @@ const MobileMenu = ({siteUrl, onClose }) => {
           </div>
           <div className="d-flex  justify-content-between gap-3">
             <div>
-              <h6 className="menufont">Academics</h6>
+              <h6 className="menufont">{menuData[4]?.attributes?.title}</h6>
               <ul className="submenu_options w-100">
                 {menuData.length > 0 &&
                   menuData
-                    .find((section) => section.attributes.title === "Academics")
+                    .find((section) => section.attributes.title === menuData[4]?.attributes?.title)
                     ?.attributes.children.data.map((menuItem) => (
                       <li key={menuItem.id}>
                         <a href={menuItem.attributes.url}>
@@ -170,12 +166,12 @@ const MobileMenu = ({siteUrl, onClose }) => {
               </ul>
             </div>
             <div>
-              <h6 className="menufont">Student Life</h6>
+              <h6 className="menufont">{menuData[5]?.attributes?.title}</h6>
               <ul className="submenu_options w-100">
                 {menuData.length > 0 &&
                   menuData
                     .find(
-                      (section) => section.attributes.title === "Student Life"
+                      (section) => section.attributes.title === menuData[5]?.attributes?.title
                     )
                     ?.attributes.children.data.map((menuItem) => (
                       <li key={menuItem.id}>
@@ -189,12 +185,12 @@ const MobileMenu = ({siteUrl, onClose }) => {
           </div>
           <div className="d-flex justify-content-between gap-3">
             <div>
-              <h6 className="menufont">Miscellaneous</h6>
+              <h6 className="menufont">{menuData[7]?.attributes?.title}</h6>
               <ul className="submenu_options w-100">
                 {menuData.length > 0 &&
                   menuData
                     .find(
-                      (section) => section.attributes.title === "Miscellaneous"
+                      (section) => section.attributes.title === menuData[7]?.attributes?.title
                     )
                     ?.attributes.children.data.map((menuItem) => (
                       <li key={menuItem.id}>
@@ -206,13 +202,13 @@ const MobileMenu = ({siteUrl, onClose }) => {
               </ul>
             </div>
             <div>
-              <h6 className="menufont">School Information</h6>
+              <h6 className="menufont">{menuData[12]?.attributes?.title}</h6>
               <ul className="submenu_options w-100">
                 {menuData.length > 0 &&
                   menuData
                     .find(
                       (section) =>
-                        section.attributes.title === "School Information"
+                        section.attributes.title === menuData[12]?.attributes?.title
                     )
                     ?.attributes.children.data.map((menuItem) => (
                       <li key={menuItem.id}>
@@ -226,13 +222,13 @@ const MobileMenu = ({siteUrl, onClose }) => {
           </div>
           <div className="d-flex justify-content-between gap-3">
             <div>
-              <h6 className="menufont">Campus & Facility</h6>
+              <h6 className="menufont">{menuData[6]?.attributes?.title}</h6>
               <ul className="submenu_options w-100">
                 {menuData.length > 0 &&
                   menuData
                     .find(
                       (section) =>
-                        section.attributes.title === "Campus & Facility"
+                        section.attributes.title === menuData[6]?.attributes?.title
                     )
                     ?.attributes.children.data.map((menuItem) => (
                       <li key={menuItem.id}>
@@ -246,12 +242,12 @@ const MobileMenu = ({siteUrl, onClose }) => {
             <div></div>
           </div>
           <div className=" mt-4 mb-4">
-            <h6 className="menufont">Others</h6>
+            <h6 className="menufont">{menuData[16]?.attributes?.title}</h6>
             <div>
               <ul className="submenu_options">
                 {menuData.length > 0 &&
                   menuData
-                    .find((section) => section.attributes.title === "Others")
+                    .find((section) => section.attributes.title === menuData[16]?.attributes?.title)
                     ?.attributes.children.data.map((menuItem) => (
                       <li key={menuItem.id}>
                         <a

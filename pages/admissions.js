@@ -3,7 +3,6 @@ import NavBar from '../components/NavBar'
 import Footer from '../components/Footer'
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-// import Seo from './Seo';
 import AdmissionFaq from '../components/admissionFaq';
 import Head from 'next/head';
 import { useRouter } from 'next/router';

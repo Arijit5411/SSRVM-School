@@ -13,7 +13,7 @@ const nextConfig = {
     SMTP_PORT: 465,
     SMTP_USER: "noreply@ssrvm.org",
     SMTP_PASS: "Gold2005",
-    SURL: '[ { "subdomain": "school1", "url": "http://school1api.marvelspix.com" }, { "subdomain": "school2", "url": "http://school2api.marvelspix.com" }, { "subdomain": "default", "url": "http://school1api.marvelspix.com" } ]'
+    SURL: '[ { "subdomain": "school1", "url": "https://cuttackapi.ssa.org.in" }, { "subdomain": "school2", "url": "https://bangaloresouthapi.ssrvm.org" }, { "subdomain": "default", "url": "https://bangaloresouthapi.ssrvm.org" } ]'
   },
 }
 

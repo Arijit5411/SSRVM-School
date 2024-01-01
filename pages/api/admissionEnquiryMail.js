@@ -8,11 +8,9 @@ export default async function handler(req, res) {
 
     const host = req.headers.host;
     const siteUrl = determineStrapiUrl(host);
-
     const response = await fetch(`${siteUrl}/api/email`)
     const data = await response.json()
-    const mailList = data?.data?.attributes?.AdmissionEnquiry.split(",")
-
+    const mailList = data?.data?.attributes?.AdmissionEnquiry.split(",");
     const { full_name, email_id, contact_no, about_us, message } = req.body;
 
     const transporter = nodemailer.createTransport({
@@ -28,11 +26,10 @@ export default async function handler(req, res) {
         await transporter.sendMail({
             from: `<${process.env.SMTP_USER}>`,
             to: mailList,
-            // to: 'husain.fakih@teampumpkin.com',
             // to:'alka.rashinkar@teampumpkin.com',
             subject: `Admission Enquiry - ${full_name} - ${contact_no} `,
             text: `Appointment Information`,
-            html: `<p>Full Name: <b>${mailList}</b></p>
+            html: `<p>Full Name: <b>${full_name}</b></p>
                     <p>Email ID: <b>${email_id}</b></p>
                     <p>Contact Number: <b>${contact_no}</b></p>
                     <p>Class: <b>${req.body.class}</b></p>
