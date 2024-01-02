@@ -167,6 +167,27 @@
     width: auto;
   }
 
+   .awa-img>.modal-content {
+    width: 100% !important;
+    margin-top: 10%;
+    margin-left: 0%;
+    padding: 10px;
+  }
+
+  .modal-content {
+    // width: 374px !important;
+    // width: 365px !important;
+    width: fit-content !important;
+    margin-top: 10%;
+    margin-left: 0%;
+    padding: 10px;
+  }
+
+  .displayBlock {
+    display: block !important;
+  }
+
+
   .navbar-expand-lg .navbar-collapse {
     display: flex !important;
     flex-basis: auto;
@@ -931,6 +952,10 @@
     display: none;
   }
 }
+
+
+
+
 
 @media all and (max-width: 767px) {
   .awa-img>.modal-content {

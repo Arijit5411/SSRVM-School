@@ -2109,11 +2109,10 @@ img.wrap-img-press {
 }
 
 .modal-dialog {
-  margin: 0;
   width: 100%;
-  max-width: none;
+  // max-width: none;
   height: 100%;
-  max-height: none;
+  // max-height: none;
 }
 
 .modal-body {
@@ -4501,8 +4500,14 @@ img.wrap-img-pan {
 }
 
 .imgPop {
-  height: 250px;
+  align-items: center;
+    justify-content: center;
+    display: flex;
+    width: 70%;
+    text-align: center;
+    margin: 0 auto;
 }
+
 
 .popupTitle {
   font-size: 20px !important;
@@ -4518,7 +4523,6 @@ img.wrap-img-pan {
 .modal-header {
   display: flex;
   // height: 578px;
-  height: 385px;
   flex-shrink: 0;
   padding-left: 24px !important;
   // padding: 16px !important;

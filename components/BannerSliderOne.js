@@ -99,7 +99,6 @@ const BannerSliderOne = ({siteUrl}) => {
     getBanners();
     getVideo();
   }, []);
-
   return (
     <>
       {/* header start */}
@@ -165,7 +164,7 @@ const BannerSliderOne = ({siteUrl}) => {
               ))}
             </Slider>
           </div>
-          <div className="home-area home-v2"></div>
+          <div className=" home-v2"></div>
 
           <div className="header-bottom">
             <div className="container-fluid">
