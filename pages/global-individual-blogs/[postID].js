@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import { useParams } from 'react-router-dom';
 import { useRouter } from 'next/router';
 import NavBar from '@/components/NavBar';
 import Footer from '@/components/Footer';
@@ -7,7 +6,28 @@ import ReactMarkdown from 'react-markdown';
 import GlobalRecentBlogs from '@/components/GlobalRecentBlogs';
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 
-const GlobalIndividualBlogs = () => {
+
+
+export const getServerSideProps = async (context) => {
+    try {
+      const siteUrl = determineStrapiUrl(context);
+    
+      return {
+        props: {
+          siteUrl,
+        },
+      };
+    } catch (error) {
+      console.error("Error fetching data:", error.message);
+  
+      return {
+        props: {
+          data: [],
+        },
+      };
+    }
+  };
+const GlobalIndividualBlogs = ({siteUrl}) => {
     const router = useRouter()
     const [blog, setBlog] = useState(null);
     const { postID } = router.query;
@@ -47,11 +67,6 @@ const GlobalIndividualBlogs = () => {
         setPublicUrl(window.location.origin) 
       }, [publicUrl]);
 
-
-    // Get the current home URL
-    const homeUrl = router.pathname === '/' ? '/' : `/${router.pathname}`;
-
-    const siteUrl = determineStrapiUrl(homeUrl);
 
     return (
         <>

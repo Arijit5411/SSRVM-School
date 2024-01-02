@@ -10,8 +10,7 @@ import {
 } from "react-icons/fa";
 const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in";
 
-
-const MenuPopup = ({siteUrl, onClose }) => {
+const MenuPopup = ({ siteUrl, onClose }) => {
   const [menuData, setMenuData] = useState([]);
   const [schoolData, setschoolData] = useState([]);
   const [apiData, setApiData] = useState(null);
@@ -32,10 +31,9 @@ const MenuPopup = ({siteUrl, onClose }) => {
       })
 
       .catch((error) => {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       });
   }, []);
-
 
   useEffect(() => {
     fetch(`${GlobalSiteUrl}/api/global-trust-data?populate=*`)
@@ -48,33 +46,31 @@ const MenuPopup = ({siteUrl, onClose }) => {
       });
   }, []);
 
-
   useEffect(() => {
     // Make the API call using fetch
     fetch(`${siteUrl}/api/navbar-menu-headers?populate=*`)
       .then((response) => response.json())
       .then((data) => {
-
         // Set the API data in the state
         setApiData(data);
       })
       .catch((error) => {
-        console.error('Error fetching data from the API:', error);
+        console.error("Error fetching data from the API:", error);
       });
   }, []);
   const fetchMenuData = async () => {
     try {
       const response = await fetch(`${siteUrl}/api/menus/9?nested&populate=*`);
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error("Network response was not ok");
       }
       const data = await response.json();
       setMenuData(data.data.attributes.items.data);
     } catch (error) {
-      console.error('Error fetching menu data:', error);
+      console.error("Error fetching menu data:", error);
     }
   };
-  console.log(menuData)
+  console.log("menu data desktop", menuData);
   return (
     <div className="popup-menu">
       <div className="popup-card-menu">
@@ -101,7 +97,11 @@ const MenuPopup = ({siteUrl, onClose }) => {
                     </button>
                     <div className="dropdown-content1">
                       {schoolData.map((item) => (
-                        <a key={item.id} href={item.attributes.url} target={item.attributes.target}>
+                        <a
+                          key={item.id}
+                          href={item.attributes.url}
+                          target={item.attributes.target}
+                        >
                           {item.attributes.title}
                         </a>
                       ))}
@@ -120,34 +120,52 @@ const MenuPopup = ({siteUrl, onClose }) => {
                   {apiData && apiData.data && apiData.data.length > 0 && (
                     <span className="emailpopup">
                       <FaEnvelopeOpen className="marginright" />
-                      <a href={apiData.data[0].attributes.email_link}>
-                        Email
-                      </a>
+                      <a href={apiData.data[0].attributes.email_link}>Email</a>
                     </span>
                   )}
 
-                  {apiData && apiData.data[0].attributes.facebook_link && apiData.data[0].attributes.facebook_link.length > 0 && (
-                    <a href={apiData.data[0].attributes.facebook_link} className="facebook">
-                      <FaFacebookF className="socialFont" />
-                    </a>
-                  )}
+                  {apiData &&
+                    apiData.data[0].attributes.facebook_link &&
+                    apiData.data[0].attributes.facebook_link.length > 0 && (
+                      <a
+                        href={apiData.data[0].attributes.facebook_link}
+                        className="facebook"
+                      >
+                        <FaFacebookF className="socialFont" />
+                      </a>
+                    )}
 
-                  {apiData && apiData.data[0].attributes.twitter_link && apiData.data[0].attributes.twitter_link.length > 0 && (
-                    <a href={apiData.data[0].attributes.twitter_link} className="twitter">
-                      <FaTwitter className="socialFont" />
-                    </a>
-                  )}
-                  {apiData && apiData.data[0].attributes.youtube_link && apiData.data[0].attributes.youtube_link.length > 0 && (
-                    <a href={apiData.data[0].attributes.youtube_link} className="youtube">
-                      <FaYoutube className="socialFont" />
-                    </a>
-                  )}
+                  {apiData &&
+                    apiData.data[0].attributes.twitter_link &&
+                    apiData.data[0].attributes.twitter_link.length > 0 && (
+                      <a
+                        href={apiData.data[0].attributes.twitter_link}
+                        className="twitter"
+                      >
+                        <FaTwitter className="socialFont" />
+                      </a>
+                    )}
+                  {apiData &&
+                    apiData.data[0].attributes.youtube_link &&
+                    apiData.data[0].attributes.youtube_link.length > 0 && (
+                      <a
+                        href={apiData.data[0].attributes.youtube_link}
+                        className="youtube"
+                      >
+                        <FaYoutube className="socialFont" />
+                      </a>
+                    )}
 
-                  {apiData && apiData.data[0].attributes.insta_link && apiData.data[0].attributes.insta_link.length > 0 && (
-                    <a href={apiData.data[0].attributes.insta_link} className="instagram">
-                      <FaInstagram className="socialFont" />
-                    </a>
-                  )}
+                  {apiData &&
+                    apiData.data[0].attributes.insta_link &&
+                    apiData.data[0].attributes.insta_link.length > 0 && (
+                      <a
+                        href={apiData.data[0].attributes.insta_link}
+                        className="instagram"
+                      >
+                        <FaInstagram className="socialFont" />
+                      </a>
+                    )}
 
                   <button className="close-btn-menu" onClick={onClose}>
                     Close Menu &times;
@@ -156,14 +174,17 @@ const MenuPopup = ({siteUrl, onClose }) => {
               </div>
             </div>
 
-
-            <div className="row">
-              <div className="col-sm-3">
+            <div className="d-flex p-5">
+              <div className="p-5">
                 <h6 className="menufont">{menuData[0]?.attributes?.title}</h6>
                 <ul className="submenu_options ">
                   {menuData.length > 0 &&
                     menuData
-                      .find((section) => section.attributes.title === menuData[0]?.attributes?.title)
+                      .find(
+                        (section) =>
+                          section.attributes.title ===
+                          menuData[0]?.attributes?.title
+                      )
                       ?.attributes.children.data.map((menuItem) => (
                         <li key={menuItem.id}>
                           <a href={menuItem.attributes.url}>
@@ -176,10 +197,51 @@ const MenuPopup = ({siteUrl, onClose }) => {
                 <ul className="submenu_options">
                   {menuData.length > 0 &&
                     menuData
-                      .find((section) => section.attributes.title === menuData[1]?.attributes?.title)
+                      .find(
+                        (section) =>
+                          section.attributes.title ===
+                          menuData[1]?.attributes?.title
+                      )
                       ?.attributes.children.data.map((menuItem) => (
                         <li key={menuItem.id}>
                           <a href={menuItem.attributes.url}>
+                            {menuItem.attributes.title}
+                          </a>
+                        </li>
+                      ))}
+                </ul>
+
+                <h6 className="menufont">{menuData[9]?.attributes?.title}</h6>
+
+                <ul className="submenu_options">
+                  {menuData.length > 0 &&
+                    menuData
+                      .find(
+                        (section) =>
+                          section.attributes.title ===
+                          menuData[9]?.attributes?.title
+                      )
+                      ?.attributes.children.data.map((menuItem) => (
+                        <li key={menuItem.url}>
+                          <a href={`${menuItem?.attributes?.url}`}>
+                            {menuItem.attributes.title}
+                          </a>
+                        </li>
+                      ))}
+                </ul>
+                <h6 className="menufont">{menuData[14]?.attributes?.title}</h6>
+
+                <ul className="submenu_options">
+                  {menuData.length > 0 &&
+                    menuData
+                      .find(
+                        (section) =>
+                          section.attributes.title ===
+                          menuData[14]?.attributes?.title
+                      )
+                      ?.attributes.children.data.map((menuItem) => (
+                        <li key={menuItem.url}>
+                          <a href={`${menuItem?.attributes?.url}`}>
                             {menuItem.attributes.title}
                           </a>
                         </li>
@@ -187,26 +249,36 @@ const MenuPopup = ({siteUrl, onClose }) => {
                 </ul>
               </div>
 
-              <div className="col-sm-3 borderLfet">
+              <div className=" borderLfet p-5">
                 <h6 className="menufont">{menuData[2]?.attributes?.title}</h6>
                 <ul className="submenu_options">
                   {menuData.length > 0 &&
                     menuData
-                      .find((section) => section.attributes.title === menuData[2]?.attributes?.title)
+                      .find(
+                        (section) =>
+                          section.attributes.title ===
+                          menuData[2]?.attributes?.title
+                      )
                       ?.attributes.children.data.map((menuItem) => (
                         <li key={menuItem.id}>
                           <a href={menuItem.attributes.url}>
                             {menuItem.attributes.title}
                           </a>
                         </li>
-                      ))}
+                      ))
+                      }
+                      
                 </ul>
 
                 <h6 className="menufont">{menuData[3]?.attributes?.title}</h6>
                 <ul className="submenu_options">
                   {menuData.length > 0 &&
                     menuData
-                      .find((section) => section.attributes.title === menuData[3]?.attributes?.title)
+                      .find(
+                        (section) =>
+                          section.attributes.title ===
+                          menuData[3]?.attributes?.title
+                      )
                       ?.attributes.children.data.map((menuItem) => (
                         <li key={menuItem.id}>
                           <a href={menuItem.attributes.url}>
@@ -220,7 +292,11 @@ const MenuPopup = ({siteUrl, onClose }) => {
                 <ul className="submenu_options">
                   {menuData.length > 0 &&
                     menuData
-                      .find((section) => section.attributes.title === menuData[4]?.attributes?.title)
+                      .find(
+                        (section) =>
+                          section.attributes.title ===
+                          menuData[4]?.attributes?.title
+                      )
                       ?.attributes.children.data.map((menuItem) => (
                         <li key={menuItem.id}>
                           <a href={menuItem.attributes.url}>
@@ -229,43 +305,36 @@ const MenuPopup = ({siteUrl, onClose }) => {
                         </li>
                       ))}
                 </ul>
+
+                <h6 className="menufont">{menuData[10]?.attributes?.title}</h6>
+
+                <ul className="submenu_options">
+                  {menuData.length > 0 &&
+                    menuData
+                      .find(
+                        (section) =>
+                          section.attributes.title ===
+                          menuData[10]?.attributes?.title
+                      )
+                      ?.attributes.children.data.map((menuItem) => (
+                        <li key={menuItem.url}>
+                          <a href={`${menuItem?.attributes?.url}`}>
+                            {menuItem.attributes.title}
+                          </a>
+                        </li>
+                      ))}
+                </ul>
               </div>
-              <div className="col-sm-3 borderLfet">
+              <div className=" borderLfet p-5">
                 <h6 className="menufont">{menuData[5]?.attributes?.title}</h6>
                 <ul className="submenu_options">
                   {menuData.length > 0 &&
                     menuData
-                      .find((section) => section.attributes.title === menuData[5]?.attributes?.title)
-                      ?.attributes.children.data.map((menuItem) => (
-                        <li key={menuItem.id}>
-                          <a href={menuItem.attributes.url}>
-                            {menuItem.attributes.title}
-                          </a>
-                        </li>
-                      ))}
-                </ul>
-
-                <h6 className="menufont">{menuData[7]?.attributes?.title}</h6>
-                <ul className="submenu_options">
-                  {menuData.length > 0 &&
-                    menuData
-                      .find((section) => section.attributes.title === menuData[7]?.attributes?.title)
-                      ?.attributes.children.data.map((menuItem) => (
-                        <li key={menuItem.id}>
-                          <a href={menuItem.attributes.url}>
-                            {menuItem.attributes.title}
-                          </a>
-                        </li>
-                      ))}
-                </ul>
-              </div>
-
-              <div className="col-sm-3 borderLfet">
-                <h6 className="menufont">{menuData[12]?.attributes?.title}</h6>
-                <ul className="submenu_options">
-                  {menuData.length > 0 &&
-                    menuData
-                      .find((section) => section.attributes.title === menuData[12]?.attributes?.title)
+                      .find(
+                        (section) =>
+                          section.attributes.title ===
+                          menuData[5]?.attributes?.title
+                      )
                       ?.attributes.children.data.map((menuItem) => (
                         <li key={menuItem.id}>
                           <a href={menuItem.attributes.url}>
@@ -279,7 +348,11 @@ const MenuPopup = ({siteUrl, onClose }) => {
                 <ul className="submenu_options">
                   {menuData.length > 0 &&
                     menuData
-                      .find((section) => section.attributes.title === menuData[6]?.attributes?.title)
+                      .find(
+                        (section) =>
+                          section.attributes.title ===
+                          menuData[6]?.attributes?.title
+                      )
                       ?.attributes.children.data.map((menuItem) => (
                         <li key={menuItem.id}>
                           <a href={menuItem.attributes.url}>
@@ -288,33 +361,126 @@ const MenuPopup = ({siteUrl, onClose }) => {
                         </li>
                       ))}
                 </ul>
+
+                <h6 className="menufont">{menuData[16]?.attributes?.title}</h6>
+
+                <ul className="submenu_options">
+                  {menuData.length > 0 &&
+                    menuData
+                      .find(
+                        (section) =>
+                          section.attributes.title ===
+                          menuData[16]?.attributes?.title
+                      )
+                      ?.attributes.children.data.map((menuItem) => (
+                        <li key={menuItem.url}>
+                          <a href={`${menuItem?.attributes?.url}`}>
+                            {menuItem.attributes.title}
+                          </a>
+                        </li>
+                      ))}
+                </ul>
+
+                <h6 className="menufont">{menuData[13]?.attributes?.title}</h6>
+
+                <ul className="submenu_options">
+                  {menuData.length > 0 &&
+                    menuData
+                      .find(
+                        (section) =>
+                          section.attributes.title ===
+                          menuData[13]?.attributes?.title
+                      )
+                      ?.attributes.children.data.map((menuItem) => (
+                        <li key={menuItem.url}>
+                          <a href={`${menuItem?.attributes?.url}`}>
+                            {menuItem.attributes.title}
+                          </a>
+                        </li>
+                      ))}
+                </ul>
               </div>
-            </div>
 
-            <div className="other-links mt-4 mb-4">
-              <h6 className="menufont">{menuData[16]?.attributes?.title}</h6>
-              <div>
-              <ul className="submenu_options others-menus">
-                {menuData.length > 0 &&
-                  menuData
-                    .find((section) => section.attributes.title === menuData[16]?.attributes?.title)
-                    ?.attributes.children.data.map((menuItem) => (
-                      <li key={menuItem.url}>
-                        <a href={`${menuItem?.attributes?.url}`}>
-                          {menuItem.attributes.title}
-                        </a>
-                      </li>
-                    ))}
+              <div className="borderLfet p-5">
+                <h6 className="menufont">{menuData[7]?.attributes?.title}</h6>
+                <ul className="submenu_options">
+                  {menuData.length > 0 &&
+                    menuData
+                      .find(
+                        (section) =>
+                          section.attributes.title ===
+                          menuData[7]?.attributes?.title
+                      )
+                      ?.attributes.children.data.map((menuItem) => (
+                        <li key={menuItem.id}>
+                          <a href={menuItem.attributes.url}>
+                            {menuItem.attributes.title}
+                          </a>
+                        </li>
+                      ))}
+                </ul>
 
-              </ul>
-             
+                <h6 className="menufont">{menuData[8]?.attributes?.title}</h6>
+                <ul className="submenu_options">
+                  {menuData.length > 0 &&
+                    menuData
+                      .find(
+                        (section) =>
+                          section.attributes.title ===
+                          menuData[8]?.attributes?.title
+                      )
+                      ?.attributes.children.data.map((menuItem) => (
+                        <li key={menuItem.id}>
+                          <a href={menuItem.attributes.url}>
+                            {menuItem.attributes.title}
+                          </a>
+                        </li>
+                      ))}
+                </ul>
+                <h6 className="menufont">{menuData[12]?.attributes?.title}</h6>
+
+                <ul className="submenu_options">
+                  {menuData.length > 0 &&
+                    menuData
+                      .find(
+                        (section) =>
+                          section.attributes.title ===
+                          menuData[12]?.attributes?.title
+                      )
+                      ?.attributes.children.data.map((menuItem) => (
+                        <li key={menuItem.url}>
+                          <a href={`${menuItem?.attributes?.url}`}>
+                            {menuItem.attributes.title}
+                          </a>
+                        </li>
+                      ))}
+                </ul>
+                <h6 className="menufont">{menuData[15]?.attributes?.title}</h6>
+
+                <ul className="submenu_options">
+                  {menuData.length > 0 &&
+                    menuData
+                      .find(
+                        (section) =>
+                          section.attributes.title ===
+                          menuData[15]?.attributes?.title
+                      )
+                      ?.attributes.children.data.map((menuItem) => (
+                        <li key={menuItem.url}>
+                          <a href={`${menuItem?.attributes?.url}`}>
+                            {menuItem.attributes.title}
+                          </a>
+                        </li>
+                      ))}
+                </ul>
               </div>
             </div>
 
             <div className="row menuFooter">
               <div className="col-sm-6">
-                <a href={globalsocial?.Website_Link} className="colorBlack">Visit the SSRVM Trust Website</a>
-
+                <a href={globalsocial?.Website_Link} className="colorBlack">
+                  Visit the SSRVM Trust Website
+                </a>
               </div>
               <div className="col-sm-6">
                 <div>
@@ -322,8 +488,7 @@ const MenuPopup = ({siteUrl, onClose }) => {
                     Connect with SSRVM Trust:{" "}
                     <ul className="head_nav_menu social-link">
                       <li>
-                        <a href={globalsocial?.Facebook}
-                          className="facebook">
+                        <a href={globalsocial?.Facebook} className="facebook">
                           <svg
                             stroke="currentColor"
                             fill="currentColor"
@@ -338,8 +503,7 @@ const MenuPopup = ({siteUrl, onClose }) => {
                         </a>
                       </li>
                       <li>
-                        <a href={globalsocial?.Twitter}
-                          className="twitter">
+                        <a href={globalsocial?.Twitter} className="twitter">
                           <svg
                             stroke="currentColor"
                             fill="currentColor"
@@ -354,10 +518,7 @@ const MenuPopup = ({siteUrl, onClose }) => {
                         </a>
                       </li>
                       <li>
-                        <a
-                          href={globalsocial?.Youtube}
-                          className="youtube"
-                        >
+                        <a href={globalsocial?.Youtube} className="youtube">
                           <svg
                             stroke="currentColor"
                             fill="currentColor"

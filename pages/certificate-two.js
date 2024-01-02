@@ -1,10 +1,28 @@
 import React, { Fragment, useState } from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
-import { determineStrapiUrl } from "@/utils/strapiUtils";
 import { useRouter } from 'next/router';
 
-const CertificateTwo = () => {
+import { determineStrapiUrl } from "@/utils/strapiUtils";
+export const getServerSideProps = async (context) => {
+    try {
+      const siteUrl = determineStrapiUrl(context);
+      return {
+        props: {
+          siteUrl,
+        },
+      };
+    } catch (error) {
+      console.error("Error fetching data:", error.message);
+  
+      return {
+        props: {
+          data: [],
+        },
+      };
+    }
+  };
+const CertificateTwo = ({siteUrl}) => {
     const router = useRouter();
     const [formData, setFormData] = useState({
         registration: "",
@@ -91,11 +109,7 @@ const CertificateTwo = () => {
 
         window.location.href = "/thank-you";
     };
-    const homeUrl = router.pathname === '/' ? '/' : `/${router.pathname}`;
-
-    const siteUrl = determineStrapiUrl(homeUrl);
-
-
+    
     return (
         <>
             <Fragment>
