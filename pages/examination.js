@@ -9,7 +9,8 @@ import { determineStrapiUrl } from "@/utils/strapiUtils";
 
 export const getServerSideProps = async (context) => {
   try {
-    const siteUrl = determineStrapiUrl(context);       const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
+    const siteUrl = determineStrapiUrl(context);
+    const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
     const res1 = await fetch(`${siteUrl}/api/examinations?populate[syllabus][populate]=*&populate[schedule][populate]=*&populate=*`)
 
     const data = await res.json()

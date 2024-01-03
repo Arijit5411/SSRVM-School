@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import MenuPopup from "./menuPopup";
+import MobileMenu from "./mobileMenu";
 import AdmissionEnquiry from "./AdmissionEnquiry";
-// import Link from "next/link";
 import Link from "next/link";
 import {
   FaFacebookF,
@@ -12,7 +12,6 @@ import {
   FaCalendarAlt,
   FaWhatsapp,
 } from "react-icons/fa";
-import MobileMenu from "./mobileMenu";
 import ImportantAnnouncment from "./ImportantAnnouncment";
 
 const NavBar = ({siteUrl}) => {
@@ -80,7 +79,6 @@ const NavBar = ({siteUrl}) => {
       .then((response) => response.json())
       .then((data) => {
         if (data && data.data && data.data.length > 0) {
-          // Assuming the API response contains menu data in the "data" field
           setMenuData(data.data[0].attributes.items.data);
         }
       })

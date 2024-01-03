@@ -7,7 +7,6 @@ import { determineStrapiUrl } from "@/utils/strapiUtils";
 export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);
-    // const res = await fetch(`${siteUrl}/api/ssa-collaboration-pages?populate=*`)
     const res = await fetch(`${siteUrl}/api/ssa-collaboration-pages?pagination[pageSize]=100&populate[school_name_and_title][populate]=*&populate[school_name_and_title2][populate]=*`)
 
     const data = await res.json()

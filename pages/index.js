@@ -1,24 +1,11 @@
-import React, { Fragment, Suspense, useState, useEffect } from "react";
-import Preloader from "../elements/Preloader";
+import React, {  useState, useEffect } from "react";
 import BannerSliderOne from "../components/BannerSliderOne";
-import BannerSlider from "../components/BannerSlider";
 import Footer from "../components/Footer";
 import HomeAbout from "../components/HomeAbout";
 import NavBar from "../components/NavBar";
 import ImpAnmnt from "../components/ImpAnmnt";
-import VideoAreaOne from '../components/Video';
-import Seo from "@/components/Seo";
 import Head from "next/head";
 import MandatoryDisclosure from "@/components/MandatoryDisclosure";
-import ImportantAnnouncment from "@/components/ImportantAnnouncment";
-// import Seo from './Seo';
-// const BannerSlider = React.lazy(() => import("../components/BannerSlider"));
-// const Footer = React.lazy(() => import("../components/Footer"));
-// const HomeAbout = React.lazy(() => import("../components/HomeAbout"));
-// const NavBar = React.lazy(() => import("../components/NavBar"));
-// const ImpAnmnt = React.lazy(() => import("../components/ImpAnmnt"));
-// const VideoAreaOne = React.lazy(() => import("../components/Video"));
-
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 
 export const getServerSideProps = async (context) => {

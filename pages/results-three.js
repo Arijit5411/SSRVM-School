@@ -34,7 +34,6 @@ export const getServerSideProps = async (context) => {
 };
 
 const Results_three = ({data,siteUrl}) => {
-    console.log('pages',siteUrl)
     function SampleNextArrow(props) {
         const { className, onClick } = props;
         return <FaArrowRight className={className} onClick={onClick} />;

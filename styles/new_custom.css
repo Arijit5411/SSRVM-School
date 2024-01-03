@@ -18,6 +18,51 @@
 .back-to-ca {
   margin-top: 100px;
 }
+
+/* ================================================================================== Header  */
+header.navbar-are {
+  position: relative;
+  z-index: 999;
+}
+/* ----------------- Menu  */
+.menu-col-list {
+  column-count: 4;
+  column-gap: 20px; /* Adjust as needed */
+  column-rule: 1px solid #a3a3a3;
+  column-width: 25%;
+}
+
+.menu-col-item {
+  box-sizing: border-box;
+  margin: 0; /* Reset margin */
+  break-inside: avoid; /* Prevent breaking inside the columns */
+  padding-left: 20px;
+}
+.menu-col-item > ul{
+  list-style: none;
+}
+
+.menu-col-list.mobile-menu-list {
+  column-count: 2;
+  padding: 0 10px;
+}
+.menu-col-list.mobile-menu-list .menu-col-item{
+  padding: 0 5px;
+}
+.menu-col-list.mobile-menu-list .menu-col-item h6{
+  font-size: 16px;
+}
+.menu-col-list.mobile-menu-list .menu-col-item ul{
+  padding-left: 10px;
+}
+.menu-col-list.mobile-menu-list .menu-col-item ul li a{
+  font-size: 14px;
+}
+.popup-menu {
+  overflow-x: hidden;
+}
+
+
 /* ============================================================================================================== Popup  */
 
 .popup-menu-form {
@@ -516,7 +561,7 @@
   }
   .popup-card-menu {
     margin-top: 55px;
-    padding: 0px 0px 0px 15px;
+    padding: 0px 0px 0px 0px;
   }
 
   .logopopupy {

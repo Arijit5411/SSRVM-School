@@ -3,7 +3,6 @@ import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import Link from 'next/link';
 import Head from 'next/head';
-// import Seo from './Seo';
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 

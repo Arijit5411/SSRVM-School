@@ -2,9 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import Link from "next/link";
-// import { Link } from "react-router-dom";
 import Head from "next/head";
-// import Seo from './Seo';
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 

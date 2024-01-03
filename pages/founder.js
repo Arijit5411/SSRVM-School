@@ -3,7 +3,6 @@ import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
-// import Seo from './Seo';
 import SsrvmTrust from "../components/SsrvmTrust";
 import SsrvmTrustMobile from "../components/SsrvmTrustMobile";
 import Head from "next/head";

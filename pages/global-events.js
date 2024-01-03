@@ -3,8 +3,6 @@ import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import Link from 'next/link';
 import Head from 'next/head';
-// import { Link } from 'react-router-dom';
-// import Seo from './Seo';\
 
 
 

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import {
   FaFacebookF,
@@ -70,7 +71,6 @@ const MenuPopup = ({ siteUrl, onClose }) => {
       console.error("Error fetching menu data:", error);
     }
   };
-  console.log("menu data desktop", menuData);
   return (
     <div className="popup-menu">
       <div className="popup-card-menu">
@@ -174,307 +174,35 @@ const MenuPopup = ({ siteUrl, onClose }) => {
               </div>
             </div>
 
-            <div className="d-flex p-5">
-              <div className="p-5">
-                <h6 className="menufont">{menuData[0]?.attributes?.title}</h6>
-                <ul className="submenu_options ">
-                  {menuData.length > 0 &&
-                    menuData
-                      .find(
-                        (section) =>
-                          section.attributes.title ===
-                          menuData[0]?.attributes?.title
-                      )
-                      ?.attributes.children.data.map((menuItem) => (
-                        <li key={menuItem.id}>
-                          <a href={menuItem.attributes.url}>
-                            {menuItem.attributes.title}
-                          </a>
-                        </li>
-                      ))}
-                </ul>
-                <h6 className="menufont">{menuData[1]?.attributes?.title}</h6>
-                <ul className="submenu_options">
-                  {menuData.length > 0 &&
-                    menuData
-                      .find(
-                        (section) =>
-                          section.attributes.title ===
-                          menuData[1]?.attributes?.title
-                      )
-                      ?.attributes.children.data.map((menuItem) => (
-                        <li key={menuItem.id}>
-                          <a href={menuItem.attributes.url}>
-                            {menuItem.attributes.title}
-                          </a>
-                        </li>
-                      ))}
-                </ul>
-
-                <h6 className="menufont">{menuData[9]?.attributes?.title}</h6>
-
-                <ul className="submenu_options">
-                  {menuData.length > 0 &&
-                    menuData
-                      .find(
-                        (section) =>
-                          section.attributes.title ===
-                          menuData[9]?.attributes?.title
-                      )
-                      ?.attributes.children.data.map((menuItem) => (
-                        <li key={menuItem.url}>
-                          <a href={`${menuItem?.attributes?.url}`}>
-                            {menuItem.attributes.title}
-                          </a>
-                        </li>
-                      ))}
-                </ul>
-                <h6 className="menufont">{menuData[14]?.attributes?.title}</h6>
-
-                <ul className="submenu_options">
-                  {menuData.length > 0 &&
-                    menuData
-                      .find(
-                        (section) =>
-                          section.attributes.title ===
-                          menuData[14]?.attributes?.title
-                      )
-                      ?.attributes.children.data.map((menuItem) => (
-                        <li key={menuItem.url}>
-                          <a href={`${menuItem?.attributes?.url}`}>
-                            {menuItem.attributes.title}
-                          </a>
-                        </li>
-                      ))}
-                </ul>
+            <div className="menu-col-list">
+                {menuData &&
+                  menuData.map((itemData) => {
+                    return (
+                      <>
+                        {itemData?.attributes?.children?.data.length > 0 && (
+                          <>
+                            <div className="menu-col-item">
+                              <h6>{itemData?.attributes?.title} </h6>
+                              <ul>
+                                {itemData?.attributes?.children?.data.map(
+                                  (item) => {
+                                    return (
+                                      <li>
+                                        <Link href={item.attributes.url}>
+                                          {item.attributes.title}
+                                        </Link>
+                                      </li>
+                                    );
+                                  }
+                                )}
+                              </ul>
+                            </div>
+                          </>
+                        )}
+                      </>
+                    );
+                  })}
               </div>
-
-              <div className=" borderLfet p-5">
-                <h6 className="menufont">{menuData[2]?.attributes?.title}</h6>
-                <ul className="submenu_options">
-                  {menuData.length > 0 &&
-                    menuData
-                      .find(
-                        (section) =>
-                          section.attributes.title ===
-                          menuData[2]?.attributes?.title
-                      )
-                      ?.attributes.children.data.map((menuItem) => (
-                        <li key={menuItem.id}>
-                          <a href={menuItem.attributes.url}>
-                            {menuItem.attributes.title}
-                          </a>
-                        </li>
-                      ))
-                      }
-                      
-                </ul>
-
-                <h6 className="menufont">{menuData[3]?.attributes?.title}</h6>
-                <ul className="submenu_options">
-                  {menuData.length > 0 &&
-                    menuData
-                      .find(
-                        (section) =>
-                          section.attributes.title ===
-                          menuData[3]?.attributes?.title
-                      )
-                      ?.attributes.children.data.map((menuItem) => (
-                        <li key={menuItem.id}>
-                          <a href={menuItem.attributes.url}>
-                            {menuItem.attributes.title}
-                          </a>
-                        </li>
-                      ))}
-                </ul>
-
-                <h6 className="menufont">{menuData[4]?.attributes?.title}</h6>
-                <ul className="submenu_options">
-                  {menuData.length > 0 &&
-                    menuData
-                      .find(
-                        (section) =>
-                          section.attributes.title ===
-                          menuData[4]?.attributes?.title
-                      )
-                      ?.attributes.children.data.map((menuItem) => (
-                        <li key={menuItem.id}>
-                          <a href={menuItem.attributes.url}>
-                            {menuItem.attributes.title}
-                          </a>
-                        </li>
-                      ))}
-                </ul>
-
-                <h6 className="menufont">{menuData[10]?.attributes?.title}</h6>
-
-                <ul className="submenu_options">
-                  {menuData.length > 0 &&
-                    menuData
-                      .find(
-                        (section) =>
-                          section.attributes.title ===
-                          menuData[10]?.attributes?.title
-                      )
-                      ?.attributes.children.data.map((menuItem) => (
-                        <li key={menuItem.url}>
-                          <a href={`${menuItem?.attributes?.url}`}>
-                            {menuItem.attributes.title}
-                          </a>
-                        </li>
-                      ))}
-                </ul>
-              </div>
-              <div className=" borderLfet p-5">
-                <h6 className="menufont">{menuData[5]?.attributes?.title}</h6>
-                <ul className="submenu_options">
-                  {menuData.length > 0 &&
-                    menuData
-                      .find(
-                        (section) =>
-                          section.attributes.title ===
-                          menuData[5]?.attributes?.title
-                      )
-                      ?.attributes.children.data.map((menuItem) => (
-                        <li key={menuItem.id}>
-                          <a href={menuItem.attributes.url}>
-                            {menuItem.attributes.title}
-                          </a>
-                        </li>
-                      ))}
-                </ul>
-
-                <h6 className="menufont">{menuData[6]?.attributes?.title}</h6>
-                <ul className="submenu_options">
-                  {menuData.length > 0 &&
-                    menuData
-                      .find(
-                        (section) =>
-                          section.attributes.title ===
-                          menuData[6]?.attributes?.title
-                      )
-                      ?.attributes.children.data.map((menuItem) => (
-                        <li key={menuItem.id}>
-                          <a href={menuItem.attributes.url}>
-                            {menuItem.attributes.title}
-                          </a>
-                        </li>
-                      ))}
-                </ul>
-
-                <h6 className="menufont">{menuData[16]?.attributes?.title}</h6>
-
-                <ul className="submenu_options">
-                  {menuData.length > 0 &&
-                    menuData
-                      .find(
-                        (section) =>
-                          section.attributes.title ===
-                          menuData[16]?.attributes?.title
-                      )
-                      ?.attributes.children.data.map((menuItem) => (
-                        <li key={menuItem.url}>
-                          <a href={`${menuItem?.attributes?.url}`}>
-                            {menuItem.attributes.title}
-                          </a>
-                        </li>
-                      ))}
-                </ul>
-
-                <h6 className="menufont">{menuData[13]?.attributes?.title}</h6>
-
-                <ul className="submenu_options">
-                  {menuData.length > 0 &&
-                    menuData
-                      .find(
-                        (section) =>
-                          section.attributes.title ===
-                          menuData[13]?.attributes?.title
-                      )
-                      ?.attributes.children.data.map((menuItem) => (
-                        <li key={menuItem.url}>
-                          <a href={`${menuItem?.attributes?.url}`}>
-                            {menuItem.attributes.title}
-                          </a>
-                        </li>
-                      ))}
-                </ul>
-              </div>
-
-              <div className="borderLfet p-5">
-                <h6 className="menufont">{menuData[7]?.attributes?.title}</h6>
-                <ul className="submenu_options">
-                  {menuData.length > 0 &&
-                    menuData
-                      .find(
-                        (section) =>
-                          section.attributes.title ===
-                          menuData[7]?.attributes?.title
-                      )
-                      ?.attributes.children.data.map((menuItem) => (
-                        <li key={menuItem.id}>
-                          <a href={menuItem.attributes.url}>
-                            {menuItem.attributes.title}
-                          </a>
-                        </li>
-                      ))}
-                </ul>
-
-                <h6 className="menufont">{menuData[8]?.attributes?.title}</h6>
-                <ul className="submenu_options">
-                  {menuData.length > 0 &&
-                    menuData
-                      .find(
-                        (section) =>
-                          section.attributes.title ===
-                          menuData[8]?.attributes?.title
-                      )
-                      ?.attributes.children.data.map((menuItem) => (
-                        <li key={menuItem.id}>
-                          <a href={menuItem.attributes.url}>
-                            {menuItem.attributes.title}
-                          </a>
-                        </li>
-                      ))}
-                </ul>
-                <h6 className="menufont">{menuData[12]?.attributes?.title}</h6>
-
-                <ul className="submenu_options">
-                  {menuData.length > 0 &&
-                    menuData
-                      .find(
-                        (section) =>
-                          section.attributes.title ===
-                          menuData[12]?.attributes?.title
-                      )
-                      ?.attributes.children.data.map((menuItem) => (
-                        <li key={menuItem.url}>
-                          <a href={`${menuItem?.attributes?.url}`}>
-                            {menuItem.attributes.title}
-                          </a>
-                        </li>
-                      ))}
-                </ul>
-                <h6 className="menufont">{menuData[15]?.attributes?.title}</h6>
-
-                <ul className="submenu_options">
-                  {menuData.length > 0 &&
-                    menuData
-                      .find(
-                        (section) =>
-                          section.attributes.title ===
-                          menuData[15]?.attributes?.title
-                      )
-                      ?.attributes.children.data.map((menuItem) => (
-                        <li key={menuItem.url}>
-                          <a href={`${menuItem?.attributes?.url}`}>
-                            {menuItem.attributes.title}
-                          </a>
-                        </li>
-                      ))}
-                </ul>
-              </div>
-            </div>
 
             <div className="row menuFooter">
               <div className="col-sm-6">

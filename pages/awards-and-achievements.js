@@ -4,7 +4,6 @@ import Footer from "../components/Footer";
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Head from "next/head";
-// import Seo from './Seo';
 
 
 

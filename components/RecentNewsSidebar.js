@@ -1,5 +1,5 @@
+import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 
 const RecentNewsSidebar = ({siteUrl}) => {
     const [recentPosts, setRecentPosts] = useState([]);

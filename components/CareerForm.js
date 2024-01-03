@@ -1,16 +1,37 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
 import axios from "axios";
 import NavBar from "./NavBar";
 import Link from "next/link";
-import { useRouter } from 'next/router';
 import { determineStrapiUrl } from "@/utils/strapiUtils";
-const CareerForm = () => {
-  const router = useRouter();
-  const homeUrl = router.pathname === '/' ? '/' : `/${router.pathname}`;
-  const siteUrl = determineStrapiUrl(homeUrl);
+export const getServerSideProps = async (context) => {
+  try {
+    const siteUrl = determineStrapiUrl(context);
+    const res1 = await fetch(`${siteUrl}/api/careers-pages?populate=*`)
+   
+    const data1 = await res1.json();
+
+    return {
+      props: {
+        data1,
+        siteUrl,
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching data:", error.message);
+
+    return {
+      props: {
+        data: [],
+      },
+    };
+  }
+};
+
+const CareerForm = ({siteUrl,data1}) => {
+  console.log(data1)
   const [inputKey, setInputKey] = useState("");
   const [salaryExpectationsApi, setSalaryExpectation] = useState([]);
   const [jobRole, setJobRole] = useState([]);
@@ -43,6 +64,7 @@ const CareerForm = () => {
     photo: null,
     salaryExp: "",
   };
+
 
   const validationSchema = Yup.object({
     category: Yup.string().required("Category is required"),
@@ -166,21 +188,21 @@ const CareerForm = () => {
     onSubmit,
   });
 
-  useEffect(() => {
-    fetch(`${siteUrl}/api/careers-pages?populate=*`)
-      .then((response) => response.json())
-      .then((data) => {
-        setJobRole(data?.data[0]?.attributes);
-        setLocation(data?.data[0]?.attributes);
-        setCategory(data?.data[0]?.attributes);
-        setSalaryExpectation(data?.data[0]?.attributes);
-      })
+  // useEffect(() => {
+  //   fetch(`${siteUrl}/api/careers-pages?populate=*`)
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setJobRole(data?.data[0]?.attributes);
+  //       setLocation(data?.data[0]?.attributes);
+  //       setCategory(data?.data[0]?.attributes);
+  //       setSalaryExpectation(data?.data[0]?.attributes);
+  //     })
 
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }, []);
-
+  //     .catch((error) => {
+  //       console.error("Error:", error);
+  //     });
+  // }, []);
+console.log('data in ca',data1)
   return (
     <>
       <NavBar siteUrl={siteUrl}/>
