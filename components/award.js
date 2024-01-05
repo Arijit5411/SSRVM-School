@@ -10,7 +10,7 @@ const Award = ({siteUrl}) => {
     const fetchAwards = async () => {
       try {
         const response = await fetch(
-          `${siteUrl}/api/awards-and-achievements?populate=*`
+          `${siteUrl}/api/awards-and-achievements?sort=id:desc&populate=*`
         );
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);

@@ -13,7 +13,9 @@ const nextConfig = {
     SMTP_PORT: 465,
     SMTP_USER: "noreply@ssrvm.org",
     SMTP_PASS: "Gold2005",
-    SURL: '[ { "subdomain": "school1.localhost.com:3737", "url": "https://cuttackapi.ssa.org.in" }, { "subdomain": "school2.localhost.com:3737", "url": "https://gauribidanurapi.ssrvm.org" } ]'
+    // https://bangaloresouthapi.ssrvm.org
+    // https://cuttackapi.ssa.org.in
+    SURL: '[ { "subdomain": "school1.localhost.com:3737", "url": "https://bangaloresouthapi.ssrvm.org" }, { "subdomain": "school2.localhost.com:3737", "url": "https://gauribidanurapi.ssrvm.org" } ]'
   },
 }
 
