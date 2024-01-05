@@ -1,8 +1,9 @@
+import { yellow } from "@mui/material/colors";
 import React, { useEffect, useRef, useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import Slider from "react-slick";
 
-const BannerSliderOne = ({siteUrl}) => {
+const BannerSliderOne = ({ siteUrl }) => {
   const [state, setState] = useState({
     nav1: null,
     nav2: null,
@@ -126,7 +127,7 @@ const BannerSliderOne = ({siteUrl}) => {
                 <div key={item.id}>
                   <div
                     className={`home-banner-bg-image header-bg banner-${item.id}-Color `}
-                    style={{backgroundImage: `url(${siteUrl}${item.attributes.image.data.attributes.url})`}}
+                    style={{ backgroundImage: `url(${siteUrl}${item.attributes.image.data.attributes.url})` }}
                   >
                     <div className="container">
                       <div className="row header-height justify-content-start">
@@ -142,19 +143,20 @@ const BannerSliderOne = ({siteUrl}) => {
                                 alt=""
                               />
                             </div>
-                            {item.attributes.heading.length > 0 &&
-                              item.attributes.description.length > 0 && (
-                                <div className="header-inner-wrap">
-                                  <div className="header-inner">
-                                    <h1 className="title animated slideInRight">
-                                      {item.attributes.heading}
-                                    </h1>
-                                    <p className="sub-title">
-                                      {item.attributes.description}
-                                    </p>
-                                  </div>
+
+                            {(item.attributes.heading ?? null) && (item.attributes.description ?? null) && (
+                              <div className="header-inner-wrap">
+                                <div className="header-inner">
+                                  <h1 className="title animated slideInRight">
+                                    {item.attributes.heading}
+                                  </h1>
+                                  <p className="sub-title">
+                                    {item.attributes.description}
+                                  </p>
                                 </div>
-                              )}
+                              </div>
+                            )}
+
                           </div>
                         </div>
                       </div>
