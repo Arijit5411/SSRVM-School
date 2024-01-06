@@ -56,7 +56,7 @@ const Award = ({siteUrl}) => {
                   <img
                     src={`${siteUrl}${award.attributes.image?.data?.attributes?.url}`}
                     alt={award.attributes.award_name}
-                    className="image-Banner-Round awardImg"
+                    className="wrap-img-top1 wrap-side-award"
                   />
                   <div className="textAlignCenter">
                     <h6 className="awardName">{award.attributes.award_name}</h6>
@@ -75,7 +75,7 @@ const Award = ({siteUrl}) => {
                       <img
                         src={`${siteUrl}${award.attributes.image?.data?.attributes?.url}`}
                         alt={award.attributes.award_name}
-                        className="image-Banner-Round awardImg"
+                        className="wrap-img-top1 wrap-side-award"
                       />
                       <div className="textAlignCenter">
                         <h6 className="awardName">{award.attributes.award_name}</h6>

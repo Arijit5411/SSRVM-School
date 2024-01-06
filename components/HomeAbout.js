@@ -113,7 +113,7 @@ const HomeAbout = ({siteUrl}) => {
             </div>
           </div>
         </div>
-        <div className="section-3" style={{ background: `url(${GlobalSiteUrl}${gfounder?.banner_image?.data?.attributes?.url})`, backgroundSize: '100%' }}>
+        <div className="section-3" style={{ background: `url(${GlobalSiteUrl}${gfounder?.banner_image?.data?.attributes?.url})`, backgroundSize: 'cover' }}>
           <div className="container">
             <div className="row">
               <p>
