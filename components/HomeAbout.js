@@ -13,7 +13,7 @@ import HomeGallery from "./HomeGallery";
 import HomeGlobalBlogs from "./HomeGlobalBlogs";
 import HomeGlobalEvents from "./HomeGlobalEvents";
 
-const HomeAbout = ({siteUrl}) => {
+const HomeAbout = ({ siteUrl, homeSettings }) => {
   const [gfounder, setGfounder] = useState(null)
   const [homeAbout, setHomeAbout] = useState(null);
   const [activeTab, setActiveTab] = useState("News");
@@ -133,26 +133,33 @@ const HomeAbout = ({siteUrl}) => {
           </div>
         </div>
 
-        <HomeAdmissionProcess siteUrl={siteUrl}/>
+        <HomeAdmissionProcess siteUrl={siteUrl} />
 
-        <DummyHeader siteUrl={siteUrl}/>
+        <DummyHeader siteUrl={siteUrl} />
 
-        <HomeGallery siteUrl={siteUrl}/>
+        {((homeSettings === null) || (homeSettings.attributes.Gallery === true)) && <HomeGallery siteUrl={siteUrl} />}
 
-        <Award siteUrl={siteUrl}/>
+        {((homeSettings === null) || (homeSettings.attributes.Awards === true)) && <Award siteUrl={siteUrl} />}
+
+
         {/* service area start */}
-        <div className="service-area pd-top-115 pd-bottom-90 pb-lg-0 parentSpeak">
-          <div className="container">
-            <ParentSpeakVideo siteUrl={siteUrl} />
-          </div>
-          <div className="container">
-            <div className="row">
-              <Testimonial siteUrl={siteUrl}/>
+        {((homeSettings === null) || (homeSettings.attributes.Testimonials === true)) &&
+          <div className="service-area pd-top-115 pb-lg-0 parentSpeak">
+            <div className="container">
+              <ParentSpeakVideo siteUrl={siteUrl} />
+            </div>
+            <div className="container">
+              <div className="row">
+                <Testimonial siteUrl={siteUrl} />
+              </div>
             </div>
           </div>
-        </div>
+        }
+
+
         {/* service area end */}
-        <div className="service-area pd-bottom-90 pb-lg-0 newsEvent">
+        <div className="service-area pt-5 pd-bottom-90 pb-lg-0 newsEvent">
+          <div className="pt-5"></div>
           <div className="container">
             <div className="more-news-home">
               <a href={activeTab === "Global Blogs" ? "/global-blogs" : (activeTab === "Global Events" ? "/global-events" : `/${activeTab.toLowerCase()}`)}>
@@ -174,17 +181,20 @@ const HomeAbout = ({siteUrl}) => {
                 </div>
               </Tab>
               <Tab eventKey="Events" title="Events">
-                <HomeEvents siteUrl={siteUrl}/>
+                <HomeEvents siteUrl={siteUrl} />
               </Tab>
-              <Tab eventKey="Blogs" title="Blogs">
-                <HomeBlog siteUrl={siteUrl}/>
-              </Tab>
+
+              {((homeSettings === null) || (homeSettings.attributes.Blogs === true)) &&
+                <Tab eventKey="Blogs" title="Blogs">
+                  <HomeBlog siteUrl={siteUrl} />
+                </Tab>
+              }
 
               {events.map(
                 (event) =>
                   event.attributes.enable_disable && (
                     <Tab key={event.id} eventKey="Global Blogs" title="Global Blogs">
-                      <HomeGlobalBlogs siteUrl={siteUrl}/>
+                      <HomeGlobalBlogs siteUrl={siteUrl} />
                     </Tab>
                   )
               )}
@@ -193,7 +203,7 @@ const HomeAbout = ({siteUrl}) => {
                 (blog) =>
                   blog.attributes.enable_disable && (
                     <Tab key={blog.id} eventKey="Global Events" title="Global Events">
-                      <HomeGlobalEvents siteUrl={siteUrl}/>
+                      <HomeGlobalEvents siteUrl={siteUrl} />
                     </Tab>
                   )
               )}

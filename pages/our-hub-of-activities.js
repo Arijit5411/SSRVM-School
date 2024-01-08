@@ -7,34 +7,34 @@ import Head from "next/head";
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 
 export const getServerSideProps = async (context) => {
-  try {
-    const siteUrl = determineStrapiUrl(context);
+    try {
+        const siteUrl = determineStrapiUrl(context);
 
-    const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
-    const res1 = await fetch(`${siteUrl}/api/activities?populate=*`)
+        const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
+        const res1 = await fetch(`${siteUrl}/api/activities?populate=*`)
 
-    const data = await res.json()
-    const data1 = await res1.json()
+        const data = await res.json()
+        const data1 = await res1.json()
 
-    return {
-        props: {
-            seodata: data,
-            hubdata: data1,
-            siteUrl
-        }
-    };
-} catch (error) {
-  console.error("Error fetching data:", error.message);
+        return {
+            props: {
+                seodata: data,
+                hubdata: data1,
+                siteUrl
+            }
+        };
+    } catch (error) {
+        console.error("Error fetching data:", error.message);
 
-  return {
-    props: {
-      data: [],
-    },
-  };
-}
+        return {
+            props: {
+                data: [],
+            },
+        };
+    }
 };
 
-const OurHubOfActivities = ({ seodata, hubdata,siteUrl }) => {
+const OurHubOfActivities = ({ seodata, hubdata, siteUrl }) => {
     const [ourHubOfActivities, setOurHubOfActivities] = useState([]);
     const [seoData, setSeoData] = useState({
         title: '',
@@ -100,6 +100,7 @@ const OurHubOfActivities = ({ seodata, hubdata,siteUrl }) => {
         }
     }, []);
 
+
     return (
         <>
             <Head>
@@ -108,7 +109,7 @@ const OurHubOfActivities = ({ seodata, hubdata,siteUrl }) => {
                 {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
             </Head>
             <div className="wrap-item-se1">
-                <NavBar siteUrl={siteUrl}/>
+                <NavBar siteUrl={siteUrl} />
 
                 {/* {seoData && (
                     <Seo
@@ -142,7 +143,15 @@ const OurHubOfActivities = ({ seodata, hubdata,siteUrl }) => {
                         <div className="row g-4 mt-5">
                             {ourHubOfActivities.map((activity) => (
                                 <div className="col-lg-6" key={activity.id}>
-                                    <Link href={`/individual-activities/${activity.id}`}>
+
+                                    <Link
+                                        key={activity.id} // Don't forget to add a key prop
+                                        href={`/individual-activities/${activity.id}`}
+                                        style={{
+                                            pointerEvents: (activity.image_gallery.length > 0 || activity.video_link.length > 0) ? 'auto' : 'none',
+                                        }}
+                                    >
+
                                         {" "}
                                         <div
                                             className=" cardact wrap-hub-item"
@@ -168,7 +177,7 @@ const OurHubOfActivities = ({ seodata, hubdata,siteUrl }) => {
                         </div>
                     </section>
                 </div>
-                <Footer siteUrl={siteUrl}/>
+                <Footer siteUrl={siteUrl} />
             </div>
         </>
     );

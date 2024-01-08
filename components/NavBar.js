@@ -13,8 +13,9 @@ import {
   FaWhatsapp,
 } from "react-icons/fa";
 import ImportantAnnouncment from "./ImportantAnnouncment";
+import Head from "next/head";
 
-const NavBar = ({siteUrl}) => {
+const NavBar = ({ siteUrl }) => {
   const [open, setOpen] = useState(false);
   const [showPopup, setShowPopup] = useState(false); // New state variable for popup
   const [showPopup1, setShowPopup1] = useState(false); // New state variable for popup
@@ -24,6 +25,21 @@ const NavBar = ({siteUrl}) => {
   const [schoolData, setschoolData] = useState([]);
   const [social, setSocial] = useState([]);
   const [enableDisable, setEnableDisable] = useState(false);
+
+  const [apiData, setApiData] = useState(null);
+  useEffect(() => {
+    // Make the API call using fetch
+    fetch(`${siteUrl}/api/navbar-menu-headers?populate=*`)
+      .then((response) => response.json())
+      .then((data) => {
+        // Set the API data in the state
+        setApiData(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data from the API:", error);
+      });
+  }, []);
+
 
   // Function to toggle the popup
   const togglePopup = () => {
@@ -131,6 +147,9 @@ const NavBar = ({siteUrl}) => {
 
   return (
     <>
+      <Head>
+        <link rel="icon" href={`${siteUrl}${apiData.data[0].attributes.logo?.data?.attributes?.url}`} />
+      </Head>
       <div className="mobilehide">
         <header className="navbar-are">
           <nav
@@ -138,7 +157,7 @@ const NavBar = ({siteUrl}) => {
               "navbar navbar-area-1  navbar-area-3 navbar-area navbar-expand-lg d-flex flex-column"
             }
           >
-            <ImportantAnnouncment siteUrl={siteUrl}/>
+            <ImportantAnnouncment siteUrl={siteUrl} />
             <div className="container nav-container">
               <div className="responsive-mobile-menu">
                 <button
@@ -158,10 +177,12 @@ const NavBar = ({siteUrl}) => {
               </div>
               <div className="logo">
                 <Link href="/">
-                  <img
-                    src={siteUrl + "/uploads/ssrvm_logo_6bd2ba23df.svg"}
-                    alt="Transpro"
-                  />
+                  {apiData && apiData.data && apiData.data.length > 0 && (
+                    <img
+                      src={`${siteUrl}${apiData.data[0].attributes.logo?.data?.attributes?.url}`}
+                      alt="Transpro"
+                    />
+                  )}
                 </Link>
               </div>
               <div className="nav-left-part"></div>
@@ -199,7 +220,7 @@ const NavBar = ({siteUrl}) => {
                         key={index}
                         className={
                           menuItem.attributes.children &&
-                          menuItem.attributes.children.data.length > 0
+                            menuItem.attributes.children.data.length > 0
                             ? "menu-item-has-children"
                             : ""
                         }
@@ -306,14 +327,14 @@ const NavBar = ({siteUrl}) => {
           )}
         </div>
 
-        {showPopup1 && <AdmissionEnquiry siteUrl={siteUrl}  onClose={togglePopup1} />}
+        {showPopup1 && <AdmissionEnquiry siteUrl={siteUrl} onClose={togglePopup1} />}
 
         {/* navbar end */}
       </div>
 
       <div className="desktophide">
         {/* navbar start */}
-        <ImportantAnnouncment siteUrl={siteUrl}/>
+        <ImportantAnnouncment siteUrl={siteUrl} />
         <header className="navbar-area">
           <nav className="mobileshowmenu">
             <div className="container nav-container">
@@ -339,10 +360,11 @@ const NavBar = ({siteUrl}) => {
               </div>
               <div className="logo">
                 <Link className="logo-1" href="/">
-                  <img
-                    src={siteUrl + "/uploads/ssrvm_logo_6bd2ba23df.svg"}
-                    className="mobileLogo"
-                  />
+                  {apiData && apiData.data && apiData.data.length > 0 && (
+                    <img
+                      src={`${siteUrl}${apiData.data[0].attributes.logo?.data?.attributes?.url}`}
+                      className="mobileLogo"
+                    />)}
                 </Link>
                 <div className="dropdown logotext mobileDropDown">
                   <button className="dropbtnMobile">

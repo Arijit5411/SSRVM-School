@@ -67,15 +67,6 @@
   .call-to-contact-area img {
     width: 51.7%;
   }
-
-  .video-area .video-thumb-wrap {
-    width: 70%;
-  }
-
-  .video-area .video-thumb-wrap .video-play-btn {
-    left: 64%;
-  }
-
   .testimonial-area.style-2 {
     margin-left: 190px;
     margin-right: 190px;
@@ -573,14 +564,10 @@
   }
 
   .video-area .video-thumb-wrap {
-    width: 50%;
     align-items: center;
     display: flex;
   }
 
-  .video-area .video-thumb-wrap .video-play-btn {
-    left: 59%;
-  }
 
   .footer-top-subscribe .single-subscribe-inner {
     min-width: 260px;
@@ -1568,8 +1555,11 @@
   .video-area {
     position: relative;
     z-index: 0;
-    height: 270px !important;
+    height: 54vw !important;
     overflow: hidden;
+  }
+  .video-area .video-thumb-wrap{
+    height: 100%;
   }
 
   .pd-bottom-120 {
@@ -2172,4 +2162,11 @@ table {
   display: block !important;
   overflow-x: auto;
   white-space: nowrap;
+}
+
+@media only screen and (max-width: 1400px) {
+  .video-area {
+    height: 14vw;
+  }
+  
 }

@@ -1,4 +1,4 @@
-import React, {  useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import BannerSliderOne from "../components/BannerSliderOne";
 import Footer from "../components/Footer";
 import HomeAbout from "../components/HomeAbout";
@@ -11,28 +11,31 @@ import { determineStrapiUrl } from "@/utils/strapiUtils";
 export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);
-  const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
+    const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
+    const res2 = await fetch(`${siteUrl}/api/home?populate=*`);
 
-  const data = await res.json()
+    const data = await res.json();
+    const data2 = await res2.json();
 
-  return {
-    props: {
-      seodata: data,
-      siteUrl
-    }
-  };
-} catch (error) {
-  console.error("Error fetching data:", error.message);
+    return {
+      props: {
+        seodata: data,
+        homeSettings: data2.data,
+        siteUrl
+      }
+    };
+  } catch (error) {
+    console.error("Error fetching data:", error.message);
 
-  return {
-    props: {
-      data: [],
-    },
-  };
-}
+    return {
+      props: {
+        data: [],
+      },
+    };
+  }
 };
 
-const Home = ({ seodata ,siteUrl}) => {
+const Home = ({ seodata, homeSettings, siteUrl }) => {
 
   const [seoData, setSeoData] = useState({
     title: '',
@@ -85,12 +88,12 @@ const Home = ({ seodata ,siteUrl}) => {
       )} */}
       {/* <Suspense fallback={<Preloader />}> */}
       {/* <ImportantAnnouncment /> */}
-      <NavBar siteUrl={siteUrl}/>
-      <BannerSliderOne siteUrl={siteUrl}/>
-      <MandatoryDisclosure siteUrl={siteUrl}/>
-      <ImpAnmnt siteUrl={siteUrl}/>
-      <HomeAbout siteUrl={siteUrl}/>
-      <Footer siteUrl={siteUrl}/>
+      <NavBar siteUrl={siteUrl} />
+      <BannerSliderOne siteUrl={siteUrl} />
+      <MandatoryDisclosure siteUrl={siteUrl} />
+      <ImpAnmnt siteUrl={siteUrl} />
+      <HomeAbout siteUrl={siteUrl} homeSettings={homeSettings} />
+      <Footer siteUrl={siteUrl} />
       {/* </Suspense> */}
     </>
   );

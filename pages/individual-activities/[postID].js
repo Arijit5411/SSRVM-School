@@ -5,6 +5,7 @@ import Video from "@/components/Video";
 import Slider from "react-slick";
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
+import Link from "next/link";
 
 export const getServerSideProps = async (context) => {
   try {
@@ -45,7 +46,7 @@ const SportsAndArts = ({ siteUrl, data1, data2 }) => {
     window.location.href = `/individual-activities/${nextPostID}`;
   };
 
-  
+
 
   const settings = {
     dots: true,
@@ -54,137 +55,129 @@ const SportsAndArts = ({ siteUrl, data1, data2 }) => {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
-  console.log(data1, data2);
+  console.log(data1);
   return (
     <>
       <NavBar siteUrl={siteUrl} />
       <div className="top-section15-new">
-        <div className="container">
-          <h1 className="principal-mess wrap-sports-arts sport_mob lineHight">
-            {data1.data.attributes.title}
-          </h1>
-          <p className="sportp">{data1.data.attributes.description}</p>
-        </div>
+        {(data1.data.attributes.title || data1.data.attributes.description) &&
+          <div className="container">
+            <h1 className="principal-mess wrap-sports-arts sport_mob lineHight">
+              {data1.data.attributes.title}
+            </h1>
+            <p className="sportp">{data1.data.attributes.description}</p>
+          </div>
+        }
 
         <>
-          <section className="container">
-            <h4 className="heading_down_sports marginTop50">Images</h4>
-            <div className="row">
-              <div className="d-none d-md-flex gap-4">
-                <div className="row w-100">
-                  {data1.data.attributes.image_gallery &&
-                  data1.data.attributes.image_gallery.length > 0 ? (
-                    data1.data.attributes.image_gallery.map(
-                      (imageItem, index) => (
-                        <div className="col-lg-4" key={index}>
-                          <img
-                            src={
-                              siteUrl +
-                              imageItem.image_gal?.data?.attributes?.url
-                            }
-                            alt={`Image ${index}`}
-                            className="image_box_sports"
-                          />
-                        </div>
-                      )
-                    )
-                  ) : (
-                    <h5 className="text-center">No images available!</h5>
-                  )}
-                </div>
-              </div>
-            </div>
-            <div className="row">
-              <div className="d-md-none px-3 mb-5">
-                <div className="row w-100">
-                  <Slider {...settings}>
-                    {data1.data.attributes.image_gallery &&
-                    data1.data.attributes.image_gallery.length > 0 ? (
-                      data1.data.attributes.image_gallery.map(
+
+          {(data1.data.attributes.image_gallery.length > 0) &&
+            <section className="container">
+              <h4 className="heading_down_sports marginTop50">Images</h4>
+              <div className="row">
+                <div className="d-none d-md-flex gap-4">
+                  <div className="row g-4 w-100">
+                    {data1.data.attributes.image_gallery.map(
                         (imageItem, index) => (
-                          <div className="col" key={index}>
+                          <div className="col-lg-4" key={index}>
                             <img
                               src={
                                 siteUrl +
                                 imageItem.image_gal?.data?.attributes?.url
                               }
                               alt={`Image ${index}`}
-                              className="image_box_sports mb-1"
+                              className="image_box_sports h-100"
                             />
                           </div>
                         )
-                      )
-                    ) : (
-                      <h5 className="text-center">No images available!</h5>
-                    )}
+                      )}
+                  </div>
+                </div>
+              </div>
+              <div className="row">
+                <div className="d-md-none px-3 mb-5">
+                  <div className="row w-100">
+                    <Slider {...settings}>
+                      {data1.data.attributes.image_gallery.map(
+                          (imageItem, index) => (
+                            <div className="col" key={index}>
+                              <img
+                                src={
+                                  siteUrl +
+                                  imageItem.image_gal?.data?.attributes?.url
+                                }
+                                alt={`Image ${index}`}
+                                className="image_box_sports mb-1"
+                              />
+                            </div>
+                          )
+                        )}
+                    </Slider>
+                  </div>
+                </div>
+              </div>
+            </section>
+          }
+
+          <div className="py-lg-4"></div>
+
+          {(data1.data.attributes.video_link.length > 0) &&
+            <section className="container">
+              <h4 className="heading_down_sports marginTop50">Videos</h4>
+              <div className="row">
+                <div className="d-none d-md-flex gap-4">
+                  <div className="row w-100">
+                    {data1.data.attributes.video_link.map((videoItem, index) => (
+                        <div className="col-lg-4" key={index}>
+                          {videoItem.video ? (
+                            <Video videoUrl={videoItem.video} />
+                          ) : (
+                            <p>No video link available</p>
+                          )}
+                          <h4 className="fs-20 mt-3">Video to watch</h4>
+                        </div>
+                      ))
+                    }
+                  </div>
+                </div>
+              </div>
+              <div className="row">
+                <div className="d-md-none px-3 mb-5">
+                  <Slider {...settings}>
+                    {data1.data.attributes.video_link.map((videoItem, index) => (
+                        <div className="col-lg-4" key={index}>
+                          {videoItem.video ? (
+                            <Video videoUrl={videoItem.video} />
+                          ) : (
+                            <p>No video link available</p>
+                          )}
+                          <h4 className="fs-20 mt-3">Video to watch</h4>
+                        </div>
+                      ))
+                    }
                   </Slider>
                 </div>
               </div>
-            </div>
-          </section>
+            </section>
+          }
 
-          <section className="container">
-            <h4 className="heading_down_sports marginTop50">Videos</h4>
-            <div className="row">
-              <div className="d-none d-md-flex gap-4">
-                <div className="row w-100">
-                  {data1.data.attributes.video_link &&
-                  data1.data.attributes.video_link.length > 0 ? (
-                    data1.data.attributes.video_link.map((videoItem, index) => (
-                      <div className="col-lg-4" key={index}>
-                        {videoItem.video ? (
-                          <Video videoUrl={videoItem.video} />
-                        ) : (
-                          <p>No video link available</p>
-                        )}
-                        <h4>Video to watch</h4>
-                      </div>
-                    ))
-                  ) : (
-                    <h5 className="text-center">No videos available!</h5>
-                  )}
-                </div>
-              </div>
-            </div>
-            <div className="row">
-              <div className="d-md-none px-3 mb-5">
-                <Slider {...settings}>
-                  {data1.data.attributes.video_link &&
-                  data1.data.attributes?.video_link.length > 0 ? (
-                    data1.data.attributes.video_link.map((videoItem, index) => (
-                      <div className="col-lg-4" key={index}>
-                        {videoItem.video ? (
-                          <Video videoUrl={videoItem.video} />
-                        ) : (
-                          <p>No video link available</p>
-                        )}
-                        <h4>Video to watch</h4>
-                      </div>
-                    ))
-                  ) : (
-                    <h5 className="text-center">No videos available!</h5>
-                  )}
-                </Slider>
-              </div>
-            </div>
-          </section>
-
-          <section>
-            <div className="back_and_art">
+          <section className="py-5">
+            <div className="container">
               <div>
-                <a href="/our-hub-of-activities">
-                  &#x2190;Back to Hub of Activities{" "}
-                </a>
+                <Link href="/our-hub-of-activities" className="fs-20 fw-600">
+                  &#x2190; Back to Hub of Activities{" "}
+                </Link>
               </div>
               <div>
-                {data2.data.attributes.nextPostID && (
-                  <a href="#" onClick={navigateToNextPost}>
+                {data2?.data?.attributes?.nextPostID && (
+                  <Link href="#" onClick={navigateToNextPost}>
                     {" "}
                     Next Page &#x2192;{" "}
-                  </a>
+                  </Link>
                 )}
               </div>
             </div>
+            <div className="pb-3"></div>
           </section>
         </>
       </div>

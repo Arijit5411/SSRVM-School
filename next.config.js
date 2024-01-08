@@ -15,7 +15,7 @@ const nextConfig = {
     SMTP_PASS: "Gold2005",
     // https://bangaloresouthapi.ssrvm.org
     // https://cuttackapi.ssa.org.in
-    SURL: '[ { "subdomain": "school1.localhost.com:3737", "url": "https://bangaloresouthapi.ssrvm.org" }, { "subdomain": "school2.localhost.com:3737", "url": "https://gauribidanurapi.ssrvm.org" } ]'
+    SURL: '[ { "subdomain": "school1.localhost.com:3737", "url": "https://cuttackapi.ssa.org.in" }, { "subdomain": "school2.localhost.com:3737", "url": "https://gauribidanurapi.ssrvm.org" } ]'
   },
 }
 

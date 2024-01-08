@@ -4,7 +4,8 @@ import Slider from "react-slick";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
 
-const HomeGallery = ({siteUrl}) => {
+const HomeGallery = ({ siteUrl }) => {
+
     const [subfolders, setSubfolders] = useState([]);
     const [selectedSubfolder, setSelectedSubfolder] = useState(null);
     const [albumImages, setAlbumImages] = useState([]);
@@ -16,7 +17,7 @@ const HomeGallery = ({siteUrl}) => {
         ROOT_FOLDER_ID: '',
     });
 
-   
+
 
     const handleSubfolderClick = (subfolder, index) => {
         setSelectedSubfolder(subfolder);
@@ -217,56 +218,58 @@ const HomeGallery = ({siteUrl}) => {
     };
 
     return (
-        <div className="backgroungColor">
-            <div className="container">
-                <div className="row">
-                    <h2 className="title pd-bottom-20">Gallery</h2>
+        <>
+            <div className="backgroungColor">
+                <div className="container">
                     <div className="row">
-                        {subfolders.length > 0 && (
-                            <Slider {...settings}>
-                                {subfolders.map((subfolder, index) => (
-                                    <div className="" key={subfolder.id}>
-                                        <div
-                                            className="card boxMargin"
-                                            onClick={() => handleSubfolderClick(subfolder, index)}
-                                        >
-                                            <img
-                                                className="card-img-top"
-                                                src={firstImageURLs[index] || "assets/img/banner/5a-admissions.jpg"}
-                                                alt="Card image cap"
-                                            />
-                                            <div className="card-body">
-                                                <h6>{subfolder.name}</h6>
+                        <h2 className="title pd-bottom-20">Gallery</h2>
+                        <div className="row">
+                            {subfolders.length > 0 && (
+                                <Slider {...settings}>
+                                    {subfolders.map((subfolder, index) => (
+                                        <div className="" key={subfolder.id}>
+                                            <div
+                                                className="card boxMargin"
+                                                onClick={() => handleSubfolderClick(subfolder, index)}
+                                            >
+                                                <img
+                                                    className="card-img-top"
+                                                    src={firstImageURLs[index] || "assets/img/banner/5a-admissions.jpg"}
+                                                    alt="Card image cap"
+                                                />
+                                                <div className="card-body">
+                                                    <h6>{subfolder.name}</h6>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                ))}
-                            </Slider>
-                        )}
+                                    ))}
+                                </Slider>
+                            )}
+                        </div>
                     </div>
                 </div>
-            </div>
-            {albumImages && albumImages.length > 0 && (
-                <Lightbox
-                    mainSrc={`https://drive.google.com/uc?id=${albumImages[lightboxIndex]?.id}`}
-                    nextSrc={`https://drive.google.com/uc?id=${albumImages[(lightboxIndex + 1) % albumImages.length]?.id
-                        }`}
-                    prevSrc={`https://drive.google.com/uc?id=${albumImages[
-                        (lightboxIndex + albumImages.length - 1) % albumImages.length
-                    ]?.id
-                        }`}
-                    onCloseRequest={closeLightbox}
-                    onMovePrevRequest={() =>
-                        setLightboxIndex(
+                {albumImages && albumImages.length > 0 && (
+                    <Lightbox
+                        mainSrc={`https://drive.google.com/uc?id=${albumImages[lightboxIndex]?.id}`}
+                        nextSrc={`https://drive.google.com/uc?id=${albumImages[(lightboxIndex + 1) % albumImages.length]?.id
+                            }`}
+                        prevSrc={`https://drive.google.com/uc?id=${albumImages[
                             (lightboxIndex + albumImages.length - 1) % albumImages.length
-                        )
-                    }
-                    onMoveNextRequest={() =>
-                        setLightboxIndex((lightboxIndex + 1) % albumImages.length)
-                    }
-                />
-            )}
-        </div>
+                        ]?.id
+                            }`}
+                        onCloseRequest={closeLightbox}
+                        onMovePrevRequest={() =>
+                            setLightboxIndex(
+                                (lightboxIndex + albumImages.length - 1) % albumImages.length
+                            )
+                        }
+                        onMoveNextRequest={() =>
+                            setLightboxIndex((lightboxIndex + 1) % albumImages.length)
+                        }
+                    />
+                )}
+            </div>
+        </>
     );
 };
 
