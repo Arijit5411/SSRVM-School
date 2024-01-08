@@ -148,7 +148,9 @@ const NavBar = ({ siteUrl }) => {
   return (
     <>
       <Head>
-        <link rel="icon" href={`${siteUrl}${apiData.data[0].attributes.logo?.data?.attributes?.url}`} />
+        {apiData && apiData.data && apiData.data.length > 0 && (
+          <link rel="icon" href={`${siteUrl}${apiData.data[0].attributes.logo?.data?.attributes?.url}`} />
+        )}
       </Head>
       <div className="mobilehide">
         <header className="navbar-are">
