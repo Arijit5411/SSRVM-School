@@ -147,8 +147,8 @@ const Publications = ({ seodata, publicationData,siteUrl }) => {
         <NavBar siteUrl={siteUrl}/>
 
         <div className="top-section1">
-          <div className="d-flex p-3 justify-content-center pub-sec gap-3">
-            <h2 className="">Publications</h2>
+          <div className="d-flex  ml-5 pub-sec gap-3" style={{paddingLeft:'6rem'}}>
+            <h2 className="ml-5">Publications</h2>
             <a
               href="/school-magazine"
               target="_blank"

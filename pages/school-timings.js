@@ -19,7 +19,7 @@ export const getServerSideProps = async (context) => {
     return {
         props: {
             seodata: data,
-            timings: data1,
+             data1,
             siteUrl
         }
     };
@@ -34,8 +34,9 @@ export const getServerSideProps = async (context) => {
 }
 };
 
-const School_Timings = ({ seodata, timings,siteUrl }) => {
-    const [schoolTimings, setSchoolTimings] = useState(null);
+const School_Timings = ({ seodata,timings, data1,siteUrl }) => {
+    console.log('data>>>>',data1.data[0].attributes.page_title)
+    const [schoolTimings, setSchoolTimings] = useState();
     const [seoData, setSeoData] = useState({
         title: '',
         metaTitle: '',
@@ -138,17 +139,17 @@ const School_Timings = ({ seodata, timings,siteUrl }) => {
                     />
                 )} */}
                 <div className="container">
-                    <div className='d-flex flex-column justify-content-center align-items-start' style={{ margin: '6rem 0 6rem 0' }} dangerouslySetInnerHTML={{
+                    <div className='d-flex flex-column justify-content-center align-items-start' style={{ margin: '10rem 0 6rem 0' }} dangerouslySetInnerHTML={{
                         __html: schoolTimings?.page_content,
                     }}></div>
                 </div>
-                {/* <div className="top-section1-new">
+                 <div className="top-section1-new">
                     <section className="wrap-item-timing-se1">
                         <div className="container">
                             <div className="wrap-item-timing">
-                                <h1 className="wrap-heading-sch">
-                                    {page_title}
-                                </h1>
+                                <h2 className="wrap-heading-sch">
+                                    {data1.data[0].attributes.page_title}
+                                </h2>
                             </div>
                         </div>
                     </section>
@@ -256,7 +257,7 @@ const School_Timings = ({ seodata, timings,siteUrl }) => {
                             </div>
                         </div>
                     </section>
-                </div> */}
+                </div> 
                 <Footer siteUrl={siteUrl}/>
             </Fragment>
         </>

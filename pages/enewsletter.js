@@ -101,7 +101,7 @@ const SrijaniENewsletter = ({ seodata, newsletter,siteUrl }) => {
 
                 <div className="top-section1-new">
                     <div className="container">
-                        <h1 className="principal-mess">SRIJANI e-Newsletter</h1>
+                        <h1 className="principal-mess">ENewsletter </h1>
                     </div>
                     <section className="container newsletter">
                         <div className="row">

@@ -137,13 +137,13 @@ const HomeAbout = ({ siteUrl, homeSettings }) => {
 
         <DummyHeader siteUrl={siteUrl} />
 
-        {((homeSettings === null) || (homeSettings.attributes.Gallery === true)) && <HomeGallery siteUrl={siteUrl} />}
+        {((homeSettings === null) || (homeSettings?.attributes?.Gallery === true)) && <HomeGallery siteUrl={siteUrl} />}
 
-        {((homeSettings === null) || (homeSettings.attributes.Awards === true)) && <Award siteUrl={siteUrl} />}
+        {((homeSettings === null) || (homeSettings?.attributes?.Awards === true)) && <Award siteUrl={siteUrl} />}
 
 
         {/* service area start */}
-        {((homeSettings === null) || (homeSettings.attributes.Testimonials === true)) &&
+        {((homeSettings === null) || (homeSettings?.attributes?.Testimonials === true)) &&
           <div className="service-area pd-top-115 pb-lg-0 parentSpeak">
             <div className="container">
               <ParentSpeakVideo siteUrl={siteUrl} />
@@ -184,7 +184,7 @@ const HomeAbout = ({ siteUrl, homeSettings }) => {
                 <HomeEvents siteUrl={siteUrl} />
               </Tab>
 
-              {((homeSettings === null) || (homeSettings.attributes.Blogs === true)) &&
+              {((homeSettings === null) || (homeSettings?.attributes?.Blogs === true)) &&
                 <Tab eventKey="Blogs" title="Blogs">
                   <HomeBlog siteUrl={siteUrl} />
                 </Tab>

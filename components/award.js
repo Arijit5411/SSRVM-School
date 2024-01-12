@@ -3,8 +3,9 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import MarqueeAward from "../components/marqueeAward";
 import Slider from "react-slick";
+import Link from "next/link";
 
-const Award = ({siteUrl}) => {
+const Award = ({ siteUrl }) => {
   const [awards, setAwards] = useState([]);
   useEffect(() => {
     const fetchAwards = async () => {
@@ -40,15 +41,30 @@ const Award = ({siteUrl}) => {
     infinite: true,
     speed: 500,
     slidesToShow: 1,
-    slidesToScroll: 1
-  }
+    slidesToScroll: 1,
+  };
 
   return (
     <>
       <div className="heighLight">
         <div className="container service-area pd-top-75 pd-bottom-100">
           <div className="row">
-            <h2 className="title">Award and Recognition</h2>
+            <div className="d-flex justify-content-between">
+              <div>
+              <h2 className="title">Award and Recognition</h2>
+
+              </div>
+              <div>
+              <div className="d-flex gap-5 title fw-bold fs-18 ">
+                <div className="fw-bold ">
+                  Recent Awards
+                </div>
+                <div>
+                  <Link href="/awards-and-achievements">More Awards</Link>
+                </div>
+              </div>
+              </div>
+            </div>
             {/* <span className="d-none d-md-flex"> */}
             {awards.map((award) => (
               <div key={award.id} className="col-sm-3 d-none d-md-flex">
@@ -78,7 +94,9 @@ const Award = ({siteUrl}) => {
                         className="wrap-img-top1 wrap-side-award"
                       />
                       <div className="textAlignCenter">
-                        <h6 className="awardName">{award.attributes.award_name}</h6>
+                        <h6 className="awardName">
+                          {award.attributes.award_name}
+                        </h6>
                         {award.attributes.description}
                       </div>
                     </div>
@@ -88,8 +106,8 @@ const Award = ({siteUrl}) => {
             </div>
 
             <div className="col-sm-3">
-              <h2 className="title pd-bottom-20 marginTop72 ">Recent Awards</h2>
-              <MarqueeAward siteUrl={siteUrl}/>
+             
+              <MarqueeAward siteUrl={siteUrl} />
             </div>
           </div>
         </div>

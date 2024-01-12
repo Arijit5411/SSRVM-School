@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Video from "../components/Video";
 import Slider from "react-slick";
+import Link from "next/link";
 
-const ParentSpeakVideo = ({siteUrl}) => {
-  const [videos, setVideos] = useState([])
+const ParentSpeakVideo = ({ siteUrl }) => {
+  const [videos, setVideos] = useState([]);
 
   useEffect(() => {
     fetch(`${siteUrl}/api/testimonial-videos`)
@@ -31,12 +32,20 @@ const ParentSpeakVideo = ({siteUrl}) => {
     infinite: true,
     speed: 500,
     slidesToShow: 1,
-    slidesToScroll: 1
-  }
+    slidesToScroll: 1,
+  };
 
   return (
     <>
-      <h2 className="title pd-bottom-20">Parents Speak</h2>
+      <div className="d-flex justify-content-between title fw-bold fs-18">
+        <div>
+          {" "}
+          <h2 className="title">Parents Speak</h2>
+        </div>
+        <div>
+          <Link href="/testimonials">More Testimonials</Link>
+        </div>
+      </div>
 
       <div className="row justify-content-center">
         {/* <div className="d-none d-md-block"> */}

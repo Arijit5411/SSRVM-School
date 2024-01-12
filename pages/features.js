@@ -104,7 +104,7 @@ console.log('st url',siteUrl)
               <div className="row">
                 <div className="col-lg-7">
                   <h1 className="principal-mess principalTtile">Features</h1>
-                  <p className="wrap-features desktophide">
+                  {/* <p className="wrap-features desktophide">
                     Contrary to popular belief, Lorem Ipsum is not simply random
                     text. It has roots in a piece of classical Latin literature
                     from 45 BC, making it over 2000 years old. Richard
@@ -113,8 +113,8 @@ console.log('st url',siteUrl)
                     consecte- tur, from a Lorem Ipsum passage, and going through
                     the cites of the word in classical literature, discovered
                     the undoubtable source. Lorem Ipsum
-                  </p>
-                  <p className="wrap-features mobilehide">
+                  </p> */}
+                  {/* <p className="wrap-features mobilehide">
                     Contrary to popular belief, Lorem Ipsum is not simply random
                     text. It has<br></br>
                     roots in a piece of classical Latin literature from 45 BC,
@@ -127,7 +127,7 @@ console.log('st url',siteUrl)
                     of the word<br></br>
                     in classical literature, discovered the undoubtable source.
                     Lorem Ipsum<br></br>
-                  </p>
+                  </p> */}
                 </div>
               </div>
             </div>

@@ -140,7 +140,7 @@ const OurVision = ({ seodata, visionMission ,siteUrl}) => {
                         </div>
                     </div>
 
-                    <section className="heighLight1-new pd-bottom-90">
+                    <section className=" pd-bottom-90">
                         <div className="container">
                             <div className="row wrap-vision-mission-sec3 align-items-center">
                                 <div className="col-lg-7 wrap-vision-item">

@@ -144,7 +144,7 @@ const School_Magazine = ({ seodata, magazineData,siteUrl }) => {
                 <div className='top-section1'>
                     <div className="container">
                         <h1 className="principal-mess">School Magazine
-                            <a href="/press-releases">
+                            <a href="/publications">
                                 <button className='newsbtm publishButton'>
                                     View other Publications
                                 </button>

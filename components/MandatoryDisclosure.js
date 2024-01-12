@@ -19,7 +19,7 @@ const MandatoryDisclosure = ({siteUrl}) => {
 
     return (
         <>
-            <div className={`mandatoryDiv cursor-pointer ${!data?.data[0]?.attributes?.switch && 'd-none'}`} onClick={() => window.open(`/school-info`, '_self')}>
+            <div className={`mandatoryDiv cursor-pointer ${!data?.data[0]?.attributes?.switch && 'd-none'}`} onClick={() => window.open(`/mandatory-public-disclosure`, '_self')}>
                 <Marquee>
                     <span className='mx-3'>{data?.data[0]?.attributes?.Text.toUpperCase()}</span>
                     <span className='mx-3'>{data?.data[0]?.attributes?.Text.toUpperCase()}</span>
