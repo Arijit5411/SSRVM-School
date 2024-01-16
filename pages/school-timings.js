@@ -15,11 +15,11 @@ export const getServerSideProps = async (context) => {
 
     const data = await res.json()
     const data1 = await res1.json()
-
+    console.log("data1",JSON.stringify(data1));
     return {
         props: {
             seodata: data,
-             data1,
+             timings: data1,
             siteUrl
         }
     };
@@ -34,8 +34,7 @@ export const getServerSideProps = async (context) => {
 }
 };
 
-const School_Timings = ({ seodata,timings, data1,siteUrl }) => {
-    console.log('data>>>>',data1.data[0].attributes.page_title)
+const School_Timings = ({ seodata,timings,siteUrl }) => {
     const [schoolTimings, setSchoolTimings] = useState();
     const [seoData, setSeoData] = useState({
         title: '',
@@ -139,16 +138,16 @@ const School_Timings = ({ seodata,timings, data1,siteUrl }) => {
                     />
                 )} */}
                 <div className="container">
-                    <div className='d-flex flex-column justify-content-center align-items-start' style={{ margin: '10rem 0 6rem 0' }} dangerouslySetInnerHTML={{
+                    <div className='d-flex flex-column justify-content-center align-items-start school-content' style={{ margin: '10rem 0 6rem 0' }} dangerouslySetInnerHTML={{
                         __html: schoolTimings?.page_content,
                     }}></div>
                 </div>
-                 <div className="top-section1-new">
+                 {/* <div className="top-section1-new">
                     <section className="wrap-item-timing-se1">
                         <div className="container">
                             <div className="wrap-item-timing">
                                 <h2 className="wrap-heading-sch">
-                                    {data1.data[0].attributes.page_title}
+                                    {page_title}
                                 </h2>
                             </div>
                         </div>
@@ -257,7 +256,7 @@ const School_Timings = ({ seodata,timings, data1,siteUrl }) => {
                             </div>
                         </div>
                     </section>
-                </div> 
+                </div>  */}
                 <Footer siteUrl={siteUrl}/>
             </Fragment>
         </>

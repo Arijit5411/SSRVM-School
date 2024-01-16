@@ -832,3 +832,14 @@ header.navbar-are {
     min-height: 680px;
   }
 }
+
+/* ============================================================================================= School Timing */
+.school-content > h1{
+  font-size: 44px;
+  margin-top: 0%;
+  line-height: 180px;
+}
+
+.school-content > figure > table{
+  overflow: auto !important;
+}
