@@ -106,7 +106,9 @@ const Safety_Assuarance = ({ seodata, safety ,siteUrl}) => {
 
                 <div className='top-section1'>
                     <div className="container">
-                        <h1 className="principal-mess">Safety Assuarance</h1>
+                        <h1 className="principal-mess">Safety Assurance</h1>
+                        
+                        
                     </div>
 
                     <div className='generic-text-box'>
