@@ -111,7 +111,7 @@ const Our_Pedagogy = ({ seodata, pedagogy,siteUrl }) => {
                     />
                 )} */}
 
-                <section className="mobilehide">
+                <section className="mobilehide-pedalogy">
                     <div class="wrapper">
                         <section
                             class="section start-padding position-relative"

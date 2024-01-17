@@ -247,6 +247,12 @@ header.navbar-are {
 .education-card-mobile {
   display: none;
 }
+.mobilehide-pedalogy{
+  display: block;
+}
+.desktophide-pedalogy{
+  display: block;
+}
 
 .founder-tabs-mobile {
   display: none;
@@ -536,6 +542,12 @@ header.navbar-are {
 @media only screen and (max-width: 768px) {
   .education-card-mobile {
     display: block;
+  }
+  .mobilehide-pedalogy{
+    display: none;
+  }
+  .desktophide-pedalogy{
+    display: none;
   }
 
   .mobilehide-result {
