@@ -549,7 +549,9 @@ header.navbar-are {
   .desktophide-pedalogy{
     display: none;
   }
-
+.title-hide{
+  display: none;
+}
   .mobilehide-result {
     display: none;
   }

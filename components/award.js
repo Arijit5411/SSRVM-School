@@ -56,11 +56,11 @@ const Award = ({ siteUrl }) => {
               </div>
               <div>
               <div className="d-flex gap-5 title fw-bold fs-18 ">
-                <div className="fw-bold ">
+                <div className="fw-bold title-hide">
                   Recent Awards
                 </div>
                 <div>
-                  <Link href="/awards-and-achievements">More Awards</Link>
+                  <Link className="title" href="/awards-and-achievements">More Awards</Link>
                 </div>
               </div>
               </div>
