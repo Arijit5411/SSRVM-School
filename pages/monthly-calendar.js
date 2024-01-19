@@ -10,98 +10,100 @@ import { determineStrapiUrl } from "@/utils/strapiUtils";
 export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);
-    const res = await fetch(`${siteUrl}/api/seos`)
-    const res1 = await fetch(`${siteUrl}/api/monthly-calenders`)
+    const res = await fetch(`${siteUrl}/api/seos`);
+    const res1 = await fetch(`${siteUrl}/api/monthly-calenders`);
+    const res2 = await fetch(`${siteUrl}/api/calender-downloads?populate=*`);
 
-    const data = await res.json()
-    const data1 = await res1.json()
+    const data = await res.json();
+    const data1 = await res1.json();
+    const data2 = await res2.json();
 
     return {
-        props: {
-            seodata: data,
-            calendar: data1,
-            siteUrl
-        }
+      props: {
+        seodata: data,
+        calendar: data1,
+        downloadcal: data2,
+        siteUrl,
+      },
     };
-} catch (error) {
-  console.error("Error fetching data:", error.message);
+  } catch (error) {
+    console.error("Error fetching data:", error.message);
 
-  return {
-    props: {
-      data: [],
-    },
-  };
-}
+    return {
+      props: {
+        data: [],
+      },
+    };
+  }
 };
 
-const GoogleCalendar = ({ seodata, calendar,siteUrl }) => {
-    const [calendarData, setCalendarData] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [seoData, setSeoData] = useState({
-        title: '',
-        metaTitle: '',
-        metaDescription: '',
-    });
+const GoogleCalendar = ({ seodata, calendar, downloadcal, siteUrl }) => {
+   
+  console.log("data download", downloadcal);
+  const [calendarData, setCalendarData] = useState([]);
+  const [downloadCalender, setDownloadcalender] = useState([]);
 
-    useEffect(() => {
-        // fetch(`${siteUrl}/api/monthly-calenders`)
-        //     .then((response) => response.json())
-        //     .then((data) => {
-        //         setCalendarData(data.data);
-        //         setIsLoading(false);
-        //     })
-        //     .catch((error) => {
-        //         console.error("Error fetching data:", error);
-        //         setIsLoading(false);
-        //     });
-        if (calendar && calendar?.data && calendar?.data?.length > 0) {
-            setCalendarData(calendar.data);
-            setIsLoading(false);
-        } else {
-            console.error("Error fetching data:");
-            setIsLoading(false);
-        }
-    }, []);
+  const [isLoading, setIsLoading] = useState(true);
+  const [seoData, setSeoData] = useState({
+    title: "",
+    metaTitle: "",
+    metaDescription: "",
+  });
 
-    useEffect(() => {
-        // Fetch SEO data from your API
-        // fetch(`${siteUrl}/api/seos`) // Replace with the actual API endpoint
-        //     .then((response) => response.json())
-        //     .then((data) => {
-        //         console.log('API response data:', data); // Log the API response data
-        //         if (data && data.data && data.data.length > 0) {
-        //             const seoAttributes = data.data[17].attributes;
-        //             setSeoData({
-        //                 title: seoAttributes.title || '',
-        //                 metaTitle: seoAttributes.metaTitle || '',
-        //                 metaDescription: seoAttributes.metaDescription || '',
-        //             });
-        //         }
-        //     })
-        //     .catch((error) => {
-        //         console.error('Error fetching SEO data:', error);
-        //     });
-        if (seodata && seodata?.data && seodata?.data?.length > 0) {
-            const seoAttributes = seodata.data[17].attributes;
-            setSeoData({
-                title: seoAttributes.title || '',
-                metaTitle: seoAttributes.metaTitle || '',
-                metaDescription: seoAttributes.metaDescription || '',
-            })
-        }
-    }, []);
 
-    return (
-        <>
-            <Head>
-                <title>{seoData.title}</title>
-                {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
-                {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
-            </Head>
-            <Fragment>
-                <NavBar siteUrl={siteUrl}/>
 
-                {/* {seoData && (
+  
+
+
+  useEffect(() => {
+    
+    if (calendar && calendar?.data && calendar?.data?.length > 0) {
+      setCalendarData(calendar.data);
+      setIsLoading(false);
+    } else {
+      console.error("Error fetching data:");
+      setIsLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+   
+    if (seodata && seodata?.data && seodata?.data?.length > 0) {
+      const seoAttributes = seodata.data[17].attributes;
+      setSeoData({
+        title: seoAttributes.title || "",
+        metaTitle: seoAttributes.metaTitle || "",
+        metaDescription: seoAttributes.metaDescription || "",
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (downloadcal && downloadcal?.data && downloadcal?.data?.length > 0) {
+      console.log("download data?????", downloadcal.data.map((item)=>{
+        setDownloadcalender(item.attributes.pdf);
+        return item.attributes.pdf
+      }));
+      setIsLoading(false);
+    } else {
+      console.error("Error fetching data:");
+      setIsLoading(false);
+    }
+  }, []);
+  
+  return (
+    <>
+      <Head>
+        <title>{seoData.title}</title>
+        {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
+        {seoData.metaTitle && (
+          <meta name="description" content={seoData.metaDescription} />
+        )}
+      </Head>
+      <Fragment>
+        <NavBar siteUrl={siteUrl} />
+
+        {/* {seoData && (
                     <Seo
                         title={seoData.title}
                         metaTitle={seoData.metaTitle}
@@ -109,37 +111,58 @@ const GoogleCalendar = ({ seodata, calendar,siteUrl }) => {
                     />
                 )} */}
 
-                <div className="top-section1-new">
-                    <div className="container">
-                        <h1 className="principal-mess">Monthly Calendar</h1>
+        <div className="top-section1-new">
+          <div className="container">
+            <h1 className="principal-mess">Monthly Calendar</h1>
+          </div>
+        </div>
+        <section>
+          <div className="container marginTopHeader">
+            {isLoading ? (
+              <div className="loader"> Monthly Calendar is Loading...</div>
+            ) : (
+              calendarData.map((item) => (
+                <iframe
+                  key={item.id}
+                  src={item.attributes.calendar_link}
+                  style={{ border: "0" }}
+                  width="1350"
+                  height="800"
+                  frameBorder="0"
+                  scrolling="no"
+                ></iframe>
+              ))
+            )}
+          </div>
+        </section>
+        <div className="mt-5 container" >
+          { downloadcal?.data.filter(i=>i?.attributes.pdf?.data).map((item) => (
+            <div className="col-lg-6 mt-3" key={item.id}>
+              <div className="card-wrap">
+                <div className="d-flex gap-5 justify-content-between p-3">
+                    <div>
+                    <h6>{item.attributes.title}</h6>
+
                     </div>
+                  <div >
+                    <a
+                      href={`${siteUrl}${item.attributes.pdf?.data?.attributes?.url}`}
+                    >
+                      Download
+                    </a>
+                  </div>
                 </div>
-                <section>
-                    <div className="container marginTopHeader">
-                        {isLoading ? (
-                            <div className="loader"> Monthly Calendar is Loading...</div>
-                        ) : (
-                            calendarData.map((item) => (
-                                <iframe
-                                    key={item.id}
-                                    src={item.attributes.calendar_link}
-                                    style={{ border: "0" }}
-                                    width="1350"
-                                    height="800"
-                                    frameBorder="0"
-                                    scrolling="no"
-                                ></iframe>
-                            ))
-                        )}
-                    </div>
-                </section>
+              </div>
+            </div>
+          ))}
+        </div>
 
-                <School_Calender />
+        <School_Calender />
 
-                <Footer siteUrl={siteUrl}/>
-            </Fragment>
-        </>
-    );
+        <Footer siteUrl={siteUrl} />
+      </Fragment>
+    </>
+  );
 };
 
 export default GoogleCalendar;

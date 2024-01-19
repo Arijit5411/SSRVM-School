@@ -51,7 +51,7 @@ const Award = ({ siteUrl }) => {
           <div className="row">
             <div className="d-flex justify-content-between">
               <div>
-              <h2 className="title">Award and Recognition</h2>
+              <h2 className="title">Awards and Recognitions</h2>
 
               </div>
               <div>

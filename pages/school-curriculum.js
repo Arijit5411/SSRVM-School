@@ -1,6 +1,8 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
+import ReactMarkdown from "react-markdown";
+
 import Head from 'next/head';
 // import Seo from './Seo';
 
@@ -186,7 +188,9 @@ const SchoolCurriculum = ({ seodata, schoolCurr ,siteUrl}) => {
                                 <div className="col-lg-6">
                                     <h2 className='title'>{heading_1}</h2>
                                     <p>
-                                        {paragraph_1}
+                                    <ReactMarkdown >
+                                    {paragraph_1}
+                  </ReactMarkdown>
                                     </p>
                                 </div>
                                 <div className="col-lg-6">

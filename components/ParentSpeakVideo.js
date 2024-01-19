@@ -40,7 +40,7 @@ const ParentSpeakVideo = ({ siteUrl }) => {
       <div className="d-flex justify-content-between title fw-bold fs-18">
         <div>
           {" "}
-          <h2 className="title">Parents Speak</h2>
+          <h2 className="title">Testimonials</h2>
         </div>
         <div>
           <Link href="/testimonials">More Testimonials</Link>
