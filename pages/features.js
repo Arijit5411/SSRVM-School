@@ -2,6 +2,8 @@ import React, { Fragment, useState, useEffect } from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import Link from "next/link";
+import ReactMarkdown from "react-markdown";
+
 import Head from "next/head";
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 export const getServerSideProps = async (context) => {
@@ -146,15 +148,17 @@ console.log('st url',siteUrl)
                       {feature.attributes.heading}
                     </h4>
                     <p className="wrap-fea-pargrap">
-                      {feature.attributes.sub_heading
-                        ?.split("\n")
-                        ?.slice(0, 3)
-                        ?.map((line, index) => (
-                          <span key={index}>
-                            {line}
-                            <br />
-                          </span>
-                        ))}
+                    <ReactMarkdown >
+                      {feature.attributes.sub_heading}
+                        {/* // ?.split("\n")
+                        // ?.slice(0, 3)
+                        // ?.map((line, index) => (
+                        //   <span key={index}>
+                        //     {line}
+                        //     <br />
+                        //   </span>
+                        // ))} */}
+                        </ReactMarkdown>
                     </p>
                     <div className="btn-wrapper mt-4">
                       <div className="btn-wrap">

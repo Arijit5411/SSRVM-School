@@ -6,6 +6,8 @@ import Tabs from 'react-bootstrap/Tabs';
 import AdmissionFaq from '../components/admissionFaq';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import ReactMarkdown from "react-markdown";
+
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 
@@ -159,6 +161,7 @@ const Admissions = ({ seodata, admissionsData, t_class, tab_content, siteUrl }) 
             return (
                 <section>
                     <div className="wrap-mid-admission">
+                        <ReactMarkdown>
                         <div className="left-item-admission">
                             <h6> {document_eq_heading}
                             </h6>
@@ -174,6 +177,7 @@ const Admissions = ({ seodata, admissionsData, t_class, tab_content, siteUrl }) 
                             </p>
 
                         </div>
+                        </ReactMarkdown>
                         <div className="right-item-admission">
                             <h6>{age_criteria_heading}
                             </h6>
@@ -217,6 +221,7 @@ const Admissions = ({ seodata, admissionsData, t_class, tab_content, siteUrl }) 
             return (
                 <section>
                     <div className="wrap-mid-admission">
+                        <ReactMarkdown>
                         <div className="left-item-admission">
                             <h6> {document_eq_heading}
                             </h6>
@@ -232,6 +237,7 @@ const Admissions = ({ seodata, admissionsData, t_class, tab_content, siteUrl }) 
                             </p>
 
                         </div>
+                        </ReactMarkdown>
                         <div className="right-item-admission">
                             <h6>{age_criteria_pp2}
                             </h6>
@@ -273,6 +279,7 @@ const Admissions = ({ seodata, admissionsData, t_class, tab_content, siteUrl }) 
             return (
                 <section>
                     <div className="wrap-mid-admission">
+                        <ReactMarkdown>
                         <div className="left-item-admission">
                             <h6> {document_eq_heading}
                             </h6>
@@ -288,6 +295,7 @@ const Admissions = ({ seodata, admissionsData, t_class, tab_content, siteUrl }) 
                             </p>
 
                         </div>
+                        </ReactMarkdown>
                         <div className="right-item-admission">
                             <h6>{age_criteria_pp3}
                             </h6>
@@ -328,6 +336,7 @@ const Admissions = ({ seodata, admissionsData, t_class, tab_content, siteUrl }) 
             return (
                 <section>
                     <div className="wrap-mid-admission">
+                        <ReactMarkdown>
                         <div className="left-item-admission">
                             <h6> {document_eq_heading}
                             </h6>
@@ -343,6 +352,7 @@ const Admissions = ({ seodata, admissionsData, t_class, tab_content, siteUrl }) 
                             </p>
 
                         </div>
+                        </ReactMarkdown>
                         <div className="right-item-admission">
                             <h6>{age_criteria1}
                             </h6>
@@ -435,9 +445,13 @@ const Admissions = ({ seodata, admissionsData, t_class, tab_content, siteUrl }) 
                                 <div className="col-lg-6">
                                     <h4 className='title'>{subheading_admission}
                                     </h4>
-                                    <p>{para_1 && <span
-                                        dangerouslySetInnerHTML={{ __html: para_1.replace(/\n/g) }}></span>}
-                                    </p>
+                                
+                                    <p>{para_1 }
+                                     <span
+                                        dangerouslySetInnerHTML={{ __html: para_1.replace(/\n/g) }}>
+                                            </span>
+                                 </p>
+                                    
                                     <div>
                                         <button className="footerbtn wrap-btn" onClick={() => window.open(`${apply_button_link}`, '_blank')}>{apply_button}
                                         </button>

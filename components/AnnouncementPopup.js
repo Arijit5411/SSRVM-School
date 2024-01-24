@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
+import ReactMarkdown from "react-markdown";
+
 
   const AnnouncementPopup = ({announcement,siteUrl}) => {
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -28,13 +30,18 @@ const closeModal = () => {
                 alt="school"
                 className="imgPop"
               />
-              <p className="popUptext">
+               
+               <p className="popUptext">
                 <span className="popupTitle">
                   {announcement.attributes.heading}
                 </span>
                 <br></br>
+                <ReactMarkdown >
                 {announcement.attributes.description}
+                </ReactMarkdown>
               </p>
+                                    
+              
             </div>
           </Modal.Header>
         </Modal>
