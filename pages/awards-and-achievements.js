@@ -131,9 +131,13 @@ const Awards_And_Achievements = ({ seodata, awardsData,siteUrl }) => {
               />
               <div className="card-body">
                 <p className="card-text-award">
+                  {award.attributes.award_name}
+                </p>
+                <p className="">
                   {award.attributes.description}
                 </p>
               </div>
+             
             </div>
           </div>
         ))}

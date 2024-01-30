@@ -447,9 +447,9 @@ const Admissions = ({ seodata, admissionsData, t_class, tab_content, siteUrl }) 
                                     </h4>
                                 
                                     <p>{para_1 }
-                                     <span
+                                     {/* <span
                                         dangerouslySetInnerHTML={{ __html: para_1.replace(/\n/g) }}>
-                                            </span>
+                                            </span> */}
                                  </p>
                                     
                                     <div>
@@ -497,9 +497,10 @@ const Admissions = ({ seodata, admissionsData, t_class, tab_content, siteUrl }) 
 
                                     <div className="container wrap-sec-admission">
                                         <div>
-                                            <h6>{box_content_apply && <span
-                                                dangerouslySetInnerHTML={{ __html: box_content_apply.replace(/\n/g, "<br />") }}></span>}
-                                            </h6>
+                                            {/* <h6>{box_content_apply === null && <span>{box_content_apply?box_content_apply:'Content Is Not Added'}</span>}
+                                            </h6> */}
+                                            
+                                            <h6 className='width-content'>{box_content_apply?box_content_apply:'Content Is Not Added'}</h6>
                                         </div>
                                         <div className="wrapbtn-admission">
                                             <button className="footerbtn wrap-btn" onClick={() => window.open(`${apply_button_link}`, '_blank')}>

@@ -36,7 +36,6 @@ const Footer = ({siteUrl}) => {
         console.error("Error:", error);
       });
   }, []);
-
   return (
     <>
       {/* footer area start */}
@@ -72,26 +71,26 @@ const Footer = ({siteUrl}) => {
                         <div className="">
                           <ul className="socialnetwork">
                             <li>
-                              <a href="#" className="facebook">
+                              <a href={footerData.attributes.fb_link} className="facebook">
                                 {" "}
                                 <FaFacebookF />
                               </a>
                             </li>
                             <li>
-                              <a href="#" className="twitter">
+                              <a href={footerData.attributes.twitter_link} className="twitter">
                                 <FaTwitter />
                               </a>
                             </li>
                             <li>
                               <a
-                                href="https://www.youtube.com/channel/UCz1tS-oRzKeElBOd6pIjgLQ"
+                                href={footerData.attributes.youtube_link}
                                 className="youtube"
                               >
                                 <FaYoutube />
                               </a>
                             </li>
                             <li>
-                              <a href="#" className="instagram">
+                              <a href={footerData.attributes.insta_link} className="instagram">
                                 <FaInstagram />
                               </a>
                             </li>

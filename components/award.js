@@ -69,14 +69,17 @@ const Award = ({ siteUrl }) => {
             {awards.map((award) => (
               <div key={award.id} className="col-sm-3 d-none d-md-flex">
                 <div className="single-service-wrap">
+                  <a href={`${siteUrl}${award.attributes.image?.data?.attributes?.url}`}>
                   <img
                     src={`${siteUrl}${award.attributes.image?.data?.attributes?.url}`}
                     alt={award.attributes.award_name}
                     className="wrap-img-top1 wrap-side-award"
                   />
+                  </a>
+                 
                   <div className="textAlignCenter">
                     <h6 className="awardName">{award.attributes.award_name}</h6>
-                    {award.attributes.description}
+                    {/* {award.attributes.description} */}
                   </div>
                 </div>
               </div>
