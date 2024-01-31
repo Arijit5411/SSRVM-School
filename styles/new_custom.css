@@ -211,7 +211,9 @@ header.navbar-are {
   align-items: center;
   gap: 15px;
 }
-
+.width-content{
+  width: 56%;
+}
 .checkbox-input .checkbox-wrap input {
   height: 20px;
   width: 20px;
@@ -555,7 +557,9 @@ header.navbar-are {
   .mobilehide-result {
     display: none;
   }
-
+  .width-content{
+    width: 100%;
+  }
   /* .mobilehide-publication{
     display: none;
   } */

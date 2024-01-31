@@ -186,7 +186,7 @@ const HomeGallery = ({ siteUrl }) => {
             );
 
             if (imagesInSubfolder.length > 0) {
-                const firstImageURL = `https://drive.google.com/uc?id=${imagesInSubfolder[0].id}`;
+                const firstImageURL = `https://drive.google.com/thumbnail?id=${imagesInSubfolder[0].id}&sz=w1000`;
                 console.log("First Image URL:", firstImageURL); // Log the constructed URL
                 return firstImageURL;
             } else {
@@ -250,13 +250,13 @@ const HomeGallery = ({ siteUrl }) => {
                 </div>
                 {albumImages && albumImages.length > 0 && (
                     <Lightbox
-                        mainSrc={`https://drive.google.com/uc?id=${albumImages[lightboxIndex]?.id}`}
-                        nextSrc={`https://drive.google.com/uc?id=${albumImages[(lightboxIndex + 1) % albumImages.length]?.id
-                            }`}
-                        prevSrc={`https://drive.google.com/uc?id=${albumImages[
+                        mainSrc={`https://drive.google.com/thumbnail?id=${albumImages[lightboxIndex]?.id}&sz=w1000`}
+                        nextSrc={`https://drive.google.com/thumbnail?id=${albumImages[(lightboxIndex + 1) % albumImages.length]?.id
+                            }&sz=w1000`}
+                        prevSrc={`https://drive.google.com/thumbnail?id=${albumImages[
                             (lightboxIndex + albumImages.length - 1) % albumImages.length
                         ]?.id
-                            }`}
+                            }&sz=w1000`}
                         onCloseRequest={closeLightbox}
                         onMovePrevRequest={() =>
                             setLightboxIndex(

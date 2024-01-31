@@ -243,7 +243,7 @@ const Gallery = ({ seodata,siteUrl }) => {
             );
 
             if (imagesInSubfolder.length > 0) {
-                const firstImageURL = `https://drive.google.com/uc?id=${imagesInSubfolder[0].id}`;
+                const firstImageURL = `https://drive.google.com/thumbnail?id=${imagesInSubfolder[0].id}&sz=w1000`;
                 return firstImageURL;
             } else {
                 console.log("No images found in subfolder");
@@ -344,6 +344,8 @@ const Gallery = ({ seodata,siteUrl }) => {
                                                 className="card-img-top"
                                                 src={subfolderFirstImageURLs[subfolder.id] || 'default-thumbnail-url.jpg'} // Provide a default thumbnail URL
                                                 alt="Card image cap"
+                                                referrerPolicy="no-referrer"
+                                                // src="https://drive.google.com/thumbnail?export=view&id=1eyXqRAlEf0k1pEbx1_ngTJ4W1zHCYeSJ"
                                             />
                                             <h6 className="galleryTitle">{subfolder.name}</h6>
                                         </a>
@@ -546,9 +548,9 @@ const Gallery = ({ seodata,siteUrl }) => {
             </Fragment>
             {lightboxOpen && (
                 <Lightbox
-                    mainSrc={`https://drive.google.com/uc?id=${images[lightboxIndex]?.id}`}
-                    nextSrc={`https://drive.google.com/uc?id=${images[(lightboxIndex + 1) % images.length]?.id}`}
-                    prevSrc={`https://drive.google.com/uc?id=${images[(lightboxIndex + images.length - 1) % images.length]?.id}`}
+                    mainSrc={`https://drive.google.com/thumbnail?id=${images[lightboxIndex]?.id}&sz=w1000`}
+                    nextSrc={`https://drive.google.com/thumbnail?id=${images[(lightboxIndex + 1) % images.length]?.id}&sz=w1000`}
+                    prevSrc={`https://drive.google.com/thumbnail?id=${images[(lightboxIndex + images.length - 1) % images.length]?.id}&sz=w1000`}
                     onCloseRequest={closeLightbox}
                     onMovePrevRequest={() => setLightboxIndex((lightboxIndex + images.length - 1) % images.length)}
                     onMoveNextRequest={() => setLightboxIndex((lightboxIndex + 1) % images.length)}
