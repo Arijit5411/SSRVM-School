@@ -81,8 +81,11 @@ const GoogleCalendar = ({ seodata, calendar, downloadcal, siteUrl }) => {
   useEffect(() => {
     if (downloadcal && downloadcal?.data && downloadcal?.data?.length > 0) {
       console.log("download data?????", downloadcal.data.map((item)=>{
-        setDownloadcalender(item.attributes.pdf);
-        return item.attributes.pdf
+        if (item.attributes.pdf.length>10000){
+          setDownloadcalender(item.attributes.pdf);
+          return item.attributes.pdf
+        }
+       
       }));
       setIsLoading(false);
     } else {
@@ -144,7 +147,10 @@ const GoogleCalendar = ({ seodata, calendar, downloadcal, siteUrl }) => {
                     <h6>{item.attributes.title}</h6>
 
                     </div>
-                  <div >
+                  <div>
+                    {
+
+                    }
                     <a
                       href={`${siteUrl}${item.attributes.pdf?.data?.attributes?.url}`}
                     >

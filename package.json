@@ -17,6 +17,7 @@
     "@mui/styled-engine-sc": "^6.0.0-alpha.8",
     "@ramonak/react-progress-bar": "^5.0.3",
     "@reduxjs/toolkit": "^1.9.3",
+    "@strapi/provider-upload-local": "^4.19.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
