@@ -491,7 +491,7 @@ const Admissions = ({
                     <div>
                       <h6 className="width-content">
                         {box_content_apply === null
-                          ? "Content Is Not Added"
+                          ? " "
                           : box_content_apply}
                       </h6>
                     </div>
