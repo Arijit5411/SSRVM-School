@@ -16,7 +16,7 @@ export const getServerSideProps = async (context) => {
 
     const data = await res.json()
     const data1 = await res1.json()
-
+   
     return {
         props: {
             seodata: data,
@@ -85,8 +85,7 @@ const VirtualTour = ({ seodata, virtual,siteUrl }) => {
                 metaDescription: seoAttributes.metaDescription || '',
             })
         }
-    }, []);
-
+    }, []);     
     return (
         <>
             <Head>
@@ -108,17 +107,17 @@ const VirtualTour = ({ seodata, virtual,siteUrl }) => {
                     <div className="container">
                         <h1 className="principal-mess">{virtualTour.title}</h1>
                     </div>
-                    <div className='desktophide marginTopHeader'>
-                        <iframe width="100%" height="500" src={virtualTour.tour_link} title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      <div className='desktophide marginTopHeader'>
+                        <iframe width="100%" height="500" src={virtualTour.tour_link}  frameborder="0"
                             allowfullscreen></iframe>
                     </div>
                     <div className='mobilehide'>
-                        <iframe width="100%" height="850" src={virtualTour.tour_link} title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        <iframe width="100%" height="850" src={virtualTour.tour_link}  frameborder="0"
                             allowfullscreen></iframe>
-                    </div>
 
+                    </div>  
+                     
+                   
                 </div>
             )}
             <Footer siteUrl={siteUrl}/>
