@@ -8,32 +8,32 @@ import Head from 'next/head';
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 
 export const getServerSideProps = async (context) => {
-  try {
-    const siteUrl = determineStrapiUrl(context);
+    try {
+        const siteUrl = determineStrapiUrl(context);
 
-    const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
+        const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
 
-    const data = await res.json()
+        const data = await res.json()
 
-    return {
-        props: {
-            seodata: data,
-            siteUrl
-        }
-    };
-} catch (error) {
-  console.error("Error fetching data:", error.message);
+        return {
+            props: {
+                seodata: data,
+                siteUrl
+            }
+        };
+    } catch (error) {
+        console.error("Error fetching data:", error.message);
 
-  return {
-    props: {
-      data: [],
-    },
-  };
-}
+        return {
+            props: {
+                data: [],
+            },
+        };
+    }
 };
 
 
-const VirtualTourGallery = ({ seodata,siteUrl }) => {
+const VirtualTourGallery = ({ seodata, siteUrl }) => {
     const [years, setYears] = useState(['All'])
     const [folderName, setFolderName] = useState('');
     const [folders, setFolders] = useState([]);
@@ -58,7 +58,7 @@ const VirtualTourGallery = ({ seodata,siteUrl }) => {
     });
 
     useEffect(() => {
-       
+
         if (seodata && seodata?.data && seodata?.data?.length > 0) {
             const seoAttributes = seodata.data[35].attributes;
             setSeoData({
@@ -108,21 +108,20 @@ const VirtualTourGallery = ({ seodata,siteUrl }) => {
         fetchFirstImageURLs();
     }, [subfolders]);
 
-    
+
 
     const handleSubfolderTabSelect = (subfolderId) => {
         const subfolder = subfolders.find((subfolder) => subfolder.id === subfolderId);
         setSelectedSubfolder(subfolder);
-        openLightbox(0); 
+        openLightbox(0);
     };
 
-   
+
 
     const fetchFolders = (parentId) => {
         fetch(`https://www.googleapis.com/drive/v3/files?q='${parentId}' in parents&key=${apiConfig.API_KEY}`)
             .then((response) => response.json())
             .then((data) => {
-                console.log('gg', data)
                 const allFiles = data.files;
                 const folderFiles = allFiles.filter(file => file.mimeType === 'application/vnd.google-apps.folder');
                 setFolders(folderFiles);
@@ -144,7 +143,7 @@ const VirtualTourGallery = ({ seodata,siteUrl }) => {
             });
     };
 
-   
+
 
     const fetchFolderName = () => {
         fetch(`https://www.googleapis.com/drive/v3/files/${apiConfig.ROOT_FOLDER_ID}?key=${apiConfig.API_KEY}`)
@@ -152,6 +151,7 @@ const VirtualTourGallery = ({ seodata,siteUrl }) => {
             .then((data) => {
                 const folder = data;
                 setFolderName(folder.name);
+
             })
             .catch((error) => {
                 console.error('Error fetching folder name:', error);
@@ -182,6 +182,7 @@ const VirtualTourGallery = ({ seodata,siteUrl }) => {
                         // Merge all subfolders into a single array for the "All" tab
                         const allSubfolders = Object.values(folderSubfoldersMap).reduce((accumulator, subfolders) => {
                             return [...accumulator, ...subfolders];
+
                         }, []);
 
                         // Set the state for both "All" subfolders and individual folder subfolders
@@ -215,7 +216,6 @@ const VirtualTourGallery = ({ seodata,siteUrl }) => {
             }
 
             const data = await response.json();
-            console.log("data", data)
 
             // Filter for image files within the subfolder
             const imagesInSubfolder = data.files.filter(
@@ -267,41 +267,44 @@ const VirtualTourGallery = ({ seodata,siteUrl }) => {
         fetchFirstImageURLs();
     }, [subfolders]);
 
-   
+
 
     const SingleTabContent = ({ folderId }) => {
+
+
         let arr = folderSubfolders[folderId]
         return (
             <>
+
                 {
                     arr?.map((subfolder) => {
-                            const subfolderThumbnailURL = subfolderFirstImageURLs[subfolder.id] || 'default-thumbnail-url.jpg';
-                            console.log(subfolderThumbnailURL)
-                            return (
-                                <div className='col-md-4'>
-                                    <div className="card wrap-news ">
-                                        <div className="card-body">
-                                            <a
-                                                href="#"
-                                                onClick={(e) => {
-                                                    e.preventDefault();
-                                                    handleSubfolderTabSelect(subfolder.id);
-                                                }}
-                                            >
-                                                <img
-                                                    className="card-img-top test"
-                                                    src={subfolderThumbnailURL}
-                                                    alt="Card image cap"
-                                                />
-                                                <h4 style={{background:'#EFEBE4'}}  className="card-text-news text-center p-3 fw-bold">{subfolder.name}</h4>
-                                            </a>
-                                        </div>
+                        const subfolderThumbnailURL = subfolderFirstImageURLs[subfolder.id] || 'default-thumbnail-url.jpg';
+                        return (
+                            <div className='col-md-4'>
+                                <div className="card wrap-news ">
+                                    <div className="card-body">
+                                        <a
+                                            href="#"
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                handleSubfolderTabSelect(subfolder.id);
+                                            }}
+
+                                        >
+                                            <img
+                                                className="card-img-top test"
+                                                src={subfolderThumbnailURL}
+                                                alt="Card image cap"
+                                            />
+                                            <h4 style={{ background: '#EFEBE4' }} className="card-text-news text-center p-3 fw-bold">{subfolder.name}</h4>
+                                        </a>
                                     </div>
                                 </div>
-                            );
-                                            })
+                            </div>
+                        );
+                    })
                 }
-              
+
             </>
         )
     }
@@ -313,28 +316,35 @@ const VirtualTourGallery = ({ seodata,siteUrl }) => {
                     {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
                     {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
                 </Head>
-                <NavBar siteUrl={siteUrl}/>
-                <div className='top-section1-new' style={{background:'#EFEBE4'}}>
+                <NavBar siteUrl={siteUrl} />
+                <div className='top-section1-new' style={{ background: '#EFEBE4' }}>
                     <div className="container">
                         <h1 className="principal-mess">VirtualTour Gallery</h1>
                     </div>
                 </div>
-                <div className='service-area pd-bottom-90 pb-lg-0'style={{background:'#EFEBE4'}} >
+                <div className='service-area pd-bottom-90 pb-lg-0' style={{ background: '#EFEBE4' }} >
                     <div className='container'>
-                            <div  className="mb-3">
-                                {folders.map((folder) => (
-                                    <div eventKey={folder.id} title={folder.name} key={folder.id}>
+                        <div className="mb-3">
+                            {folders.map((folder) => (
+
+
+                                <div eventKey={folder.id} title={folder.name} key={folder.id}>
+                                    {folder.name === 'Infrastructure' &&
+
                                         <div className='row' >
                                             <SingleTabContent folderId={folder.id} />
                                         </div>
-                                    </div>
-                                ))}
-                            </div>
-                        
+                                    }
+                                </div>
+                            ))}
+                        </div>
+
 
                     </div>
+
+
                 </div>
-                <Footer siteUrl={siteUrl}/>
+                <Footer siteUrl={siteUrl} />
             </Fragment>
             {lightboxOpen && (
                 <Lightbox
