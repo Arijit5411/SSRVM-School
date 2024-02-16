@@ -319,7 +319,7 @@ const VirtualTourGallery = ({ seodata, siteUrl }) => {
                 <NavBar siteUrl={siteUrl} />
                 <div className='top-section1-new' style={{ background: '#EFEBE4' }}>
                     <div className="container">
-                        <h1 className="principal-mess">VirtualTour Gallery</h1>
+                        <h1 className="principal-mess">Virtual Tour Gallery</h1>
                     </div>
                 </div>
                 <div className='service-area pd-bottom-90 pb-lg-0' style={{ background: '#EFEBE4' }} >
