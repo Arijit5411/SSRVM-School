@@ -123,7 +123,7 @@ const BannerSliderOne = ({ siteUrl }) => {
               asNavFor={state.nav2}
               ref={(slider) => (slider1 = slider)}
             >
-              {banner.map((item) => (
+              {banner?.map((item) => (
                 <div key={item.id}>
                   <div
                     className={`home-banner-bg-image header-bg banner-${item.id}-Color `}
@@ -181,10 +181,10 @@ const BannerSliderOne = ({ siteUrl }) => {
                       swipeToSlide={true}
                       focusOnSelect={true}
                     >
-                      {banner.map((item) => (
+                      {banner?.map((item) => (
                         <div key={item.id} className="custom-thumb">
                           <img
-                            src={`${siteUrl}${item.attributes.image.data.attributes.formats.thumbnail.url}`}
+                            src={`${siteUrl}${item.attributes.image.data.attributes.url}`}
                             className="img-fluid"
                             alt=""
                           />

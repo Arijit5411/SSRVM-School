@@ -26,7 +26,6 @@ export const getServerSideProps = async (context) => {
     const data1 = await res1.json();
     const data2 = await res2.json();
     const data3 = await res3.json();
-
     return {
       props: {
         seodata: data,
@@ -55,10 +54,10 @@ const Admissions = ({
   siteUrl,
 }) => {
   const router = useRouter();
-  console.log(
-    "main data ===>",
-    admissionsData.data[0].attributes.box_content_apply === null
-  );
+  // console.log(
+  //   "main data ===>",
+  //   admissionsData.data[0].attributes.box_content_apply === null
+  // );
   const [routeActive, setRouteActive] = useState("Procedure");
   const [admissions, setAdmissions] = useState(null);
   const [seoData, setSeoData] = useState({
@@ -68,14 +67,7 @@ const Admissions = ({
   });
 
   useEffect(() => {
-    // fetch(`${siteUrl}/api/admission-pages?populate=*`)
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         setAdmissions(data.data[0].attributes);
-    //     })
-    //     .catch(error => {
-    //         console.error('Error:', error);
-    //     });
+   
     if (
       (admissionsData, admissionsData?.data && admissionsData?.data?.length > 0)
     ) {
@@ -85,23 +77,7 @@ const Admissions = ({
   }, []);
 
   useEffect(() => {
-    // Fetch SEO data from your API
-    // fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`) // Replace with the actual API endpoint
-    //     .then((response) => response.json())
-    //     .then((data) => {
-    //         console.log('API response data:', data); // Log the API response data
-    //         if (data && data.data && data.data.length > 0) {
-    //             const seoAttributes = data.data[12].attributes;
-    //             setSeoData({
-    //                 title: seoAttributes.title || '',
-    //                 metaTitle: seoAttributes.metaTitle || '',
-    //                 metaDescription: seoAttributes.metaDescription || '',
-    //             });
-    //         }
-    //     })
-    //     .catch((error) => {
-    //         console.error('Error fetching SEO data:', error);
-    //     });
+   
     if (seodata && seodata?.data && seodata?.data?.length > 0) {
       const seoAttributes = seodata.data[12].attributes;
       setSeoData({
@@ -163,7 +139,7 @@ const Admissions = ({
   const value4 = `${admissions?.value4}`;
 
   const [selectedOption, setSelectedOption] = useState(
-    t_class[0]?.attributes?.name ?? "Junior KG"
+    t_class?.length>0?t_class[0]?.attributes?.name : "Junior KG"
   );
 
   const handleChange = (event) => {
@@ -361,12 +337,10 @@ const Admissions = ({
   };
 
   const Render = ({ selectedOption }) => {
-    let arr = tab_content[0]?.attributes?.procedure_content.filter((t) => {
-      if (t?.school_total_class?.data?.attributes?.name === selectedOption) {
-        return t;
-      }
-    });
-
+    
+   
+    let arr = tab_content?.length>0 ?tab_content[0]?.attributes?.procedure_content?.filter(pc=>pc?.school_total_class?.data?.map(d=>d?.attributes?.name).includes(selectedOption)):[]
+    console.log("Selected Option",selectedOption, tab_content);
     return (
       arr?.length > 0 &&
       arr.map((cont) => {
@@ -387,7 +361,7 @@ const Admissions = ({
       })
     );
   };
-  // console.log("Addmission DS>>>>",typeof admissions.box_content_apply)
+  console.log("Addmission DS>>>>",tab_content)
   return (
     <>
       {console.log("main", routeActive)}

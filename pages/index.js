@@ -8,6 +8,8 @@ import Head from "next/head";
 import MandatoryDisclosure from "@/components/MandatoryDisclosure";
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 
+import Script from 'next/script';
+
 export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);
@@ -88,6 +90,8 @@ const Home = ({ seodata, homeSettings, siteUrl }) => {
       )} */}
       {/* <Suspense fallback={<Preloader />}> */}
       {/* <ImportantAnnouncment /> */}
+
+
       <NavBar siteUrl={siteUrl} />
       <BannerSliderOne siteUrl={siteUrl} />
       <MandatoryDisclosure siteUrl={siteUrl} />
