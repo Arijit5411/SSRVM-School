@@ -30,7 +30,7 @@ const HomeAbout = ({ siteUrl, homeSettings }) => {
     fetch(`${siteUrl}/api/home-abouts?populate=*`)
       .then((response) => response.json())
       .then((data) => {
-        setHomeAbout(data.data[0].attributes);
+        setHomeAbout(data?.data[0]?.attributes);
       })
       .catch((error) => {
         console.error("Error:", error);

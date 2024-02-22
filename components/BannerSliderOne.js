@@ -184,7 +184,7 @@ const BannerSliderOne = ({ siteUrl }) => {
                       {banner?.map((item) => (
                         <div key={item.id} className="custom-thumb">
                           <img
-                            src={`${siteUrl}${item.attributes.image.data.attributes.url}`}
+                            src={`${siteUrl}${item?.attributes?.image?.data?.attributes?.url}`}
                             className="img-fluid"
                             alt=""
                           />

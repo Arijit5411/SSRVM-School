@@ -123,7 +123,7 @@ const HomeGallery = ({ siteUrl }) => {
     )
       .then((response) => response.json())
       .then((data) => {
-        const folderPromises = data.files.map((file) => {
+        const folderPromises = data?.files?.map((file) => {
           if (file.mimeType === "application/vnd.google-apps.folder") {
             return fetch(
               `https://www.googleapis.com/drive/v3/files?q='${file.id}' in parents&key=${apiConfig.API_KEY}`
