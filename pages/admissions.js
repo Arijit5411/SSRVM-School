@@ -339,8 +339,14 @@ const Admissions = ({
   const Render = ({ selectedOption }) => {
     
    
-    let arr = tab_content?.length>0 ?tab_content[0]?.attributes?.procedure_content?.filter(pc=>pc?.school_total_class?.data?.map(d=>d?.attributes?.name).includes(selectedOption)):[]
-    console.log("Selected Option",selectedOption, tab_content);
+    // let arr = tab_content?.length>0 ?tab_content[0]?.attributes?.procedure_content?.filter(pc=>pc?.school_total_class?.data?.map(d=>d?.attributes?.name).includes(selectedOption)):[]
+    let arr = tab_content?.length > 0 ? tab_content[0]?.attributes?.procedure_content?.filter(pc => pc?.school_total_class?.data?.attributes?.name === selectedOption) : [];
+
+
+    // let arr = [];
+    // console.log("Selected Option",selectedOption);
+    // console.log("Addmission DS>>>>",tab_content)
+
     return (
       arr?.length > 0 &&
       arr.map((cont) => {
@@ -361,7 +367,7 @@ const Admissions = ({
       })
     );
   };
-  console.log("Addmission DS>>>>",tab_content)
+
   return (
     <>
       {console.log("main", routeActive)}
