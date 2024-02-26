@@ -9,11 +9,12 @@ import Head from 'next/head';
 const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in"
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
+import Seo from '@/components/Seo';
 
 export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);
-    const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
+    const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
     const res1 = await fetch(`${GlobalSiteUrl}/api/global-events?sort=id:desc&populate=*`)
 
     const data = await res.json()
@@ -21,7 +22,7 @@ export const getServerSideProps = async (context) => {
 
     return {
         props: {
-            seodata: data,
+            seodata: data.data.attributes.Pages,
             eventData: data1,
             siteUrl
         }
@@ -41,11 +42,7 @@ const GlobalEvents = ({ seodata, eventData ,siteUrl}) => {
 
     const [eventsPage, setEventsPage] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
-    const [seoData, setSeoData] = useState({
-        title: '',
-        metaTitle: '',
-        metaDescription: '',
-    });
+   
 
     const postsPerPage = 6; // Number of events posts per page
 
@@ -72,33 +69,7 @@ const GlobalEvents = ({ seodata, eventData ,siteUrl}) => {
         }
     }, []);
 
-    useEffect(() => {
-        // Fetch SEO data from your API
-        fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`) // Replace with the actual API endpoint
-            .then((response) => response.json())
-            .then((data) => {
-                console.log('API response data:', data); // Log the API response data
-                if (data && data.data && data.data.length > 0) {
-                    const seoAttributes = data.data[25].attributes;
-                    setSeoData({
-                        title: seoAttributes.title || '',
-                        metaTitle: seoAttributes.metaTitle || '',
-                        metaDescription: seoAttributes.metaDescription || '',
-                    });
-                }
-            })
-            .catch((error) => {
-                console.error('Error fetching SEO data:', error);
-            });
-        if (seodata && seodata?.data && seodata?.data?.length > 0) {
-            const seoAttributes = seodata.data[25].attributes;
-            setSeoData({
-                title: seoAttributes.title || '',
-                metaTitle: seoAttributes.metaTitle || '',
-                metaDescription: seoAttributes.metaDescription || '',
-            })
-        }
-    }, []);
+  
 
 
 
@@ -124,11 +95,8 @@ const GlobalEvents = ({ seodata, eventData ,siteUrl}) => {
     return (
         <>
             <Fragment>
-                <Head>
-                    <title>{seoData.title}</title>
-                    {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
-                    {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
-                </Head>
+            <Seo SeoData={seodata} PageSlug={"global-events"} />
+
                 <NavBar siteUrl={siteUrl}/>
                 {/* {seoData && (
                     <Seo

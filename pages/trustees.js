@@ -8,12 +8,13 @@ import Head from 'next/head';
 const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in"
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
+import Seo from '@/components/Seo';
 
 export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);
 
-    const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
+    const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
     const res1 = await fetch(`${GlobalSiteUrl}/api/trustees?populate=*`)
 
     const data = await res.json()
@@ -21,7 +22,7 @@ export const getServerSideProps = async (context) => {
 
     return {
         props: {
-            seodata: data,
+            seodata: data.data.attributes.Pages,
             trusteeData: data1,
             siteUrl
             
@@ -40,11 +41,7 @@ export const getServerSideProps = async (context) => {
 
 const Trustees = ({ seodata, trusteeData, siteUrl}) => {
     const [expandedStates, setExpandedStates] = useState({});
-    const [seoData, setSeoData] = useState({
-        title: '',
-        metaTitle: '',
-        metaDescription: '',
-    });
+   
     const [trusteesData, setTrusteesData] = useState([]);
     const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in"
 
@@ -86,14 +83,7 @@ const Trustees = ({ seodata, trusteeData, siteUrl}) => {
         //         console.error('Error fetching Trustees data:', error);
         //     });
 
-        if (seodata && seodata?.data && seodata?.data?.length > 0) {
-            const seoAttributes = seodata.data[8].attributes;
-            setSeoData({
-                title: seoAttributes.title || '',
-                metaTitle: seoAttributes.metaTitle || '',
-                metaDescription: seoAttributes.metaDescription || '',
-            })
-        }
+       
         if (trusteeData && trusteeData?.data && trusteeData?.data?.length > 0) {
             setTrusteesData(trusteeData?.data);
             // Initialize the expanded states for all trustees to false
@@ -114,22 +104,11 @@ const Trustees = ({ seodata, trusteeData, siteUrl}) => {
 
     return (
         <>
-            <Head>
-                <title>{seoData.title}</title>
-                {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
-                {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
-            </Head>
+        <Seo SeoData={seodata} PageSlug={"trustees"} />
             <Fragment>
                 <NavBar siteUrl={siteUrl}/>
 
-                {/* {seoData && (
-                    <Seo
-                        title={seoData.title}
-                        metaTitle={seoData.metaTitle}
-                        metaDescription={seoData.metaDescription}
-                    />
-                )} */}
-
+              
                 <div className='top-section1-new'>
                     <div className="container">
                         <h1 className="principal-mess">Trustees</h1>

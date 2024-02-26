@@ -1,21 +1,27 @@
+import Head from 'next/head';
 import React from 'react';
 
-const Seo = ({ title, metaTitle, metaDescription }) => {
-  // Set the document title based on the 'title' prop
-  document.title = title;
+const Seo = ({ SeoData, PageSlug, InnerPageSlug }) => {
+  const getDefaultValues = (page) => {
+    const { Meta_Title, Meta_Description, Meta_Keywords, Canonical, Robots, Inner_Page } = page || {};
+    return { Meta_Title, Meta_Description, Meta_Keywords, Canonical, Robots, Inner_Page };
+  };
 
-  // Create a meta tag for 'metaTitle' and 'metaDescription'
-  const metaTitleTag = <meta name="title" content={metaTitle} />;
-  const metaDescriptionTag = <meta name="description" content={metaDescription} />;
+  const mainPage = getDefaultValues(SeoData?.find((item) => item?.Page_Slug === PageSlug));
+  const innerPage = InnerPageSlug && InnerPageSlug && mainPage.Inner_Page?.find((item) => item.Page_Slug === InnerPageSlug);
 
-  // You can add more meta tags or customize this as needed
+  const { Meta_Title, Meta_Description, Meta_Keywords, Canonical, Robots } = innerPage || mainPage;
 
   return (
-    <head>
-      {metaTitleTag}
-      {metaDescriptionTag}
-      {/* Add more meta tags here if needed */}
-    </head>
+    <>
+      <Head>
+        {Meta_Title && <title>{Meta_Title}</title>}
+        {Meta_Description && <meta name="description" content={Meta_Description} />}
+        {Meta_Keywords && <meta name="keywords" content={Meta_Keywords} />}
+        {Canonical && <link rel="canonical" href={Canonical} />}
+        {Robots && <meta name="robots" content={Robots} />}
+      </Head>
+    </>
   );
 };
 

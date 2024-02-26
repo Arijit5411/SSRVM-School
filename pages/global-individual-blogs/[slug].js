@@ -5,21 +5,25 @@ import Footer from '@/components/Footer';
 import ReactMarkdown from 'react-markdown';
 import GlobalRecentBlogs from '@/components/GlobalRecentBlogs';
 import { determineStrapiUrl } from "@/utils/strapiUtils";
+import Seo from '@/components/Seo';
 
 
 
 export const getServerSideProps = async (context) => {
     try {
+
       const siteUrl = determineStrapiUrl(context);
-    
+      const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
+      const data = await res.json();
       return {
         props: {
           siteUrl,
+          seodata: data.data.attributes.Pages,
+          slug
         },
       };
     } catch (error) {
       console.error("Error fetching data:", error.message);
-  
       return {
         props: {
           data: [],
@@ -27,10 +31,10 @@ export const getServerSideProps = async (context) => {
       };
     }
   };
-const GlobalIndividualBlogs = ({siteUrl}) => {
+const GlobalIndividualBlogs = ({siteUrl,seodata}) => {
     const router = useRouter()
     const [blog, setBlog] = useState(null);
-    const { postID } = router.query;
+    const { slug } = router.query;
     const [loading, setLoading] = useState(true);
     const [publicUrl, setPublicUrl] = useState();
 
@@ -39,8 +43,8 @@ const GlobalIndividualBlogs = ({siteUrl}) => {
 
 
     useEffect(() => {
-        if (postID) {
-            fetch(`${GlobalSiteUrl}/api/global-blogs/${postID}?populate=*`)
+        if (slug) {
+            fetch(`${GlobalSiteUrl}/api/global-blogs/${slug}?populate=*`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.error) {
@@ -56,7 +60,7 @@ const GlobalIndividualBlogs = ({siteUrl}) => {
                     setLoading(false);
                 });
         }
-    }, [postID]);
+    }, [slug]);
 
     const components = {
         img: ({ src, alt }) => {
@@ -70,6 +74,7 @@ const GlobalIndividualBlogs = ({siteUrl}) => {
 
     return (
         <>
+            <Seo SeoData={seodata} PageSlug={"global-individual-blogs"} InnerPageSlug={slug} />
             <NavBar siteUrl={siteUrl}/>
             <div className='top-section4 desktophide'>
                 <section className="wrap-item-blog-se1 first-section position-relative">

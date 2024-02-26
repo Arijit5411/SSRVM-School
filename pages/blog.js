@@ -2,17 +2,17 @@ import React, { Fragment, useState, useEffect } from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import Link from "next/link";
-import Head from "next/head";
-
-const postsPerPage = 6; // Number of blog posts per page
+const postsPerPage = 6; 
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
+import Seo from "@/components/Seo";
 
 export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);
 
-    const res = await fetch(`${siteUrl}/api/seos`);
+    const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
+
     const res1 = await fetch(`${siteUrl}/api/blogs?populate=*`);
 
     const data = await res.json();
@@ -20,7 +20,7 @@ export const getServerSideProps = async (context) => {
 
     return {
       props: {
-        seodata: data,
+        seodata: data.data.attributes.Pages,
         blogProp: data1,
         siteUrl,
       },
@@ -37,29 +37,12 @@ export const getServerSideProps = async (context) => {
 };
 
 const Blog = ({ seodata, blogProp, siteUrl }) => {
+  console.log('seodata', seodata)
   const [blog, setBlog] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [seoData, setSeoData] = useState({
-    title: "",
-    metaTitle: "",
-    metaDescription: "",
-  });
 
   useEffect(() => {
-    // fetch(`${siteUrl}/api/blogs?populate=*`) // Update the endpoint
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         if (data.error) {
-    //             console.error('Error:', data.error.message);
-    //         } else {
-    //             // Sort the blog posts based on date in descending order
-    //             const sortedBlogs = data.data.sort((a, b) => new Date(b.attributes.date) - new Date(a.attributes.date));
-    //             setBlog({ ...data, data: sortedBlogs });
-    //         }
-    //     })
-    //     .catch(error => {
-    //         console.error('Error:', error);
-    //     });
+
     if (blogProp && blogProp?.data) {
       const sortedBlogs = blogProp.data.sort(
         (a, b) => new Date(b.attributes.date) - new Date(a.attributes.date)
@@ -68,35 +51,6 @@ const Blog = ({ seodata, blogProp, siteUrl }) => {
     }
   }, []);
 
-  useEffect(() => {
-    // Fetch SEO data from your API
-    // fetch(`${siteUrl}/api/seos`) // Replace with the actual API endpoint
-    //     .then((response) => response.json())
-    //     .then((data) => {
-    //         console.log('API response data:', data); // Log the API response data
-    //         if (data && data.data && data.data.length > 0) {
-    //             const seoAttributes = data.data[1].attributes;
-    //             setSeoData({
-    //                 title: seoAttributes.title || '',
-    //                 metaTitle: seoAttributes.metaTitle || '',
-    //                 metaDescription: seoAttributes.metaDescription || '',
-    //             });
-    //         }
-    //     })
-    //     .catch((error) => {
-    //         console.error('Error fetching SEO data:', error);
-    //     });
-    if (seodata && seodata?.data && seodata?.data?.length > 0) {
-      const seoAttributes = seodata.data[1].attributes;
-      setSeoData({
-        title: seoAttributes.title || "",
-        metaTitle: seoAttributes.metaTitle || "",
-        metaDescription: seoAttributes.metaDescription || "",
-      });
-    }
-  }, []);
-
-  // for pagination
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = blog?.data?.slice(indexOfFirstPost, indexOfLastPost);
@@ -115,25 +69,12 @@ const Blog = ({ seodata, blogProp, siteUrl }) => {
       paginate(currentPage + 1);
     }
   };
+
   return (
     <>
-      <Head>
-        <title>{seoData.title}</title>
-        {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
-        {seoData.metaTitle && (
-          <meta name="description" content={seoData.metaDescription} />
-        )}
-      </Head>
+      <Seo SeoData={seodata} PageSlug={"blog"} />
       <Fragment>
-        <NavBar siteUrl={siteUrl}/>
-
-        {/* {seoData && (
-                <Seo
-                    title={seoData.title}
-                    metaTitle={seoData.metaTitle}
-                    metaDescription={seoData.metaDescription}
-                />
-            )} */}
+        <NavBar siteUrl={siteUrl} />
         <div className="top-section1">
           <div className="container">
             <h1 className="principal-mess">Blog</h1>
@@ -199,7 +140,7 @@ const Blog = ({ seodata, blogProp, siteUrl }) => {
             <p>Loading blog posts...</p>
           )}
         </div>
-        <Footer siteUrl={siteUrl}/>
+        <Footer siteUrl={siteUrl} />
       </Fragment>
     </>
   );

@@ -8,17 +8,18 @@ import Head from "next/head";
 
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
+import Seo from "@/components/Seo";
 
 export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);
-    const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
+    const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
 
     const data = await res.json()
 
     return {
         props: {
-            seodata: data,
+            seodata: data.data.attributes.Pages,
             siteUrl
         }
     };
@@ -39,11 +40,7 @@ const PressReleases = ({ seodata ,siteUrl}) => {
     const [filteredPressReleases, setFilteredPressReleases] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
-    const [seoData, setSeoData] = useState({
-        title: '',
-        metaTitle: '',
-        metaDescription: '',
-    });
+   
 
     // Pagination state for press releases
     const [currentPage, setCurrentPage] = useState(1);
@@ -90,33 +87,7 @@ const PressReleases = ({ seodata ,siteUrl}) => {
             });
     }, [selectedYear]);
 
-    useEffect(() => {
-        // Fetch SEO data from your API
-        // fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`) // Replace with the actual API endpoint
-        //     .then((response) => response.json())
-        //     .then((data) => {
-        //         console.log('API response data:', data); // Log the API response data
-        //         if (data && data.data && data.data.length > 0) {
-        //             const seoAttributes = data.data[38].attributes;
-        //             setSeoData({
-        //                 title: seoAttributes.title || '',
-        //                 metaTitle: seoAttributes.metaTitle || '',
-        //                 metaDescription: seoAttributes.metaDescription || '',
-        //             });
-        //         }
-        //     })
-        //     .catch((error) => {
-        //         console.error('Error fetching SEO data:', error);
-        //     });
-        if (seodata && seodata?.data && seodata?.data?.length > 0) {
-            const seoAttributes = seodata.data[38].attributes;
-            setSeoData({
-                title: seoAttributes.title || '',
-                metaTitle: seoAttributes.metaTitle || '',
-                metaDescription: seoAttributes.metaDescription || '',
-            })
-        }
-    }, []);
+    
 
     const indexOfLastRelease = currentPage * postsPerPage;
     const indexOfFirstRelease = indexOfLastRelease - postsPerPage;
@@ -142,20 +113,10 @@ const PressReleases = ({ seodata ,siteUrl}) => {
 
     return (
         <Fragment>
-            <Head>
-                <title>{seoData.title}</title>
-                {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
-                {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
-            </Head>
-            <NavBar siteUrl={siteUrl}/>
-            {/* {seoData && (
-                <Seo
-                    title={seoData.title}
-                    metaTitle={seoData.metaTitle}
-                    metaDescription={seoData.metaDescription}
-                />
-            )} */}
+               <Seo SeoData={seodata} PageSlug={"press-releases"} />
 
+            <NavBar siteUrl={siteUrl}/>
+           
             <div className="top-section1-new">
                 <div className="container">
                     <h1 className="principal-mess">Press Releases</h1>

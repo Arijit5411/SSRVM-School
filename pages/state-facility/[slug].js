@@ -1,32 +1,29 @@
-import React  from "react";
+import React from "react";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 import ReactMarkdown from "react-markdown";
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
+import Seo from "@/components/Seo";
 
 export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);
-    const { postID } = context.params;
-
-    const res1 = await fetch(`${siteUrl}/api/features/${postID}?populate=*`);
-    const res2 = await fetch(
-      `${siteUrl}/api/features/${postID}?populate[Content][populate]=*`
-    );
+    const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
+    const { slug } = context.params;
+    const res1 = await fetch(`${siteUrl}/api/features?filters[$and][0][id][$eq]=${slug}&populate[Content][populate]=*`)
     const data1 = await res1.json();
-    const data2 = await res2.json();
-
+    const data = await res.json();
     return {
       props: {
-        data1,
-        data2,
+        data1: data1.data,
+        seodata: data.data.attributes.Pages,
         siteUrl,
+        slug
       },
     };
   } catch (error) {
     console.error("Error fetching data:", error.message);
-
     return {
       props: {
         data: [],
@@ -35,21 +32,31 @@ export const getServerSideProps = async (context) => {
   }
 };
 
-const State_Facility = ({ data1, data2, siteUrl }) => {
+const State_Facility = ({ data1, siteUrl, seodata, slug }) => {
+  console.log('slug', slug)
+  console.log('data1', data1)
+
+  console.log('Final DATA', data1.filter(facility => facility.id==slug))
+  console.log('seodata', seodata)
+
+
   return (
     <>
+      <Seo SeoData={seodata} PageSlug={"state-facility"} InnerPageSlug={slug} />
       <NavBar siteUrl={siteUrl} />
       <div className="top-section1-new1 feature-inner">
         <div>
           <section>
             <div className="container ">
               <div className="wrap-state">
-                <h1>{data1.data.attributes?.heading}</h1>
-                <p>{data1.data.attributes?.sub_heading}</p>
+                <h1>{data1[0]?.attributes?.heading}</h1>
+                <p>{data1[0]?.attributes?.sub_heading}</p>
               </div>
+
+
               <div className="feature-contet-list">
-                {data2.data.attributes.Content &&
-                  data2.data.attributes.Content?.map((content, index) => {
+                {data1[0].attributes?.Content &&
+                  data1[0]?.attributes?.Content?.map((content, index) => {
                     const dataImage =
                       content.Content_Image?.data?.attributes?.url;
 

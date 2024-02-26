@@ -5,15 +5,23 @@ import Footer from "@/components/Footer";
 import ReactMarkdown from "react-markdown";
 import GlobalRecentEvents from "@/components/GlobalRecentEvents";
 import { determineStrapiUrl } from "@/utils/strapiUtils";
+import Seo from "@/components/Seo";
 
 const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in";
 export const getServerSideProps = async (context) => {
   try {
+    const { slug } = context.params;
+
     const siteUrl = determineStrapiUrl(context);
+    const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
+    const data = await res.json();
 
     return {
       props: {
         siteUrl,
+        seodata: data.data.attributes.Pages,
+        slug
+
       },
     };
   } catch (error) {
@@ -27,16 +35,16 @@ export const getServerSideProps = async (context) => {
   }
 };
 
-const GlobalIndividualEvents = ({ siteUrl }) => {
+const GlobalIndividualEvents = ({ siteUrl,seodata }) => {
   const router = useRouter();
   const [events, setEvents] = useState(null);
-  const { postID } = router.query;
+  const { slug } = router.query;
   const [loading, setLoading] = useState(true);
   const [publicUrl, setPublicUrl] = useState();
 
   useEffect(() => {
-    if (postID) {
-      fetch(`${GlobalSiteUrl}/api/global-events/${postID}?populate=*`)
+    if (slug) {
+      fetch(`${GlobalSiteUrl}/api/global-events/${slug}?populate=*`)
         .then((response) => response.json())
         .then((data) => {
           if (data.error) {
@@ -52,7 +60,7 @@ const GlobalIndividualEvents = ({ siteUrl }) => {
           setLoading(false);
         });
     }
-  }, [postID]);
+  }, [slug]);
 
   const components = {
     img: ({ src, alt }) => {
@@ -65,6 +73,8 @@ const GlobalIndividualEvents = ({ siteUrl }) => {
 
   return (
     <>
+        <Seo SeoData={seodata} PageSlug={"global-individual-events"} InnerPageSlug={slug} />
+
       <NavBar siteUrl={siteUrl} />
       <div className="top-section4-new desktophide">
         <section className="wrap-item-blog-se1 first-section position-relative">

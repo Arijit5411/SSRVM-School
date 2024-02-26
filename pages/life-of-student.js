@@ -5,13 +5,14 @@ import Head from "next/head";
 // import Seo from './Seo';
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
+import Seo from "@/components/Seo";
 
 export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);
 
 
-    const res = await fetch(`${siteUrl}/api/seos`)
+    const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
     const res1 = await fetch(`${siteUrl}/api/a-day-in-life-of-student-pages`)
 
     const data = await res.json()
@@ -19,7 +20,7 @@ export const getServerSideProps = async (context) => {
 
     return {
         props: {
-            seodata: data,
+            seodata: data.data.attributes.Pages,
             student: data1,
             siteUrl
         }
@@ -38,11 +39,7 @@ export const getServerSideProps = async (context) => {
 
 const LifeOfStudent = ({ seodata, student,siteUrl }) => {
     const [suudentData, setStudentData] = useState(null);
-    const [seoData, setSeoData] = useState({
-        title: '',
-        metaTitle: '',
-        metaDescription: '',
-    });
+   
 
     useEffect(() => {
         // fetch(`${siteUrl}/api/a-day-in-life-of-student-pages`)
@@ -58,58 +55,19 @@ const LifeOfStudent = ({ seodata, student,siteUrl }) => {
         }
     }, []);
 
-    useEffect(() => {
-        // Fetch SEO data from your API
-        // fetch(`${siteUrl}/api/seos`) // Replace with the actual API endpoint
-        //   .then((response) => response.json())
-        //   .then((data) => {
-        //     console.log('API response data:', data); // Log the API response data
-        //     if (data && data.data && data.data.length > 0) {
-        //       const seoAttributes = data.data[13].attributes;
-        //       setSeoData({
-        //         title: seoAttributes.title || '',
-        //         metaTitle: seoAttributes.metaTitle || '',
-        //         metaDescription: seoAttributes.metaDescription || '',
-        //       });
-        //     }
-        //   })
-        //   .catch((error) => {
-        //     console.error('Error fetching SEO data:', error);
-        //   });
-        if (seodata && seodata?.data && seodata?.data?.length > 0) {
-            const seoAttributes = seodata.data[13].attributes;
-            setSeoData({
-                title: seoAttributes.title || '',
-                metaTitle: seoAttributes.metaTitle || '',
-                metaDescription: seoAttributes.metaDescription || '',
-            })
-        }
-    }, []);
+   
 
     return (
         <>
-            <Head>
-                <title>{seoData.title}</title>
-                {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
-                {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
-            </Head>
+               <Seo SeoData={seodata} PageSlug={"life-of-student"} />
+
             <NavBar siteUrl={siteUrl}/>
 
-            {/* {seoData && (
-                <Seo
-                    title={seoData.title}
-                    metaTitle={seoData.metaTitle}
-                    metaDescription={seoData.metaDescription}
-                />
-            )} */}
+           
 
             <section className="d-none d-sm-block studentlife-new pd-bottom-90 mobilehide">
                 <section className="wrap-item-principal-se1">
-                    {/* <img
-            src="assets/img/service/3-title-dots.png"
-            alt="Transpro"
-            className="wrap-img-dots"
-          /> */}
+                  
                     <div className=" wrap-item-text1">
                         <h1 className="principal-mess wrap-student-item">
                             {suudentData?.page_title}

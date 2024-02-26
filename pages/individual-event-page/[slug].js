@@ -1,25 +1,29 @@
 import React, { Fragment, useState, useEffect } from "react";
 import NavBar from "@/components/NavBar";
-import { useParams } from "react-router-dom";
 import Footer from "@/components/Footer";
 import RecentEventsSidebar from "@/components/RecentEventsSidebar";
 import ReactMarkdown from "react-markdown";
-import { useRouter } from "next/router";
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
+import Seo from "@/components/Seo";
 
 
 export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);
-    const { postID } = context.params;
+    const { slug } = context.params;
+    const res2 = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
 
-    const res = await fetch(`${siteUrl}/api/event-pages/${postID}?populate=*`);
+    const res = await fetch(`${siteUrl}/api/event-pages/${slug}?populate=*`);
     const data = await res.json();
+    const data2 = await res2.json();
+
 
     return {
       props: {
         eventData: data.data.attributes,
+        seodata: data2.data.attributes.Pages,
+
         siteUrl,
       },
     };
@@ -33,7 +37,7 @@ export const getServerSideProps = async (context) => {
     };
   }
 };
-const IndividualEventPage = ({ eventData, siteUrl }) => {
+const IndividualEventPage = ({ eventData, siteUrl,seodata,slug }) => {
   const [loading, setLoading] = useState(false);
   const [events, setEvents] = useState();
   const [publicUrl, setPublicUrl] = useState();
@@ -87,6 +91,8 @@ const IndividualEventPage = ({ eventData, siteUrl }) => {
 
   return (
     <>
+          <Seo SeoData={seodata} PageSlug={"individual-event-page"} InnerPageSlug={slug} />
+
       <NavBar siteUrl={siteUrl} />
       <div className="top-section4-new desktophide">
         <section className="wrap-item-blog-se1 first-section position-relative">

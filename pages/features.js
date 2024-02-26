@@ -6,12 +6,12 @@ import ReactMarkdown from "react-markdown";
 
 import Head from "next/head";
 import { determineStrapiUrl } from "@/utils/strapiUtils";
+import Seo from "@/components/Seo";
 export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);
-  const res = await fetch(
-    `${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`
-  );
+    const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
+
   const res1 = await fetch(`${siteUrl}/api/features?populate=*`);
 
   const data = await res.json();
@@ -19,7 +19,7 @@ export const getServerSideProps = async (context) => {
 
   return {
     props: {
-      seodata: data,
+      seodata: data.data.attributes.Pages,
       featuresData: data1,
       siteUrl
     },
@@ -38,11 +38,7 @@ export const getServerSideProps = async (context) => {
 const Features = ({ seodata, featuresData,siteUrl }) => {
   const [features, setFeatures] = useState([]);
   console.log("feature data", features,featuresData);
-  const [seoData, setSeoData] = useState({
-    title: "",
-    metaTitle: "",
-    metaDescription: "",
-  });
+ 
 
   useEffect(() => {
     // fetch(`${siteUrl}/api/features?populate=*`)
@@ -58,46 +54,13 @@ const Features = ({ seodata, featuresData,siteUrl }) => {
     }
   }, [siteUrl]);
 
-  useEffect(() => {
-    // Fetch SEO data from your API
-    // fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
-    //     .then((response) => response.json())
-    //     .then((data) => {
-    //         console.log('API response data:', data);
-    //         if (data && data.data && data.data.length > 0) {
-    //             const seoAttributes = data.data[41].attributes;
-    //             setSeoData({
-    //                 title: seoAttributes.title || '',
-    //                 metaTitle: seoAttributes.metaTitle || '',
-    //                 metaDescription: seoAttributes.metaDescription || '',
-    //             });
-    //         }
-    //     })
-    //     .catch((error) => {
-    //         console.error('Error fetching SEO data:', error);
-    //     });
-    if (seodata && seodata?.data && seodata?.data?.length > 0) {
-      const seoAttributes = seodata.data[41].attributes;
-      setSeoData({
-        title: seoAttributes.title || "",
-        metaTitle: seoAttributes.metaTitle || "",
-        metaDescription: seoAttributes.metaDescription || "",
-      });
-    }
-  }, []);
+ 
 console.log('st url',siteUrl)
   return (
     <>
       <Fragment>
-        <Head>
-          <title>{seoData.title}</title>
-          {seoData.metaTitle && (
-            <meta name="title" content={seoData.metaTitle} />
-          )}
-          {seoData.metaTitle && (
-            <meta name="description" content={seoData.metaDescription} />
-          )}
-        </Head>
+      <Seo SeoData={seodata} PageSlug={"features"} />
+
         <NavBar siteUrl={siteUrl}/>
 
         <div className="top-section1-new pb-5">

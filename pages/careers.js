@@ -11,13 +11,13 @@ import ReactMarkdown from "react-markdown";
 
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
+import Seo from "@/components/Seo";
 
 export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);
-  const res = await fetch(
-    `${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`
-  );
+    const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
+
   const res1 = await fetch(`${siteUrl}/api/careers-pages?populate=*`);
 
   const data = await res.json();
@@ -25,7 +25,7 @@ export const getServerSideProps = async (context) => {
 
   return {
     props: {
-      seodata: data,
+      seodata: data.data.attributes.Pages,
       careerProp: data1,
       siteUrl
     },
@@ -43,59 +43,16 @@ export const getServerSideProps = async (context) => {
 
 const Careers = ({ seodata, careerProp,siteUrl }) => {
   const [careers, setCareers] = useState(null);
-  const [seoData, setSeoData] = useState({
-    title: "",
-    metaTitle: "",
-    metaDescription: "",
-  });
+ 
 
   useEffect(() => {
-    // fetch(`${siteUrl}/api/careers-pages?populate=*`)
-    //     .then((response) => {
-    //         if (!response.ok) {
-    //             throw new Error("Network response was not ok");
-    //         }
-    //         return response.json();
-    //     })
-    //     .then((data) => {
-    //         setCareers(data.data[0].attributes);
-    //     })
-    //     .catch((error) => {
-    //         console.error("Error:", error);
-    //         // You can set an error state here or handle the error in another way.
-    //     });
+   
     if (careerProp && careerProp?.data && careerProp?.data?.length > 0) {
       setCareers(careerProp?.data[0]?.attributes);
     }
   }, []);
 
-  useEffect(() => {
-    // Fetch SEO data from your API
-    // fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`) // Replace with the actual API endpoint
-    //     .then((response) => response.json())
-    //     .then((data) => {
-    //         console.log('API response data:', data); // Log the API response data
-    //         if (data && data.data && data.data.length > 0) {
-    //             const seoAttributes = data.data[26].attributes;
-    //             setSeoData({
-    //                 title: seoAttributes.title || '',
-    //                 metaTitle: seoAttributes.metaTitle || '',
-    //                 metaDescription: seoAttributes.metaDescription || '',
-    //             });
-    //         }
-    //     })
-    //     .catch((error) => {
-    //         console.error('Error fetching SEO data:', error);
-    //     });
-    if (seodata && seodata?.data && seodata?.data?.length > 0) {
-      const seoAttributes = seodata.data[26].attributes;
-      setSeoData({
-        title: seoAttributes.title || "",
-        metaTitle: seoAttributes.metaTitle || "",
-        metaDescription: seoAttributes.metaDescription || "",
-      });
-    }
-  }, []);
+  
 
   const image_career = `${siteUrl}${careers?.image_career?.data?.attributes?.url}`;
   // console.log("image=",image_career)
@@ -125,23 +82,10 @@ const Careers = ({ seodata, careerProp,siteUrl }) => {
 
   return (
     <>
-      <Head>
-        <title>{seoData.title}</title>
-        {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
-        {seoData.metaTitle && (
-          <meta name="description" content={seoData.metaDescription} />
-        )}
-      </Head>
+          <Seo SeoData={seodata} PageSlug={"careers"} />
+
       <Fragment>
         <NavBar siteUrl={siteUrl}/>
-        {/* {seoData && (
-                    <Seo
-                        title={seoData.title}
-                        metaTitle={seoData.metaTitle}
-                        metaDescription={seoData.metaDescription}
-                    />
-                )} */}
-
         {careers && (
           <div className="top-section18-new mobiletoppadding">
             <section className="upper_content_careers">

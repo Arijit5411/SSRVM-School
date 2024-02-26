@@ -11,11 +11,12 @@ import Head from "next/head";
 const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in"
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
+import Seo from "@/components/Seo";
 
 export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);
-    const res = await fetch(`${siteUrl}/api/seos`)
+    const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
     const res1 = await fetch(`${GlobalSiteUrl}/api/founder-pages?populate=*`)
     const res2 = await fetch(`${GlobalSiteUrl}/api/art-of-living-foundations?populate=*`)
 
@@ -25,7 +26,7 @@ export const getServerSideProps = async (context) => {
 
     return {
         props: {
-            seodata: data,
+            seodata: data.data.attributes.Pages,
             founderprop: data1,
             foundation: data2,
             siteUrl
@@ -45,12 +46,7 @@ export const getServerSideProps = async (context) => {
 const FounderTrust = ({ seodata, founderprop, foundation,siteUrl }) => {
     const [founder, setFounder] = useState(null);
     const [foundationData, setFoundationData] = useState(null);
-    const [seoData, setSeoData] = useState({
-        title: '',
-        metaTitle: '',
-        metaDescription: '',
-    });
-
+   
     useEffect(() => {
         // fetch(`${GlobalSiteUrl}/api/founder-pages?populate=*`)
         //     .then((response) => response.json())
@@ -77,34 +73,7 @@ const FounderTrust = ({ seodata, founderprop, foundation,siteUrl }) => {
         }
     }, []);
 
-    useEffect(() => {
-        // Fetch SEO data from your API
-        // fetch(`${siteUrl}/api/seos`) // Replace with the actual API endpoint
-        //     .then((response) => response.json())
-        //     .then((data) => {
-        //         console.log('API response data:', data); // Log the API response data
-        //         if (data && data.data && data.data.length > 0) {
-        //             const seoAttributes = data.data[5].attributes;
-        //             setSeoData({
-        //                 title: seoAttributes.title || '',
-        //                 metaTitle: seoAttributes.metaTitle || '',
-        //                 metaDescription: seoAttributes.metaDescription || '',
-        //             });
-        //         }
-        //     })
-        //     .catch((error) => {
-        //         console.error('Error fetching SEO data:', error);
-        //     });
-        if (seodata && seodata?.data && seodata?.data?.length > 0) {
-            const seoAttributes = seodata.data[5].attributes;
-            setSeoData({
-                title: seoAttributes.title || '',
-                metaTitle: seoAttributes.metaTitle || '',
-                metaDescription: seoAttributes.metaDescription || '',
-            })
-        }
-    }, []);
-
+   
     const logoUrl = `${GlobalSiteUrl}${foundationData?.logo_sun?.data?.attributes?.url}`;
     const videoUrl = `${foundationData?.video_link}`;
     const bottom_heading_gurudev = `${foundationData?.bottom_heading_gurudev}`;
@@ -124,11 +93,8 @@ const FounderTrust = ({ seodata, founderprop, foundation,siteUrl }) => {
 
     return (
         <>
-            <Head>
-                <title>{seoData.title}</title>
-                {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
-                {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
-            </Head>
+               <Seo SeoData={seodata} PageSlug={"founder"} />
+
             <NavBar siteUrl={siteUrl}/>
 
             {/* {seoData && (

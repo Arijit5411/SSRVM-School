@@ -4,16 +4,17 @@ import Footer from "../components/Footer";
 import ContactAddress from "../components/address";
 import Head from "next/head";
 import { determineStrapiUrl } from "@/utils/strapiUtils";
+import Seo from "@/components/Seo";
 export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);
-    const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`);
+    const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
 
     const data = await res.json();
 
     return {
       props: {
-        seodata: data,
+        seodata: data.data.attributes.Pages,
         siteUrl
       },
     };
@@ -182,25 +183,13 @@ const ContactUs = ({ seodata, contactData, siteUrl}) => {
     //     .catch((error) => {
     //         console.error('Error fetching SEO data:', error);
     //     });
-    if (seodata && seodata?.data && seodata?.data?.length > 0) {
-      const seoAttributes = seodata.data[27].attributes;
-      setSeoData({
-        title: seoAttributes.title || "",
-        metaTitle: seoAttributes.metaTitle || "",
-        metaDescription: seoAttributes.metaDescription || "",
-      });
-    }
+   
   }, []);
 
   return (
     <>
-      <Head>
-        <title>{seoData.title}</title>
-        {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
-        {seoData.metaTitle && (
-          <meta name="description" content={seoData.metaDescription} />
-        )}
-      </Head>
+          <Seo SeoData={seodata} PageSlug={"contact-us"} />
+
       <Fragment>
         <NavBar siteUrl={siteUrl}/>
         {/* {seoData && (

@@ -8,11 +8,12 @@ import Head from "next/head";
 const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in"
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
+import Seo from "@/components/Seo";
 
 export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);
-    const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
+    const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
     const res1 = await fetch(`${GlobalSiteUrl}/api/vision-and-missions?populate=*`)
 
     const data = await res.json()
@@ -20,7 +21,7 @@ export const getServerSideProps = async (context) => {
 
     return {
         props: {
-            seodata: data,
+            seodata: data.data.attributes.Pages,
             visionMission: data1,
             siteUrl
         }
@@ -36,12 +37,7 @@ export const getServerSideProps = async (context) => {
 }
 };
 const OurVision = ({ seodata, visionMission ,siteUrl}) => {
-    const [seoData, setSeoData] = useState({
-        title: '',
-        metaTitle: '',
-        metaDescription: '',
-    });
-
+   
     const [visionMissionData, setVisionMissionData] = useState(null);
 
 
@@ -78,14 +74,7 @@ const OurVision = ({ seodata, visionMission ,siteUrl}) => {
         //         console.error('Error fetching Vision and Mission data:', error);
         //     });
 
-        if (seodata && seodata?.data && seodata?.data?.length > 0) {
-            const seoAttributes = seodata.data[0].attributes;
-            setSeoData({
-                title: seoAttributes.title || '',
-                metaTitle: seoAttributes.metaTitle || '',
-                metaDescription: seoAttributes.metaDescription || '',
-            })
-        }
+       
         if (visionMission && visionMission?.data && visionMission?.data?.length > 0) {
             const visionMissionAttributes = visionMission?.data[0]?.attributes;
             setVisionMissionData(visionMissionAttributes);
@@ -94,20 +83,11 @@ const OurVision = ({ seodata, visionMission ,siteUrl}) => {
 
     return (
         <>
-            <Head>
-                <title>{seoData.title}</title>
-                {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
-                {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
-            </Head>
+               <Seo SeoData={seodata} PageSlug={"our-vision"} />
+
             <Fragment>
                 <NavBar siteUrl={siteUrl}/>
-                {/* {seoData && (
-                    <Seo
-                        title={seoData.title}
-                        metaTitle={seoData.metaTitle}
-                        metaDescription={seoData.metaDescription}
-                    />
-                )} */}
+                
 
                 <div className="top-wrap-item-se1">
                     <div className="top-section21">

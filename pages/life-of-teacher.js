@@ -7,41 +7,38 @@ import Head from "next/head";
 
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
+import Seo from "@/components/Seo";
 
 export const getServerSideProps = async (context) => {
-  try {
-    const siteUrl = determineStrapiUrl(context);
-        const res = await fetch(`${siteUrl}/api/seos`)
-    const res1 = await fetch(`${siteUrl}/api/a-day-in-life-of-teacher-pages?populate=*`)
+    try {
+        const siteUrl = determineStrapiUrl(context);
+        const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
+        const res1 = await fetch(`${siteUrl}/api/a-day-in-life-of-teacher-pages?populate=*`)
 
-    const data = await res.json()
-    const data1 = await res1.json()
+        const data = await res.json()
+        const data1 = await res1.json()
 
-    return {
-        props: {
-            seodata: data,
-            teacher: data1,
-            siteUrl
-        }
-    };
-} catch (error) {
-  console.error("Error fetching data:", error.message);
+        return {
+            props: {
+                seodata: data.data.attributes.Pages,
+                teacher: data1,
+                siteUrl
+            }
+        };
+    } catch (error) {
+        console.error("Error fetching data:", error.message);
 
-  return {
-    props: {
-      data: [],
-    },
-  };
-}
+        return {
+            props: {
+                data: [],
+            },
+        };
+    }
 };
 
-const LifeOfTeacher = ({ seodata, teacher,siteUrl }) => {
+const LifeOfTeacher = ({ seodata, teacher, siteUrl }) => {
     const [teachersData, setTeachersData] = useState(null);
-    const [seoData, setSeoData] = useState({
-        title: '',
-        metaTitle: '',
-        metaDescription: '',
-    });
+
 
 
 
@@ -59,33 +56,7 @@ const LifeOfTeacher = ({ seodata, teacher,siteUrl }) => {
         }
     }, []);
 
-    useEffect(() => {
-        // Fetch SEO data from your API
-        // fetch(`${siteUrl}/api/seos`) // Replace with the actual API endpoint
-        //     .then((response) => response.json())
-        //     .then((data) => {
-        //         console.log('API response data:', data); // Log the API response data
-        //         if (data && data.data && data.data.length > 0) {
-        //             const seoAttributes = data.data[14].attributes;
-        //             setSeoData({
-        //                 title: seoAttributes.title || '',
-        //                 metaTitle: seoAttributes.metaTitle || '',
-        //                 metaDescription: seoAttributes.metaDescription || '',
-        //             });
-        //         }
-        //     })
-        //     .catch((error) => {
-        //         console.error('Error fetching SEO data:', error);
-        //     });
-        if (seodata && seodata?.data && seodata?.data?.length > 0) {
-            const seoAttributes = seodata.data[14].attributes;
-            setSeoData({
-                title: seoAttributes.title || '',
-                metaTitle: seoAttributes.metaTitle || '',
-                metaDescription: seoAttributes.metaDescription || '',
-            })
-        }
-    }, []);
+
 
     const imageUrl1 = `${siteUrl}${teachersData?.image_1_teacher?.data?.attributes?.url}`;
     const imageUrl2 = `${siteUrl}${teachersData?.image_2_teacher?.data?.attributes?.url}`;
@@ -97,20 +68,10 @@ const LifeOfTeacher = ({ seodata, teacher,siteUrl }) => {
 
     return (
         <>
-            <Head>
-                <title>{seoData.title}</title>
-                {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
-                {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
-            </Head>
-            <NavBar siteUrl={siteUrl}/>
+            <Seo SeoData={seodata} PageSlug={"life-of-teacher"} />
 
-            {/* {seoData && (
-                <Seo
-                    title={seoData.title}
-                    metaTitle={seoData.metaTitle}
-                    metaDescription={seoData.metaDescription}
-                />
-            )} */}
+            <NavBar siteUrl={siteUrl} />
+
 
             <section className="techerlife-new pd-bottom-90">
                 <div className="">
@@ -176,7 +137,7 @@ const LifeOfTeacher = ({ seodata, teacher,siteUrl }) => {
                 </div>
             </section>
 
-            <Footer siteUrl={siteUrl}/>
+            <Footer siteUrl={siteUrl} />
         </>
     );
 };

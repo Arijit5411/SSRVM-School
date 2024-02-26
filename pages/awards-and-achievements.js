@@ -8,11 +8,12 @@ import Head from "next/head";
 
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
+import Seo from "@/components/Seo";
 
 export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);
-  const res = await fetch(`${siteUrl}/api/seos`);
+    const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
   const res1 = await fetch(
     `${siteUrl}/api/awards-and-achievements?sort=id:desc&populate=*`
   );
@@ -22,7 +23,7 @@ export const getServerSideProps = async (context) => {
 
   return {
     props: {
-      seodata: data,
+      seodata: data.data.attributes.Pages,
       awardsData: data1,
       siteUrl
     },
@@ -45,11 +46,7 @@ const Awards_And_Achievements = ({ seodata, awardsData,siteUrl }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [awardsAndAchievements, setAwardsAndAchievements] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [seoData, setSeoData] = useState({
-    title: "",
-    metaTitle: "",
-    metaDescription: "",
-  });
+ 
 
   const awardsPerPage = 8; // Number of awards per page
 
@@ -61,47 +58,13 @@ const Awards_And_Achievements = ({ seodata, awardsData,siteUrl }) => {
   );
 
   useEffect(() => {
-    // fetch(`${siteUrl}/api/awards-and-achievements?populate=*`)
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         setAwardsAndAchievements(data.data);
-    //     })
-    //     .catch(error => {
-    //         console.error('Error:', error);
-    //     });
+   
     if (awardsData && awardsData?.data && awardsData?.data?.length > 0) {
       setAwardsAndAchievements(awardsData?.data);
     }
   }, []);
 
-  useEffect(() => {
-    // Fetch SEO data from your API
-    // fetch(`${siteUrl}/api/seos`) // Replace with the actual API endpoint
-    //     .then((response) => response.json())
-    //     .then((data) => {
-    //         console.log('API response data:', data); // Log the API response data
-    //         if (data && data.data && data.data.length > 0) {
-    //             const seoAttributes = data.data[20].attributes;
-    //             setSeoData({
-    //                 title: seoAttributes.title || '',
-    //                 metaTitle: seoAttributes.metaTitle || '',
-    //                 metaDescription: seoAttributes.metaDescription || '',
-    //             });
-    //         }
-    //     })
-    //     .catch((error) => {
-    //         console.error('Error fetching SEO data:', error);
-    //     });
-    if (seodata && seodata?.data && seodata?.data?.length > 0) {
-      const seoAttributes = seodata.data[20].attributes;
-      setSeoData({
-        title: seoAttributes.title || "",
-        metaTitle: seoAttributes.metaTitle || "",
-        metaDescription: seoAttributes.metaDescription || "",
-      });
-    }
-  }, []);
-
+  
   const renderContent = () => {
     // Use filteredAwards here
     const indexOfLastAward = currentPage * awardsPerPage;
@@ -185,25 +148,8 @@ const Awards_And_Achievements = ({ seodata, awardsData,siteUrl }) => {
   return (
     <>
       <Fragment>
-        <Head>
-          <title>{seoData.title}</title>
-          {seoData.metaTitle && (
-            <meta name="title" content={seoData.metaTitle} />
-          )}
-          {seoData.metaTitle && (
-            <meta name="description" content={seoData.metaDescription} />
-          )}
-        </Head>
+      <Seo SeoData={seodata} PageSlug={"awards-and-achievements"} />
         <NavBar siteUrl={siteUrl}/>
-
-        {/* {seoData && (
-                    <Seo
-                        title={seoData.title}
-                        metaTitle={seoData.metaTitle}
-                        metaDescription={seoData.metaDescription}
-                    />
-                )} */}
-
         <div className="desktophide">
           <section>
             <div className="container">

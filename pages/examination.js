@@ -6,11 +6,12 @@ import Head from 'next/head';
 
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
+import Seo from '@/components/Seo';
 
 export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);
-    const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
+    const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
     const res1 = await fetch(`${siteUrl}/api/examinations?populate[syllabus][populate]=*&populate[schedule][populate]=*&populate=*`)
 
     const data = await res.json()
@@ -18,7 +19,7 @@ export const getServerSideProps = async (context) => {
 
     return {
         props: {
-            seodata: data,
+            seodata: data.data.attributes.Pages,
             optionData: data1,
             siteUrl
         }
@@ -35,11 +36,7 @@ export const getServerSideProps = async (context) => {
 };
 const Examination = ({ seodata, optionData,siteUrl }) => {
     const [selectedOption, setSelectedOption] = useState('class0');
-    const [seoData, setSeoData] = useState({
-        title: '',
-        metaTitle: '',
-        metaDescription: '',
-    });
+   
 
     const handleChange = (event) => {
         setSelectedOption(event.target.value);
@@ -100,33 +97,7 @@ const Examination = ({ seodata, optionData,siteUrl }) => {
         }
     }, []);
 
-    useEffect(() => {
-        // Fetch SEO data from your API
-        // fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`) // Replace with the actual API endpoint
-        //     .then((response) => response.json())
-        //     .then((data) => {
-        //         console.log('API response data:', data); // Log the API response data
-        //         if (data && data.data && data.data.length > 0) {
-        //             const seoAttributes = data.data[32].attributes;
-        //             setSeoData({
-        //                 title: seoAttributes.title || '',
-        //                 metaTitle: seoAttributes.metaTitle || '',
-        //                 metaDescription: seoAttributes.metaDescription || '',
-        //             });
-        //         }
-        //     })
-        //     .catch((error) => {
-        //         console.error('Error fetching SEO data:', error);
-        //     });
-        if (seodata && seodata?.data && seodata?.data?.length > 0) {
-            const seoAttributes = seodata.data[32].attributes;
-            setSeoData({
-                title: seoAttributes.title || '',
-                metaTitle: seoAttributes.metaTitle || '',
-                metaDescription: seoAttributes.metaDescription || '',
-            })
-        }
-    }, []);
+    
 
     useEffect(() => {
         let url
@@ -176,6 +147,8 @@ const Examination = ({ seodata, optionData,siteUrl }) => {
     return (
         <>
             <Fragment>
+            <Seo SeoData={seodata} PageSlug={"examination"} />
+
                 <Head>
                     <title>{seoData.title}</title>
                     {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}

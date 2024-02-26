@@ -6,11 +6,12 @@ import Head from "next/head";
 // import Seo from './Seo';
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
+import Seo from "@/components/Seo";
 
 export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);
-    const res = await fetch(`${siteUrl}/api/seos`);
+    const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
     const res1 = await fetch(`${siteUrl}/api/monthly-calenders`);
     const res2 = await fetch(`${siteUrl}/api/calender-downloads?populate=*`);
 
@@ -20,7 +21,7 @@ export const getServerSideProps = async (context) => {
 
     return {
       props: {
-        seodata: data,
+        seodata: data.data.attributes.Pages,
         calendar: data1,
         downloadcal: data2,
         siteUrl,
@@ -44,12 +45,7 @@ const GoogleCalendar = ({ seodata, calendar, downloadcal, siteUrl }) => {
   const [downloadCalender, setDownloadcalender] = useState([]);
 
   const [isLoading, setIsLoading] = useState(true);
-  const [seoData, setSeoData] = useState({
-    title: "",
-    metaTitle: "",
-    metaDescription: "",
-  });
-
+  
 
 
   
@@ -66,17 +62,7 @@ const GoogleCalendar = ({ seodata, calendar, downloadcal, siteUrl }) => {
     }
   }, []);
 
-  useEffect(() => {
-   
-    if (seodata && seodata?.data && seodata?.data?.length > 0) {
-      const seoAttributes = seodata.data[17].attributes;
-      setSeoData({
-        title: seoAttributes.title || "",
-        metaTitle: seoAttributes.metaTitle || "",
-        metaDescription: seoAttributes.metaDescription || "",
-      });
-    }
-  }, []);
+  
 
   useEffect(() => {
     if (downloadcal && downloadcal?.data && downloadcal?.data?.length > 0) {
@@ -96,13 +82,8 @@ const GoogleCalendar = ({ seodata, calendar, downloadcal, siteUrl }) => {
   
   return (
     <>
-      <Head>
-        <title>{seoData.title}</title>
-        {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
-        {seoData.metaTitle && (
-          <meta name="description" content={seoData.metaDescription} />
-        )}
-      </Head>
+          <Seo SeoData={seodata} PageSlug={"monthly-calendar"} />
+
       <Fragment>
         <NavBar siteUrl={siteUrl} />
 

@@ -3,11 +3,13 @@ import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import Head from "next/head";
 import { determineStrapiUrl } from "@/utils/strapiUtils";
+import Seo from "@/components/Seo";
 
 export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);  
-       const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
+    const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
+
     const res1 = await fetch(`${siteUrl}/api/core-school-teams?populate=*`)
 
     const data = await res.json()
@@ -15,7 +17,7 @@ export const getServerSideProps = async (context) => {
 
     return {
         props: {
-            seodata: data,
+            seodata: data.data.attributes.Pages,
             teamData: data1,
             siteUrl
         }
@@ -34,12 +36,7 @@ export const getServerSideProps = async (context) => {
 const Core_School_Team = ({ seodata, teamData ,siteUrl}) => {
     const [coreSchoolTeam, setCoreSchoolTeam] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [seoData, setSeoData] = useState({
-        title: '',
-        metaTitle: '',
-        metaDescription: '',
-    });
-
+  
     useEffect(() => {
         // fetch(`${siteUrl}/api/core-school-teams?populate=*`)
         //     .then((response) => response.json())
@@ -78,33 +75,17 @@ const Core_School_Team = ({ seodata, teamData ,siteUrl}) => {
         //     .catch((error) => {
         //         console.error('Error fetching SEO data:', error);
         //     });
-        if (seodata && seodata?.data && seodata?.data?.length > 0) {
-            const seoAttributes = seodata.data[48].attributes;
-            setSeoData({
-                title: seoAttributes.title || '',
-                metaTitle: seoAttributes.metaTitle || '',
-                metaDescription: seoAttributes.metaDescription || '',
-            })
-        }
+       
     }, []);
 
     return (
         <>
             <Fragment>
-                <Head>
-                    <title>{seoData.title}</title>
-                    {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
-                    {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
-                </Head>
+            <Seo SeoData={seodata} PageSlug={"core-school-team"} />
+
                 <NavBar siteUrl={siteUrl}/>
 
-                {/* {seoData && (
-                    <Seo
-                        title={seoData.title}
-                        metaTitle={seoData.metaTitle}
-                        metaDescription={seoData.metaDescription}
-                    />
-                )} */}
+                
 
                 <div className="top-section1">
                     <div className="container">

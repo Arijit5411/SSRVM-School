@@ -4,6 +4,7 @@ import NavBar from "@/components/NavBar";
 import ReactMarkdown from "react-markdown";
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
+import Seo from "@/components/Seo";
 
 export const getServerSideProps = async (context) => {
   try {
@@ -11,11 +12,16 @@ export const getServerSideProps = async (context) => {
     const { slug } = context.params;
 
     const res = await fetch(`${siteUrl}/api/others-pages/?filters[slug][$eq]=${slug}&populate[Content_Area][populate]=*`);
+    const res2 = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
+    const data2 = await res2.json();
+
     const data = await res.json();
 
     return {
       props: {
         data: data?.data[0],
+        seodata: data2.data.attributes.Pages,
+        slug,
         siteUrl,
       },
     };
@@ -81,10 +87,11 @@ export const getServerSideProps = async (context) => {
 //   }
 // }
 
-const OtherPage = ({ data,siteUrl }) => {
+const OtherPage = ({ data,siteUrl,seodata,slug }) => {
 
   return (
     <>
+      <Seo SeoData={seodata} PageSlug={"others"} InnerPageSlug={slug} />
       <NavBar siteUrl={siteUrl}/>
       <div className="py-5"></div>
       <section className="py-5">

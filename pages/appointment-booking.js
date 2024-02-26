@@ -7,19 +7,19 @@ import moment from "moment";
 import DropdownReason from "@/components/DropdownReason";
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
+import Seo from "@/components/Seo";
 
 export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);
-  const res = await fetch(
-    `${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`
-  );
+    const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
+
   const res1 = await fetch(`${siteUrl}/api/school-total-classes?populate=*`);
   const data = await res.json();
   const data1 = await res1.json();
   return {
     props: {
-      seodata: data,
+      seodata: data.data.attributes.Pages,
       classes: data1?.data,
       siteUrl
     },
@@ -69,11 +69,7 @@ const AppointmentBooking = ({ seodata, classes ,siteUrl}) => {
   const [selectedOption, setSelectedOption] = useState("");
 
   const [errorState, setErrorState] = useState(initialErrorState);
-  const [seoData, setSeoData] = useState({
-    title: "",
-    metaTitle: "",
-    metaDescription: "",
-  });
+ 
 
   const handleChange = (event) => {
     let reasonState = false;
@@ -124,16 +120,7 @@ const AppointmentBooking = ({ seodata, classes ,siteUrl}) => {
     });
   };
 
-  useEffect(() => {
-    if (seodata && seodata?.data && seodata?.data?.length > 0) {
-      const seoAttributes = seodata?.data[47]?.attributes;
-      setSeoData({
-        title: seoAttributes.title || "",
-        metaTitle: seoAttributes.metaTitle || "",
-        metaDescription: seoAttributes.metaDescription || "",
-      });
-    }
-  }, []);
+  
 
   const yesterday = moment().subtract(1, "day");
   const disablePastDt = (current) => {
@@ -246,13 +233,8 @@ const AppointmentBooking = ({ seodata, classes ,siteUrl}) => {
   };
   return (
     <Fragment>
-      <Head>
-        <title>{seoData.title}</title>
-        {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
-        {seoData.metaTitle && (
-          <meta name="description" content={seoData.metaDescription} />
-        )}
-      </Head>
+          <Seo SeoData={seodata} PageSlug={"appointment-booking"} />
+
       <NavBar siteUrl={siteUrl}/>
       <div className="top-section1">
         <div className="container">

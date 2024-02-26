@@ -7,14 +7,14 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 // import Seo from './Seo';
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
+import Seo from "@/components/Seo";
 
 export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);
 
-  const res = await fetch(
-    `${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`
-  );
+    const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
+
   const res1 = await fetch(
     `${siteUrl}/api/life-at-ssas?populate[images][populate]=*`
   );
@@ -30,7 +30,7 @@ export const getServerSideProps = async (context) => {
 
   return {
     props: {
-      seodata: data,
+      seodata: data.data.attributes.Pages,
       lifeatssa: data1,
       videolist: data2,
       siteUrl
@@ -51,11 +51,7 @@ const LifeAtSriAcademy = ({ seodata, lifeatssa,videolist,siteUrl }) => {
   const [lifeAtSriAcademy, setLifeAtSriAcademy] = useState(null);
   const [videolistData, setvideolistData] = useState(null);
 
-  const [seoData, setSeoData] = useState({
-    title: "",
-    metaTitle: "",
-    metaDescription: "",
-  });
+  
 
   useEffect(() => {
     // fetch(`${siteUrl}/api/life-at-ssas?populate=*`)
@@ -75,33 +71,7 @@ const LifeAtSriAcademy = ({ seodata, lifeatssa,videolist,siteUrl }) => {
       }
   }, []);
 
-  useEffect(() => {
-    // Fetch SEO data from your API
-    // fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
-    //     .then((response) => response.json())
-    //     .then((data) => {
-    //         console.log('API response data:', data);
-    //         if (data && data.data && data.data.length > 0) {
-    //             const seoAttributes = data.data[45].attributes;
-    //             setSeoData({
-    //                 title: seoAttributes.title || '',
-    //                 metaTitle: seoAttributes.metaTitle || '',
-    //                 metaDescription: seoAttributes.metaDescription || '',
-    //             });
-    //         }
-    //     })
-    //     .catch((error) => {
-    //         console.error('Error fetching SEO data:', error);
-    //     });
-    if (seodata && seodata?.data && seodata?.data?.length > 0) {
-      const seoAttributes = seodata.data[45].attributes;
-      setSeoData({
-        title: seoAttributes.title || "",
-        metaTitle: seoAttributes.metaTitle || "",
-        metaDescription: seoAttributes.metaDescription || "",
-      });
-    }
-  }, []);
+  
 
   const page_title = `${lifeAtSriAcademy?.page_title}`;
   const paragraph_1 = `${lifeAtSriAcademy?.paragraph_1}`;
@@ -173,23 +143,9 @@ const LifeAtSriAcademy = ({ seodata, lifeatssa,videolist,siteUrl }) => {
   return (
     <>
       <Fragment>
-        <Head>
-          <title>{seoData.title}</title>
-          {seoData.metaTitle && (
-            <meta name="title" content={seoData.metaTitle} />
-          )}
-          {seoData.metaTitle && (
-            <meta name="description" content={seoData.metaDescription} />
-          )}
-        </Head>
+      <Seo SeoData={seodata} PageSlug={"life-at-ssa"} />
+
         <NavBar siteUrl={siteUrl}/>
-        {/* {seoData && (
-                    <Seo
-                        title={seoData.title}
-                        metaTitle={seoData.metaTitle}
-                        metaDescription={seoData.metaDescription}
-                    />
-                )} */}
 
         <div className="top-section1-new">
           <section className="wrap-state-se1">

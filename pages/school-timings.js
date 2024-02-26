@@ -6,11 +6,12 @@ import Head from "next/head";
 
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
+import Seo from "@/components/Seo";
 
 export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);
-    const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
+    const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
     const res1 = await fetch(`${siteUrl}/api/ssa-school-timing-pages`)
 
     const data = await res.json()
@@ -18,8 +19,8 @@ export const getServerSideProps = async (context) => {
     console.log("data1",JSON.stringify(data1));
     return {
         props: {
-            seodata: data,
-             timings: data1,
+            seodata: data.data.attributes.Pages,
+            timings: data1,
             siteUrl
         }
     };
@@ -36,11 +37,7 @@ export const getServerSideProps = async (context) => {
 
 const School_Timings = ({ seodata,timings,siteUrl }) => {
     const [schoolTimings, setSchoolTimings] = useState();
-    const [seoData, setSeoData] = useState({
-        title: '',
-        metaTitle: '',
-        metaDescription: '',
-    });
+  
 
     useEffect(() => {
         // fetch(`${siteUrl}/api/ssa-school-timing-pages`)
@@ -56,35 +53,7 @@ const School_Timings = ({ seodata,timings,siteUrl }) => {
         }
     }, []);
 
-    useEffect(() => {
-        // Fetch SEO data from your API
-        // fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
-        //     .then((response) => response.json())
-        //     .then((data) => {
-        //         console.log('API response data:', data);
-        //         if (data && data.data && data.data.length > 0) {
-        //             const seoAttributes = data.data[43].attributes;
-        //             setSeoData({
-        //                 title: seoAttributes.title || '',
-        //                 metaTitle: seoAttributes.metaTitle || '',
-        //                 metaDescription: seoAttributes.metaDescription || '',
-        //             });
-        //         }
-        //     })
-        //     .catch((error) => {
-        //         console.error('Error fetching SEO data:', error);
-        //     });
-        if (seodata && seodata?.data && seodata?.data?.length > 0) {
-            const seoAttributes = seodata.data[43].attributes;
-            console.log('s', seoAttributes);
-            setSeoData({
-                title: seoAttributes.title || '',
-                metaTitle: seoAttributes.metaTitle || '',
-                metaDescription: seoAttributes.metaDescription || '',
-            })
-        }
-    }, []);
-
+   
     const page_title = `${schoolTimings?.page_title}`;
 
     const key1 = `${schoolTimings?.key1}`;
@@ -123,20 +92,11 @@ const School_Timings = ({ seodata,timings,siteUrl }) => {
         <>
             <Fragment>
                 {console.log(schoolTimings)}
-                <Head>
-                    <title>{seoData.title}</title>
-                    {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
-                    {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
-                </Head>
+                <Seo SeoData={seodata} PageSlug={"school-timings"} />
+
                 <NavBar siteUrl={siteUrl}/>
 
-                {/* {seoData && (
-                    <Seo
-                        title={seoData.title}
-                        metaTitle={seoData.metaTitle}
-                        metaDescription={seoData.metaDescription}
-                    />
-                )} */}
+                
                 <div className="container">
                     <div className='d-flex flex-column justify-content-center align-items-start school-content' style={{ margin: '10rem 0 6rem 0' }} dangerouslySetInnerHTML={{
                         __html: schoolTimings?.page_content,

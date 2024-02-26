@@ -9,11 +9,12 @@ import Head from 'next/head';
 const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in"
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
+import Seo from '@/components/Seo';
 
 export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);
-    const res = await fetch(`${siteUrl}/api/seos`)
+    const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
     const res1 = await fetch(`${GlobalSiteUrl}/api/global-blogs?sort=id:desc&populate=*`)
 
     const data = await res.json()
@@ -21,7 +22,7 @@ export const getServerSideProps = async (context) => {
 
     return {
         props: {
-            seodata: data,
+            seodata: data.data.attributes.Pages,
             blogData: data1,
             siteUrl
         }
@@ -42,11 +43,7 @@ const GlobalBlogs = ({ seodata, blogData,siteUrl }) => {
 
     const [blog, setBlog] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
-    const [seoData, setSeoData] = useState({
-        title: '',
-        metaTitle: '',
-        metaDescription: '',
-    });
+   
 
     const postsPerPage = 6; // Number of blog posts per page
 
@@ -73,33 +70,7 @@ const GlobalBlogs = ({ seodata, blogData,siteUrl }) => {
 
     }, []);
 
-    useEffect(() => {
-        // Fetch SEO data from your API
-        // fetch(`${siteUrl}/api/seos`) // Replace with the actual API endpoint
-        //     .then((response) => response.json())
-        //     .then((data) => {
-        //         console.log('API response data:', data); // Log the API response data
-        //         if (data && data.data && data.data.length > 0) {
-        //             const seoAttributes = data.data[1].attributes;
-        //             setSeoData({
-        //                 title: seoAttributes.title || '',
-        //                 metaTitle: seoAttributes.metaTitle || '',
-        //                 metaDescription: seoAttributes.metaDescription || '',
-        //             });
-        //         }
-        //     })
-        //     .catch((error) => {
-        //         console.error('Error fetching SEO data:', error);
-        //     });
-        if (seodata && seodata?.data && seodata?.data?.length > 0) {
-            const seoAttributes = seodata.data[1].attributes;
-            setSeoData({
-                title: seoAttributes.title || '',
-                metaTitle: seoAttributes.metaTitle || '',
-                metaDescription: seoAttributes.metaDescription || '',
-            })
-        }
-    }, []);
+   
 
     // for pagination
     const indexOfLastPost = currentPage * postsPerPage;
@@ -119,20 +90,9 @@ console.log('data',blogData)
         if (currentPage < Math.ceil(blog.data.length / postsPerPage)) { paginate(currentPage + 1); }
     }; return (<>
         <Fragment>
-            <Head>
-                <title>{seoData.title}</title>
-                {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
-                {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
-            </Head>
-            <NavBar siteUrl={siteUrl}/>
+        <Seo SeoData={seodata} PageSlug={"global-blogs"} />
 
-            {/* {seoData && (
-                <Seo
-                    title={seoData.title}
-                    metaTitle={seoData.metaTitle}
-                    metaDescription={seoData.metaDescription}
-                />
-            )} */}
+            <NavBar siteUrl={siteUrl}/>
             <div className='top-section1'>
                 <div className="container">
                     <h1 className="principal-mess">Blog</h1>

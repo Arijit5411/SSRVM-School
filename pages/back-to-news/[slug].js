@@ -4,19 +4,22 @@ import ReactMarkdown from "react-markdown";
 import RecentNewsSidebar from "@/components/RecentNewsSidebar";
 import NavBar from "@/components/NavBar";
 import { determineStrapiUrl } from "@/utils/strapiUtils";
+import Seo from "@/components/Seo";
 export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);
-    const { postID } = context.params;
+    const { slug } = context.params;
 
-    const res1 = await fetch(`${siteUrl}/api/newspages/${postID}?populate=*`);
-
+    const res1 = await fetch(`${siteUrl}/api/newspages/${slug}?populate=*`);
+    const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
     const data1 = await res1.json();
-
+    const data = await res.json();
     return {
       props: {
         data1,
+        seodata: data.data.attributes.Pages,
         siteUrl,
+        slug
       },
     };
   } catch (error) {
@@ -29,7 +32,7 @@ export const getServerSideProps = async (context) => {
     };
   }
 };
-const BackToNews = ({ data1, siteUrl }) => {
+const BackToNews = ({ data1, siteUrl,seodata ,slug}) => {
   const [publicUrl, setPublicUrl] = useState();
   const components = {
     img: ({ src, alt }) => {
@@ -42,6 +45,7 @@ const BackToNews = ({ data1, siteUrl }) => {
 
   return (
     <>
+      <Seo SeoData={seodata} PageSlug={"back-to-news"} InnerPageSlug={slug} />
       <NavBar siteUrl={siteUrl} />
       <div className="top-section4-new desktophide">
         <section className="wrap-item-blog-se1 first-section position-relative">

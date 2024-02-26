@@ -2,15 +2,14 @@ import React, { Fragment, useState, useEffect } from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import Head from "next/head";
-// import Seo from './Seo';
-
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
+import Seo from "@/components/Seo";
 
 export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);
-    const res = await fetch(`${siteUrl}/api/seos`)
+    const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
     const res1 = await fetch(`${siteUrl}/api/career-guidance-pages?populate=*`)
 
     const data = await res.json()
@@ -18,7 +17,7 @@ export const getServerSideProps = async (context) => {
 
     return {
         props: {
-            seodata: data,
+            seodata: data.data.attributes.Pages,
             careerGuide: data1,
             siteUrl
         }
@@ -37,55 +36,17 @@ export const getServerSideProps = async (context) => {
 
 const CareerGuidance = ({ seodata, careerGuide,siteUrl }) => {
     const [careerGuidance, setCareerGuidance] = useState(null);
-    const [seoData, setSeoData] = useState({
-        title: '',
-        metaTitle: '',
-        metaDescription: '',
-    });
-
+   
 
 
     useEffect(() => {
-        // fetch(`${siteUrl}/api/career-guidance-pages?populate=*`)
-        //     .then((response) => response.json())
-        //     .then((data) => {
-        //         setCareerGuidance(data.data[0].attributes);
-        //     })
-        //     .catch((error) => {
-        //         console.error("Error:", error);
-        //     });
+       
         if (careerGuide && careerGuide?.data) {
             setCareerGuidance(careerGuide?.data[0]?.attributes)
         }
     }, []);
 
-    useEffect(() => {
-        // Fetch SEO data from your API
-        // fetch(`${siteUrl}/api/seos`) // Replace with the actual API endpoint
-        //     .then((response) => response.json())
-        //     .then((data) => {
-        //         console.log('API response data:', data); // Log the API response data
-        //         if (data && data.data && data.data.length > 0) {
-        //             const seoAttributes = data.data[21].attributes;
-        //             setSeoData({
-        //                 title: seoAttributes.title || '',
-        //                 metaTitle: seoAttributes.metaTitle || '',
-        //                 metaDescription: seoAttributes.metaDescription || '',
-        //             });
-        //         }
-        //     })
-        //     .catch((error) => {
-        //         console.error('Error fetching SEO data:', error);
-        //     });
-        if (seodata && seodata?.data && seodata?.data?.length > 0) {
-            const seoAttributes = seodata.data[21].attributes;
-            setSeoData({
-                title: seoAttributes.title || '',
-                metaTitle: seoAttributes.metaTitle || '',
-                metaDescription: seoAttributes.metaDescription || '',
-            })
-        }
-    }, []);
+   
 
     const imageUrl = `${siteUrl}${careerGuidance?.image?.data?.attributes?.url}`;
     const page_title = `${careerGuidance?.page_title}`;
@@ -96,11 +57,7 @@ const CareerGuidance = ({ seodata, careerGuide,siteUrl }) => {
 
     return (
         <>
-            <Head>
-                <title>{seoData.title}</title>
-                {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
-                {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
-            </Head>
+                <Seo SeoData={seodata} PageSlug={"career-guidance"} />
             <Fragment>
                 <NavBar siteUrl={siteUrl}/>
                 <div className="top-section-new mobiletoppadding">

@@ -9,13 +9,12 @@ import { useRouter } from "next/router";
 import ReactMarkdown from "react-markdown";
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
+import Seo from "@/components/Seo";
 
 export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);
-    const res = await fetch(
-      `${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`
-    );
+    const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
     const res1 = await fetch(`${siteUrl}/api/admission-pages?populate=*`);
     const res2 = await fetch(`${siteUrl}/api/school-total-classes?populate=*`);
     const res3 = await fetch(
@@ -28,7 +27,7 @@ export const getServerSideProps = async (context) => {
     const data3 = await res3.json();
     return {
       props: {
-        seodata: data,
+        seodata: data.data.attributes.Pages,
         admissionsData: data1,
         t_class: data2?.data,
         tab_content: data3?.data,
@@ -54,17 +53,9 @@ const Admissions = ({
   siteUrl,
 }) => {
   const router = useRouter();
-  // console.log(
-  //   "main data ===>",
-  //   admissionsData.data[0].attributes.box_content_apply === null
-  // );
   const [routeActive, setRouteActive] = useState("Procedure");
   const [admissions, setAdmissions] = useState(null);
-  const [seoData, setSeoData] = useState({
-    title: "",
-    metaTitle: "",
-    metaDescription: "",
-  });
+ 
 
   useEffect(() => {
    
@@ -76,17 +67,7 @@ const Admissions = ({
     }
   }, []);
 
-  useEffect(() => {
-   
-    if (seodata && seodata?.data && seodata?.data?.length > 0) {
-      const seoAttributes = seodata.data[12].attributes;
-      setSeoData({
-        title: seoAttributes.title || "",
-        metaTitle: seoAttributes.metaTitle || "",
-        metaDescription: seoAttributes.metaDescription || "",
-      });
-    }
-  }, []);
+ 
 
   useEffect(() => {
     if (router.asPath === "/admissions#admission_faq") {
@@ -339,8 +320,8 @@ const Admissions = ({
   const Render = ({ selectedOption }) => {
     
    
-    // let arr = tab_content?.length>0 ?tab_content[0]?.attributes?.procedure_content?.filter(pc=>pc?.school_total_class?.data?.map(d=>d?.attributes?.name).includes(selectedOption)):[]
-    let arr = tab_content?.length > 0 ? tab_content[0]?.attributes?.procedure_content?.filter(pc => pc?.school_total_class?.data?.attributes?.name === selectedOption) : [];
+    let arr = tab_content?.length>0 ?tab_content[0]?.attributes?.procedure_content?.filter(pc=>pc?.school_total_class?.data?.map(d=>d?.attributes?.name).includes(selectedOption)):[]
+    // let arr = tab_content?.length > 0 ? tab_content[0]?.attributes?.procedure_content?.filter(pc => pc?.school_total_class?.data?.attributes?.name === selectedOption) : [];
 
 
     // let arr = [];
@@ -371,25 +352,11 @@ const Admissions = ({
   return (
     <>
       {console.log("main", routeActive)}
-      <Fragment>
-        <Head>
-          <title>{seoData.title}</title>
-          {seoData.metaTitle && (
-            <meta name="title" content={seoData.metaTitle} />
-          )}
-          {seoData.metaTitle && (
-            <meta name="description" content={seoData.metaDescription} />
-          )}
-        </Head>
-        <NavBar siteUrl={siteUrl} />
+      <Seo SeoData={seodata} PageSlug={"admissions"} />
 
-        {/* {seoData && (
-                    <Seo
-                        title={seoData.title}
-                        metaTitle={seoData.metaTitle}
-                        metaDescription={seoData.metaDescription}
-                    />
-                )} */}
+      <Fragment>
+       
+        <NavBar siteUrl={siteUrl} />
         <div className="top-section1-new">
           <div className="container">
             <h1 className="principal-mess">{page_title}</h1>
@@ -402,9 +369,6 @@ const Admissions = ({
 
                   <p>
                     {para_1}
-                    {/* <span
-                                        dangerouslySetInnerHTML={{ __html: para_1.replace(/\n/g) }}>
-                                            </span> */}
                   </p>
 
                   <div>

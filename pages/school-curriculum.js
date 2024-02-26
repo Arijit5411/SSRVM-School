@@ -7,11 +7,12 @@ import Head from "next/head";
 // import Seo from './Seo';
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
+import Seo from "@/components/Seo";
 
 export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);
-    const res = await fetch(`${siteUrl}/api/seos`);
+    const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
     const res1 = await fetch(
       `${siteUrl}/api/school-curriculum-pages?populate[syllabus_pdf][populate]=*&populate[image_1]=*&populate[image_2]=*`
     );
@@ -21,7 +22,7 @@ export const getServerSideProps = async (context) => {
 
     return {
       props: {
-        seodata: data,
+        seodata: data.data.attributes.Pages,
         schoolCurr: data1,
         siteUrl,
       },
@@ -40,11 +41,7 @@ export const getServerSideProps = async (context) => {
 const SchoolCurriculum = ({ seodata, schoolCurr, siteUrl }) => {
   const [schoolCurriculum, setSchoolCurriculum] = useState(null);
   const [syllabus, setSyllabus] = useState([]);
-  const [seoData, setSeoData] = useState({
-    title: "",
-    metaTitle: "",
-    metaDescription: "",
-  });
+ 
 
   useEffect(() => {
     // fetch(`${siteUrl}/api/school-curriculum-pages?populate=*`)
@@ -61,33 +58,7 @@ const SchoolCurriculum = ({ seodata, schoolCurr, siteUrl }) => {
     }
   }, []);
 
-  useEffect(() => {
-    // Fetch SEO data from your API
-    // fetch(`${siteUrl}/api/seos`) // Replace with the actual API endpoint
-    //     .then((response) => response.json())
-    //     .then((data) => {
-    //         console.log('API response data:', data); // Log the API response data
-    //         if (data && data.data && data.data.length > 0) {
-    //             const seoAttributes = data.data[15].attributes;
-    //             setSeoData({
-    //                 title: seoAttributes.title || '',
-    //                 metaTitle: seoAttributes.metaTitle || '',
-    //                 metaDescription: seoAttributes.metaDescription || '',
-    //             });
-    //         }
-    //     })
-    //     .catch((error) => {
-    //         console.error('Error fetching SEO data:', error);
-    //     });
-    if (seodata && seodata?.data && seodata?.data?.length > 0) {
-      const seoAttributes = seodata.data[15].attributes;
-      setSeoData({
-        title: seoAttributes.title || "",
-        metaTitle: seoAttributes.metaTitle || "",
-        metaDescription: seoAttributes.metaDescription || "",
-      });
-    }
-  }, []);
+  
 
   const pageTitle = `${schoolCurriculum?.page_title}`;
   const heading_1 = `${schoolCurriculum?.heading_1}`;
@@ -164,23 +135,11 @@ const SchoolCurriculum = ({ seodata, schoolCurr, siteUrl }) => {
 
   return (
     <>
-      <Head>
-        <title>{seoData.title}</title>
-        {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
-        {seoData.metaTitle && (
-          <meta name="description" content={seoData.metaDescription} />
-        )}
-      </Head>
+          <Seo SeoData={seodata} PageSlug={"school-curriculum"} />
+
       <Fragment>
         <NavBar siteUrl={siteUrl} />
-        {/* {seoData && (
-                    <Seo
-                        title={seoData.title}
-                        metaTitle={seoData.metaTitle}
-                        metaDescription={seoData.metaDescription}
-                    />
-                )} */}
-
+        
         <div className="top-section1-new">
           <div className="container">
             <h1 className="principal-mess">{pageTitle}</h1>

@@ -5,13 +5,14 @@ import Link from 'next/link';
 import Head from 'next/head';
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
+import Seo from '@/components/Seo';
 
 export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);
 
 
-    const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
+    const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
     const res1 = await fetch(`${siteUrl}/api/newspages?sort=id:desc&populate=*`)
 
     const data = await res.json()
@@ -19,7 +20,7 @@ export const getServerSideProps = async (context) => {
 
     return {
         props: {
-            seodata: data,
+            seodata: data.data.attributes.Pages,
             newsProp: data1,
             siteUrl
         }
@@ -38,11 +39,7 @@ export const getServerSideProps = async (context) => {
 const News = ({ seodata, newsProp,siteUrl }) => {
     const [news, setNews] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
-    const [seoData, setSeoData] = useState({
-        title: '',
-        metaTitle: '',
-        metaDescription: '',
-    });
+   
     const postsPerPage = 6; // Number of news posts per page
 
     useEffect(() => {
@@ -66,34 +63,7 @@ const News = ({ seodata, newsProp,siteUrl }) => {
         }
     }, []);
 
-    useEffect(() => {
-        // Fetch SEO data from your API
-        // fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`) // Replace with the actual API endpoint
-        //     .then((response) => response.json())
-        //     .then((data) => {
-        //         console.log('API response data:', data); // Log the API response data
-        //         if (data && data.data && data.data.length > 0) {
-        //             const seoAttributes = data.data[24].attributes;
-        //             setSeoData({
-        //                 title: seoAttributes.title || '',
-        //                 metaTitle: seoAttributes.metaTitle || '',
-        //                 metaDescription: seoAttributes.metaDescription || '',
-        //             });
-        //         }
-        //     })
-        //     .catch((error) => {
-        //         console.error('Error fetching SEO data:', error);
-        //     });
-        if (seodata && seodata?.data && seodata?.data?.length > 0) {
-            console.log(seodata);
-            const seoAttributes = seodata.data[36].attributes;
-            setSeoData({
-                title: seoAttributes.title || '',
-                metaTitle: seoAttributes.metaTitle || '',
-                metaDescription: seoAttributes.metaDescription || '',
-            })
-        }
-    }, []);
+   
 
     const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -113,21 +83,12 @@ const News = ({ seodata, newsProp,siteUrl }) => {
     };
 
     return (<>
-        <Head>
-            <title>{seoData.title}</title>
-            {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
-            {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
-        </Head>
+            <Seo SeoData={seodata} PageSlug={"news"} />
+
         <Fragment>
             <NavBar siteUrl={siteUrl}/>
 
-            {/* {seoData && (
-                <Seo
-                    title={seoData.title}
-                    metaTitle={seoData.metaTitle}
-                    metaDescription={seoData.metaDescription}
-                />
-            )} */}
+            
 
             <div className='top-section1-new'>
                 <div className="container d-flex align-items-center gap-4 my-5">

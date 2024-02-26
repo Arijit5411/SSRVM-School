@@ -11,17 +11,18 @@ import Head from "next/head";
 
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
+import Seo from "@/components/Seo";
 
 export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);
-    const res = await fetch(`${siteUrl}/api/seos`)
+    const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
 
     const data = await res.json()
 
     return {
         props: {
-            seodata: data,
+            seodata: data.data.attributes.Pages,
             siteUrl
         }
     };
@@ -37,59 +38,15 @@ export const getServerSideProps = async (context) => {
 };
 
 const TransferCertificate = ({ seodata ,siteUrl}) => {
-    const [seoData, setSeoData] = useState({
-        title: '',
-        metaTitle: '',
-        metaDescription: '',
-    });
+    
 
-    useEffect(() => {
-        // Fetch SEO data from your API
-        // fetch(`${siteUrl}/api/seos`) // Replace with the actual API endpoint
-        //     .then((response) => response.json())
-        //     .then((data) => {
-        //         console.log('API response data:', data); // Log the API response data
-        //         if (data && data.data && data.data.length > 0) {
-        //             const seoAttributes = data.data[18].attributes;
-        //             setSeoData({
-        //                 title: seoAttributes.title || '',
-        //                 metaTitle: seoAttributes.metaTitle || '',
-        //                 metaDescription: seoAttributes.metaDescription || '',
-        //             });
-        //         }
-        //     })
-        //     .catch((error) => {
-        //         console.error('Error fetching SEO data:', error);
-        //     });
-        if (seodata && seodata?.data && seodata?.data?.length > 0) {
-            const seoAttributes = seodata.data[18].attributes;
-            setSeoData({
-                title: seoAttributes.title || '',
-                metaTitle: seoAttributes.metaTitle || '',
-                metaDescription: seoAttributes.metaDescription || '',
-            })
-        }
-    }, []);
+   
 
     return (
         <>
             <Fragment>
-                <Head>
-                    <title>{seoData.title}</title>
-                    {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
-                    {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
-                </Head>
+            <Seo SeoData={seodata} PageSlug={"transfer-certificate"} />
                 <NavBar siteUrl={siteUrl}/>
-
-                {/* {seoData && (
-                    <Seo
-                        title={seoData.title}
-                        metaTitle={seoData.metaTitle}
-                        metaDescription={seoData.metaDescription}
-                    />
-                )} */}
-                {/* <div className='top-section1'> */}
-
                 <div className="top-section1">
                     <div className="container">
                         <h1 className="principal-mess">Transfer Certificate</h1>

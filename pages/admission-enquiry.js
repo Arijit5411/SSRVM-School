@@ -1,20 +1,20 @@
 import AdmissionEnquiry from '@/components/AdmissionEnquiry';
 import Footer from '@/components/Footer';
 import NavBar from '@/components/NavBar';
+import Seo from '@/components/Seo';
 import { determineStrapiUrl } from '@/utils/strapiUtils';
-import Head from 'next/head';
 import React, { useState } from 'react'
-
 export const getServerSideProps = async (context) => {
     try {
       const siteUrl = determineStrapiUrl(context);
-      const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
+      const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
+
   
       const data = await res.json()
   
       return {
           props: {
-              seodata: data,
+              seodata: data.data.attributes.Pages,
               siteUrl
           }
       }
@@ -30,25 +30,15 @@ export const getServerSideProps = async (context) => {
   };
   
  const AdminssionEnquiry = ({seodata, siteUrl }) => {
-    console.log("Admission enq",siteUrl);
     const [showPopup1, setShowPopup1] = useState(true);
     const togglePopup1 = () => {
         setShowPopup1(!showPopup1);
       };
-      const [seoData, setSeoData] = useState({
-        title: '',
-        metaTitle: '',
-        metaDescription: '',
-    });
-
     
   return (
     <div>
-          <Head>
-                <title>{seoData.title}</title>
-                {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
-                {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
-            </Head>
+                  <Seo SeoData={seodata} PageSlug={"admission-enquiry"} />
+
             <NavBar siteUrl={siteUrl}/>
             <div className="top-section1-new">
                 <div className="container">

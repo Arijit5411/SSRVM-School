@@ -6,17 +6,20 @@ import Slider from "react-slick";
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Link from "next/link";
+import Seo from "@/components/Seo";
 
 export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);
-    const { postID } = context.params;
-
+    const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
+    const data = await res.json();
+    const { slug } = context.params;
     const res1 = await fetch(
-      `${siteUrl}/api/activities/${postID}?populate=*&populate=image_gallery.image_gal&populate=video_link`
+      `${siteUrl}/api/activities/${slug}?populate=*&populate=image_gallery.image_gal&populate=video_link`
     );
+    
     const res2 = await fetch(
-      `${siteUrl}/api/activities/${parseInt(postID) + 1}?populate=*`
+      `${siteUrl}/api/activities/${parseInt(slug) + 1}?populate=*`
     );
     const data1 = await res1.json();
     const data2 = await res2.json();
@@ -24,8 +27,10 @@ export const getServerSideProps = async (context) => {
     return {
       props: {
         data1,
+        seodata: data.data.attributes.Pages,
         data2,
         siteUrl,
+        slug
       },
     };
   } catch (error) {
@@ -39,7 +44,7 @@ export const getServerSideProps = async (context) => {
   }
 };
 
-const SportsAndArts = ({ siteUrl, data1, data2 }) => {
+const SportsAndArts = ({ siteUrl, data1, data2,seodata,slug }) => {
   const navigateToNextPost = () => {
     const nextPostID = parseInt(postID) + 1;
 
@@ -58,6 +63,7 @@ const SportsAndArts = ({ siteUrl, data1, data2 }) => {
   console.log(data1);
   return (
     <>
+        <Seo SeoData={seodata} PageSlug={"individual-activities"} InnerPageSlug={slug} />
       <NavBar siteUrl={siteUrl} />
       <div className="top-section15-new">
         {(data1.data.attributes.title || data1.data.attributes.description) &&

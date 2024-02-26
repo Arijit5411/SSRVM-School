@@ -8,12 +8,13 @@ import Head from "next/head";
 const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in";
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
+import Seo from "@/components/Seo";
 
 export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);
 
-  const res = await fetch(`${siteUrl}/api/seos`);
+    const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
   const res1 = await fetch(
     `${GlobalSiteUrl}/api/shraddha-trainings?populate=*`
   );
@@ -23,7 +24,7 @@ export const getServerSideProps = async (context) => {
 
   return {
     props: {
-      seodata: data,
+      seodata: data.data.attributes.Pages,
       shraddha: data1,
       siteUrl
     },
@@ -42,39 +43,8 @@ export const getServerSideProps = async (context) => {
 const ShraddhaTraining = ({ seodata, shraddha,siteUrl }) => {
   const [shardhaData, setShardhaData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [seoData, setSeoData] = useState({
-    title: "",
-    metaTitle: "",
-    metaDescription: "",
-  });
-
-  useEffect(() => {
-    // Fetch SEO data from your API
-    // fetch(`${siteUrl}/api/seos`) // Replace with the actual API endpoint
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     console.log('API response data:', data); // Log the API response data
-    //     if (data && data.data && data.data.length > 0) {
-    //       const seoAttributes = data.data[11].attributes;
-    //       setSeoData({
-    //         title: seoAttributes.title || '',
-    //         metaTitle: seoAttributes.metaTitle || '',
-    //         metaDescription: seoAttributes.metaDescription || '',
-    //       });
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.error('Error fetching SEO data:', error);
-    //   });
-    if (seodata && seodata?.data && seodata?.data?.length > 0) {
-      const seoAttributes = seodata.data[11].attributes;
-      setSeoData({
-        title: seoAttributes.title || "",
-        metaTitle: seoAttributes.metaTitle || "",
-        metaDescription: seoAttributes.metaDescription || "",
-      });
-    }
-  }, []);
+ 
+ 
 
   useEffect(() => {
     // fetch(`${GlobalSiteUrl}/api/shraddha-trainings?populate=*`)
@@ -96,13 +66,8 @@ const ShraddhaTraining = ({ seodata, shraddha,siteUrl }) => {
   }, []);
   return (
     <>
-      <Head>
-        <title>{seoData.title}</title>
-        {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
-        {seoData.metaTitle && (
-          <meta name="description" content={seoData.metaDescription} />
-        )}
-      </Head>
+          <Seo SeoData={seodata} PageSlug={"shraddha-training"} />
+
       <Fragment>
         <NavBar siteUrl={siteUrl}/>
 

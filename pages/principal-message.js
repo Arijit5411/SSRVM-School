@@ -7,13 +7,13 @@ import Head from "next/head";
 // import Seo from './Seo';
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
+import Seo from "@/components/Seo";
 
 export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);
-    const res = await fetch(
-      `${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`
-    );
+    const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
+
     const res1 = await fetch(`${siteUrl}/api/principal-s-messages?populate=*`);
 
     const data = await res.json();
@@ -21,7 +21,7 @@ export const getServerSideProps = async (context) => {
 
     return {
       props: {
-        seodata: data,
+        seodata: data.data.attributes.Pages,
         principal_data: data1,
         siteUrl,
       },
@@ -40,11 +40,7 @@ export const getServerSideProps = async (context) => {
 const PrincipalMessage = ({ seodata, principal_data, siteUrl }) => {
   const [principalData, setPrincipalData] = useState(null);
   const [loading, setLoading] = useState(true); // State for loading
-  const [seoData, setSeoData] = useState({
-    title: "",
-    metaTitle: "",
-    metaDescription: "",
-  });
+ 
 
   // useEffect(() => {
   //     fetch(`${siteUrl}/api/principal-s-messages?populate=*`)
@@ -77,14 +73,7 @@ const PrincipalMessage = ({ seodata, principal_data, siteUrl }) => {
     //     .catch((error) => {
     //         console.error('Error fetching SEO data:', error);
     //     });
-    if (seodata && seodata?.data && seodata?.data?.length > 0) {
-      const seoAttributes = seodata.data[2].attributes;
-      setSeoData({
-        title: seoAttributes.title || "",
-        metaTitle: seoAttributes.metaTitle || "",
-        metaDescription: seoAttributes.metaDescription || "",
-      });
-    }
+    
     if (principal_data && principal_data?.data?.length > 0) {
       setPrincipalData(principal_data.data[0].attributes);
       setLoading(false);
@@ -100,22 +89,11 @@ const PrincipalMessage = ({ seodata, principal_data, siteUrl }) => {
 
   return (
     <>
-      <Head>
-        <title>{seoData.title}</title>
-        {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
-        {seoData.metaTitle && (
-          <meta name="description" content={seoData.metaDescription} />
-        )}
-      </Head>
+          <Seo SeoData={seodata} PageSlug={"principal-message"} />
+
       <Fragment>
         <NavBar siteUrl={siteUrl} />
-        {/* {seoData && (
-                    <Seo
-                        title={seoData.title}
-                        metaTitle={seoData.metaTitle}
-                        metaDescription={seoData.metaDescription}
-                    />
-                )} */}
+      
 
         {loading ? (
           <div className="loader">Loading...</div>

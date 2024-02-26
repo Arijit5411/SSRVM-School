@@ -6,11 +6,12 @@ import Head from 'next/head';
 
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
+import Seo from '@/components/Seo';
 
 export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);   
-        const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
+    const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
     const res1 = await fetch(`${siteUrl}/api/event-pages?sort=date:desc&populate=*`)
 
     const data = await res.json()
@@ -18,7 +19,7 @@ export const getServerSideProps = async (context) => {
 
     return {
         props: {
-            seodata: data,
+            seodata: data.data.attributes.Pages,
             eventsProp: data1,
             siteUrl
         }
@@ -37,63 +38,18 @@ export const getServerSideProps = async (context) => {
 const EventsPage = ({ seodata, eventsProp ,siteUrl}) => {
     const [eventsPage, setEventsPage] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
-    const [seoData, setSeoData] = useState({
-        title: '',
-        metaTitle: '',
-        metaDescription: '',
-    });
-
+   
     const postsPerPage = 6; // Number of events posts per page
 
 
     useEffect(() => {
-        // fetch(`${siteUrl}/api/event-pages?populate=*`)  // Update the endpoint
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         if (data.error) {
-        //             console.error('Error:', data.error.message);
-        //         } else {
-        //             // Sort the events posts based on date in descending order
-        //             const sortedNews = data.data.sort((a, b) => new Date(b.attributes.date) - new Date(a.attributes.date));
-        //             setEventsPage({ ...data, data: sortedNews });
-        //         }
-        //     })
-        //     .catch(error => {
-        //         console.error('Error:', error);
-        //     });
+       
         if (eventsProp && eventsProp?.data) {
-            // const sortedNews = eventsProp?.data.sort((a, b) => new Date(b.attributes.date) - new Date(a.attributes.date));
             setEventsPage({ ...eventsProp, data: eventsProp?.data });
         }
     }, []);
 
-    useEffect(() => {
-        // Fetch SEO data from your API
-        // fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`) // Replace with the actual API endpoint
-        //     .then((response) => response.json())
-        //     .then((data) => {
-        //         console.log('API response data:', data); // Log the API response data
-        //         if (data && data.data && data.data.length > 0) {
-        //             const seoAttributes = data.data[25].attributes;
-        //             setSeoData({
-        //                 title: seoAttributes.title || '',
-        //                 metaTitle: seoAttributes.metaTitle || '',
-        //                 metaDescription: seoAttributes.metaDescription || '',
-        //             });
-        //         }
-        //     })
-        //     .catch((error) => {
-        //         console.error('Error fetching SEO data:', error);
-        //     });
-        if (seodata && seodata?.data && seodata?.data?.length > 0) {
-            const seoAttributes = seodata.data[25].attributes;
-            setSeoData({
-                title: seoAttributes.title || '',
-                metaTitle: seoAttributes.metaTitle || '',
-                metaDescription: seoAttributes.metaDescription || '',
-            })
-        }
-    }, []);
+   
 
 
 
@@ -118,21 +74,12 @@ const EventsPage = ({ seodata, eventsProp ,siteUrl}) => {
 
     return (
         <>
-            <Head>
-                <title>{seoData.title}</title>
-                {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
-                {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
-            </Head>
+           
             <Fragment>
-                <NavBar siteUrl={siteUrl}/>
-                {/* {seoData && (
-                    <Seo
-                        title={seoData.title}
-                        metaTitle={seoData.metaTitle}
-                        metaDescription={seoData.metaDescription}
-                    />
-                )} */}
+            <Seo SeoData={seodata} PageSlug={"events"} />
 
+                <NavBar siteUrl={siteUrl}/>
+               
                 <div className="top-section1-new">
                     <div className="container">
                         <h1 className="principal-mess mob_head">Events</h1>

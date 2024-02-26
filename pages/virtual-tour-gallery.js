@@ -6,18 +6,19 @@ import 'react-image-lightbox/style.css';
 import Head from 'next/head';
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
+import Seo from '@/components/Seo';
 
 export const getServerSideProps = async (context) => {
     try {
         const siteUrl = determineStrapiUrl(context);
 
-        const res = await fetch(`${siteUrl}/api/seos?pagination[start]=0&pagination[limit]=50`)
+        const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
 
         const data = await res.json()
 
         return {
             props: {
-                seodata: data,
+                seodata: data.data.attributes.Pages,
                 siteUrl
             }
         };
@@ -46,28 +47,14 @@ const VirtualTourGallery = ({ seodata, siteUrl }) => {
     const [lightboxIndex, setLightboxIndex] = useState(0);
     const [firstImageURLs, setFirstImageURLs] = useState([]);
     const [subfolderFirstImageURLs, setSubfolderFirstImageURLs] = useState({});
-    const [seoData, setSeoData] = useState({
-        title: '',
-        metaTitle: '',
-        metaDescription: '',
-    });
+   
 
     const [apiConfig, setApiConfig] = useState({
         API_KEY: '',
         ROOT_FOLDER_ID: '',
     });
 
-    useEffect(() => {
-
-        if (seodata && seodata?.data && seodata?.data?.length > 0) {
-            const seoAttributes = seodata.data[35].attributes;
-            setSeoData({
-                title: seoAttributes.title || '',
-                metaTitle: seoAttributes.metaTitle || '',
-                metaDescription: seoAttributes.metaDescription || '',
-            })
-        }
-    }, []);
+   
 
     useEffect(() => {
         fetchApiConfigFromApi();
@@ -311,11 +298,8 @@ const VirtualTourGallery = ({ seodata, siteUrl }) => {
     return (
         <>
             <Fragment>
-                <Head>
-                    <title>{seoData.title}</title>
-                    {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
-                    {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
-                </Head>
+            <Seo SeoData={seodata} PageSlug={"virtual-tour-gallery"} />
+
                 <NavBar siteUrl={siteUrl} />
                 <div className='top-section1-new' style={{ background: '#EFEBE4' }}>
                     <div className="container">
