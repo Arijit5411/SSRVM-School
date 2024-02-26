@@ -8,6 +8,7 @@ import ScrollToTop from 'react-scroll-to-top'
 import { useEffect } from 'react'
 import AOS from "aos";
 import "aos/dist/aos.css";
+import '../styles/default.css'
 import '../styles/new_custom.css'
 import '../node_modules/react-datetime/css/react-datetime.css'
 import '../node_modules/react-toastify/dist/ReactToastify.css'
@@ -24,12 +25,12 @@ export default function App({ Component, pageProps }) {
 
   const currentUrl1 = router?.components?.["/"]?.props?.pageProps?.siteUrl
   const newUrl1 = currentUrl1?.substring(0, currentUrl1?.length - 13) + `${lastString1}`;
-  console.log('newUrl1', newUrl1)
+  // console.log('newUrl1', newUrl1)
 
 
   const currentUrl2 = router?.components?.["/"]?.props?.pageProps?.siteUrl
   const newUrl2 = currentUrl2?.substring(0, currentUrl2?.length - 14) + `${lastString2}`;
-  console.log('newUrl2', newUrl2)
+  // console.log('newUrl2', newUrl2)
 
   useEffect(() => {
     import("bootstrap/dist/js/bootstrap")

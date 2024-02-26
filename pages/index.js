@@ -10,20 +10,24 @@ import { determineStrapiUrl } from "@/utils/strapiUtils";
 
 import Script from 'next/script';
 import Seo from "@/components/Seo";
+import HomeAutoPopup from "@/components/HomeAutoPopup";
 
 export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);
     const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
     const res2 = await fetch(`${siteUrl}/api/home?populate=*`);
+    const res3 = await fetch(`${siteUrl}/api/home-popup-slider?populate=*`);
 
     const data = await res.json();
     const data2 = await res2.json();
+    const data3 = await res3.json();
 
     return {
       props: {
         seodata: data.data.attributes.Pages,
         homeSettings: data2.data,
+        homePopupSlider: data3.data,
         siteUrl
       }
     };
@@ -38,15 +42,13 @@ export const getServerSideProps = async (context) => {
   }
 };
 
-const Home = ({ seodata, homeSettings, siteUrl }) => {
-
- 
- 
+const Home = ({ seodata, homeSettings, homePopupSlider, siteUrl }) => {
 
   return (
     <>
       <Seo SeoData={seodata} PageSlug={"main-page"} />
       <NavBar siteUrl={siteUrl} />
+      <HomeAutoPopup data={homePopupSlider} siteUrl={siteUrl} />
       <BannerSliderOne siteUrl={siteUrl} />
       <MandatoryDisclosure siteUrl={siteUrl} />
       <ImpAnmnt siteUrl={siteUrl} />
