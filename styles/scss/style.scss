@@ -263,11 +263,10 @@ nav.nav_menu.navbar.navbar-area.navbar-area-1.navbar-area-3.navbar-expand-lg {
 
 .borderDesign {
     border: 1px solid;
-    padding-top: 17px !important;
-    padding-bottom: 17px;
     padding-right: 0%;
     margin-left: -35px;
     border-radius: 50px;
+    flex: 1;
 }
 
 // .borderDesignMobile {
@@ -339,12 +338,12 @@ nav.nav_menu.navbar.navbar-area.navbar-area-1.navbar-area-3.navbar-expand-lg {
 .socialFont {
     font-size: 20px;
     color: #210D7D;
-    margin-right: 2%;
-    margin-bottom: 8px;
 }
 
 .popupNav {
     margin-bottom: 30px;
+    display: flex;
+    align-items: center;
     // z-index: 999;
 }
 
@@ -361,8 +360,6 @@ nav.nav_menu.navbar.navbar-area.navbar-area-1.navbar-area-3.navbar-expand-lg {
     font-size: 20px;
     color: #210D7D;
     font-weight: 900;
-    margin-left: 5%;
-    margin-right: 4%;
 
 }
 

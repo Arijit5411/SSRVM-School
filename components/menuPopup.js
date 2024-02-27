@@ -89,7 +89,7 @@ const MenuPopup = ({ siteUrl, onClose }) => {
                     )}
                   </a>
                 </span>
-                <span className="borderDesign">
+                <span className="borderDesign d-flex align-items-center justify-content-between">
                   <div className="dropdown1 .logotext">
                     <button className="dropbtn1">
                       {schoolData.length > 0 && schoolData[0].attributes.title}
@@ -108,101 +108,103 @@ const MenuPopup = ({ siteUrl, onClose }) => {
                     </div>
                   </div>
 
-                  {apiData && apiData.data && apiData.data.length > 0 && (
-                    <span className="marginLeft40 marginmenuleft">
-                      <FaPhoneAlt className="marginright" />
-                      <a href={apiData.data[0].attributes.number_link}>
-                        {apiData.data[0].attributes.number}
-                      </a>
-                    </span>
-                  )}
-
-                  {apiData && apiData.data && apiData.data.length > 0 && (
-                    <span className="emailpopup">
-                      <FaEnvelopeOpen className="marginright" />
-                      <a href={apiData.data[0].attributes.email_link}>Email</a>
-                    </span>
-                  )}
-
-                  {apiData &&
-                    apiData.data[0].attributes.facebook_link &&
-                    apiData.data[0].attributes.facebook_link.length > 0 && (
-                      <a
-                        href={apiData.data[0].attributes.facebook_link}
-                        className="facebook"
-                      >
-                        <FaFacebookF className="socialFont" />
-                      </a>
+                  <div className="d-flex justify-content-between align-items-center gap-5">
+                    {apiData && apiData.data && apiData.data.length > 0 && (
+                      <span className="marginLeft40">
+                        <FaPhoneAlt className="marginright" />
+                        <a href={apiData.data[0].attributes.number_link}>
+                          {apiData.data[0].attributes.number}
+                        </a>
+                      </span>
                     )}
 
-                  {apiData &&
-                    apiData.data[0].attributes.twitter_link &&
-                    apiData.data[0].attributes.twitter_link.length > 0 && (
-                      <a
-                        href={apiData.data[0].attributes.twitter_link}
-                        className="twitter"
-                      >
-                        <FaTwitter className="socialFont" />
-                      </a>
+                    {apiData && apiData.data && apiData.data.length > 0 && (
+                      <span className="emailpopup">
+                        <FaEnvelopeOpen className="marginright" />
+                        <a href={apiData.data[0].attributes.email_link}>Email</a>
+                      </span>
                     )}
-                  {apiData &&
-                    apiData.data[0].attributes.youtube_link &&
-                    apiData.data[0].attributes.youtube_link.length > 0 && (
-                      <a
-                        href={apiData.data[0].attributes.youtube_link}
-                        className="youtube"
-                      >
-                        <FaYoutube className="socialFont" />
-                      </a>
-                    )}
+                    <div className="d-flex align-items-center gap-3">
+                      {apiData &&
+                        apiData.data[0].attributes.facebook_link &&
+                        apiData.data[0].attributes.facebook_link.length > 0 && (
+                          <a
+                            href={apiData.data[0].attributes.facebook_link}
+                            className="facebook"
+                          >
+                            <FaFacebookF className="socialFont" />
+                          </a>
+                        )}
 
-                  {apiData &&
-                    apiData.data[0].attributes.insta_link &&
-                    apiData.data[0].attributes.insta_link.length > 0 && (
-                      <a
-                        href={apiData.data[0].attributes.insta_link}
-                        className="instagram"
-                      >
-                        <FaInstagram className="socialFont" />
-                      </a>
-                    )}
+                      {apiData &&
+                        apiData.data[0].attributes.twitter_link &&
+                        apiData.data[0].attributes.twitter_link.length > 0 && (
+                          <a
+                            href={apiData.data[0].attributes.twitter_link}
+                            className="twitter"
+                          >
+                            <FaTwitter className="socialFont" />
+                          </a>
+                        )}
+                      {apiData &&
+                        apiData.data[0].attributes.youtube_link &&
+                        apiData.data[0].attributes.youtube_link.length > 0 && (
+                          <a
+                            href={apiData.data[0].attributes.youtube_link}
+                            className="youtube"
+                          >
+                            <FaYoutube className="socialFont" />
+                          </a>
+                        )}
 
-                  <button className="close-btn-menu" onClick={onClose}>
-                    Close Menu &times;
-                  </button>
+                      {apiData &&
+                        apiData.data[0].attributes.insta_link &&
+                        apiData.data[0].attributes.insta_link.length > 0 && (
+                          <a
+                            href={apiData.data[0].attributes.insta_link}
+                            className="instagram"
+                          >
+                            <FaInstagram className="socialFont" />
+                          </a>
+                        )}
+                    </div>
+                    <button className="close-btn-menu" onClick={onClose}>
+                      Close Menu &times;
+                    </button>
+                  </div>
                 </span>
               </div>
             </div>
 
             <div className="menu-col-list">
-                {menuData &&
-                  menuData.map((itemData) => {
-                    return (
-                      <>
-                        {itemData?.attributes?.children?.data.length > 0 && (
-                          <>
-                            <div className="menu-col-item">
-                              <h6>{itemData?.attributes?.title} </h6>
-                              <ul>
-                                {itemData?.attributes?.children?.data.map(
-                                  (item) => {
-                                    return (
-                                      <li>
-                                        <Link href={item.attributes.url}>
-                                          {item.attributes.title}
-                                        </Link>
-                                      </li>
-                                    );
-                                  }
-                                )}
-                              </ul>
-                            </div>
-                          </>
-                        )}
-                      </>
-                    );
-                  })}
-              </div>
+              {menuData &&
+                menuData.map((itemData) => {
+                  return (
+                    <>
+                      {itemData?.attributes?.children?.data.length > 0 && (
+                        <>
+                          <div className="menu-col-item">
+                            <h6>{itemData?.attributes?.title} </h6>
+                            <ul>
+                              {itemData?.attributes?.children?.data.map(
+                                (item) => {
+                                  return (
+                                    <li>
+                                      <Link href={item.attributes.url}>
+                                        {item.attributes.title}
+                                      </Link>
+                                    </li>
+                                  );
+                                }
+                              )}
+                            </ul>
+                          </div>
+                        </>
+                      )}
+                    </>
+                  );
+                })}
+            </div>
 
             <div className="row menuFooter">
               <div className="col-sm-6">
