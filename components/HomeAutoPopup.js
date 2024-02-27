@@ -8,7 +8,7 @@ const HomeAutoPopup = ({ data, siteUrl }) => {
         setPopupOpen(true);
     }, [])
 
-    console.log("is", data.attributes.Image_Slider)
+    // console.log("is", data.attributes.Image_Slider)
 
     return (
         <>
