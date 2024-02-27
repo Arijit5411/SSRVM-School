@@ -872,13 +872,13 @@ header.navbar-are {
 }
 
 .home-auto-popup .popup-container {
-  align-items: flex-start;
-  margin-top: 20vh;
+  /* align-items: flex-start;
+  margin-top: 20vh; */
 }
 
 .home-auto-popup .popup-block {
   max-height: auto;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .home-auto-popup .popup-content {

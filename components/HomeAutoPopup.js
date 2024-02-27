@@ -8,7 +8,7 @@ const HomeAutoPopup = ({ data, siteUrl }) => {
         setPopupOpen(true);
     }, [])
 
-    // console.log("is", data.attributes.Image_Slider)
+    console.log("is", data)
 
     return (
         <>
@@ -18,7 +18,13 @@ const HomeAutoPopup = ({ data, siteUrl }) => {
                         {data?.attributes?.Image_Slider?.data && data?.attributes?.Image_Slider?.data.map((item) => {
                             return (
                                 <div className="slider-item">
-                                    <img src={siteUrl + item?.attributes?.url} alt="" />
+                                    {item?.attributes?.caption ? 
+                                        <a className="d-block h-100" href={item?.attributes?.caption}>
+                                            <img src={siteUrl + item?.attributes?.url} alt="" />
+                                        </a>
+                                    : 
+                                        <img src={siteUrl + item?.attributes?.url} alt="" />
+                                    }
                                 </div>
                             )
                         })}
