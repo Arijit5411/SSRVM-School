@@ -13,8 +13,8 @@ import Seo from "@/components/Seo";
 import HomeAutoPopup from "@/components/HomeAutoPopup";
 
 export const getServerSideProps = async (context) => {
+  const siteUrl = determineStrapiUrl(context);
   try {
-    const siteUrl = determineStrapiUrl(context);
     const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
     const res2 = await fetch(`${siteUrl}/api/home?populate=*`);
     const res3 = await fetch(`${siteUrl}/api/home-popup-slider?populate=*`);
@@ -37,13 +37,13 @@ export const getServerSideProps = async (context) => {
     return {
       props: {
         data: [],
+        siteUrl,
       },
     };
   }
 };
 
 const Home = ({ seodata, homeSettings, homePopupSlider, siteUrl }) => {
-
   return (
     <>
       <Seo SeoData={seodata} PageSlug={"main-page"} />
