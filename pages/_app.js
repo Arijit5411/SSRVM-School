@@ -102,16 +102,8 @@ const sitesData = [
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
-  const lastString1 = '.ssrvm.org'
-  const lastString2 = '.ssa.org.in'
-
-
-  const currentUrl1 = router?.components?.["/"]?.props?.pageProps?.siteUrl
-  const newUrl1 = currentUrl1?.substring(0, currentUrl1?.length - 13) + `${lastString1}`;
-
-
-  const currentUrl2 = router?.components?.["/"]?.props?.pageProps?.siteUrl
-  const newUrl2 = currentUrl2?.substring(0, currentUrl2?.length - 14) + `${lastString2}`;
+  const api = "api"
+  let site_url = pageProps?.siteUrl.split(api).join("")
 
   useEffect(() => {
     import("bootstrap/dist/js/bootstrap")
@@ -123,9 +115,8 @@ export default function App({ Component, pageProps }) {
     AOS.refresh();
   }, [])
 
-
   const siteMap = new Map(sitesData.map(obj => [obj.siteUrl, obj]));
-  const { siteUrl, gtagId } = siteMap.has(newUrl1) ? siteMap.get(newUrl1) : siteMap.has(newUrl2) ? siteMap.get(newUrl2) : { siteUrl: null, gtagId: null }
+  const { gtagId } = siteMap.has(site_url) ? siteMap.get(site_url) : { siteUrl: null, gtagId: null }
   return (
     <>
       <ToastContainer />
@@ -137,15 +128,13 @@ export default function App({ Component, pageProps }) {
   )
 }
 
-const LoadScript = (props) => {
-  const { gtagId } = props
-  return <Script async src={`https://www.googletagmanager.com/gtag/js?id=${gtagId}`}>
-    {
-      `  window.dataLayer = window.dataLayer || [];
+const LoadScript = (props) => (<Script async src={`https://www.googletagmanager.com/gtag/js?id=${props?.gtagId}`}>
+  {
+    `  window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments)}
               gtag('js', new Date());
-              gtag('config', ${gtagId});
+              gtag('config', ${props?.gtagId});
          `
-    }
-  </Script>
-}
+  }
+</Script>)
+
