@@ -8,7 +8,7 @@ const Seo = ({ SeoData, PageSlug, InnerPageSlug }) => {
     return { Meta_Title, Meta_Description, Meta_Keywords, Canonical, Robots, Inner_Page };
   };
 
-  if (Object.keys(SeoData)?.length === 0) return <Head />
+  if (SeoData !==null && Object.keys(SeoData ??{})?.length === 0) return <Head />
 
   const mainPage = getDefaultValues(SeoData?.find((item) => item?.Page_Slug === PageSlug));
   const innerPage = InnerPageSlug && InnerPageSlug && mainPage.Inner_Page?.find((item) => item.Page_Slug === InnerPageSlug);
