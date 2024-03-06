@@ -23,7 +23,7 @@ export const getServerSideProps = async (context) => {
 
   return {
     props: {
-      seodata: data.data.attributes.Pages,
+      seodata: data?.data?.attributes?.Pages ?? {},
       publicationData: data1,
       siteUrl
     },

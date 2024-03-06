@@ -27,7 +27,7 @@ export const getServerSideProps = async (context) => {
     const data3 = await res3.json();
     return {
       props: {
-        seodata: data.data.attributes.Pages,
+        seodata: data?.data?.attributes?.Pages ?? {},
         admissionsData: data1,
         t_class: data2?.data,
         tab_content: data3?.data,
@@ -319,8 +319,13 @@ const Admissions = ({
 
   const Render = ({ selectedOption }) => {
     
-   
-    let arr = tab_content?.length>0 ?tab_content[0]?.attributes?.procedure_content?.filter(pc=>pc?.school_total_class?.data?.map(d=>d?.attributes?.name).includes(selectedOption)):[]
+    let arr = tab_content?.length>0 ?tab_content[0]?.attributes?.procedure_content?.filter(pc=> { 
+      if(Array.isArray(pc?.school_total_class?.data)) {
+       return pc?.school_total_class?.data?.map(d=>d?.attributes?.name).includes(selectedOption)
+      } else {
+       return pc?.school_total_class?.data?.attributes?.name === selectedOption
+      }
+    }) : []
     // let arr = tab_content?.length > 0 ? tab_content[0]?.attributes?.procedure_content?.filter(pc => pc?.school_total_class?.data?.attributes?.name === selectedOption) : [];
 
 
