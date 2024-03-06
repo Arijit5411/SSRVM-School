@@ -8,7 +8,7 @@ export function determineStrapiUrl(context) {
   }else{
     const strapiUrls = JSON.parse(process.env.SURL);
     foundUrl = strapiUrls.find(item => item.subdomain === subdomain);
-    return foundUrl ? foundUrl?.url : strapiUrls.find(item => item?.subdomain === 'default').url;
+    return foundUrl ? foundUrl?.url : strapiUrls.find(item => item?.subdomain === 'default')?.url;
   }
 
 }
