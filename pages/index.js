@@ -15,7 +15,7 @@ import HomeAutoPopup from "@/components/HomeAutoPopup";
 export const getServerSideProps = async (context) => {
   const siteUrl = determineStrapiUrl(context);
   try {
- 
+
     const res2 = await fetch(`${siteUrl}/api/home?populate=*`);
     const res3 = await fetch(`${siteUrl}/api/home-popup-slider?populate=*`);
     const res4 = await fetch(`${siteUrl}/api/seo?populate=deep, 10`);
@@ -47,7 +47,6 @@ export const getServerSideProps = async (context) => {
 
 const Home = ({ siteUrl, homeSettings, homePopupSlider, seodata }) => {
 
-  console.log("data11", homePopupSlider)
   return (
     <>
       <Seo SeoData={seodata} PageSlug={"main-page"} />

@@ -176,7 +176,7 @@ const HomeGallery = ({ siteUrl }) => {
       }
 
       const data = await response.json();
-      console.log("data", data);
+      // console.log("data", data);
 
       // Filter for image files within the subfolder
       const imagesInSubfolder = data.files.filter((file) =>
@@ -185,7 +185,7 @@ const HomeGallery = ({ siteUrl }) => {
 
       if (imagesInSubfolder.length > 0) {
         const firstImageURL = `https://drive.google.com/thumbnail?id=${imagesInSubfolder[0].id}&sz=w1000`;
-        console.log("First Image URL:", firstImageURL); // Log the constructed URL
+        // console.log("First Image URL:", firstImageURL); // Log the constructed URL
         return firstImageURL;
       } else {
         console.log("No images found in subfolder");
@@ -263,14 +263,12 @@ const HomeGallery = ({ siteUrl }) => {
         {albumImages && albumImages.length > 0 && (
           <Lightbox
             mainSrc={`https://drive.google.com/thumbnail?id=${albumImages[lightboxIndex]?.id}&sz=w1000`}
-            nextSrc={`https://drive.google.com/thumbnail?id=${
-              albumImages[(lightboxIndex + 1) % albumImages.length]?.id
-            }&sz=w1000`}
-            prevSrc={`https://drive.google.com/thumbnail?id=${
-              albumImages[
-                (lightboxIndex + albumImages.length - 1) % albumImages.length
-              ]?.id
-            }&sz=w1000`}
+            nextSrc={`https://drive.google.com/thumbnail?id=${albumImages[(lightboxIndex + 1) % albumImages.length]?.id
+              }&sz=w1000`}
+            prevSrc={`https://drive.google.com/thumbnail?id=${albumImages[
+              (lightboxIndex + albumImages.length - 1) % albumImages.length
+            ]?.id
+              }&sz=w1000`}
             onCloseRequest={closeLightbox}
             onMovePrevRequest={() =>
               setLightboxIndex(

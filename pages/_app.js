@@ -101,9 +101,8 @@ const sitesData = [
 ]
 
 export default function App({ Component, pageProps }) {
-  const router = useRouter();
   const api = "api"
-  let site_url = pageProps?.siteUrl.split(api).join("")
+  let site_url = pageProps?.siteUrl?.split(api)?.join("")
 
   useEffect(() => {
     import("bootstrap/dist/js/bootstrap")
