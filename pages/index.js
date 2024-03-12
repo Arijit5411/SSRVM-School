@@ -28,9 +28,9 @@ export const getServerSideProps = async (context) => {
     return {
       props: {
         siteUrl,
-        homeSettings: data2.data,
-        homePopupSlider: data3.data,
-        seodata: data4.data.attributes.Pages,
+        homeSettings: data2?.data,
+        homePopupSlider: data3?.data,
+        seodata: data4?.data?.attributes?.Pages ?? {},
       }
     };
   } catch (error) {

@@ -20,7 +20,7 @@ export const getServerSideProps = async (context) => {
     return {
       props: {
         data: data?.data[0],
-        seodata: data2.data.attributes.Pages,
+        seodata: data?.data?.attributes?.Pages ?? {},
         slug,
         siteUrl,
       },
@@ -36,58 +36,8 @@ export const getServerSideProps = async (context) => {
   }
 };
 
-
-
-
-
-
-
-
-
-
-// const isProduction = process.env.NODE_ENV === "production";
-// const siteUrl = isProduction
-//   ? process.env.REACT_APP_MAIN_SSRVM_SITE_URL
-//   : process.env.REACT_APP_LOCAL_SSRVM_SITE_URL;
-
-// export async function getStaticPaths() {
-
-//   const apiUrl = siteUrl + "/api/others-pages?populate=*";
-//   const response = await fetch(apiUrl);
-//   const data = await response.json();
-//   const paths = data.data.map((item) => ({
-//     params: { slug: String(item.attributes.slug) },
-//   }));
-
-//   return {
-//     paths,
-//     fallback: false,
-//   };
-// }
-
-// export async function getStaticProps({ params }) {
-//   try {
-//     const apiUrl = `${siteUrl}/api/others-pages/?filters[slug][$eq]=${params.slug}&populate[Content_Area][populate]=*`;
-//     const response = await fetch(apiUrl);
-
-//     if (!response.ok) {
-//       throw new Error(`Failed to fetch data: ${response.status}`);
-//     }
-
-//     const data = await response.json();
-
-//     return {
-//       props: {
-//         data: data?.data[0], // Check if data.data[0] is undefined
-//       },
-//     };
-//   } catch (error) {
-//     console.error("Error in getStaticProps:", error.message);
-//     throw new Error(error.message);
-//   }
-// }
-
 const OtherPage = ({ data,siteUrl,seodata,slug }) => {
+  console.log('data in others',data,siteUrl,seodata,slug)
 
   return (
     <>
@@ -109,7 +59,7 @@ const OtherPage = ({ data,siteUrl,seodata,slug }) => {
                   <div className="row gy-4 gy-md-5 mb-4 mb-md-5" key={index}>
                     {content.Content && (
                       <div className={dataImage ? "col-lg-6" : "col-lg-12"}>
-                        <ReactMarkdown>{content.Content}</ReactMarkdown>
+                        <ReactMarkdown>{content?.Content}</ReactMarkdown>
                       </div>
                     )}
 
