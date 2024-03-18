@@ -32,10 +32,10 @@ const MobileMenu = ({ siteUrl, onClose }) => {
       });
   }, []);
   useEffect(() => {
-    fetch(`${siteUrl}/api/menus/10?nested&populate=*`)
+    fetch(`${siteUrl}/api/menus?filters[slug][$eq]=school-links&nested&populate=*`)
       .then((response) => response.json())
       .then((data) => {
-        const items = data.data.attributes.items.data;
+        const items = data?.data[0]?.attributes?.items?.data;
         setschoolData(items);
       })
       .catch((error) => {
@@ -48,12 +48,12 @@ const MobileMenu = ({ siteUrl, onClose }) => {
 
   const fetchMenuData = async () => {
     try {
-      const response = await fetch(`${siteUrl}/api/menus/9?nested&populate=*`);
+      const response = await fetch(`${siteUrl}/api/menus?filters[slug][$eq]=menu-popup&nested&populate=*`);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
       const data = await response.json();
-      setMenuData(data.data.attributes.items.data);
+      setMenuData(data?.data[0].attributes?.items?.data);
     } catch (error) {
       console.error("Error fetching menu data:", error);
     }

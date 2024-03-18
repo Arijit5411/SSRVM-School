@@ -22,12 +22,12 @@ const MenuPopup = ({ siteUrl, onClose }) => {
 
   useEffect(() => {
     // Fetch the API data
-    fetch(`${siteUrl}/api/menus/10?nested&populate=*`)
+    fetch(`${siteUrl}/api/menus?filters[slug][$eq]=school-links&nested&populate=*`)
       .then((response) => response.json())
 
       .then((data) => {
         // Extract menu items from the API response
-        const items = data.data.attributes.items.data;
+        const items = data?.data[0]?.attributes?.items?.data;
         setschoolData(items);
       })
 
@@ -61,16 +61,19 @@ const MenuPopup = ({ siteUrl, onClose }) => {
   }, []);
   const fetchMenuData = async () => {
     try {
-      const response = await fetch(`${siteUrl}/api/menus/9?nested&populate=*`);
+      const response = await fetch(`${siteUrl}/api/menus?filters[slug][$eq]=menu-popup&nested&populate=*`);
+
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
       const data = await response.json();
-      setMenuData(data.data.attributes.items.data);
+
+      setMenuData(data?.data[0]?.attributes?.items?.data);
     } catch (error) {
       console.error("Error fetching menu data:", error);
     }
   };
+
   return (
     <div className="popup-menu">
       <div className="popup-card-menu">
@@ -92,11 +95,11 @@ const MenuPopup = ({ siteUrl, onClose }) => {
                 <span className="borderDesign d-flex align-items-center justify-content-between">
                   <div className="dropdown1 .logotext">
                     <button className="dropbtn1">
-                      {schoolData.length > 0 && schoolData[0].attributes.title}
+                      {schoolData && schoolData.length > 0 && schoolData[0].attributes.title}
                       <FaAngleDown className="arrowleft" />
                     </button>
                     <div className="dropdown-content1">
-                      {schoolData.map((item) => (
+                      {schoolData && schoolData.map((item) => (
                         <a
                           key={item.id}
                           href={item.attributes.url}

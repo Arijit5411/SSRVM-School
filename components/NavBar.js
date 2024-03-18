@@ -105,11 +105,11 @@ const NavBar = ({ siteUrl }) => {
 
   useEffect(() => {
     // Fetch the API data
-    fetch(`${siteUrl}/api/menus/10?nested&populate=*`)
+    fetch(`${siteUrl}/api/menus?filters[slug][$eq]=school-links&nested&populate=*`)
       .then((response) => response.json())
       .then((data) => {
         // Extract menu items from the API response
-        const items = data.data.attributes.items.data;
+        const items = data?.data[0]?.attributes?.items?.data;
         setschoolData(items);
       })
       .catch((error) => {
@@ -199,11 +199,11 @@ const NavBar = ({ siteUrl }) => {
               >
                 <div className="dropdown logotext">
                   <button className="dropbtn">
-                    {schoolData.length > 0 && schoolData[0].attributes.title}
+                    {schoolData && schoolData.length > 0 && schoolData[0].attributes.title}
                     <FaAngleDown className="arrowleft" />
                   </button>
                   <div className="dropdown-content">
-                    {schoolData.map((item) => (
+                    {schoolData && schoolData.map((item) => (
                       <a
                         key={item.id}
                         href={item.attributes.url}
