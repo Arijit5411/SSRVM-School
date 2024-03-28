@@ -38,7 +38,7 @@ export const getServerSideProps = async (context) => {
 
 const News = ({ seodata, newsProp,siteUrl }) => {
     const [news, setNews] = useState(null);
-    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(1)
    
     const postsPerPage = 6; // Number of news posts per page
 
@@ -62,6 +62,8 @@ const News = ({ seodata, newsProp,siteUrl }) => {
             setNews({ ...newsProp, data: newsProp?.data });
         }
     }, []);
+
+    console.log("hh", news)
 
    
 
@@ -102,10 +104,10 @@ const News = ({ seodata, newsProp,siteUrl }) => {
                     </button>
 
                 </div>
-                {news ? (
+                {(news !== null) ? (
                     <section className="container wrap-news-sec-2">
                         <div className='row'>
-                            {Array.isArray(currentPosts) && currentPosts.length > 0 ? (
+                            {Array.isArray(currentPosts) && currentPosts.length > 0 && (
                                 currentPosts.map((post) => (
                                     <div className='col-lg-4' key={post.id}>
                                         <div className="card wrap-news">
@@ -119,8 +121,6 @@ const News = ({ seodata, newsProp,siteUrl }) => {
                                         </div>
                                     </div>
                                 ))
-                            ) : (
-                                <p>No blog posts available.</p>
                             )}
                         </div>
                         <div className="pagination-blog">
@@ -143,7 +143,7 @@ const News = ({ seodata, newsProp,siteUrl }) => {
                         </div>
                     </section>
                 ) : (
-                    <p>Loading news posts...</p>
+                    <p className='text-center mb-5'>No blog posts available.</p>
                 )}
             </div>
             <Footer siteUrl={siteUrl}/>
