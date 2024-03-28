@@ -219,7 +219,7 @@ function OurToppers({siteUrl}) {
                                 })
                             }
                         </>
-                    ) : <h1>Select a Class!</h1>
+                    ) : <h2 className="fs-30">Select a Class!</h2>
                 }
             </>
         )
