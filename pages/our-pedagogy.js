@@ -38,11 +38,9 @@ export const getServerSideProps = async (context) => {
 };
 
 const Our_Pedagogy = ({ seodata, pedagogy,siteUrl }) => {
-    const [activeOption, setActiveOption] = useState(null);
+    const [activeOption, setActiveOption] = useState();
    
     const [accordionData, setAccordionData] = useState([]);
-
-
    
 
     return (
@@ -54,23 +52,23 @@ const Our_Pedagogy = ({ seodata, pedagogy,siteUrl }) => {
 
                 
                 <section className="mobilehide-pedalogy">
-                    <div class="wrapper">
+                    <div className="wrapper">
                         <section
-                            class="section start-padding position-relative"
+                            className="section start-padding position-relative"
                             style={{ backgroundColor: "#F6F2F3", paddingBottom: "120px" }}
                         >
-                            <div class="container">
-                                <h3>Our Pedagogy</h3>
-                                <div class="row g-5">
+                            <div className="container">
+                                <h3 className="mb-5">Our Pedagogy</h3>
+                                <div className="row g-5">
                                     <div
-                                        class="col-lg-6 position-relative zi-9"
+                                        className="col-lg-6 position-relative zi-9"
                                         style={{ height: "100vh" }}
                                     >
-                                        <div class="accordion-wrap">
-                                            {accordionData.map((item) => (
+                                        <div className="accordion-wrap">
+                                            {pedagogy.data.map((item) => (
                                                 <div
                                                     key={item.id}
-                                                    class={`acc-main ${activeOption === item.attributes.heading
+                                                    className={`acc-main ${activeOption === item.attributes.heading
                                                         ? "show"
                                                         : "true"
                                                         }`}
@@ -78,15 +76,15 @@ const Our_Pedagogy = ({ seodata, pedagogy,siteUrl }) => {
                                                         setActiveOption(item.attributes.heading)
                                                     }
                                                 >
-                                                    <div class="acc-title-wrap">
-                                                        <div class="acc-num-wrap">
-                                                            <h4 class="acc-num">{item.attributes.number}</h4>
+                                                    <div className="acc-title-wrap">
+                                                        <div className="acc-num-wrap">
+                                                            <h4 className="acc-num">{item.attributes.number}</h4>
                                                         </div>
-                                                        <h3 class="acc-title">
+                                                        <h3 className="acc-title">
                                                             {item.attributes.heading}
                                                         </h3>
                                                     </div>
-                                                    <div class="accordion-content">
+                                                    <div className="accordion-content">
                                                         <h5>{item.attributes.subheading}</h5>
                                                         <p>{item.attributes.content}</p>
                                                     </div>
@@ -94,7 +92,7 @@ const Our_Pedagogy = ({ seodata, pedagogy,siteUrl }) => {
                                             ))}
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div className="col-lg-6">
                                         <div>
                                             {activeOption && (
                                                 <iframe
@@ -102,7 +100,7 @@ const Our_Pedagogy = ({ seodata, pedagogy,siteUrl }) => {
                                                     width="100%"
                                                     height="100%"
                                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                                    src={accordionData.find(
+                                                    src={pedagogy.data.find(
                                                         (item) => item.attributes.heading === activeOption
                                                     )?.attributes.video}
                                                     frameborder="0"
@@ -124,29 +122,29 @@ const Our_Pedagogy = ({ seodata, pedagogy,siteUrl }) => {
                     </div>
                 </section>
                 <section className="desktophide">
-                    <div class="wrapper">
+                    <div className="wrapper">
                         <section
-                            class="section position-relative"
+                            className="section position-relative"
                             style={{ backgroundColor: "#F6F2F3", paddingBottom: "120px" }}
                         >
-                            <div class="container">
+                            <div className="container">
                                 <h3>Our Pedagogy</h3>
-                                <div class="row g-5">
-                                    <div class="accordion-wrap">
+                                <div className="row g-5">
+                                    <div className="accordion-wrap">
                                         {accordionData.map((item) => (
                                             <div
                                                 key={item.id}
-                                                class={`acc-main ${activeOption === item.attributes.heading ? "show" : "true"
+                                                className={`acc-main ${activeOption === item.attributes.heading ? "show" : "true"
                                                     }`}
                                                 onClick={() => setActiveOption(item.attributes.heading)}
                                             >
-                                                <div class="acc-title-wrap">
-                                                    <div class="acc-num-wrap">
-                                                        <h4 class="acc-num">{item.attributes.number}</h4>
+                                                <div className="acc-title-wrap">
+                                                    <div className="acc-num-wrap">
+                                                        <h4 className="acc-num">{item.attributes.number}</h4>
                                                     </div>
-                                                    <h3 class="acc-title">{item.attributes.heading}</h3>
+                                                    <h3 className="acc-title">{item.attributes.heading}</h3>
                                                 </div>
-                                                <div class="accordion-content">
+                                                <div className="accordion-content">
                                                     <h5>{item.attributes.subheading}</h5>
                                                     <p>{item.attributes.content}</p>
                                                 </div>
@@ -187,7 +185,7 @@ const Our_Pedagogy = ({ seodata, pedagogy,siteUrl }) => {
                     <div className="container mt-5 mb-5">
                         <h2 className="peda-title">BROADEN THE VISION</h2>
                         <img
-                            class="w-100"
+                            className="w-100"
                             src="assets/img/service/1-pedagogy-tree.jpg"
                             alt=""
                         />

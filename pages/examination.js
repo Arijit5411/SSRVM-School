@@ -143,17 +143,18 @@ const Examination = ({ seodata, optionData,siteUrl }) => {
     const class_III_pdf = `${siteUrl}${examination?.class_III_pdf?.data?.attributes?.url}`;
     const class_II_pdf = `${siteUrl}${examination?.class_II_pdf?.data?.attributes?.url}`;
     const class_I_pdf = `${siteUrl}${examination?.class_I_pdf?.data?.attributes?.url}`;
+    console.log('sd', seodata)
 
     return (
         <>
             <Fragment>
             <Seo SeoData={seodata} PageSlug={"examination"} />
 
-                <Head>
+                {/* <Head>
                     <title>{seoData.title}</title>
                     {seoData.metaTitle && <meta name="title" content={seoData.metaTitle} />}
                     {seoData.metaTitle && <meta name="description" content={seoData.metaDescription} />}
-                </Head>
+                </Head> */}
                 <NavBar siteUrl={siteUrl}/>
                 {/* {seoData && (
                     <Seo
