@@ -79,7 +79,7 @@ const SchoolInfo = ({ seodata, schoolInfo_data,siteUrl }) => {
 
                 <div className="top-section1-new">
                     <div className="container">
-                        <h1 className="principal-mess">School Info</h1>
+                        <h1 className="principal-mess">Mandatory Public Disclosure</h1>
                     </div>
                     <div className="marginTopHeader">
                         {schoolInfoList.map((schoolInfo, index) => (
