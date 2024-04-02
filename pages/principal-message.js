@@ -105,7 +105,7 @@ const PrincipalMessage = ({ seodata, principal_data, siteUrl }) => {
             <section className="container">
               <div className="principal-mess-item">
                 <div className="principal-image">
-                  <img src={imageUrl} alt="Transpro" className="wrap-img" />
+                  <img src={imageUrl} alt="Transpro" className="wrap-img w-[100px]"/>
                   <h6 className="wrap-principal-mess-item">{principalName}</h6>
                 </div>
                 <p>
