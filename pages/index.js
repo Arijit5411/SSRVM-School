@@ -46,6 +46,7 @@ export const getServerSideProps = async (context) => {
 };
 
 const Home = ({ siteUrl, homeSettings, homePopupSlider, seodata }) => {
+
   return (
     <>
       <Seo SeoData={seodata} PageSlug={"main-page"} />
