@@ -4,7 +4,7 @@ import WatchVideo from "./WatchVideos";
 const GlobalLiveEvents = () => {
     const [events, setEvents] = useState([]);
 
-    const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in"
+    const GlobalSiteUrl = process.env.GSURL
 
     useEffect(() => {
         // Fetch the list of live events on component mount

@@ -7,7 +7,7 @@ import GlobalRecentEvents from "@/components/GlobalRecentEvents";
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from "@/components/Seo";
 
-const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in";
+const GlobalSiteUrl = process.env.GSURL;
 export const getServerSideProps = async (context) => {
   try {
     const { slug } = context.params;

@@ -25,7 +25,7 @@ const HomeAbout = ({ siteUrl, homeSettings }) => {
   const handleTabSelect = (tabKey) => {
     setActiveTab(tabKey);
   };
-  const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in"
+  const GlobalSiteUrl = process.env.GSURL
   useEffect(() => {
     fetch(`${siteUrl}/api/home-abouts?populate=*`)
       .then((response) => response.json())

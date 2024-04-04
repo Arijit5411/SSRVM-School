@@ -8,7 +8,7 @@ import {
   FaEnvelopeOpen,
 } from "react-icons/fa";
 import Subscribe from "./Subscribe";
-const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in";
+const GlobalSiteUrl = process.env.GSURL;
 
 const Footer = ({siteUrl}) => {
   const [footerData, setFooterData] = useState(null);

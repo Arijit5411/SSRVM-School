@@ -5,7 +5,7 @@ import Head from "next/head";
 // import Seo from "./Seo";
 
 
-const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in"
+const GlobalSiteUrl = process.env.GSURL
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from "@/components/Seo";

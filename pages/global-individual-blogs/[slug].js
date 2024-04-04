@@ -39,7 +39,7 @@ const GlobalIndividualBlogs = ({siteUrl,seodata}) => {
     const [publicUrl, setPublicUrl] = useState();
 
 
-    const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in"
+    const GlobalSiteUrl = process.env.GSURL
 
 
     useEffect(() => {

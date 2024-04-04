@@ -2,7 +2,7 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { FaEnvelopeOpen, FaPhoneAlt } from "react-icons/fa";
 
-const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in";
+const GlobalSiteUrl = process.env.GSURL;
 
 const MobileMenu = ({ siteUrl, onClose }) => {
   const [menuData, setMenuData] = useState([]);

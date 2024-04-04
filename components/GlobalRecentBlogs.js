@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 const GlobalRecentBlogs = () => {
     const [recentPosts, setRecentPosts] = useState([]);
-    const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in"
+    const GlobalSiteUrl = process.env.GSURL
     useEffect(() => {
         fetch(`${GlobalSiteUrl}/api/global-blogs?_limit=3&_sort=createdAt:desc`)
             .then(response => {

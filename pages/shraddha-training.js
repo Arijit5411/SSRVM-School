@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 import Head from "next/head";
 
 
-const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in";
+const GlobalSiteUrl = process.env.GSURL;
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from "@/components/Seo";

@@ -6,7 +6,7 @@ const SsrvmTrustMobile = () => {
     const [institutes, setInstitutes] = useState([]);
     const [country, setCountry] = useState([]);
 
-    const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in"
+    const GlobalSiteUrl = process.env.GSURL
 
     useEffect(() => {
         fetch(`${GlobalSiteUrl}/api/ssrvm-trusts?populate=*`)

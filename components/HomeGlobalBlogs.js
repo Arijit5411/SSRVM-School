@@ -10,7 +10,7 @@ const HomeGlobalBlogs = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const postsPerPage = 8; // Number of blog posts per page
 
-    const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in"
+    const GlobalSiteUrl = process.env.GSURL
 
     useEffect(() => {
         fetch(`${GlobalSiteUrl}/api/global-blogs?sort=id:desc&populate=*`)

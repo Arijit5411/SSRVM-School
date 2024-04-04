@@ -9,7 +9,7 @@ import {
   FaEnvelopeOpen,
   FaAngleDown,
 } from "react-icons/fa";
-const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in";
+const GlobalSiteUrl = process.env.GSURL;
 
 const MenuPopup = ({ siteUrl, onClose }) => {
   const [menuData, setMenuData] = useState([]);

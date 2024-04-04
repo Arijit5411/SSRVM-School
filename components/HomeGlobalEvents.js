@@ -9,7 +9,7 @@ const HomeGlobalEvents = ({siteUrl}) => {
     const [events, setEvents] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const postsPerPage = 8; // Number of events posts per page
-    const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in"
+    const GlobalSiteUrl = process.env.GSURL
     useEffect(() => {
         fetch(`${GlobalSiteUrl}/api/global-events?sort=id:desc&populate=*`)
             .then((response) => response.json())

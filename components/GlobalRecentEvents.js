@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const GlobalRecentEvents = ({siteUrl}) => {
     const [recentPosts, setRecentPosts] = useState([]);
-    const GlobalSiteUrl = "https://globalstrapiapi.ssrvmtrust.org.in"
+    const GlobalSiteUrl = process.env.GSURL
 
     useEffect(() => {
         fetch(`${GlobalSiteUrl}/api/global-events?_limit=3&_sort=createdAt:desc`)
