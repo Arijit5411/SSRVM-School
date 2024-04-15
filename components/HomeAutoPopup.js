@@ -13,8 +13,6 @@ const HomeAutoPopup = ({ data, siteUrl }) => {
         setPopupOpen(!popupOpen);
     };
 
-    console.log("hs", data)
-
     return (
         <>
             {(data?.attributes?.Enable_Disable === true) &&
@@ -24,7 +22,7 @@ const HomeAutoPopup = ({ data, siteUrl }) => {
                             <MainSlider className="home-popup-slider" settings={{ slidesToShow: 1, autoplay: true }}>
                                 {data?.attributes?.Image_Slider?.data.map((item) => {
                                     return (
-                                        <div className="slider-item">
+                                        <div className="slider-item" key={item.id}>
                                             {item?.attributes?.caption ?
                                                 <a className="d-block h-100" href={item?.attributes?.caption}>
                                                     <img src={siteUrl + item?.attributes?.url} alt="" />

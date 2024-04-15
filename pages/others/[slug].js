@@ -37,7 +37,19 @@ export const getServerSideProps = async (context) => {
 };
 
 const OtherPage = ({ data,siteUrl,seodata,slug }) => {
-  console.log('data in others',data,siteUrl,seodata,slug)
+
+
+  const processContent = (content) => {
+    if (content) {
+      let processedContent = content.replace(
+        /\/uploads/g,
+        `${siteUrl}/uploads`
+      );
+      // processedContent = processedContent.replace(/\n/g, "</br>");
+      return processedContent;
+    }
+    return "";
+  };
 
   return (
     <>
@@ -57,15 +69,17 @@ const OtherPage = ({ data,siteUrl,seodata,slug }) => {
 
                 return (
                   <div className="row gy-4 gy-md-5 mb-4 mb-md-5" key={index}>
-                    {content.Content && (
+                    {(content.Content || content.Rich_Content) && (
                       <div className={dataImage ? "col-lg-6" : "col-lg-12"}>
                         <ReactMarkdown>{content?.Content}</ReactMarkdown>
+                        {/* {processContent(content?.Rich_Content)} */}
+                        <div dangerouslySetInnerHTML={{ __html: processContent(content?.Rich_Content) }} />
                       </div>
                     )}
 
                     {dataImage && (
                       <div
-                        className={content.Content ? "col-lg-6" : "col-lg-12"}
+                        className={(content.Content || content.Rich_Content) ? "col-lg-6" : "col-lg-12"}
                       >
                         <img
                           className="w-100 rounded-3"
