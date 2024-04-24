@@ -19,7 +19,7 @@ export const getServerSideProps = async (context) => {
 
     return {
       props: {
-        data1,
+        blogdata: data1.data[0],
         seodata: data?.data?.attributes?.Pages ?? {},
         siteUrl,
         slug
@@ -35,7 +35,7 @@ export const getServerSideProps = async (context) => {
     };
   }
 };
-const BackToBlog = ({ siteUrl, data1,seodata,slug }) => {
+const BackToBlog = ({ siteUrl, blogdata, seodata, slug }) => {
   const [publicUrl, setPublicUrl] = useState();
   const components = {
     img: ({ src, alt }) => {
@@ -46,6 +46,8 @@ const BackToBlog = ({ siteUrl, data1,seodata,slug }) => {
   useEffect(() => {
     setPublicUrl(window.location.origin);
   }, [publicUrl]);
+
+
   return (
     <>
     <Seo SeoData={seodata} PageSlug={"back-to-blog"} InnerPageSlug={slug} />
@@ -55,7 +57,7 @@ const BackToBlog = ({ siteUrl, data1,seodata,slug }) => {
           <div className="container">
             <div className="row">
               <div className="col-content">
-                <a className="backto-btn" href="/blogs">
+                <a className="backto-btn" href="/blog">
                   <img
                     src={publicUrl + "/assets/img/blog/13-arrow-left.png"}
                     alt="Transpro"
@@ -66,17 +68,17 @@ const BackToBlog = ({ siteUrl, data1,seodata,slug }) => {
               <div className="row">
                 <div className="blog-post">
                   <img
-                    src={`${siteUrl}${data1.data.attributes?.image?.data?.attributes?.url}`}
-                    alt={data1.data.attributes?.Title}
+                    src={`${siteUrl}${blogdata.attributes?.image?.data?.attributes?.url}`}
+                    alt={blogdata.attributes?.Title}
                   />
                   <h1 className="wrap-text-inner">
-                    {data1.data.attributes?.Title}
+                    {blogdata.attributes?.Title}
                   </h1>
-                  <p className="blog-parg-item">
+                  <div className="blog-parg-item">
                     <ReactMarkdown components={components}>
-                      {data1.data.attributes?.content}
+                      {blogdata.attributes?.content}
                     </ReactMarkdown>
-                  </p>
+                  </div>
                 </div>
               </div>
               <RecentPostsSidebar siteUrl={siteUrl} />
@@ -91,7 +93,7 @@ const BackToBlog = ({ siteUrl, data1,seodata,slug }) => {
               <div className="col-lg-3 col-1">
                 {/* Sidebar content */}
                 <div className="col-content">
-                  <a className="backto-btn" href="/blogs">
+                  <a className="backto-btn" href="/blog">
                     <img
                       src={publicUrl + "/assets/img/blog/13-arrow-left.png"}
                       alt="Transpro"
@@ -105,17 +107,17 @@ const BackToBlog = ({ siteUrl, data1,seodata,slug }) => {
               <div className="col-lg-9 col-2">
                 <div className="blog-post">
                   <img
-                    src={`${siteUrl}${data1.data.attributes?.image?.data?.attributes?.url}`}
-                    alt={data1.data.attributes?.Title}
+                    src={`${siteUrl}${blogdata.attributes?.image?.data?.attributes?.url}`}
+                    alt={blogdata.attributes?.Title}
                   />
                   <h1 className="wrap-text-inner">
-                    {data1.data.attributes?.Title}
+                    {blogdata.attributes?.Title}
                   </h1>
-                  <p className="blog-parg-item">
+                  <div className="blog-parg-item">
                     <ReactMarkdown components={components}>
-                      {data1.data.attributes?.content}
+                      {blogdata.attributes?.content}
                     </ReactMarkdown>
-                  </p>
+                  </div>
                 </div>
               </div>
             </div>
