@@ -99,7 +99,7 @@ const Blog = ({ seodata, blogProp, siteUrl }) => {
                             {post.attributes.Title}
                           </p>
                           <Link
-                            href={`/back-to-blog/${post.id}`}
+                            href={`/back-to-blog/${post.attributes.slug}`}
                             className="text-muted-news"
                           >
                             read more
