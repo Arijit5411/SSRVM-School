@@ -14,14 +14,14 @@ export const getServerSideProps = async (context) => {
     const { slug } = context.params;
     const res2 = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
 
-    const res = await fetch(`${siteUrl}/api/event-pages/${slug}?populate=*`);
+    const res = await fetch(`${siteUrl}/api/event-pages?filters[$slug][$eq]=${slug}&populate=*`);
     const data = await res.json();
     const data2 = await res2.json();
 
 
     return {
       props: {
-        eventData: data.data.attributes,
+        eventData: data.data[0].attributes,
         seodata: data2?.data?.attributes?.Pages ?? {},
 
         siteUrl,
@@ -122,11 +122,11 @@ const IndividualEventPage = ({ eventData, siteUrl,seodata,slug }) => {
                       className="widthEventImg"
                     />
                     <h1 className="wrap-text-inner">{events?.title}</h1>
-                    <p className="blog-parg-item">
+                    <div className="blog-parg-item">
                       <ReactMarkdown components={components}>
                         {events?.content}
                       </ReactMarkdown>
-                    </p>
+                    </div>
                   </div>
                 )}
               </div>
@@ -169,11 +169,11 @@ const IndividualEventPage = ({ eventData, siteUrl,seodata,slug }) => {
                       className="widthEventImg"
                     />
                     <h1 className="wrap-text-inner">{events?.title}</h1>
-                    <p className="blog-parg-item">
+                    <div className="blog-parg-item">
                       <ReactMarkdown components={components}>
                         {events?.content}
                       </ReactMarkdown>
-                    </p>
+                    </div>
                   </div>
                 )}
               </div>

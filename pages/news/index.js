@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import NavBar from '../components/NavBar';
-import Footer from '../components/Footer';
+import NavBar from '../../components/NavBar';
+import Footer from '../../components/Footer';
 import Link from 'next/link';
 import Head from 'next/head';
 
@@ -8,38 +8,38 @@ import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from '@/components/Seo';
 
 export const getServerSideProps = async (context) => {
-  try {
-    const siteUrl = determineStrapiUrl(context);
+    try {
+        const siteUrl = determineStrapiUrl(context);
 
 
-    const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
-    const res1 = await fetch(`${siteUrl}/api/newspages?sort=id:desc&populate=*`)
+        const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
+        const res1 = await fetch(`${siteUrl}/api/newspages?sort=id:desc&populate=*`)
 
-    const data = await res.json()
-    const data1 = await res1.json()
+        const data = await res.json()
+        const data1 = await res1.json()
 
-    return {
-        props: {
-            seodata: data?.data?.attributes?.Pages ?? {},
-            newsProp: data1,
-            siteUrl
-        }
-    };
-} catch (error) {
-  console.error("Error fetching data:", error.message);
+        return {
+            props: {
+                seodata: data?.data?.attributes?.Pages ?? {},
+                newsProp: data1,
+                siteUrl
+            }
+        };
+    } catch (error) {
+        console.error("Error fetching data:", error.message);
 
-  return {
-    props: {
-      data: [],
-    },
-  };
-}
+        return {
+            props: {
+                data: [],
+            },
+        };
+    }
 };
 
-const News = ({ seodata, newsProp,siteUrl }) => {
+const News = ({ seodata, newsProp, siteUrl }) => {
     const [news, setNews] = useState(null);
     const [currentPage, setCurrentPage] = useState(1)
-   
+
     const postsPerPage = 6; // Number of news posts per page
 
     useEffect(() => {
@@ -65,7 +65,7 @@ const News = ({ seodata, newsProp,siteUrl }) => {
 
     console.log("hh", news)
 
-   
+
 
     const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -84,13 +84,13 @@ const News = ({ seodata, newsProp,siteUrl }) => {
         if (currentPage < Math.ceil(news.data.length / postsPerPage)) { paginate(currentPage + 1); }
     };
 
-    return (<>
+    return (
+        <>
             <Seo SeoData={seodata} PageSlug={"news"} />
 
-        <Fragment>
-            <NavBar siteUrl={siteUrl}/>
+            <NavBar siteUrl={siteUrl} />
 
-            
+
 
             <div className='top-section1-new'>
                 <div className="container d-flex align-items-center gap-4 my-5">
@@ -116,7 +116,7 @@ const News = ({ seodata, newsProp,siteUrl }) => {
                                             <div className="card-body">
                                                 <p className="card-text-news">{post.attributes.date}</p>
                                                 <p className="card-text-news">{post.attributes.title}</p>
-                                                <Link href={`/back-to-news/${post.id}`} className="text-muted-news">read more</Link>
+                                                <Link href={`/news/${post.attributes.slug}`} className="text-muted-news">read more</Link>
                                             </div>
                                         </div>
                                     </div>
@@ -146,9 +146,8 @@ const News = ({ seodata, newsProp,siteUrl }) => {
                     <p className='text-center mb-5'>No blog posts available.</p>
                 )}
             </div>
-            <Footer siteUrl={siteUrl}/>
-        </Fragment >
-    </>
+            <Footer siteUrl={siteUrl} />
+        </>
     );
 }
 

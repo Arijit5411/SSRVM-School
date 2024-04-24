@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import NavBar from '../components/NavBar';
-import Footer from '../components/Footer';
+import NavBar from '../../components/NavBar';
+import Footer from '../../components/Footer';
 import Link from 'next/link';
 import Head from 'next/head';
 
@@ -95,7 +95,7 @@ const EventsPage = ({ seodata, eventsProp ,siteUrl}) => {
                                                 <div className="card-body">
                                                     <p className="card-text-news">{post.attributes.date}</p>
                                                     <p className="card-text-news">{post.attributes.title}</p>
-                                                    <Link href={`/individual-event-page/${post.id}`} className="text-muted-news">read more</Link>
+                                                    <Link href={`/events/${post.attributes.slug}`} className="text-muted-news">read more</Link>
                                                 </div>
                                             </div>
                                         </div>

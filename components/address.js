@@ -25,9 +25,7 @@ const ContactAddress = ({siteUrl}) => {
                             <h3 className="ssrvm_head_mob">
                                 {contactData ? contactData.attributes.school_name : "Loading..."}
                             </h3>
-                            <p>
-                                {contactData ? contactData.attributes.school_address : "Loading..."}
-                            </p>
+                            <div dangerouslySetInnerHTML={{ __html: contactData?.attributes?.school_address }} />
                             <button className="button_class mob" onClick={handleGetDirections}>
                                 Get Directions
                             </button>

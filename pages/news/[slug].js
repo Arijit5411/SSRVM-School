@@ -10,13 +10,13 @@ export const getServerSideProps = async (context) => {
     const siteUrl = determineStrapiUrl(context);
     const { slug } = context.params;
 
-    const res1 = await fetch(`${siteUrl}/api/newspages/${slug}?populate=*`);
+    const res1 = await fetch(`${siteUrl}/api/newspages?filters[$slug][$eq]=${slug}&populate=*`);
     const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
     const data1 = await res1.json();
     const data = await res.json();
     return {
       props: {
-        data1,
+        newsdata: data1.data[0],
         seodata: data?.data?.attributes?.Pages ?? {},
         siteUrl,
         slug
@@ -32,7 +32,7 @@ export const getServerSideProps = async (context) => {
     };
   }
 };
-const BackToNews = ({ data1, siteUrl,seodata ,slug}) => {
+const BackToNews = ({ newsdata, siteUrl,seodata ,slug}) => {
   const [publicUrl, setPublicUrl] = useState();
   const components = {
     img: ({ src, alt }) => {
@@ -62,15 +62,15 @@ const BackToNews = ({ data1, siteUrl,seodata ,slug}) => {
             <div className="row">
               <div className="blog-post">
                 <img
-                  src={`${siteUrl}${data1?.data?.attributes?.image?.data?.attributes?.url}`}
-                  alt={data1?.data?.attributes?.Title}
+                  src={`${siteUrl}${newsdata.attributes?.image?.data?.attributes?.url}`}
+                  alt={newsdata.attributes?.Title}
                 />
                 <h1 className="wrap-text-inner">
-                  {data1.data.attributes?.title}
+                  {newsdata.attributes?.title}
                 </h1>
                 <div className="blog-parg-item">
                   <ReactMarkdown components={components}>
-                    {data1.data.attributes?.content}
+                    {newsdata.attributes?.content}
                   </ReactMarkdown>
                 </div>
               </div>
@@ -102,15 +102,15 @@ const BackToNews = ({ data1, siteUrl,seodata ,slug}) => {
               <div className="col-lg-9 col-2">
                 <div className="blog-post">
                   <img
-                    src={`${siteUrl}${data1?.data?.attributes?.image?.data?.attributes?.url}`}
-                    alt={data1.data.attributes?.Title}
+                    src={`${siteUrl}${newsdata.attributes?.image?.data?.attributes?.url}`}
+                    alt={newsdata.attributes?.Title}
                   />
                   <h1 className="wrap-text-inner">
-                    {data1.data.attributes?.title}
+                    {newsdata.attributes?.title}
                   </h1>
                   <div className="blog-parg-item">
                     <ReactMarkdown components={components}>
-                      {data1.data.attributes?.content}
+                      {newsdata.attributes?.content}
                     </ReactMarkdown>
                   </div>
                 </div>

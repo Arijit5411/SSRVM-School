@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
-import NavBar from "../components/NavBar";
-import Footer from "../components/Footer";
+import NavBar from "../../components/NavBar";
+import Footer from "../../components/Footer";
 import Link from "next/link";
 const postsPerPage = 6; 
 
@@ -98,10 +98,7 @@ const Blog = ({ seodata, blogProp, siteUrl }) => {
                           <p className="card-text-news">
                             {post.attributes.Title}
                           </p>
-                          <Link
-                            href={`/back-to-blog/${post.attributes.slug}`}
-                            className="text-muted-news"
-                          >
+                          <Link href={`/blog/${post.attributes.slug}`} className="text-muted-news">
                             read more
                           </Link>
                         </div>

@@ -53,9 +53,10 @@ const Footer = ({siteUrl}) => {
                       <div className="widget widget_contact">
                         <div className="single-contact-inner">
                           <div className="details">
-                            <p className="address">
+                            {/* <p className="address">
                               {footerData.attributes.address}
-                            </p>
+                            </p> */}
+                            <div dangerouslySetInnerHTML={{ __html: footerData?.attributes?.address }} />
                             {/* <p className="address">45206, United States</p> */}
                           </div>
                         </div>

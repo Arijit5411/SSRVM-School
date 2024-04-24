@@ -119,11 +119,11 @@ const NavBar = ({ siteUrl }) => {
 
   useEffect(() => {
     // Fetch the API data
-    fetch(`${siteUrl}/api/navbar-menu-headers?populate=*`)
+    fetch(`${siteUrl}/api/social-links`)
       .then((response) => response.json())
       .then((data) => {
         // Extract menu items from the API response
-        const items = data?.data[0]?.attributes;
+        const items = data?.data;
         setSocial(items);
       })
       .catch((error) => {
@@ -272,61 +272,75 @@ const NavBar = ({ siteUrl }) => {
           </nav>
         </header>
         <div className="sticky-icon">
-          <a
-            title="Facebook"
-            href={social?.facebook_link}
-            target="new"
-            className="facebook"
-          >
-            {" "}
-            <FaFacebookF className="socialFont" />
-          </a>
 
-          <a
-            title="Twitter"
-            href={social?.twitter_link}
-            className="twitter"
-            target="new"
-          >
-            <FaTwitter className="socialFont" />
-          </a>
+          {social && social.map((item) => (
+            item.attributes.Show_in_Menu !== false && (
+              <a className="d-inline-flex" href={item.attributes.Url} key={item.id} 
+              dangerouslySetInnerHTML={{ __html: item.attributes.Icon }} 
+              target={item.attributes.Open_Self ? "_self" : "_blank"}></a>
+            )
+          ))}
 
-          <a
-            title="Youtube"
-            href={social?.youtube_link}
-            target="new"
-            className="youtube"
-          >
-            <FaYoutube className="socialFont" />
-          </a>
 
-          <a
-            title="Instagram"
-            href={social?.insta_link}
-            target="new"
-            className="instagram"
-          >
-            <FaInstagram className="socialFont" />
-          </a>
-          <a
-            title="Appointment"
-            href="/appointment-booking"
-            className="calender bg-icon"
-          >
-            <FaCalendarAlt className="calendarText" />
-          </a>
-          {social?.whatsapp_link?.length > 0 && (
-            <div id="api-response">
-              <a
-                title="Whatsapp"
-                href={social?.whatsapp_link}
-                className="chat bg-icon"
-                target="_blank"
-              >
-                <FaWhatsapp className="calendarText" />
-              </a>
-            </div>
+          {/* {social?.facebook_link?.length > 0 && (
+            <a
+              title="Facebook"
+              href={social?.facebook_link}
+              target="new"
+              className="facebook"
+            >
+              <FaFacebookF className="socialFont" />
+            </a>
           )}
+          {social?.twitter_link?.length > 0 && (
+            <a
+              title="Twitter"
+              href={social?.twitter_link}
+              className="twitter"
+              target="new"
+            >
+              <FaTwitter className="socialFont" />
+            </a>
+          )}
+          {social?.youtube_link?.length > 0 && (
+            <a
+              title="Youtube"
+              href={social?.youtube_link}
+              target="new"
+              className="youtube"
+            >
+              <FaYoutube className="socialFont" />
+            </a>
+          )}
+          {social?.insta_link?.length > 0 && (
+            <a
+              title="Instagram"
+              href={social?.insta_link}
+              target="new"
+              className="instagram"
+            >
+              <FaInstagram className="socialFont" />
+            </a>
+          )}
+          {social?.whatsapp_link?.length > 0 && (
+            <a
+              title="Appointment"
+              href="/appointment-booking"
+              className="calender bg-icon"
+            >
+              <FaCalendarAlt className="calendarText" />
+            </a>
+          )}
+          {social?.whatsapp_link?.length > 0 && (
+            <a
+              title="Whatsapp"
+              href={social?.whatsapp_link}
+              className="chat bg-icon"
+              target="_blank"
+            >
+              <FaWhatsapp className="calendarText" />
+            </a>
+          )} */}
         </div>
 
         {showPopup1 && <AdmissionEnquiry siteUrl={siteUrl} onClose={togglePopup1} />}
