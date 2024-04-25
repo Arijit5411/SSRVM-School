@@ -939,7 +939,7 @@ header.navbar-are {
 }
 
 
-@media screen and (min-width: 992px) {
+@media screen and (max-width: 992px) {
   .top-section4.mobilehide {
     display: none!important;
   }
