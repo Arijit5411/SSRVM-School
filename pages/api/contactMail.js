@@ -32,7 +32,7 @@ export default async function handler(req, res) {
     try {
         await transporter.sendMail({
             from: `<${process.env.SMTP_USER}>`,
-            to: mailList,
+            to: `subhajit.karmakar@teampumpkin.com`,
             // to: 'husain.fakih@teampumpkin.com',
             subject: `Contact Mail - ${full_name} - ${contact_no} `,
             text: `Contact Information`,
