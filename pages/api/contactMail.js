@@ -16,6 +16,8 @@ export default async function handler(req, res) {
     const data = await response.json()
     const mailList = data?.data?.attributes?.Contact
 
+    console.log("mails from strapi", mailList)
+
     const { full_name, email_id, contact_no, message } = req.body;
 
     const transporter = nodemailer.createTransport({
