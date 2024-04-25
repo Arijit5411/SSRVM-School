@@ -211,9 +211,11 @@ header.navbar-are {
   align-items: center;
   gap: 15px;
 }
-.width-content{
+
+.width-content {
   width: 56%;
 }
+
 .checkbox-input .checkbox-wrap input {
   height: 20px;
   width: 20px;
@@ -249,10 +251,12 @@ header.navbar-are {
 .education-card-mobile {
   display: none;
 }
-.mobilehide-pedalogy{
+
+.mobilehide-pedalogy {
   display: block;
 }
-.desktophide-pedalogy{
+
+.desktophide-pedalogy {
   display: block;
 }
 
@@ -545,21 +549,27 @@ header.navbar-are {
   .education-card-mobile {
     display: block;
   }
-  .mobilehide-pedalogy{
+
+  .mobilehide-pedalogy {
     display: none;
   }
-  .desktophide-pedalogy{
+
+  .desktophide-pedalogy {
     display: none;
   }
-.title-hide{
-  display: none;
-}
+
+  .title-hide {
+    display: none;
+  }
+
   .mobilehide-result {
     display: none;
   }
-  .width-content{
+
+  .width-content {
     width: 100%;
   }
+
   /* .mobilehide-publication{
     display: none;
   } */
@@ -788,9 +798,10 @@ header.navbar-are {
 
 
   /* ===================================== Mobile Nav  */
-  .navbar-area .logo{
+  .navbar-area .logo {
     align-items: center;
   }
+
   a.logo-1 {
     display: block;
   }
@@ -799,7 +810,8 @@ header.navbar-are {
     width: auto;
     height: 90px;
   }
-  .mobileDropDown{
+
+  .mobileDropDown {
     margin-top: 0;
     margin-left: -40px;
     padding-right: 20px;
@@ -811,13 +823,13 @@ header.navbar-are {
     border-radius: 99px;
   }
 
-  .mobileDropDown .dropdown-content{
+  .mobileDropDown .dropdown-content {
     background: #210D7D;
     margin: 0;
     left: 44px;
     top: calc(100% + 2px);
     height: auto;
-    width: auto!important;
+    width: auto !important;
     padding: 5px 0 5px 0;
     border-radius: 10px;
   }
@@ -829,7 +841,7 @@ header.navbar-are {
     height: auto;
     border-radius: 0;
     background: transparent;
-}
+  }
 
   .dropbtnMobile {
     padding-left: 0;
@@ -852,21 +864,26 @@ header.navbar-are {
 }
 
 /* ============================================================================================= School Timing */
-.school-content > h1{
+.school-content>h1 {
   font-size: 44px;
   margin-top: 0%;
   line-height: 180px;
 }
 
-.school-content > figure > table{
+.school-content>figure>table {
   overflow: auto;
 }
 
 /* ==========================================================================Home Auto Popup  */
-.home-popup-slider .slick-track{ display: flex !important; }
-.home-popup-slider .slick-slide { height: inherit !important; }
+.home-popup-slider .slick-track {
+  display: flex !important;
+}
 
-.home-auto-popup.popup-main{
+.home-popup-slider .slick-slide {
+  height: inherit !important;
+}
+
+.home-auto-popup.popup-main {
   /* background-color: rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(1px); */
 }
@@ -884,33 +901,46 @@ header.navbar-are {
 .home-auto-popup .popup-content {
   --popup_padding: 0;
 }
-.home-popup-slider{
+
+.home-popup-slider {
   width: 100%;
   height: 100%;
 }
-.home-popup-slider .slick-slide, 
-.home-popup-slider .slick-slide > div, 
-.home-popup-slider .slick-slide > div > div, 
-.home-popup-slider .slick-slide > div > div > .slider-item{
+
+.home-popup-slider .slick-slide,
+.home-popup-slider .slick-slide>div,
+.home-popup-slider .slick-slide>div>div,
+.home-popup-slider .slick-slide>div>div>.slider-item {
   height: 100%;
 }
-.home-popup-slider .slider-item img{
+
+.home-popup-slider .slider-item img {
   height: 100%;
   width: 100%;
   object-fit: cover;
 }
 
 .home-popup-slider .slick-arrow {
-	z-index: 999;
+  z-index: 999;
   height: auto;
   width: auto;
 }
-.home-popup-slider .slick-arrow::before{
-  font-size: 28px!important;
+
+.home-popup-slider .slick-arrow::before {
+  font-size: 28px !important;
 }
-.home-popup-slider .slick-arrow.slick-prev{
-  left: 10px!important;
+
+.home-popup-slider .slick-arrow.slick-prev {
+  left: 10px !important;
 }
-.home-popup-slider .slick-arrow.slick-next{
-  right: 10px!important;
+
+.home-popup-slider .slick-arrow.slick-next {
+  right: 10px !important;
+}
+
+
+@media screen and (min-width: 992px) {
+  .top-section4.mobilehide {
+    display: none!important;
+  }
 }

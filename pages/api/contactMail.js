@@ -7,6 +7,9 @@ export default async function handler(req, res) {
     }
 
     const host = req.headers.host;
+
+    console.log("hh", host)
+
     const siteUrl = determineStrapiUrl(host);
 
     const response = await fetch(`${siteUrl}/api/email`)
