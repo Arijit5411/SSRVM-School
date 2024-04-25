@@ -23,7 +23,7 @@ export function determineStrapiUrl(context) {
   if (subdomain.includes('localhost')) {
     return process.env.LOCAL_SURL;
   } else {
-    apiUrl = `https://${subdomain}`;
+    apiUrl = `https://${subdomain}/_s`;
     console.log('Api url ', apiUrl);
     return apiUrl;
   }
