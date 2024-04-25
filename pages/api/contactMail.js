@@ -8,7 +8,7 @@ export default async function handler(req, res) {
 
     const host = req.headers.host;
 
-    console.log("hh", host)
+    console.log("hh", req.headers)
 
     const siteUrl = determineStrapiUrl(host);
 
