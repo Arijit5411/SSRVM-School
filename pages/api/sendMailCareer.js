@@ -4,6 +4,14 @@ export default async function handler(req, res) {
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Method not allowed' });
     }
+
+    const host = req.headers.host;
+    const siteUrl = determineStrapiUrl(host);
+
+    const response = await fetch(`${siteUrl}/api/email`)
+    const data = await response.json()
+    const mailList = data?.data?.attributes?.Career
+
     const {
         categoryNew,
         position,

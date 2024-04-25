@@ -10,7 +10,7 @@ export default async function handler(req, res) {
     const siteUrl = determineStrapiUrl(host);
     const response = await fetch(`${siteUrl}/api/email`)
     const data = await response.json()
-    const mailList = data?.data?.attributes?.AdmissionEnquiry.split(",");
+    const mailList = data?.data?.attributes?.AdmissionEnquiry;
     const { full_name, email_id, contact_no, about_us, message } = req.body;
 
     const transporter = nodemailer.createTransport({

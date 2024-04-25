@@ -11,7 +11,7 @@ export default async function handler(req, res) {
 
     const response = await fetch(`${siteUrl}/api/email`)
     const data = await response.json()
-    const mailList = data?.data?.attributes?.TransferCertificate.split(",")
+    const mailList = data?.data?.attributes?.TransferCertificate
 
     const { full_name, email_id, contact_no, dob, registration_Id, academic_year } = req.body;
 

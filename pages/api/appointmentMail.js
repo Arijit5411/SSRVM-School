@@ -13,7 +13,7 @@ export default async function handler(req, res) {
 
   const response = await fetch(`${siteUrl}/api/email`);
   const data = await response.json();
-  const mailList = data?.data?.attributes?.Appointment.split(",");
+  const mailList = data?.data?.attributes?.Appointment;
 
   const {
     full_name,

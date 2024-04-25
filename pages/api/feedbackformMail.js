@@ -11,7 +11,7 @@ export default async function handler(req, res) {
 
     const response = await fetch(`${siteUrl}/api/email`)
     const data = await response.json()
-    const mailList = data?.data?.attributes?.Feedback.split(",")
+    const mailList = data?.data?.attributes?.Feedback
 
     const { full_name, email_id, contact_no, message } = req.body.data;
 
