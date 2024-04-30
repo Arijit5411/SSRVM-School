@@ -3,29 +3,29 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 
 export const getServerSideProps = async (context) => {
-  try {
-    const siteUrl = determineStrapiUrl(context);
-    const res = await fetch(`${siteUrl}/api/calender-downloads?populate=*`)
+    try {
+        const siteUrl = determineStrapiUrl(context);
+        const res = await fetch(`${siteUrl}/api/calender-downloads?populate=*`)
 
-    const data = await res.json()
+        const data = await res.json()
 
-    return {
-        props: {
-            calendar: data,
-            siteUrl
-        }
-    };
-} catch (error) {
-  console.error("Error fetching data:", error.message);
+        return {
+            props: {
+                calendar: data,
+                siteUrl
+            }
+        };
+    } catch (error) {
+        console.error("Error fetching data:", error.message);
 
-  return {
-    props: {
-      data: [],
-    },
-  };
-}
+        return {
+            props: {
+                data: [],
+            },
+        };
+    }
 };
-const School_Calender = ({ calendar,siteUrl }) => {
+const School_Calender = ({ calendar, siteUrl }) => {
     const [calendarData, setCalendarData] = useState([]);
 
     useEffect(() => {
@@ -50,17 +50,21 @@ const School_Calender = ({ calendar,siteUrl }) => {
     return (
         <Fragment>
             <section className="container sec-third">
-                <h4 className='title'>School Calendar for</h4>
-                <div className='row'>
-                    {calendarData.map((item) => (
-                        <div className='col-lg-6 wrap-month' key={item.id}>
-                            <div className='syl-item'>
-                                <h4>{formatTitle(item.attributes.title)}</h4>
-                                <a href={`${siteUrl}${item.attributes.pdf?.data?.attributes?.url}`} download>Download</a>
-                            </div>
+                {calendarData.length > 0 &&
+                    <>
+                        <h4 className='title'>School Calendar for</h4>
+                        <div className='row'>
+                            {calendarData.map((item) => (
+                                <div className='col-lg-6 wrap-month' key={item.id}>
+                                    <div className='syl-item'>
+                                        <h4>{formatTitle(item.attributes.title)}</h4>
+                                        <a href={`${siteUrl}${item.attributes.pdf?.data?.attributes?.url}`} download>Download</a>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
-                    ))}
-                </div>
+                    </>
+                }
             </section>
         </Fragment>
     );
