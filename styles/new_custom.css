@@ -24,6 +24,12 @@
 }
 
 /* ================================================================================== Header  */
+.nav-menu-social a{
+  color: #210D7D;
+  font-size: 20px;
+  line-height: 1;
+}
+
 header.navbar-are {
   position: relative;
   z-index: 999;

@@ -274,11 +274,10 @@ const NavBar = ({ siteUrl }) => {
         <div className="sticky-icon">
 
           {social && social.map((item) => (
-            item.attributes.Show_in_Menu !== false && (
-              <a className="d-inline-flex" href={item.attributes.Url} key={item.id} 
+            <a className="d-inline-flex" href={item.attributes.Url} key={item.id} 
               dangerouslySetInnerHTML={{ __html: item.attributes.Icon }} 
-              target={item.attributes.Open_Self ? "_self" : "_blank"}></a>
-            )
+              target={item.attributes.Open_Self ? "_self" : "_blank"}>
+            </a>
           ))}
 
 

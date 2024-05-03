@@ -16,6 +16,24 @@ const MenuPopup = ({ siteUrl, onClose }) => {
   const [schoolData, setschoolData] = useState([]);
   const [apiData, setApiData] = useState(null);
   const [globalsocial, setGlobalSocial] = useState();
+  const [social, setSocial] = useState([]);
+
+
+  useEffect(() => {
+    // Fetch the API data
+    fetch(`${siteUrl}/api/social-links`)
+      .then((response) => response.json())
+      .then((data) => {
+        // Extract menu items from the API response
+        const items = data?.data;
+        setSocial(items);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+
+
   useEffect(() => {
     fetchMenuData();
   }, []);
@@ -127,49 +145,14 @@ const MenuPopup = ({ siteUrl, onClose }) => {
                         <a href={apiData.data[0].attributes.email_link}>Email</a>
                       </span>
                     )}
-                    <div className="d-flex align-items-center gap-3">
-                      {apiData &&
-                        apiData.data[0].attributes.facebook_link &&
-                        apiData.data[0].attributes.facebook_link.length > 0 && (
-                          <a
-                            href={apiData.data[0].attributes.facebook_link}
-                            className="facebook"
-                          >
-                            <FaFacebookF className="socialFont" />
-                          </a>
-                        )}
-
-                      {apiData &&
-                        apiData.data[0].attributes.twitter_link &&
-                        apiData.data[0].attributes.twitter_link.length > 0 && (
-                          <a
-                            href={apiData.data[0].attributes.twitter_link}
-                            className="twitter"
-                          >
-                            <FaTwitter className="socialFont" />
-                          </a>
-                        )}
-                      {apiData &&
-                        apiData.data[0].attributes.youtube_link &&
-                        apiData.data[0].attributes.youtube_link.length > 0 && (
-                          <a
-                            href={apiData.data[0].attributes.youtube_link}
-                            className="youtube"
-                          >
-                            <FaYoutube className="socialFont" />
-                          </a>
-                        )}
-
-                      {apiData &&
-                        apiData.data[0].attributes.insta_link &&
-                        apiData.data[0].attributes.insta_link.length > 0 && (
-                          <a
-                            href={apiData.data[0].attributes.insta_link}
-                            className="instagram"
-                          >
-                            <FaInstagram className="socialFont" />
-                          </a>
-                        )}
+                    <div className="d-flex align-items-center gap-3 nav-menu-social">
+                      {social && social.map((item) => (
+                        item.attributes.Show_in_Menu !== false && (
+                          <a key={item.id} className="d-inline-flex" href={item.attributes.Url}
+                            dangerouslySetInnerHTML={{ __html: item.attributes.Icon }}
+                            target={item.attributes.Open_Self ? "_self" : "_blank"}></a>
+                        )
+                      ))}
                     </div>
                     <button className="close-btn-menu" onClick={onClose}>
                       Close Menu &times;

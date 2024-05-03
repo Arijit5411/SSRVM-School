@@ -10,9 +10,10 @@ import {
 import Subscribe from "./Subscribe";
 const GlobalSiteUrl = process.env.GSURL;
 
-const Footer = ({siteUrl}) => {
+const Footer = ({ siteUrl }) => {
   const [footerData, setFooterData] = useState(null);
   const [globalsocial, setGlobalSocial] = useState();
+  const [social, setSocial] = useState([]);
 
   useEffect(() => {
     // Make the API call when the component mounts
@@ -23,6 +24,22 @@ const Footer = ({siteUrl}) => {
       })
       .catch((error) => {
         console.error("Error fetching footer data:", error);
+      });
+  }, []);
+
+
+
+  useEffect(() => {
+    // Fetch the API data
+    fetch(`${siteUrl}/api/social-links`)
+      .then((response) => response.json())
+      .then((data) => {
+        // Extract menu items from the API response
+        const items = data?.data;
+        setSocial(items);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
       });
   }, []);
 
@@ -40,7 +57,7 @@ const Footer = ({siteUrl}) => {
     <>
       {/* footer area start */}
       <footer className="footer-area-3">
-        <Subscribe siteUrl={siteUrl}/>
+        <Subscribe siteUrl={siteUrl} />
         {footerData && (
           <div>
             {/* Widget Area Starts */}
@@ -52,7 +69,7 @@ const Footer = ({siteUrl}) => {
                       <p>{footerData.attributes.ssrvm_head}</p>
                       <div className="widget widget_contact">
                         <div className="single-contact-inner">
-                          <div className="details">
+                          <div className="details text-white">
                             {/* <p className="address">
                               {footerData.attributes.address}
                             </p> */}
@@ -69,32 +86,17 @@ const Footer = ({siteUrl}) => {
                           referrerPolicy="no-referrer-when-downgrade"
                         ></iframe>
 
-                        <div className="">
+                        <div className="my-4">
                           <ul className="socialnetwork">
-                            <li>
-                              <a href={footerData.attributes.fb_link} className="facebook">
-                                {" "}
-                                <FaFacebookF />
-                              </a>
-                            </li>
-                            <li>
-                              <a href={footerData.attributes.twitter_link} className="twitter">
-                                <FaTwitter />
-                              </a>
-                            </li>
-                            <li>
-                              <a
-                                href={footerData.attributes.youtube_link}
-                                className="youtube"
-                              >
-                                <FaYoutube />
-                              </a>
-                            </li>
-                            <li>
-                              <a href={footerData.attributes.insta_link} className="instagram">
-                                <FaInstagram />
-                              </a>
-                            </li>
+                            {social && social.map((item) => (
+                              item.attributes.Show_in_Menu !== false && (
+                                <li key={item.id}>
+                                  <a className="d-inline-flex" href={item.attributes.Url}
+                                    dangerouslySetInnerHTML={{ __html: item.attributes.Icon }}
+                                    target={item.attributes.Open_Self ? "_self" : "_blank"}></a>
+                                </li>
+                              )
+                            ))}
                           </ul>
                         </div>
                         <div className="single-contact-inner">
@@ -195,17 +197,17 @@ const Footer = ({siteUrl}) => {
                   <div className="col-lg-6">
                     <div className="copyright-text ">
                       <span className="fColor">
-                       
-                          <a  target="_blank" href={globalsocial?.Website_Link} className="text-white">Visit the SSRVM Trust Website</a>
 
-                      
+                        <a target="_blank" href={globalsocial?.Website_Link} className="text-white">Visit the SSRVM Trust Website</a>
+
+
                       </span>
                     </div>
                   </div>
                   <div className="col-lg-6">
                     <div className="footer-social">
                       <span className="fPadTop fColor">
-                      Connect with SSRVM Trust:{" "}
+                        Connect with SSRVM Trust:{" "}
                       </span>
                       <ul className="social-link">
                         <li>
