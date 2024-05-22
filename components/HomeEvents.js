@@ -94,7 +94,7 @@ const HomeEvents = ({siteUrl}) => {
                             {post.attributes.title}
                           </p>
                           <Link
-                            href={`/individual-event-page/${post.id}`}
+                            href={`/events/${post.attributes.slug}`}
                             className="text-muted-news"
                           >
                             read more
