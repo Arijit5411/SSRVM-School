@@ -31,7 +31,7 @@ export const getServerSideProps = async (context) => {
 };
 
 const CareerForm = ({siteUrl,data1}) => {
-  console.log(data1)
+  // console.log(data1)
   const [inputKey, setInputKey] = useState("");
   const initialValues = {
     categoryNew: "",
@@ -61,7 +61,7 @@ const CareerForm = ({siteUrl,data1}) => {
 
 
   const validationSchema = Yup.object({
-    category: Yup.string().required("Category is required"),
+    categoryNew: Yup.string().required("Category is required"),
     position: Yup.string().required("Position is required"),
     locationSelect: Yup.string().required("Preferred Location is required"),
     fname: Yup.string().required("Full Name is required"),
@@ -73,9 +73,7 @@ const CareerForm = ({siteUrl,data1}) => {
     mobile: Yup.string()
       .required("Mobile is required")
       .matches(/^[0-9]{10}$/, "Mobile must be exactly 10 numeric digits"),
-    tele: Yup.string()
-      .required("Telephone Number is required")
-      .matches(
+    tele: Yup.string().matches(
         /^[0-9]{10}$/,
         "Telephone Number must be exactly 10 numeric digits"
       ),
@@ -93,7 +91,7 @@ const CareerForm = ({siteUrl,data1}) => {
       "Select at least one Preferred Location"
     ),
     whyJoin: Yup.string().required("Why do you want to join is required"),
-    salaryExp: Yup.string(),
+    salaryExp: Yup.string().required("Salary Expectations is required"),
 
     resume: Yup.mixed()
       .required("Resume is required")
@@ -127,6 +125,8 @@ const CareerForm = ({siteUrl,data1}) => {
         }
       ),
   });
+
+
   const onSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
       const resumeData = await fileUpload(values.resume);
@@ -296,9 +296,9 @@ const CareerForm = ({siteUrl,data1}) => {
                         <option value="Marketing">Marketing</option>
                         <option value="Finance">Finance</option> */}
                       </select>
-                      {formik.touched.category && formik.errors.category && (
+                      {formik.touched.categoryNew && formik.errors.categoryNew && (
                         <div className="error-message ms-3">
-                          {formik.errors.category}
+                          {formik.errors.categoryNew}
                         </div>
                       )}
                     </div>
@@ -465,7 +465,7 @@ const CareerForm = ({siteUrl,data1}) => {
                   <div className="col-12 col-md-6 col-lg-6">
                     <div className="input-wrap color-1">
                       <label className="fs-16 fs-lg-16 fw-700 color-1 mb-2">
-                        Telephone Number <span className="text-danger">*</span>
+                        Telephone Number <span className="text-danger"></span>
                       </label>
                       <input
                         type="text"
@@ -620,7 +620,7 @@ const CareerForm = ({siteUrl,data1}) => {
                       </label>
                       <br />
                       <select
-                        className="input_personal marital"
+                        className="fw-600 color-1"
                         name="relocation"
                         value={formik.values.relocation}
                         onChange={formik.handleChange}

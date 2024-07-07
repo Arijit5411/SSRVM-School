@@ -17,7 +17,7 @@
 export function determineStrapiUrl(context) {
   const subdomain = context.req?.headers?.host ? context.req?.headers?.host : context;
 
-  console.log("gp", subdomain)
+  // console.log("gp", subdomain)
 
   let apiUrl;
   if (subdomain.includes('localhost')) {

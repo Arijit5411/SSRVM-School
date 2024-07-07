@@ -1,3 +1,4 @@
+import { determineStrapiUrl } from '@/utils/strapiUtils';
 import nodemailer from 'nodemailer';
 
 export default async function handler(req, res) {
@@ -11,6 +12,7 @@ export default async function handler(req, res) {
     const response = await fetch(`${siteUrl}/api/email`)
     const data = await response.json()
     const mailList = data?.data?.attributes?.Career
+    // const mailList = "subhajit.karmakar@teampumpkin.com"
 
     const {
         categoryNew,

@@ -67,7 +67,7 @@ const CareerForm = ({siteUrl,data1}) => {
 
 
   const validationSchema = Yup.object({
-    category: Yup.string().required("Category is required"),
+    categoryNew: Yup.string().required("Category is required"),
     position: Yup.string().required("Position is required"),
     locationSelect: Yup.string().required("Preferred Location is required"),
     fname: Yup.string().required("Full Name is required"),
@@ -133,6 +133,7 @@ const CareerForm = ({siteUrl,data1}) => {
         }
       ),
   });
+  
   const onSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
       const resumeData = await fileUpload(values.resume);
@@ -316,9 +317,9 @@ console.log('data in ca',data1)
                         <option value="Marketing">Marketing</option>
                         <option value="Finance">Finance</option> */}
                       </select>
-                      {formik.touched.category && formik.errors.category && (
+                      {formik.touched.categoryNew && formik.errors.categoryNew && (
                         <div className="error-message ms-3">
-                          {formik.errors.category}
+                          {formik.errors.categoryNew}
                         </div>
                       )}
                     </div>
