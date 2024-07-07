@@ -91,7 +91,7 @@ const CareerForm = ({siteUrl,data1}) => {
       "Select at least one Preferred Location"
     ),
     whyJoin: Yup.string().required("Why do you want to join is required"),
-    salaryExp: Yup.string().required("Salary Expectations is required"),
+    salaryExp: Yup.string(),
 
     resume: Yup.mixed()
       .required("Resume is required")
