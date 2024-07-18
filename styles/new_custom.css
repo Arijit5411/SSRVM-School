@@ -884,17 +884,6 @@ header.navbar-are {
 .home-popup-slider .slick-slide {
   height: inherit !important;
 }
-
-.home-auto-popup.popup-main {
-  /* background-color: rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(1px); */
-}
-
-.home-auto-popup .popup-container {
-  /* align-items: flex-start;
-  margin-top: 20vh; */
-}
-
 .home-auto-popup .popup-block {
   max-height: auto;
   overflow-x: hidden;
@@ -1040,18 +1029,6 @@ section.award-s1 h2 {
 }
 
 /* ----------------------------award-popup */
-
-/* styles/style.css */
-/* .modal-backdrop-custom {
-  position: fixed;
-  inset: 0;
-  z-index: 1050;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(0, 0, 0, 0.5);
-} */
-
 .modal-backdrop-custom {
   position: fixed;
   top: 0;
@@ -1068,43 +1045,32 @@ section.award-s1 h2 {
   opacity: 1;
   visibility: visible;
 }
-
-/* .modal-content-custom .modal-cont-g3{
-overflow-y: scroll;
-} */
-
 .modal-content-custom h2 {
   font-size: 30px !important;
 }
-
-.modal-content-custom {
-  position: relative;
-  width: 100%;
-  max-width: 600px;
-  padding: 2rem;
-  background-color: #fff;
-  border-radius: 0.5rem;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
 .modal-backdrop-custom .modal-content-custom {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
   top: -100%;
   background-color: white;
-  padding: 14px 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  max-height: 80vh;
-  max-width: 600px;
-  width: calc(100% - 30px);
   position: relative;
   transition: all 0.5s ease-in-out;
+  max-width: 600px;
+  width: calc(100% - 30px);
 }
+.modal-backdrop-custom .modal-content-custom .modal-content-inner{
+  padding: 14px 20px;
+  max-height: 80vh;
+  overflow-y: auto;
+  text-align: center;
+}
+
 .modal-backdrop-custom.active .modal-content-custom {
-  top: 16%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   transition-delay: 100ms;
 }
 
@@ -1124,18 +1090,4 @@ overflow-y: scroll;
   width: auto;
   margin-bottom: 1rem;
   border-radius: 0.5rem;
-}
-
-.close-modal-button-custom {
-  margin-top: 1rem;
-  background-color: #007bff;
-  color: #fff;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 0.25rem;
-  cursor: pointer;
-}
-
-.close-modal-button-custom:hover {
-  background-color: #0056b3;
 }
