@@ -33,19 +33,47 @@ const Document = (props) => {
   );
 };
 
+// Document.getInitialProps = async (ctx) => {
+//   const initialProps = await ctx.defaultGetInitialProps(ctx);
+//   const { req } = ctx;
+//   const host = req.headers['host'];
+//   let seoData = null;
+
+//   try {
+//     const siteUrl = determineStrapiUrl(host);
+//     const res = await fetch(`${siteUrl}/api/seo`);
+//     if (res.ok) {
+//       seoData = await res.json();
+//     } else {
+//       console.error("Error fetching SEO data:", res.statusText);
+//     }
+//   } catch (error) {
+//     console.error("Error fetching SEO data:", error.message);
+//   }
+
+//   return { ...initialProps, seoData };
+// };
+
+
 Document.getInitialProps = async (ctx) => {
   const initialProps = await ctx.defaultGetInitialProps(ctx);
   const { req } = ctx;
-  const host = req.headers['host'];
-  let seoData = null;
 
+  let host = '';
+  if (req) {
+    host = req.headers['host'];
+  }
+
+  let seoData = null;
   try {
-    const siteUrl = determineStrapiUrl(host);
-    const res = await fetch(`${siteUrl}/api/seo`);
-    if (res.ok) {
-      seoData = await res.json();
-    } else {
-      console.error("Error fetching SEO data:", res.statusText);
+    if (host) {
+      const siteUrl = determineStrapiUrl(host);
+      const res = await fetch(`${siteUrl}/api/seo`);
+      if (res.ok) {
+        seoData = await res.json();
+      } else {
+        console.error("Error fetching SEO data:", res.statusText);
+      }
     }
   } catch (error) {
     console.error("Error fetching SEO data:", error.message);
@@ -54,51 +82,5 @@ Document.getInitialProps = async (ctx) => {
   return { ...initialProps, seoData };
 };
 
+
 export default Document;
-
-
-
-
-
-
-
-
-
-
-
-
-// import { Html, Head, Main, NextScript } from 'next/document';
-
-// const Document = (props) => {
-//   const { baseUrl } = props;
-
-//   return (
-//     <Html lang="en">
-//       <Head>
-//         <link href="https://www.dafontfree.net/embed/bWV0cm9wb2xpcy1yZWd1bGFyJmRhdGEvNTIvbS8xNTY4MDAvTWV0cm9wb2xpcy1SZWd1bGFyLm90Zg" rel="stylesheet" type="text/css" />
-//         {/* Font Awesome 6.4 */}
-//         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-//           integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-//           crossOrigin="anonymous" referrerPolicy="no-referrer" />
-//         <link href="https://db.onlinewebfonts.com/c/c02d97eb2b2899bdb0d87b182a64333d?family=Metropolis-Regular" rel="stylesheet" />
-//         <base href={baseUrl} />
-//       </Head>
-//       <body>
-//         <Main />
-//         <NextScript />
-//       </body>
-//     </Html>
-//   );
-// };
-
-// Document.getInitialProps = async (ctx) => {
-//   const initialProps = await ctx.defaultGetInitialProps(ctx);
-//   const { req } = ctx;
-//   const protocol = req.headers['x-forwarded-proto'] || 'http';
-//   const host = req.headers['host'];
-//   const baseUrl = `${protocol}://${host}`;
-
-//   return { ...initialProps, baseUrl };
-// };
-
-// export default Document;

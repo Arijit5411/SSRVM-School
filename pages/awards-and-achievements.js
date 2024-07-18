@@ -1,315 +1,459 @@
-import React, { Fragment, useState, useEffect } from "react";
-import NavBar from "../components/NavBar";
-import Footer from "../components/Footer";
-import Modal from "react-bootstrap/Modal";
-import "bootstrap/dist/css/bootstrap.min.css";
-import Head from "next/head";
+// import React, { useEffect, useState } from 'react';
+// import { determineStrapiUrl } from "@/utils/strapiUtils";
+// import Seo from "@/components/Seo";
+// import NavBar from '@/components/NavBar';
+// import Footer from '@/components/Footer';
+
+// export const getServerSideProps = async (context) => {
+//   try {
+//     const siteUrl = determineStrapiUrl(context);
+//     const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
+//     const res1 = await fetch(
+//       `${siteUrl}/api/awards-and-achievements?sort=id:desc&populate=*`
+//     );
+
+//     const data = await res.json();
+//     const data1 = await res1.json();
+
+//     return {
+//       props: {
+//         seodata: data?.data?.attributes?.Pages ?? {},
+//         awardsData: data1.data ?? [],
+//         siteUrl
+//       },
+//     }
+//   } catch (error) {
+//     console.error("Error fetching data:", error.message);
+
+//     return {
+//       props: {
+//         seodata: {},
+//         awardsData: [],
+//         siteUrl: ""
+//       },
+//     };
+//   }
+// };
+
+// const extractYear = (yearString) => parseInt(yearString.replace("year ", ""), 10);
+
+// const AwardAch = ({ seodata, awardsData, siteUrl }) => {
+//   const latestYear = Math.max(...awardsData.map(award => extractYear(award.attributes.year)));
+//   const latestYearAwards = awardsData.filter(award => extractYear(award.attributes.year) === latestYear);
+//   const initialAwardType = latestYearAwards.length > 0 ? latestYearAwards[0].attributes.award_type : 'individual award';
+
+//   const [awardTypeFilter, setAwardTypeFilter] = useState(initialAwardType);
+//   const [yearFilter, setYearFilter] = useState(latestYear);
+//   const [currentPage, setCurrentPage] = useState(1);
+//   const itemsPerPage = 8;
+
+//   // Filtered data based on awardTypeFilter and yearFilter
+//   const filteredData = awardsData.filter(
+//     (award) => award.attributes.award_type === awardTypeFilter && extractYear(award.attributes.year) === yearFilter
+//   );
+
+//   useEffect(() => {
+//     if (!filteredData.length) {
+//       setCurrentPage(1); // Reset to first page when filtered data is empty
+//     } else if (currentPage > Math.ceil(filteredData.length / itemsPerPage)) {
+//       setCurrentPage(1); // Reset to first page when current page exceeds new total pages
+//     }
+//   }, [awardTypeFilter, yearFilter, filteredData.length, currentPage]);
+
+//   // Calculate total pages based on filtered data length and items per page
+//   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+
+//   const handlePageChange = (page) => {
+//     setCurrentPage(page);
+//   };
+
+//   // Slice paginated data based on currentPage and itemsPerPage
+//   const paginatedData = filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
+//   return (
+//     <>
+//       <Seo SeoData={seodata} PageSlug={"awards-and-achievements"} />
+//       <NavBar siteUrl={siteUrl} />
+//       <main>
+//         <section className='award-s1'>
+//           <div className='container'>
+//             <div className='d-md-flex justify-content-between'>
+//               <h2 className=''>Awards and Achievements</h2>
+//               <div>
+//                 <div className='d-flex gap-4'>
+//                   <label>
+//                     <select value={awardTypeFilter} onChange={(e) => {
+//                       setAwardTypeFilter(e.target.value);
+//                       setCurrentPage(1); // Reset to first page whenever filters change
+//                     }}>
+//                       {awardsData.map((award, index) => (
+//                         <option key={index} value={award.attributes.award_type}>
+//                           {award.attributes.award_type}
+//                         </option>
+//                       ))}
+//                     </select>
+//                   </label>
+//                   <label>
+//                     <select value={yearFilter} onChange={(e) => {
+//                       setYearFilter(Number(e.target.value));
+//                       setCurrentPage(1); // Reset to first page whenever filters change
+//                     }}>
+//                       {awardsData.map((award, index) => (
+//                         <option key={index} value={extractYear(award.attributes.year)}>
+//                           {extractYear(award.attributes.year)}
+//                         </option>
+//                       ))}
+//                     </select>
+//                   </label>
+//                 </div>
+//               </div>
+//             </div>
+//             <div className='d-md-flex flex-wrap award-data-s1 pt-md-5'>
+//               {paginatedData.map((award, index) => (
+//                 <div key={index} className='col-lg-3'>
+//                   <img src={`${siteUrl}${award.attributes.image.data.attributes.url}`} alt={award.attributes.award_name} />
+
+//                   <h6 className='mt-md-4'>
+//                     {award.attributes.award_name} - {award.attributes.award_type} - {award.attributes.year}
+//                   </h6>
+//                   <p className='mt-md-2'>
+//                     {award.attributes.description}
+//                   </p>
+//                 </div>
+//               ))}
+//             </div>
+//             <div className='pagination'>
+//               <button
+//                 disabled={currentPage === 1}
+//                 onClick={() => handlePageChange(currentPage - 1)}
+//               >
+//                 Previous
+//               </button>
+//               {Array.from({ length: totalPages }, (_, index) => (
+//                 <button
+//                   key={index}
+//                   onClick={() => handlePageChange(index + 1)}
+//                   className={currentPage === index + 1 ? 'active' : ''}
+//                 >
+//                   {index + 1}
+//                 </button>
+//               ))}
+//               <button
+//                 disabled={currentPage === totalPages}
+//                 onClick={() => handlePageChange(currentPage + 1)}
+//               >
+//                 Next
+//               </button>
+//             </div>
+//           </div>
+//         </section>
+//       </main>
+//       <Footer siteUrl={siteUrl} />
+//     </>
+//   );
+// }
+
+// export default AwardAch;
 
 
 
+
+
+
+
+
+// import React, { useEffect, useState } from 'react';
+// import { determineStrapiUrl } from "@/utils/strapiUtils";
+// import Seo from "@/components/Seo";
+// import NavBar from '@/components/NavBar';
+// import Footer from '@/components/Footer';
+
+// export const getServerSideProps = async (context) => {
+//   try {
+//     const siteUrl = determineStrapiUrl(context);
+//     const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
+//     const res1 = await fetch(
+//       `${siteUrl}/api/awards-and-achievements?sort=id:desc&populate=*`
+//     );
+
+//     const data = await res.json();
+//     const data1 = await res1.json();
+
+//     return {
+//       props: {
+//         seodata: data?.data?.attributes?.Pages ?? {},
+//         awardsData: data1.data ?? [],
+//         siteUrl
+//       },
+//     }
+//   } catch (error) {
+//     console.error("Error fetching data:", error.message);
+
+//     return {
+//       props: {
+//         seodata: {},
+//         awardsData: [],
+//         siteUrl: ""
+//       },
+//     };
+//   }
+// };
+
+// const extractYear = (yearString) => parseInt(yearString.replace("year ", ""), 10);
+
+// const AwardAch = ({ seodata, awardsData, siteUrl }) => {
+//   const latestYear = Math.max(...awardsData.map(award => extractYear(award.attributes.year)));
+//   const latestYearAwards = awardsData.filter(award => extractYear(award.attributes.year) === latestYear);
+//   const initialAwardType = latestYearAwards.length > 0 ? latestYearAwards[0].attributes.award_type : 'individual award';
+
+//   const [awardTypeFilter, setAwardTypeFilter] = useState(initialAwardType);
+//   const [yearFilter, setYearFilter] = useState(latestYear);
+
+//   const filteredData = awardsData.filter(
+//     (award) => award.attributes.award_type === awardTypeFilter && extractYear(award.attributes.year) === yearFilter
+//   );
+
+//   const uniqueAwardTypes = [...new Set(awardsData.map(award => award.attributes.award_type))];
+//   const uniqueYears = [
+//     ...new Set(awardsData.filter(award => award.attributes.award_type === awardTypeFilter).map(award => extractYear(award.attributes.year)))
+//   ];
+
+//   useEffect(() => {
+//     if (!uniqueYears.includes(yearFilter)) {
+//       setYearFilter(uniqueYears[0]);
+//     }
+//   }, [awardTypeFilter, uniqueYears]);
+
+//   return (
+//     <>
+//       <Seo SeoData={seodata} PageSlug={"awards-and-achievements"} />
+//       <NavBar siteUrl={siteUrl} />
+//       <main>
+//         <section className='award-s1'>
+//           <div className='container'>
+//             <div className='d-md-flex justify-content-between'>
+//               <h2 className=''>Awards and Achievements</h2>
+//               <div>
+//                 <div className='d-flex gap-4'>
+//                   <label>
+//                     <select value={awardTypeFilter} onChange={(e) => setAwardTypeFilter(e.target.value)}>
+//                       {uniqueAwardTypes.map((type, index) => (
+//                         <option key={index} value={type}>
+//                           {type}
+//                         </option>
+//                       ))}
+//                     </select>
+//                   </label>
+//                   <label>
+//                     <select value={yearFilter} onChange={(e) => setYearFilter(Number(e.target.value))}>
+//                       {uniqueYears.map((year, index) => (
+//                         <option key={index} value={year}>
+//                           {year}
+//                         </option>
+//                       ))}
+//                     </select>
+//                   </label>
+//                 </div>
+//               </div>
+//             </div>
+//                 <div className='d-sm-flex flex-wrap award-data-s1 pt-md-5 justify-around'>
+//                   {filteredData.map((award, index) => (
+//                     <div key={index} className='col-sm-3 col-md-3'>
+//                       <img src={`${siteUrl}${award.attributes.image.data.attributes.url}`} alt={award.attributes.award_name} />
+
+//                       <h6 className='mt-4'>
+//                         {award.attributes.award_name} - {award.attributes.award_type} - {award.attributes.year}
+//                       </h6>
+//                       <p className=' mt-2'>
+//                         {award.attributes.description}
+//                       </p>
+//                     </div>
+//                   ))}
+//                 </div>
+//           </div>
+//         </section>
+//       </main>
+//       <Footer siteUrl={siteUrl} />
+//     </>
+//   )
+// }
+
+// export default AwardAch;
+
+
+
+
+
+
+import React, { useEffect, useState } from 'react';
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from "@/components/Seo";
+import NavBar from '@/components/NavBar';
+import Footer from '@/components/Footer';
+import ModalAward from '@/components/Popups/ModalAward';
 
 export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);
     const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
-  const res1 = await fetch(
-    `${siteUrl}/api/awards-and-achievements?sort=id:desc&populate=*`
-  );
+    const res1 = await fetch(
+      `${siteUrl}/api/awards-and-achievements?sort=id:desc&populate=*`
+    );
 
-  const data = await res.json();
-  const data1 = await res1.json();
+    const data = await res.json();
+    const data1 = await res1.json();
 
-  return {
-    props: {
-      seodata: data?.data?.attributes?.Pages ?? {},
-      awardsData: data1,
-      siteUrl
-    },
+    return {
+      props: {
+        seodata: data?.data?.attributes?.Pages ?? {},
+        awardsData: data1.data ?? [],
+        siteUrl
+      },
+    }
+  } catch (error) {
+    console.error("Error fetching data:", error.message);
+
+    return {
+      props: {
+        seodata: {},
+        awardsData: [],
+        siteUrl: ""
+      },
+    };
   }
-} catch (error) {
-  console.error("Error fetching data:", error.message);
-
-  return {
-    props: {
-      data: [],
-    },
-  };
-}
 };
 
-const Awards_And_Achievements = ({ seodata, awardsData,siteUrl }) => {
-  const [selectedOption, setSelectedOption] = useState("school award");
-  const [selectedYear, setSelectedYear] = useState("year 2023");
-  const [showModal, setShowModal] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [awardsAndAchievements, setAwardsAndAchievements] = useState([]);
+const extractYear = (yearString) => parseInt(yearString.replace("year ", ""), 10);
+
+const AwardAch = ({ seodata, awardsData, siteUrl }) => {
+  const initialPageSize = 8; // Number of items per page
   const [currentPage, setCurrentPage] = useState(1);
- 
+  const [awardTypeFilter, setAwardTypeFilter] = useState('');
+  const [yearFilter, setYearFilter] = useState('');
 
-  const awardsPerPage = 8; // Number of awards per page
-
-  // Declare filteredAwards here
-  const filteredAwards = awardsAndAchievements.filter(
-    (award) =>
-      award.attributes.year === selectedYear &&
-      award.attributes.award_type === selectedOption
+  // Filtering logic based on filters
+  const filteredData = awardsData.filter(
+    (award) => (!awardTypeFilter || award.attributes.award_type === awardTypeFilter) &&
+      (!yearFilter || extractYear(award.attributes.year) === yearFilter)
   );
 
+  // Pagination logic
+  const pageSize = initialPageSize;
+  const totalPages = Math.ceil(filteredData.length / pageSize);
+
+  // Calculate data to display based on pagination
+  const startIndex = (currentPage - 1) * pageSize;
+  const displayedData = filteredData.slice(startIndex, startIndex + pageSize);
+
+  // Unique filter options
+  const uniqueAwardTypes = [...new Set(awardsData.map(award => award.attributes.award_type))];
+  const uniqueYears = [
+    ...new Set(awardsData.filter(award => award.attributes.award_type === awardTypeFilter).map(award => extractYear(award.attributes.year)))
+  ];
+
+  // Effect to reset page when filters change
   useEffect(() => {
-   
-    if (awardsData && awardsData?.data && awardsData?.data?.length > 0) {
-      setAwardsAndAchievements(awardsData?.data);
+    setCurrentPage(1);
+  }, [awardTypeFilter, yearFilter]);
+
+
+  const scrollTo = () => {
+    const section = document.getElementById('section-id');
+
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
     }
-  }, []);
+  }
 
-  
-  const renderContent = () => {
-    // Use filteredAwards here
-    const indexOfLastAward = currentPage * awardsPerPage;
-    const indexOfFirstAward = indexOfLastAward - awardsPerPage;
-    const currentAwards = filteredAwards.slice(
-      indexOfFirstAward,
-      indexOfLastAward
-    );
+  const [showModal, setShowModal] = useState(false);
+  const [selectedAward, setSelectedAward] = useState(null);
 
-    return (
-      <div className="row">
-        {currentAwards.map((award, index) => (
-          <div
-            className="col-lg-3"
-            key={index}
-            onClick={() =>
-              handleImageClick(
-                `${siteUrl}${award.attributes.image.data.attributes.url}`
-              )
-            }
-          >
-            <div className="card wrap-news">
-              <img
-                src={`${siteUrl}${award?.attributes?.image?.data?.attributes?.url}`}
-                className="wrap-img-top1 wrap-side-award"
-                alt="..."
-              />
-              <div className="card-body">
-                <p className="card-text-award">
-                  {award.attributes.award_name}
-                </p>
-                <p className="">
-                  {award.attributes.description}
-                </p>
-              </div>
-             
-            </div>
-          </div>
-        ))}
-      </div>
-    );
-  };
-
-  const paginate = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
-
-  const handlePrevPage = () => {
-    if (currentPage > 1) {
-      paginate(currentPage - 1);
-    }
-  };
-
-  const handleNextPage = () => {
-    if (currentPage < Math.ceil(filteredAwards.length / awardsPerPage)) {
-      paginate(currentPage + 1);
-    }
-  };
-
-  // Function to handle clicking on an image
-  const handleImageClick = (image) => {
-    setSelectedImage(image);
+  const handleAwardClick = (award) => {
+    setSelectedAward({
+      award_name: award.attributes.award_name,
+      award_type: award.attributes.award_type,
+      year: award.attributes.year,
+      description: award.attributes.description,
+      imageUrl: `${siteUrl}${award.attributes.image.data.attributes.url}`,
+    });
     setShowModal(true);
   };
 
-  // Function to handle changing the award type
-  const handleChange = (event) => {
-    setSelectedOption(event.target.value);
-  };
 
-  // Function to handle changing the selected year
-  const handleYearChange = (event) => {
-    setSelectedYear(event.target.value);
-  };
-
-  // Function to close the modal
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
 
   return (
     <>
-      <Fragment>
       <Seo SeoData={seodata} PageSlug={"awards-and-achievements"} />
-        <NavBar siteUrl={siteUrl}/>
-        <div className="desktophide">
-          <section>
-            <div className="container">
-              <div className="wrap-item-text1 news-item">
-                <h1 className="wrap-award-heading">Awards and Achievements</h1>
-                <div className="award-dropdown">
-                  <div>
-                    <select
-                      value={selectedOption}
-                      onChange={handleChange}
-                      className="drop"
-                    >
-                      <option value="school award">School Awards</option>
-                      <option value="individual award">
-                        Individual Awards
+      <NavBar siteUrl={siteUrl} />
+      <main>
+        <section className='award-s1' id='section-id' style={{ backgroundImage: `url('/assets/img/award_bg.jpg')`, width: `100%`, backgroundPosition: 'top-center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}>
+          <div className='container'>
+            <div className='d-md-flex justify-content-between mb-4 mb-md-5'>
+              <h2 className=''>Awards and Achievements</h2>
+              <div className='d-flex justify-content-center justify-content-md-start align-items-center gap-4'>
+                <label>
+                  <select className='text-capitalize' value={awardTypeFilter} onChange={(e) => setAwardTypeFilter(e.target.value)}>
+                    <option value="">All Types</option>
+                    {uniqueAwardTypes.map((type, index) => (
+                      <option key={index} value={type}>
+                        {type}
                       </option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <select
-                      value={selectedYear}
-                      onChange={handleYearChange}
-                      className="drop"
-                    >
-                      {Array.from(
-                        new Set(
-                          awardsAndAchievements.map(
-                            (award) => award.attributes.year
-                          )
-                        )
-                      )
-                        .map((year) => parseInt(year.split(" ")[1])) // Extract and parse the year
-                        .sort((yearA, yearB) => yearB - yearA) // Sort in descending order
-                        .map((sortedYear) => (
-                          <option key={sortedYear} value={`year ${sortedYear}`}>
-                            {sortedYear}
-                          </option>
-                        ))}
-                    </select>
-                  </div>
-                </div>
+                    ))}
+                  </select>
+                </label>
+                <label>
+                  <select value={yearFilter} onChange={(e) => setYearFilter(Number(e.target.value))}>
+                    <option value="">All Years</option>
+                    {uniqueYears.map((year, index) => (
+                      <option key={index} value={year}>
+                        {year}
+                      </option>
+                    ))}
+                  </select>
+                </label>
               </div>
             </div>
-          </section>
-          <section className="container">
-            {renderContent()}
-            <div className="pagination-blog">
-              {currentPage > 1 && (
-                <button onClick={handlePrevPage}>&larr; Prev</button>
-              )}
+            <div className='row g-4 award-data-s1 justify-around'>
+              {displayedData.map((award, index) => (
+                <div key={index} className='col-sm-3 cursor-pointer col-md-3' onClick={() => handleAwardClick(award)}>
+                  <img src={`${siteUrl}${award.attributes.image.data.attributes.url}`} alt={award.attributes.award_name} />
 
-              {Array.from(
-                { length: Math.ceil(filteredAwards.length / awardsPerPage) },
-                (_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => paginate(index + 1)}
-                    className={currentPage === index + 1 ? "active" : ""}
-                  >
-                    {index + 1}
-                  </button>
-                )
-              )}
-
-              {currentPage <
-                Math.ceil(filteredAwards.length / awardsPerPage) && (
-                <button onClick={handleNextPage}>Next &rarr;</button>
-              )}
-            </div>
-          </section>
-        </div>
-        <div className="top-section36 mobilehide">
-          <section className="wrap-item-principal-se1">
-            <div className="container">
-              <div className="wrap-item-text1 news-item displayFlex">
-                <h1 className="wrap-award-heading">Awards and Achievements</h1>
-                <div className="award-dropdown">
-                  <div>
-                    <select
-                      value={selectedOption}
-                      onChange={handleChange}
-                      className="drop"
-                    >
-                      <option value="school award">School Awards</option>
-                      <option value="individual award">
-                        Individual Awards
-                      </option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <select
-                      value={selectedYear}
-                      onChange={handleYearChange}
-                      className="drop"
-                    >
-                      {Array.from(
-                        new Set(
-                          awardsAndAchievements.map(
-                            (award) => award.attributes.year
-                          )
-                        )
-                      )
-                        .map((year) => parseInt(year.split(" ")[1])) // Extract and parse the year
-                        .sort((yearA, yearB) => yearB - yearA) // Sort in descending order
-                        .map((sortedYear) => (
-                          <option key={sortedYear} value={`year ${sortedYear}`}>
-                            {sortedYear}
-                          </option>
-                        ))}
-                    </select>
-                  </div>
+                  <h6 className='mt-4'>
+                    {award.attributes.award_name} - {award.attributes.award_type} - {award.attributes.year}
+                  </h6>
+                  <p className=' mt-2'>
+                    {award.attributes.description}
+                  </p>
                 </div>
+              ))}
+            </div>
+
+            <ModalAward showModal={showModal} setShowModal={setShowModal} award={selectedAward} />
+
+            {/* Pagination controls */}
+            {totalPages > 1 && (
+              <div className="pagination d-flex justify-content-center align-items-center gap-4">
+                <button
+                  className={`${currentPage === 1 ? 'btn-disabled' : ''} page-btn-d2`}
+                  onClick={() => { scrollTo(); setCurrentPage(currentPage - 1); }}
+                >
+                  <i class="fa-solid fa-arrow-left-long"></i>
+                </button>
+                <span>Page {currentPage} of {totalPages}</span>
+                <button
+                  className={`${currentPage === totalPages ? 'btn-disabled' : ''} page-btn-d2`}
+                  onClick={() => { scrollTo(); setCurrentPage(currentPage + 1); }}
+                >
+                  <i class="fa-solid fa-arrow-right-long"></i>
+                </button>
               </div>
-            </div>
-          </section>
-          <section className="container wrap-news-sec-award">
-            {renderContent()}
-            <div className="pagination-blog">
-              {currentPage > 1 && (
-                <button onClick={handlePrevPage}>&larr; Prev</button>
-              )}
-
-              {Array.from(
-                { length: Math.ceil(filteredAwards.length / awardsPerPage) },
-                (_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => paginate(index + 1)}
-                    className={currentPage === index + 1 ? "active" : ""}
-                  >
-                    {index + 1}
-                  </button>
-                )
-              )}
-
-              {currentPage <
-                Math.ceil(filteredAwards.length / awardsPerPage) && (
-                <button onClick={handleNextPage}>Next &rarr;</button>
-              )}
-            </div>
-          </section>
-        </div>
-        <Footer siteUrl={siteUrl}/>
-        <Modal
-          show={showModal}
-          onHide={handleCloseModal}
-          dialogClassName="modal-fullscreen awa-img"
-          onClick={handleCloseModal}
-        >
-          <Modal.Body>
-            <div className="d-flex justify-contetn-center align-items-center">
-              <img src={selectedImage} className="modal-image" alt="..." />
-            </div>
-          </Modal.Body>
-        </Modal>
-      </Fragment>
+            )}
+          </div>
+        </section>
+      </main>
+      <Footer siteUrl={siteUrl} />
     </>
-  );
-};
+  )
+}
 
-export default Awards_And_Achievements;
+export default AwardAch;
