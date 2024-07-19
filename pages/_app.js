@@ -1,21 +1,4 @@
-import "bootstrap/dist/css/bootstrap.min.css"
-import "animate.css"
-import "slick-carousel/slick/slick.css"
-import "slick-carousel/slick/slick-theme.css"
-import '@/styles/scss/style.scss'
-import RouteScrollToTop from '@/elements/RouteScrollToTop'
-import ScrollToTop from 'react-scroll-to-top'
-import { useEffect } from 'react'
-import AOS from "aos";
-import "aos/dist/aos.css";
-import '../styles/default.css'
-import '../styles/new_custom.css'
-import '../node_modules/react-datetime/css/react-datetime.css'
-import '../node_modules/react-toastify/dist/ReactToastify.css'
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import Script from "next/script"
-import { useRouter } from "next/router"
+
 
 const sitesData = [
   { siteUrl: "https://dahod.ssrvm.org", gtagId: "G-P2D8SRKKBD" },
@@ -100,40 +83,86 @@ const sitesData = [
   { siteUrl: "https://cuttack.ssa.org.in", gtagId: "G-7LHVNFKPQF" },
 ]
 
+
+
+import "bootstrap/dist/css/bootstrap.min.css";
+import "animate.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import '@/styles/scss/style.scss';
+import RouteScrollToTop from '@/elements/RouteScrollToTop';
+import ScrollToTop from 'react-scroll-to-top';
+import { useEffect } from 'react';
+import AOS from "aos";
+import "aos/dist/aos.css";
+import '../styles/default.css';
+import '../styles/new_custom.css';
+import '../node_modules/react-datetime/css/react-datetime.css';
+import '../node_modules/react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Script from "next/script";
+import { useRouter } from "next/router";
+
 export default function App({ Component, pageProps }) {
-  const api = "api"
-  let site_url = pageProps?.siteUrl?.split(api)?.join("")
+
+  let site_url = pageProps?.siteUrl?.split('/_s')?.join("");
 
   useEffect(() => {
-    import("bootstrap/dist/js/bootstrap")
+    import("bootstrap/dist/js/bootstrap");
     AOS.init({
       offset: 0,
       easing: "ease",
       once: true,
     });
     AOS.refresh();
-  }, [])
+  }, []);
 
   const siteMap = new Map(sitesData.map(obj => [obj.siteUrl, obj]));
-  const { gtagId } = siteMap.has(site_url) ? siteMap.get(site_url) : { siteUrl: null, gtagId: null }
+  const { gtagId } = siteMap.has(site_url) ? siteMap.get(site_url) : { siteUrl: null, gtagId: null };
+
   return (
     <>
       <ToastContainer />
       <RouteScrollToTop />
-      {gtagId !== null && <LoadScript gtagId={gtagId} />}
+      {/* {gtagId !== null && <LoadScript gtagId={'G-P2D8SRKKBD'} />} */}
+      <LoadScript gtagId={'G-P2D8SRKKBD'} />
       <Component {...pageProps} />
       <ScrollToTop smooth color='#210D7D' />
     </>
-  )
+  );
 }
 
-const LoadScript = (props) => (<Script async src={`https://www.googletagmanager.com/gtag/js?id=${props?.gtagId}`}>
-  {
-    `  window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments)}
+const LoadScript = ({ gtagId }) => (
+  <>
+    <script
+      async
+      src={`https://www.googletagmanager.com/gtag/js?id=${gtagId}`}
+    ></script>
+    <script
+      dangerouslySetInnerHTML={{
+        __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', ${props?.gtagId});
-         `
-  }
-</Script>)
+              gtag('config', ${gtagId});
+            `,
+      }}
+    />
+  </>
+);
 
+
+
+
+
+// const LoadScript = (props) => (
+// <script async src={`https://www.googletagmanager.com/gtag/js?id=${props?.gtagId}`}>
+//   {
+//     // `  window.dataLayer = window.dataLayer || [];
+//     //           function gtag(){dataLayer.push(arguments)}
+//     //           gtag('js', new Date());
+//     //           gtag('config', ${props?.gtagId});
+//     //      `
+//   }
+// </script>)
