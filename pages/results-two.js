@@ -8,26 +8,26 @@ import { determineStrapiUrl } from "@/utils/strapiUtils";
 export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);
-  const res = await fetch(`${siteUrl}/api/result2?populate=*`);
-  const data = await res.json();
-  return {
-    props: {
-      chart: data?.data,
-      siteUrl
-    },
-  };
-} catch (error) {
-  console.error("Error fetching data:", error.message);
+    const res = await fetch(`${siteUrl}/api/result2?populate=*`);
+    const data = await res.json();
+    return {
+      props: {
+        chart: data?.data,
+        siteUrl
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching data:", error.message);
 
-  return {
-    props: {
-      data: [],
-    },
-  };
-}
+    return {
+      props: {
+        data: [],
+      },
+    };
+  }
 };
 
-const Results_two = ({ chart,siteUrl }) => {
+const Results_two = ({ chart, siteUrl }) => {
   const [piechartData, setPiechartData] = useState([]);
 
   const [title, setTitle] = useState([]);
@@ -61,7 +61,7 @@ const Results_two = ({ chart,siteUrl }) => {
   console.log("data in ", piechartData);
   return (
     <>
-      <NavBar siteUrl={siteUrl}/>
+      <NavBar siteUrl={siteUrl} />
       <Fragment>
         <div className="top-section1">
           <div className="container">
@@ -99,11 +99,11 @@ const Results_two = ({ chart,siteUrl }) => {
             </div>
           </div>
           <section>
-            <OurToppers />
+            <OurToppers siteUrl={siteUrl} />
           </section>
 
           <section className="container wrap-item-1 mb-5">
-            <DownloadResult siteUrl={siteUrl}/>
+            <DownloadResult siteUrl={siteUrl} />
           </section>
         </div>
         <Footer />
