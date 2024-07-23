@@ -126,7 +126,7 @@ export default function App({ Component, pageProps }) {
       <ToastContainer />
       <RouteScrollToTop />
       {/* {gtagId !== null && <LoadScript gtagId={'G-P2D8SRKKBD'} />} */}
-      <LoadScript gtagId={'G-P2D8SRKKBD'} />
+      <LoadScript gtagId={gtagId} />
       <Component {...pageProps} />
       <ScrollToTop smooth color='#210D7D' />
     </>
