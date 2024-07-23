@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 
+
 import Head from "next/head";
 // import Seo from './Seo';
 
@@ -151,7 +152,7 @@ const SchoolCurriculum = ({ seodata, schoolCurr, siteUrl }) => {
                 <div className="col-lg-6">
                   <h2 className="title">{heading_1}</h2>
                   <ReactMarkdown
-                    rehypePlugins={[rehypeRaw]}                  
+                    rehypePlugins={[rehypeRaw]}
                   >                 
                     {paragraph_1}</ReactMarkdown>
                 </div>
@@ -174,7 +175,10 @@ const SchoolCurriculum = ({ seodata, schoolCurr, siteUrl }) => {
                 </div>
                 <div className="col-lg-6">
                   <h2 className="title">{heading_2}</h2>
-                  <p>{paragraph_2}</p>
+                  <ReactMarkdown
+                    rehypePlugins={[rehypeRaw]}
+                  >                 
+                    {paragraph_2}</ReactMarkdown>
                 </div>
               </div>
             </div>
