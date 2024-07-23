@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import ReactMarkdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
 
 import Head from "next/head";
 // import Seo from './Seo';
@@ -41,7 +42,7 @@ export const getServerSideProps = async (context) => {
 const SchoolCurriculum = ({ seodata, schoolCurr, siteUrl }) => {
   const [schoolCurriculum, setSchoolCurriculum] = useState(null);
   const [syllabus, setSyllabus] = useState([]);
- 
+
 
   useEffect(() => {
     // fetch(`${siteUrl}/api/school-curriculum-pages?populate=*`)
@@ -58,7 +59,7 @@ const SchoolCurriculum = ({ seodata, schoolCurr, siteUrl }) => {
     }
   }, []);
 
-  
+
 
   const pageTitle = `${schoolCurriculum?.page_title}`;
   const heading_1 = `${schoolCurriculum?.heading_1}`;
@@ -135,11 +136,11 @@ const SchoolCurriculum = ({ seodata, schoolCurr, siteUrl }) => {
 
   return (
     <>
-          <Seo SeoData={seodata} PageSlug={"school-curriculum"} />
+      <Seo SeoData={seodata} PageSlug={"school-curriculum"} />
 
       <Fragment>
         <NavBar siteUrl={siteUrl} />
-        
+
         <div className="top-section1-new">
           <div className="container">
             <h1 className="principal-mess">{pageTitle}</h1>
@@ -149,8 +150,10 @@ const SchoolCurriculum = ({ seodata, schoolCurr, siteUrl }) => {
               <div className="row">
                 <div className="col-lg-6">
                   <h2 className="title">{heading_1}</h2>
-
-                  <ReactMarkdown>{paragraph_1}</ReactMarkdown>
+                  <ReactMarkdown
+                    rehypePlugins={[rehypeRaw]}                  
+                  >                 
+                    {paragraph_1}</ReactMarkdown>
                 </div>
                 <div className="col-lg-6">
                   <img

@@ -7,7 +7,6 @@ import AdmissionFaq from "../components/admissionFaq";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import ReactMarkdown from "react-markdown";
-
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from "@/components/Seo";
 
@@ -55,10 +54,10 @@ const Admissions = ({
   const router = useRouter();
   const [routeActive, setRouteActive] = useState("Procedure");
   const [admissions, setAdmissions] = useState(null);
- 
+
 
   useEffect(() => {
-   
+
     if (
       (admissionsData, admissionsData?.data && admissionsData?.data?.length > 0)
     ) {
@@ -67,7 +66,7 @@ const Admissions = ({
     }
   }, []);
 
- 
+
 
   useEffect(() => {
     if (router.asPath === "/admissions#admission_faq") {
@@ -120,7 +119,7 @@ const Admissions = ({
   const value4 = `${admissions?.value4}`;
 
   const [selectedOption, setSelectedOption] = useState(
-    t_class?.length>0?t_class[0]?.attributes?.name : "Junior KG"
+    t_class?.length > 0 ? t_class[0]?.attributes?.name : "Junior KG"
   );
 
   const handleChange = (event) => {
@@ -318,12 +317,12 @@ const Admissions = ({
   };
 
   const Render = ({ selectedOption }) => {
-    
-    let arr = tab_content?.length>0 ?tab_content[0]?.attributes?.procedure_content?.filter(pc=> { 
-      if(Array.isArray(pc?.school_total_class?.data)) {
-       return pc?.school_total_class?.data?.map(d=>d?.attributes?.name).includes(selectedOption)
+
+    let arr = tab_content?.length > 0 ? tab_content[0]?.attributes?.procedure_content?.filter(pc => {
+      if (Array.isArray(pc?.school_total_class?.data)) {
+        return pc?.school_total_class?.data?.map(d => d?.attributes?.name).includes(selectedOption)
       } else {
-       return pc?.school_total_class?.data?.attributes?.name === selectedOption
+        return pc?.school_total_class?.data?.attributes?.name === selectedOption
       }
     }) : []
     // let arr = tab_content?.length > 0 ? tab_content[0]?.attributes?.procedure_content?.filter(pc => pc?.school_total_class?.data?.attributes?.name === selectedOption) : [];
@@ -360,7 +359,7 @@ const Admissions = ({
       <Seo SeoData={seodata} PageSlug={"admissions"} />
 
       <Fragment>
-       
+
         <NavBar siteUrl={siteUrl} />
         <div className="top-section1-new">
           <div className="container">
@@ -372,9 +371,7 @@ const Admissions = ({
                 <div className="col-lg-6">
                   <h4 className="title">{subheading_admission}</h4>
 
-                  <p>
-                    {para_1}
-                  </p>
+                  <div dangerouslySetInnerHTML={{ __html: para_1 }} />
 
                   <div>
                     <button
