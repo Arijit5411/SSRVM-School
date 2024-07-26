@@ -8,6 +8,7 @@ import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from "@/components/Seo";
 
 export const getServerSideProps = async (context) => {
+
   try {
     const siteUrl = determineStrapiUrl(context);
     const { slug } = context.params;

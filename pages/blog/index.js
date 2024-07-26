@@ -3,7 +3,6 @@ import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
 import Link from "next/link";
 const postsPerPage = 6; 
-
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from "@/components/Seo";
 

@@ -144,7 +144,8 @@ const SchoolCurriculum = ({ seodata, schoolCurr, siteUrl }) => {
 
         <div className="top-section1-new">
           <div className="container">
-            <h1 className="principal-mess">{pageTitle}</h1>
+            <h1 className="d-none">Admission</h1>
+            <h2 className="principal-mess">{pageTitle}</h2>
           </div>
           <section>
             <div className="container marginTopHeader">
