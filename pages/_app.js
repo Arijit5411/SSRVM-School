@@ -5,7 +5,7 @@ const sitesData = [
   { siteUrl: "https://osmanabad.ssrvm.org", gtagId: "G-3J9TZFDPL5" },
   { siteUrl: "https://cochin.ssrvm.org", gtagId: "G-P7T823N846" },
   { siteUrl: "https://thrissur.ssrvm.org", gtagId: "G-9CYCFMZZFS" },
-  { siteUrl: "https://indore.ssrvm.org", gtagId: "G-S7D8PXLCBY" },
+  { siteUrl: "https://indore.ssrvm.org", gtagId: "G-S7D8PXLCBY", gtmId: "GTM-PCG5Q78G" },
   { siteUrl: "https://moshi.ssrvm.org", gtagId: "G-155BE9KBJY" },
   { siteUrl: "https://noida.ssrvm.org", gtagId: "G-F165X86BQ0" },
   { siteUrl: "https://shrirampur.ssrvm.org", gtagId: "G-LBLPMSN3Z9" },
@@ -103,6 +103,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Script from "next/script";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 export default function App({ Component, pageProps }) {
 
@@ -119,10 +120,37 @@ export default function App({ Component, pageProps }) {
   }, []);
 
   const siteMap = new Map(sitesData.map(obj => [obj.siteUrl, obj]));
-  const { gtagId } = siteMap.has(site_url) ? siteMap.get(site_url) : { siteUrl: null, gtagId: null };
+  const { gtagId, gtmId } = siteMap.has(site_url) ? siteMap.get(site_url) : { siteUrl: null, gtagId: null };
 
   return (
     <>
+      <Head>
+        {gtmId &&
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;f.parentNode.insertBefore(j,f);
+                })(window,document,'script','dataLayer', '${gtmId}');
+              `,
+            }}
+          />
+        }
+      </Head>
+
+      {gtmId &&
+        <noscript>
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
+            height="0"
+            width="0"
+            style={{ display: 'none', visibility: 'hidden' }}
+          />
+        </noscript>
+      }
+
       <ToastContainer />
       <RouteScrollToTop />
       {/* {gtagId !== null && <LoadScript gtagId={'G-P2D8SRKKBD'} />} */}

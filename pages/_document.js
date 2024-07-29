@@ -10,7 +10,7 @@ const Document = (props) => {
   return (
     <Html lang="en">
       <Head>
-      <script
+      {/* <script
             dangerouslySetInnerHTML={{
               __html: `
                 (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -20,7 +20,7 @@ const Document = (props) => {
                 })(window,document,'script','dataLayer','GTM-PCG5Q78G');
               `,
             }}
-          />
+          /> */}
         <link href="https://www.dafontfree.net/embed/bWV0cm9wb2xpcy1yZWd1bGFyJmRhdGEvNTIvbS8xNTY4MDAvTWV0cm9wb2xpcy1SZWd1bGFyLm90Zg" rel="stylesheet" type="text/css" />
         {/* Font Awesome 6.4 */}
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -37,14 +37,14 @@ const Document = (props) => {
         )}
       </Head>
       <body>
-      <noscript>
+      {/* <noscript>
             <iframe
               src={`https://www.googletagmanager.com/ns.html?id=GTM-PCG5Q78G`}
               height="0"
               width="0"
               style={{ display: 'none', visibility: 'hidden' }}
             />
-          </noscript>
+          </noscript> */}
         <Main />
         <NextScript />
       </body>
