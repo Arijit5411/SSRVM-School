@@ -1,12 +1,68 @@
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 
+const getPriority = (url) => {
+    if (url === '/') return 1.0;
+    if (url.startsWith('/blog')) return 0.9;
+    if (url.startsWith('/events')) return 0.8;
+    if (url.startsWith('/news')) return 0.7;
+    if (url.startsWith('/global')) return 0.7;
+    if (url.startsWith('/individual-activities')) return 0.6;
+    if (url.startsWith('/state-facility')) return 0.5;
+    if (url.startsWith('/others')) return 0.4;
+    return 0.5; // default priority for other pages
+};
 
+const generateSitemap = (baseUrl, allUrls) => {
+    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+        <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+            ${allUrls
+                .map((url) => {
+                    const priority = getPriority(url);
+                    return `
+                        <url>
+                            <loc>${baseUrl}${url}</loc>
+                            <changefreq>weekly</changefreq>
+                            <priority>${priority}</priority>
+                        </url>
+                    `;
+                })
+                .join('')}
+        </urlset>`;
+    return sitemap;
+};
 
+const Sitemap = () => {
+    return null;
+};
 
-const generateSitemap = (baseUrl, blogUrls, eventUrls, newsUrls, globalEventsUrls, globalBlogsUrls, indiActUrls, stateFacUrls, otherUrls) => {
+const fetchUrls = async (apiEndpoint, pathPrefix, baseUrl) => {
+    try {
+        const res = await fetch(apiEndpoint);
+        const contentType = res.headers.get("content-type");
+        if (!contentType || !contentType.includes("application/json")) {
+            console.error(`Expected JSON, but got ${contentType}`);
+            return [];
+        }
+        const data = await res.json();
+        return data.data.map(item => `${baseUrl}${pathPrefix}/${item.attributes.slug}`);
+    } catch (error) {
+        console.error(`Error fetching ${apiEndpoint}:`, error);
+        return [];
+    }
+};
 
-    // const baseUrl = process.env.BASE_URL || 'https://ssrvmtrust.org';
-   
+export async function getServerSideProps({ res }) {
+    const strapiUrl = determineStrapiUrl(res);
+    const baseUrl = `https://${res.req?.headers?.host}`;
+
+    const blogUrls = await fetchUrls(`${strapiUrl}/api/blogs`, '/blog', baseUrl);
+    const eventUrls = await fetchUrls(`${strapiUrl}/api/event-pages`, '/events', baseUrl);
+    const newsUrls = await fetchUrls(`${strapiUrl}/api/newspages`, '/news', baseUrl);
+    const globalEventsUrls = await fetchUrls(`${process.env.GSURL}/api/global-events`, '/global-individual-events', baseUrl);
+    const globalBlogsUrls = await fetchUrls(`${process.env.GSURL}/api/global-blogs`, '/global-individual-blogs', baseUrl);
+    const indiActUrls = await fetchUrls(`${strapiUrl}/api/activities`, '/individual-activities', baseUrl);
+    const stateFacUrls = await fetchUrls(`${strapiUrl}/api/features`, 'individual-activities/state-facility', baseUrl);
+    const otherUrls = await fetchUrls(`${strapiUrl}/api/others-pages`, 'others', baseUrl);
 
     const staticPages = [
         '/',
@@ -58,7 +114,6 @@ const generateSitemap = (baseUrl, blogUrls, eventUrls, newsUrls, globalEventsUrl
         '/value-based-education',
         '/virtual-tour-gallery',
         '/virtual-tour',
-
     ];
 
     const dynamicPages = [
@@ -71,73 +126,9 @@ const generateSitemap = (baseUrl, blogUrls, eventUrls, newsUrls, globalEventsUrl
         '/news',
     ];
 
-    const allPages = [...staticPages, ...dynamicPages, ...blogUrls, ...eventUrls, ...newsUrls, ...globalEventsUrls, ...globalBlogsUrls, ...indiActUrls, ...stateFacUrls, ...otherUrls];
+    const allUrls = [...staticPages, ...dynamicPages, ...blogUrls, ...eventUrls, ...newsUrls, ...globalEventsUrls, ...globalBlogsUrls, ...indiActUrls, ...stateFacUrls, ...otherUrls];
 
-
-    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-        <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-            ${allPages
-            .map((page) => {
-                return `
-                        <url>
-                            <loc>${baseUrl}${page}</loc>
-                            <changefreq>weekly</changefreq>
-                            <priority>0.8</priority>
-                        </url>
-                    `;
-            })
-            .join('')}
-        </urlset>`;
-    return sitemap;
-};
-const Sitemap = () => {
-    return null;
-};
-
-
-
-export async function getServerSideProps({ res }) {
-
-    const strapiUrl = determineStrapiUrl(res);
-
-    const baseUrl = res.req?.headers?.host;
-
-    const blogRes = await fetch(`${strapiUrl}/api/blogs`)
-    const blogData = await blogRes.json();
-    const blogUrls = blogData.data.map(item => `/blog/${item.attributes.slug}`);
-
-    console.log("blogUrls", blogUrls)
-
-    const eventRes = await fetch(`${strapiUrl}/api/event-pages`)
-    const eventData = await eventRes.json();
-    const eventUrls = eventData.data.map(item => `/events/${item.attributes.slug}`);
-
-    const newsRes = await fetch(`${strapiUrl}/api/newspages`)
-    const newsData = await newsRes.json();
-    const newsUrls = newsData.data.map(item => `/news/${item.attributes.slug}`);
-
-    const globalEventsRes = await fetch(`${process.env.GSURL}/api/global-events`)
-    const globalEventsData = await globalEventsRes.json();
-    const globalEventsUrls = globalEventsData.data.map(item => `/global-individual-events/${item.attributes.slug}`);
-
-    const globalBlogsRes = await fetch(`${process.env.GSURL}/api/global-blogs`)
-    const globalBlogsData = await globalBlogsRes.json();
-    const globalBlogsUrls = globalBlogsData.data.map(item => `/global-individual-blogs/${item.attributes.slug}`);
-
-    const indiActRes = await fetch(`${strapiUrl}/api/activities`)
-    const indiActData = await indiActRes.json();
-    // console.log("first", indiActData.data )
-    const indiActUrls = indiActData.data.map(item => `/individual-activities/${item.attributes.slug}`);
-
-    const stateFacRes = await fetch(`${strapiUrl}/api/features`)
-    const stateFacData = await stateFacRes.json();
-    const stateFacUrls = stateFacData.data.map(item => `individual-activities/state-facility/${item.attributes.slug}`);
-
-    const othersRes = await fetch(`${strapiUrl}/api/others-pages`)
-    const othersData = await othersRes.json();
-    const otherUrls = othersData.data.map(item => `others/${item.attributes.slug}`);
-   
-    const sitemap = generateSitemap(baseUrl, blogUrls, eventUrls, newsUrls, globalEventsUrls, globalBlogsUrls, indiActUrls, stateFacUrls, otherUrls);
+    const sitemap = generateSitemap(baseUrl, allUrls);
     res.setHeader('Content-Type', 'text/xml');
     res.write(sitemap);
     res.end();
