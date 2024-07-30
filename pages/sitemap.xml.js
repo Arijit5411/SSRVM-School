@@ -5,10 +5,6 @@ const getPriority = (url) => {
     if (url.startsWith('/blog')) return 0.9;
     if (url.startsWith('/events')) return 0.8;
     if (url.startsWith('/news')) return 0.7;
-    if (url.startsWith('/global')) return 0.7;
-    if (url.startsWith('/individual-activities')) return 0.6;
-    if (url.startsWith('/state-facility')) return 0.5;
-    if (url.startsWith('/others')) return 0.4;
     return 0.5; // default priority for other pages
 };
 
@@ -16,11 +12,11 @@ const generateSitemap = (baseUrl, allUrls) => {
     const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
         <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
             ${allUrls
-                .map((url) => {
+                .map((url, index) => {
                     const priority = getPriority(url);
                     return `
                         <url>
-                            <loc>${baseUrl}${url}</loc>
+                            <loc>${baseUrl + url}</loc>
                             <changefreq>weekly</changefreq>
                             <priority>${priority}</priority>
                         </url>
@@ -44,7 +40,7 @@ const fetchUrls = async (apiEndpoint, pathPrefix, baseUrl) => {
             return [];
         }
         const data = await res.json();
-        return data.data.map(item => `${baseUrl}${pathPrefix}/${item.attributes.slug}`);
+        return data.data.map(item => `${pathPrefix}/${item.attributes.slug}`);
     } catch (error) {
         console.error(`Error fetching ${apiEndpoint}:`, error);
         return [];
@@ -61,8 +57,8 @@ export async function getServerSideProps({ res }) {
     const globalEventsUrls = await fetchUrls(`${process.env.GSURL}/api/global-events`, '/global-individual-events', baseUrl);
     const globalBlogsUrls = await fetchUrls(`${process.env.GSURL}/api/global-blogs`, '/global-individual-blogs', baseUrl);
     const indiActUrls = await fetchUrls(`${strapiUrl}/api/activities`, '/individual-activities', baseUrl);
-    const stateFacUrls = await fetchUrls(`${strapiUrl}/api/features`, 'individual-activities/state-facility', baseUrl);
-    const otherUrls = await fetchUrls(`${strapiUrl}/api/others-pages`, 'others', baseUrl);
+    const stateFacUrls = await fetchUrls(`${strapiUrl}/api/features`, '/individual-activities/state-facility', baseUrl);
+    const otherUrls = await fetchUrls(`${strapiUrl}/api/others-pages`, '/others', baseUrl);
 
     const staticPages = [
         '/',
@@ -118,10 +114,6 @@ export async function getServerSideProps({ res }) {
 
     const dynamicPages = [
         '/blog',
-        '/global-individual-blogs',
-        '/global-individual-events',
-        '/individual-activities',
-        '/state-facility',
         '/events',
         '/news',
     ];
