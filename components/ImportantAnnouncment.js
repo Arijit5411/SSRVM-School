@@ -20,9 +20,11 @@ const ImportantAnnouncment = ({siteUrl}) => {
     getData();
   }, []);
 
+  // console.log("data?.data[0]?.attributes?.Link", data?.data[0]?.attributes?.Link)
+
   return (
     <>
-      {data?.data[0]?.attributes?.Link ? (
+      {/* {(data?.data[0] !== null) ? (
         <Link className="d-block w-100" href={data?.data[0]?.attributes?.Link} target="_blank">
           <div
             className={`importantDiv cursor-pointer ${
@@ -48,7 +50,7 @@ const ImportantAnnouncment = ({siteUrl}) => {
             </span>
           </Marquee>
         </div>
-      )}
+      )} */}
     </>
   );
 };

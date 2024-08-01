@@ -40,7 +40,7 @@ const fetchUrls = async (apiEndpoint, pathPrefix, baseUrl) => {
             return [];
         }
         const data = await res.json();
-        return data.data.map(item => `${pathPrefix}/${item.attributes.slug}`);
+        return data.data.map(item => `${pathPrefix}/${item.attributes.slug ? item.attributes.slug : item.id}`);
     } catch (error) {
         console.error(`Error fetching ${apiEndpoint}:`, error);
         return [];
