@@ -13,7 +13,7 @@ export const getServerSideProps = async (context) => {
     const siteUrl = determineStrapiUrl(context);
     const { slug } = context.params;
 
-    const res1 = await fetch(`${siteUrl}/api/blogs?filters[$slug][$eq]=${slug}&populate=*`);
+    const res1 = await fetch(`${siteUrl}/api/blogs?filters[slug][$eq]=${slug}&populate=*`);
     const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
     const data = await res.json();
     const data1 = await res1.json();
