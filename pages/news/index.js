@@ -63,7 +63,6 @@ const News = ({ seodata, newsProp, siteUrl }) => {
         }
     }, []);
 
-    console.log("hh", news)
 
 
 
@@ -143,7 +142,7 @@ const News = ({ seodata, newsProp, siteUrl }) => {
                         </div>
                     </section>
                 ) : (
-                    <p className='text-center mb-5'>No blog posts available.</p>
+                    <p className='text-center mb-5'>No News available.</p>
                 )}
             </div>
             <Footer siteUrl={siteUrl} />

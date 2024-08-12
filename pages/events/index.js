@@ -12,7 +12,7 @@ export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);   
     const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
-    const res1 = await fetch(`${siteUrl}/api/event-pages?sort=date:desc&populate=*`)
+    const res1 = await fetch(`${siteUrl}/api/event-pages?sort=id:desc&populate=*`)
 
     const data = await res.json()
     const data1 = await res1.json()
@@ -101,7 +101,7 @@ const EventsPage = ({ seodata, eventsProp ,siteUrl}) => {
                                         </div>
                                     ))
                                 ) : (
-                                    <p>No blog posts available.</p>
+                                    <p>No Events available.</p>
                                 )}
                             </div>
                             <div className="pagination-blog">

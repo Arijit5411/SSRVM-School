@@ -6,6 +6,7 @@ import RecentPostsSidebar from "@/components/RecentPostsSidebar";
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from "@/components/Seo";
+import RecentSidebar from "@/components/RecentSidebar";
 
 export const getServerSideProps = async (context) => {
 
@@ -13,15 +14,19 @@ export const getServerSideProps = async (context) => {
     const siteUrl = determineStrapiUrl(context);
     const { slug } = context.params;
 
-    const res1 = await fetch(`${siteUrl}/api/blogs?filters[slug][$eq]=${slug}&populate=*`);
     const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
+    const res1 = await fetch(`${siteUrl}/api/blogs?filters[slug][$eq]=${slug}&populate=*`);
+    const res2 = await fetch(`${siteUrl}/api/blogs?filters[slug][$ne]=${slug}&populate=*`);
+
     const data = await res.json();
     const data1 = await res1.json();
+    const data2 = await res2.json();
 
     return {
       props: {
-        blogdata: data1.data[0],
         seodata: data?.data?.attributes?.Pages ?? {},
+        blogdata: data1.data[0],
+        relData: data2.data,
         siteUrl,
         slug
       },
@@ -36,7 +41,7 @@ export const getServerSideProps = async (context) => {
     };
   }
 };
-const BackToBlog = ({ siteUrl, blogdata, seodata, slug }) => {
+const BackToBlog = ({ seodata, blogdata, relData, siteUrl, slug }) => {
   const [publicUrl, setPublicUrl] = useState();
   const components = {
     img: ({ src, alt }) => {
@@ -82,7 +87,7 @@ const BackToBlog = ({ siteUrl, blogdata, seodata, slug }) => {
                   </div>
                 </div>
               </div>
-              <RecentPostsSidebar siteUrl={siteUrl} />
+              <RecentSidebar Page="Blog" PageSlug="blog" RelData={relData} Slug={slug} siteUrl={siteUrl} Title="Title" />
             </div>
           </div>
         </section>
@@ -102,7 +107,7 @@ const BackToBlog = ({ siteUrl, blogdata, seodata, slug }) => {
                     <span>Back to Blog</span>
                   </a>
 
-                  <RecentPostsSidebar siteUrl={siteUrl} />
+                  <RecentSidebar Page="Blog" PageSlug="blog" RelData={relData} Slug={slug} siteUrl={siteUrl} Title="Title"/>
                 </div>
               </div>
               <div className="col-lg-9 col-2">

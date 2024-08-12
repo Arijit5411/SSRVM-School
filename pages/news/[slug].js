@@ -5,19 +5,31 @@ import RecentNewsSidebar from "@/components/RecentNewsSidebar";
 import NavBar from "@/components/NavBar";
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from "@/components/Seo";
+import RecentSidebar from "@/components/RecentSidebar";
+
+
+
+
 export const getServerSideProps = async (context) => {
+
   try {
     const siteUrl = determineStrapiUrl(context);
     const { slug } = context.params;
 
-    const res1 = await fetch(`${siteUrl}/api/newspages?filters[slug][$eq]=${slug}&populate=*`);
     const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
-    const data1 = await res1.json();
+    const res1 = await fetch(`${siteUrl}/api/newspages?filters[slug][$eq]=${slug}&populate=*`);
+    const res2 = await fetch(`${siteUrl}/api/newspages?filters[slug][$ne]=${slug}&populate=*`);
+
+
     const data = await res.json();
+    const data1 = await res1.json();
+    const data2 = await res2.json();
+
     return {
       props: {
-        newsdata: data1.data[0],
         seodata: data?.data?.attributes?.Pages ?? {},
+        newsdata: data1.data[0],
+        relData: data2.data,
         siteUrl,
         slug
       },
@@ -32,7 +44,7 @@ export const getServerSideProps = async (context) => {
     };
   }
 };
-const BackToNews = ({ newsdata, siteUrl,seodata ,slug}) => {
+const BackToNews = ({ newsdata, siteUrl, seodata, slug, relData }) => {
   const [publicUrl, setPublicUrl] = useState();
   const components = {
     img: ({ src, alt }) => {
@@ -42,6 +54,7 @@ const BackToNews = ({ newsdata, siteUrl,seodata ,slug}) => {
   useEffect(() => {
     setPublicUrl(window.location.origin);
   }, [publicUrl]);
+
 
   return (
     <>
@@ -61,22 +74,24 @@ const BackToNews = ({ newsdata, siteUrl,seodata ,slug}) => {
             </div>
             <div className="row">
               <div className="blog-post">
-                <img
-                  src={`${siteUrl}${newsdata.attributes?.image?.data?.attributes?.url}`}
-                  alt={newsdata.attributes?.Title}
+                {newsdata?.attributes?.image?.data?.attributes?.url &&
+                  < img
+                  src={siteUrl + newsdata?.attributes?.image?.data?.attributes?.url}
+                alt={newsdata?.attributes?.Title}
                 />
+                }
                 <h1 className="wrap-text-inner">
-                  {newsdata.attributes?.title}
+                  {newsdata?.attributes?.title}
                 </h1>
                 <div className="blog-parg-item">
                   <ReactMarkdown components={components}>
-                    {newsdata.attributes?.content}
+                    {newsdata?.attributes?.content}
                   </ReactMarkdown>
                 </div>
               </div>
 
               <div className="row">
-                <RecentNewsSidebar siteUrl={siteUrl} />
+                <RecentSidebar Page="News" PageSlug="news" RelData={relData} Slug={slug} siteUrl={siteUrl} />
               </div>
             </div>
           </div>
@@ -96,21 +111,21 @@ const BackToNews = ({ newsdata, siteUrl,seodata ,slug}) => {
                     <span>Back to News</span>
                   </a>
 
-                  <RecentNewsSidebar siteUrl={siteUrl} />
+                  <RecentSidebar Page="News" PageSlug="news" RelData={relData} Slug={slug} siteUrl={siteUrl} />
                 </div>
               </div>
               <div className="col-lg-9 col-2">
                 <div className="blog-post">
                   <img
-                    src={`${siteUrl}${newsdata.attributes?.image?.data?.attributes?.url}`}
-                    alt={newsdata.attributes?.Title}
+                    src={`${siteUrl}${newsdata?.attributes?.image?.data?.attributes?.url}`}
+                    alt={newsdata?.attributes?.title}
                   />
                   <h1 className="wrap-text-inner">
-                    {newsdata.attributes?.title}
+                    {newsdata?.attributes?.title}
                   </h1>
                   <div className="blog-parg-item">
                     <ReactMarkdown components={components}>
-                      {newsdata.attributes?.content}
+                      {newsdata?.attributes?.content}
                     </ReactMarkdown>
                   </div>
                 </div>

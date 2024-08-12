@@ -6,25 +6,29 @@ import ReactMarkdown from "react-markdown";
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from "@/components/Seo";
+import RecentSidebar from "@/components/RecentSidebar";
 
 
 export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);
     const { slug } = context.params;
-    const res2 = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
 
-    const res = await fetch(`${siteUrl}/api/event-pages?filters[slug][$eq]=${slug}&populate=*`);
+    const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
+    const res1 = await fetch(`${siteUrl}/api/event-pages?filters[slug][$eq]=${slug}&populate=*`);
+    const res2 = await fetch(`${siteUrl}/api/event-pages?filters[slug][$ne]=${slug}&populate=*`);
+
     const data = await res.json();
+    const data1 = await res1.json();
     const data2 = await res2.json();
-
 
     return {
       props: {
-        eventData: data.data[0].attributes,
-        seodata: data2?.data?.attributes?.Pages ?? {},
-
+        seodata: data?.data?.attributes?.Pages ?? {},
+        eventData: data1.data[0].attributes,
+        relData: data2.data,
         siteUrl,
+        slug
       },
     };
   } catch (error) {
@@ -37,7 +41,7 @@ export const getServerSideProps = async (context) => {
     };
   }
 };
-const IndividualEventPage = ({ eventData, siteUrl,seodata,slug }) => {
+const IndividualEventPage = ({ seodata, eventData, relData, siteUrl, slug }) => {
   const [loading, setLoading] = useState(false);
   const [events, setEvents] = useState();
   const [publicUrl, setPublicUrl] = useState();
@@ -91,7 +95,7 @@ const IndividualEventPage = ({ eventData, siteUrl,seodata,slug }) => {
 
   return (
     <>
-          <Seo SeoData={seodata} PageSlug={"individual-event-page"} InnerPageSlug={slug} />
+      <Seo SeoData={seodata} PageSlug={"individual-event-page"} InnerPageSlug={slug} />
 
       <NavBar siteUrl={siteUrl} />
       <div className="top-section4-new desktophide">
@@ -102,7 +106,7 @@ const IndividualEventPage = ({ eventData, siteUrl,seodata,slug }) => {
                 <a className="backto-btn" href="/events">
                   <img
                     src={
-                        publicUrl +
+                      publicUrl +
                       "/assets/img/blog/13-arrow-left.png"
                     }
                     alt="Transpro"
@@ -118,7 +122,7 @@ const IndividualEventPage = ({ eventData, siteUrl,seodata,slug }) => {
                   <div className="blog-post">
                     <img
                       src={`${siteUrl}${events?.image?.data?.attributes?.url}`}
-                      alt={events?.Title}
+                      alt={events?.title}
                       className="widthEventImg"
                     />
                     <h1 className="wrap-text-inner">{events?.title}</h1>
@@ -131,7 +135,7 @@ const IndividualEventPage = ({ eventData, siteUrl,seodata,slug }) => {
                 )}
               </div>
               <div className="container">
-                <RecentEventsSidebar siteUrl={siteUrl}/>
+                <RecentSidebar Page="Event" PageSlug="events" RelData={relData} Slug={slug} siteUrl={siteUrl} />
               </div>
             </div>
           </div>
@@ -155,7 +159,7 @@ const IndividualEventPage = ({ eventData, siteUrl,seodata,slug }) => {
                     <span>Back to Events</span>
                   </a>
 
-                  <RecentEventsSidebar siteUrl={siteUrl}/>
+                  <RecentSidebar Page="Event" PageSlug="events" RelData={relData} Slug={slug} siteUrl={siteUrl} />
                 </div>
               </div>
               <div className="col-lg-9 col-2">
