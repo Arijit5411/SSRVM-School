@@ -16,17 +16,17 @@ const RecentSidebar = ({ Page, PageSlug, RelData, Slug, siteUrl, slugName="slug"
 
                     <ul className='social-share'>
                         <li>
-                            <a href={`https://www.facebook.com/sharer/sharer.php?u=${currUrl}/${Slug}`} target='_blank'>
+                            <a href={`https://www.facebook.com/sharer/sharer.php?u=${currUrl}/${PageSlug}/${Slug}`} target='_blank'>
                                 <i className="fa-brands fa-facebook-f"></i>
                             </a>
                         </li>
                         <li>
-                            <a href={`https://twitter.com/intent/tweet?url=${currUrl}/${Slug}`} target='_blank'>
+                            <a href={`https://twitter.com/intent/tweet?url=${currUrl}/${PageSlug}/${Slug}`} target='_blank'>
                                 <i className="fa-brands fa-twitter"></i>
                             </a>
                         </li>
                         <li>
-                            <a href={`https://www.linkedin.com/shareArticle?url=${currUrl}/${Slug}`} target='_blank'>
+                            <a href={`https://www.linkedin.com/shareArticle?url=${currUrl}/${PageSlug}/${Slug}`} target='_blank'>
                                 <i className="fa-brands fa-linkedin-in"></i>
                             </a>
                         </li>
