@@ -51,32 +51,30 @@ const Award = ({ siteUrl }) => {
           <div className="row">
             <div className="d-flex justify-content-between">
               <div>
-              <h2 className="title">Awards and Recognitions</h2>
+                <h2 className="title">Awards and Recognitions</h2>
 
               </div>
               <div>
-              <div className="d-flex gap-5 title fw-bold fs-18 ">
-                <div className="fw-bold title-hide">
-                  Recent Awards
+                <div className="d-flex gap-5 title fw-bold fs-18 ">
+                  <div className="fw-bold title-hide">
+                    Recent Awards
+                  </div>
+                  <div>
+                    <Link className="title" href="/awards-and-achievements">More Awards</Link>
+                  </div>
                 </div>
-                <div>
-                  <Link className="title" href="/awards-and-achievements">More Awards</Link>
-                </div>
-              </div>
               </div>
             </div>
             {/* <span className="d-none d-md-flex"> */}
             {awards.map((award) => (
               <div key={award.id} className="col-sm-3 d-none d-md-flex">
                 <div className="single-service-wrap">
-                  <a href={`${siteUrl}${award.attributes.image?.data?.attributes?.url}`}>
                   <img
                     src={`${siteUrl}${award.attributes.image?.data?.attributes?.url}`}
                     alt={award.attributes.award_name}
                     className="wrap-img-top1 wrap-side-award"
                   />
-                  </a>
-                 
+
                   <div className="textAlignCenter">
                     <h6 className="awardName">{award.attributes.award_name}</h6>
                     {/* {award.attributes.description} */}
@@ -109,7 +107,7 @@ const Award = ({ siteUrl }) => {
             </div>
 
             <div className="col-sm-3">
-             
+
               <MarqueeAward siteUrl={siteUrl} />
             </div>
           </div>

@@ -58,7 +58,7 @@ const BackToNews = ({ newsdata, siteUrl, seodata, slug, relData }) => {
 
   return (
     <>
-      <Seo SeoData={seodata} PageSlug={"back-to-news"} InnerPageSlug={slug} />
+      <Seo SeoData={seodata} PageSlug={"back-to-news"} InnerPageSlug={slug}/>
       <NavBar siteUrl={siteUrl} />
       <div className="top-section4-new desktophide">
         <section className="wrap-item-blog-se1 first-section position-relative">

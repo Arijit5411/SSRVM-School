@@ -41,14 +41,7 @@ const Features = ({ seodata, featuresData,siteUrl }) => {
  
 
   useEffect(() => {
-    // fetch(`${siteUrl}/api/features?populate=*`)
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         setFeatures(data.data);
-    //     })
-    //     .catch(error => {
-    //         console.error('Error:', error);
-    //     });
+
     if (featuresData && featuresData?.data && featuresData?.data?.length > 0) {
       setFeatures(featuresData.data);
     }
@@ -60,7 +53,6 @@ console.log('st url',siteUrl)
     <>
       <Fragment>
       <Seo SeoData={seodata} PageSlug={"features"} />
-
         <NavBar siteUrl={siteUrl}/>
 
         <div className="top-section1-new pb-5">
