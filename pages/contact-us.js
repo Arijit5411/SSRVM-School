@@ -29,12 +29,14 @@ export const getServerSideProps = async (context) => {
   }
 };
 
-const ContactUs = ({ seodata, contactData, siteUrl}) => {
+const ContactUs = ({ seodata, contactData, siteUrl }) => {
   const [seoData, setSeoData] = useState({
     title: "",
     metaTitle: "",
     metaDescription: "",
   });
+
+  const [Loader, setLoader] = useState(false);
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -71,6 +73,7 @@ const ContactUs = ({ seodata, contactData, siteUrl}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoader(true)
 
     // Perform form validation here
     const newErrors = {};
@@ -147,6 +150,9 @@ const ContactUs = ({ seodata, contactData, siteUrl}) => {
           },
           body: JSON.stringify(requestData?.data),
         });
+
+        setLoader(false);
+
       }
 
       // Reset form fields on successful submission
@@ -183,15 +189,15 @@ const ContactUs = ({ seodata, contactData, siteUrl}) => {
     //     .catch((error) => {
     //         console.error('Error fetching SEO data:', error);
     //     });
-   
+
   }, []);
 
   return (
     <>
-          <Seo SeoData={seodata} PageSlug={"contact-us"} />
+      <Seo SeoData={seodata} PageSlug={"contact-us"} />
 
       <Fragment>
-        <NavBar siteUrl={siteUrl}/>
+        <NavBar siteUrl={siteUrl} />
         {/* {seoData && (
           <Seo
             title={seoData.title}
@@ -210,95 +216,103 @@ const ContactUs = ({ seodata, contactData, siteUrl}) => {
             <ContactAddress siteUrl={siteUrl} />
           </section>
           <section className="form-contact-us container mt-5">
-            <div className="title-bottom-form">
+            <div className="title-bottom-form ">
               <h3 className="leave_msg_mob">Leave Us A Message</h3>
               <p className="para_after_leave">
                 Want to get in touch with our team? Drop us a line.
               </p>
             </div>
             <div className="container">
-              <form onSubmit={handleSubmit}>
-                <div className="row">
+              <div className="pe-3 md:px-0">
+                <form onSubmit={handleSubmit}>
+                  <div className="row">
+                    <div className="col-sm-6">
+                      <input
+                        className="input_certi"
+                        type="text"
+                        id="fullName"
+                        name="fullName"
+                        value={fullName}
+                        placeholder="Full Name*"
+                        onChange={handleChange}
+                      />
+                      <br></br>
+                      {errors.fullName && (
+                        <span className="error">{errors.fullName}</span>
+                      )}
+                      <input
+                        className="input_certi"
+                        type="text"
+                        id="email"
+                        name="email"
+                        value={email}
+                        placeholder="Email ID*"
+                        onChange={handleChange}
+                      />
+                      {errors.email && (
+                        <span className="error">{errors.email}</span>
+                      )}
+
+                      <input
+                        className="input_certi"
+                        type="tel"
+                        id="contactNumber"
+                        name="contactNumber"
+                        value={contactNumber}
+                        placeholder="Contact Number*"
+                        onChange={handleChange}
+                      />
+                      {errors.contactNumber && (
+                        <span className="error">{errors.contactNumber}</span>
+                      )}
+                    </div>
+                    <div className="col-sm-6">
+                      <textarea
+                        className="input_textarea-contact"
+                        id="message"
+                        name="message"
+                        value={message}
+                        placeholder="Message*"
+                        onChange={handleChange}
+                      />
+                      {errors.message && (
+                        <span className="error">{errors.message}</span>
+                      )}
+                    </div>
+                  </div>
+
                   <div className="col-sm-6">
-                    <input
-                      className="input_certi"
-                      type="text"
-                      id="fullName"
-                      name="fullName"
-                      value={fullName}
-                      placeholder="Full Name*"
-                      onChange={handleChange}
-                    />
+                    <label className="labeltitle">
+                      <input
+                        type="checkbox"
+                        name="isRobot"
+                        checked={isRobot}
+                        onChange={handleChange}
+                      />
+                      <span className="ms-2">I'm not a robot</span>
+                    </label>
                     <br></br>
-                    {errors.fullName && (
-                      <span className="error">{errors.fullName}</span>
-                    )}
-                    <input
-                      className="input_certi"
-                      type="text"
-                      id="email"
-                      name="email"
-                      value={email}
-                      placeholder="Email ID*"
-                      onChange={handleChange}
-                    />
-                    {errors.email && (
-                      <span className="error">{errors.email}</span>
-                    )}
-
-                    <input
-                      className="input_certi"
-                      type="tel"
-                      id="contactNumber"
-                      name="contactNumber"
-                      value={contactNumber}
-                      placeholder="Contact Number*"
-                      onChange={handleChange}
-                    />
-                    {errors.contactNumber && (
-                      <span className="error">{errors.contactNumber}</span>
+                    {errors.isRobot && (
+                      <span className="error1">{errors.isRobot}</span>
                     )}
                   </div>
-                  <div className="col-sm-6">
-                    <textarea
-                      className="input_textarea-contact"
-                      id="message"
-                      name="message"
-                      value={message}
-                      placeholder="Message*"
-                      onChange={handleChange}
-                    />
-                    {errors.message && (
-                      <span className="error">{errors.message}</span>
-                    )}
-                  </div>
-                </div>
 
-                <div className="col-sm-6">
-                  <label className="labeltitle">
-                    <input
-                      type="checkbox"
-                      name="isRobot"
-                      checked={isRobot}
-                      onChange={handleChange}
-                    />
-                    I'm not a robot
-                  </label>
-                  <br></br>
-                  {errors.isRobot && (
-                    <span className="error1">{errors.isRobot}</span>
-                  )}
-                </div>
+                  <button type="submit" className="submit-contact" disabled={Loader}>
+                    Submit
+                    {Loader && 
+                    <div class="spinner-border text-light" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div> 
+                    }
+                  </button>
+                  <p className="para_after-button">* All fields to be filled</p>
+                </form>
+              </div>
 
-                <button type="submit" className="submit-contact">
-                  Submit
-                </button>
-                <p className="para_after-button">* All fields to be filled</p>
-              </form>
             </div>
           </section>
         </div>
-        <Footer siteUrl={siteUrl}/>
+        <Footer siteUrl={siteUrl} />
       </Fragment>
     </>
   );
