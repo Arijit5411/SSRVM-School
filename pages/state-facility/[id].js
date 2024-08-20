@@ -48,20 +48,60 @@ const BackToFeature = ({ seodata, featuredata, siteUrl, id }) => {
     return (
         <>
             {/* <Seo SeoData={seodata} PageSlug={"back-to-feature"} InnerPageSlug={id} /> */}
-            {/* <NavBar siteUrl={siteUrl} /> */}
+            <NavBar siteUrl={siteUrl} />
             <div className="">
-                <section className="top-section4-new">
+                <section className="feature-cont-a4" style={{ backgroundColor: '#f7eecd' }}>
                     <div className="container">
-                        <div className="row">
-                            <section className="container">
-                                <h2>{featuredata?.attributes?.heading}</h2>
-                                {featuredata?.attributes?.Content[0]?.Content_Image?.data?.attributes?.url &&
-                                    <img src={siteUrl + featuredata?.attributes?.Content[0]?.Content_Image?.data?.attributes?.url} alt="" />
+                        <div className='row g-4 pb-5 top-sec-a1'>
+                            <div className='col-lg-6'>
+                                <h1 className=''>{featuredata?.attributes?.heading}</h1>
+                                <p className='pt-4'>
+                                    {featuredata?.attributes?.sub_heading}
+                                </p>
+                            </div>
+                            <div className='col-lg-6'>
+                                {featuredata?.attributes?.Thumbnail?.data?.attributes?.url &&
+                                    <img className='w-100 h-auto object-fit-cover' src={siteUrl + featuredata?.attributes?.Thumbnail?.data?.attributes?.url} alt="" />
                                 }
-                            </section>
+                            </div>
                         </div>
                     </div>
                 </section>
+                <section className='pb-5'>
+                    <div className='container pt-5'>
+                        {
+                            featuredata?.attributes?.Content &&
+                            featuredata?.attributes?.Content.map((item, index) => (
+                                <div className='row align-items-center' >
+                                    {index % 2 === 0 ? (
+                                        <>
+                                            <div className='col-lg-6 pb-4'>
+                                                <img className='w-100 h-auto object-fit-cover' src={siteUrl + item.Content_Image?.data?.attributes?.url} alt="" />
+                                            </div>
+                                            <div className='col-lg-6 pb-4'>
+                                                <ReactMarkdown>
+                                                    {item.Content}
+                                                </ReactMarkdown>
+                                            </div>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <div className='col-lg-6 pb-4'>
+                                                <ReactMarkdown>
+                                                    {item.Content}
+                                                </ReactMarkdown>
+                                            </div>
+                                            <div className='col-lg-6 pb-4'>
+                                                <img className='w-100 h-auto object-fit-cover' src={siteUrl + item.Content_Image?.data?.attributes?.url} alt="" />
+                                            </div>
+                                        </>
+                                    )}
+                                </div>
+                            ))
+                        }
+                    </div>
+                </section>
+
             </div>
             <Footer siteUrl={siteUrl} />
         </>

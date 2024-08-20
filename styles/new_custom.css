@@ -986,11 +986,10 @@ section.award-s1 h2 {
   color: #fff;
 }
 
-.award-s1 button.page-btn-d2:hover{
+.award-s1 button.page-btn-d2:hover {
   background-color: #4225c6;
   color: #fff;
 }
-
 
 .award-s1 button.close-button-custom:hover {
   background-color: #e52a2a;
@@ -1061,7 +1060,7 @@ section.award-s1 h2 {
   max-width: 600px;
   width: calc(100% - 30px);
 }
-.modal-backdrop-custom .modal-content-custom .modal-content-inner{
+.modal-backdrop-custom .modal-content-custom .modal-content-inner {
   padding: 14px 20px;
   max-height: 80vh;
   overflow-y: auto;
@@ -1091,3 +1090,25 @@ section.award-s1 h2 {
   margin-bottom: 1rem;
   border-radius: 0.5rem;
 }
+
+/* ---------------------------------------feature-inner page */
+
+.feature-cont-a4 {
+  padding-top: 150px;
+}
+
+
+.feature-cont-a4 h1 {
+  font-size: 60px;
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+.feature-cont-a4 p {
+  font-size: 20px;
+  font-weight: 500;
+  color: black;
+  line-height: 1.5;
+}
+
+
