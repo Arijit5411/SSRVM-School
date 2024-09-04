@@ -369,7 +369,7 @@ const Admissions = ({
             <div className="container marginTopHeader">
               <div className="row align-items-center">
                 <div className="col-lg-6">
-                  <h4 className="title">{subheading_admission}</h4>
+                  <h2 className="title">{subheading_admission}</h2>
 
                   <div dangerouslySetInnerHTML={{ __html: para_1 }} />
 
@@ -399,7 +399,7 @@ const Admissions = ({
             <div className="container wrapper-mid-admission">
               <div className="wrap-tag-admission">
                 <div id="admission_procedure">
-                  <h5>{admission_procedure}</h5>
+                  <h2>{admission_procedure}</h2>
                 </div>
                 <div className="wrap-dropdown-admission">
                   <select

@@ -85,7 +85,8 @@ const HomeAbout = ({ siteUrl, homeSettings }) => {
             <div className="row justify-content-start">
               <div className="col-lg-6 remove-col-padding">
                 <span className="subtitles">{founded_by}</span>
-                <h2 className="title">{gfounder?.gurudev_ssrs}</h2>
+                <h1 className="title">{gfounder?.gurudev_ssrs}</h1>
+                {/* <h2 className="title">{gfounder?.gurudev_ssrs}</h2> */}
                 <img
                   src={`${GlobalSiteUrl}${gfounder?.founded_by_image?.data?.attributes?.url}`}
                   alt="school"
