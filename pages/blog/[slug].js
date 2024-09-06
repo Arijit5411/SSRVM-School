@@ -56,7 +56,7 @@ const BackToBlog = ({ seodata, blogdata, relData, siteUrl, slug }) => {
 
   return (
     <>
-    <Seo SeoData={seodata} PageSlug={"back-to-blog"} InnerPageSlug={slug} />
+    <Seo SeoData={seodata} PageSlug={"blog"} InnerPageSlug={slug} />
       <NavBar siteUrl={siteUrl} />
       <div className="top-section4 desktophide">
         <section className="wrap-item-blog-se1 first-section position-relative">

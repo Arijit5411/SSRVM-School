@@ -95,7 +95,7 @@ const IndividualEventPage = ({ seodata, eventData, relData, siteUrl, slug }) => 
 
   return (
     <>
-      <Seo SeoData={seodata} PageSlug={"individual-event-page"} InnerPageSlug={slug} />
+      <Seo SeoData={seodata} PageSlug={"events"} InnerPageSlug={slug} />
 
       <NavBar siteUrl={siteUrl} />
       <div className="top-section4-new desktophide">
