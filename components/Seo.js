@@ -2,13 +2,13 @@ import Head from 'next/head';
 import React from 'react';
 
 const Seo = ({ SeoData, PageSlug, InnerPageSlug }) => {
-  
+
   const getDefaultValues = (page) => {
     const { Meta_Title, Meta_Description, Meta_Keywords, Canonical, Robots, Inner_Page } = page || {};
     return { Meta_Title, Meta_Description, Meta_Keywords, Canonical, Robots, Inner_Page };
   };
 
-  if (SeoData !==null && Object.keys(SeoData ??{})?.length === 0) return <Head />
+  if (SeoData !== null && Object.keys(SeoData ?? {})?.length === 0) return <Head />
 
   const mainPage = getDefaultValues(SeoData?.find((item) => item?.Page_Slug === PageSlug));
   const innerPage = InnerPageSlug && InnerPageSlug && mainPage.Inner_Page?.find((item) => item.Page_Slug === InnerPageSlug);
@@ -23,7 +23,7 @@ const Seo = ({ SeoData, PageSlug, InnerPageSlug }) => {
         {Meta_Keywords && <meta name="keywords" content={Meta_Keywords} />}
         {Canonical && <link rel="canonical" href={Canonical} />}
         {Robots && <meta name="robots" content={Robots} />}
-        </Head>
+      </Head>
     </>
   );
 };

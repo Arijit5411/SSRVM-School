@@ -11,16 +11,16 @@ export const getServerSideProps = async (context) => {
     const siteUrl = determineStrapiUrl(context);
     const { slug } = context.params;
 
-    const res = await fetch(`${siteUrl}/api/others-pages/?filters[slug][$eq]=${slug}&populate[Content_Area][populate]=*`);
+    const res = await fetch(`${siteUrl}/api/others-pages?filters[slug][$eq]=${slug}&populate[Content_Area][populate]=*`);
     const res2 = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
-    const data2 = await res2.json();
-
+    
     const data = await res.json();
+    const data2 = await res2.json();
 
     return {
       props: {
         data: data?.data?.length > 0 ? data?.data[0] : {},
-        seodata: data?.data?.attributes?.Pages ?? {},
+        seodata: data2?.data?.attributes?.Pages ?? {},
         slug,
         siteUrl,
       },
@@ -38,6 +38,7 @@ export const getServerSideProps = async (context) => {
 
 const OtherPage = ({ data,siteUrl,seodata,slug }) => {
 
+  console.log("seodata", seodata)
 
   const processContent = (content) => {
     if (content) {
