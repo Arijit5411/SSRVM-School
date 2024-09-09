@@ -20,7 +20,8 @@ export function determineStrapiUrl(context) {
   // console.log("gp", subdomain)
 
   let apiUrl;
-  if (subdomain.includes('localhost') || subdomain.includes('ssrvmtrust.org')) {
+  // if (subdomain.includes('localhost') || subdomain.includes('ssrvmtrust.org')) {
+  if (subdomain.includes('localhost')) {
     return `${process.env.LOCAL_SURL}/_s`;
   } else {
     apiUrl = `https://${subdomain}/_s`;
