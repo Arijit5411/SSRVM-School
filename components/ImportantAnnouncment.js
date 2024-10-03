@@ -2,8 +2,9 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import Marquee from "react-fast-marquee";
 
-const ImportantAnnouncment = ({siteUrl}) => {
-  const [data, setData] = useState();
+const ImportantAnnouncment = ({ siteUrl }) => {
+  const [data, setData] = useState(null);
+
   const getData = async () => {
     try {
       const res = await fetch(
@@ -20,37 +21,30 @@ const ImportantAnnouncment = ({siteUrl}) => {
     getData();
   }, []);
 
-  // console.log("data?.data[0]?.attributes?.Link", data?.data[0]?.attributes?.Link)
+  const announcement = data?.data[0]?.attributes;
+  const isEnabled = announcement?.switch;
+  const link = announcement?.Link;
+  const text = announcement?.Text?.toUpperCase();
 
   return (
     <>
-      {/* {(data?.data[0] !== null) ? (
-        <Link className="d-block w-100" href={data?.data[0]?.attributes?.Link} target="_blank">
-          <div
-            className={`importantDiv cursor-pointer ${
-              !data?.data[0]?.attributes?.switch && "d-none"
-            }`}
-          >
+      {data && isEnabled ? (
+        <Link href={link || "#"} className="d-block w-100" target="_blank">
+          <div className="importantDiv cursor-pointer">
             <Marquee className="imp">
-              <span className="mx-3 impSpan">
-                {data?.data[0]?.attributes?.Text.toUpperCase()}!!!
-              </span>
+              <span className="mx-3 impSpan">{text}!!!</span>
             </Marquee>
           </div>
         </Link>
       ) : (
-        <div
-          className={`importantDiv cursor-pointer ${
-            !data?.data[0]?.attributes?.switch && "d-none"
-          }`}
-        >
-          <Marquee className="imp">
-            <span className="mx-3 impSpan">
-              {data?.data[0]?.attributes?.Text.toUpperCase()}!!!
-            </span>
-          </Marquee>
-        </div>
-      )} */}
+        isEnabled && (
+          <div className="importantDiv cursor-pointer">
+            <Marquee className="imp">
+              <span className="mx-3 impSpan">{text}!!!</span>
+            </Marquee>
+          </div>
+        )
+      )}
     </>
   );
 };
