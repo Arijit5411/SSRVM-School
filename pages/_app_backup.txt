@@ -1,3 +1,8 @@
+
+
+
+
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "animate.css";
 import "slick-carousel/slick/slick.css";
@@ -27,7 +32,8 @@ export default function App({ Component, pageProps }) {
     { siteUrl: "https://osmanabad.ssrvm.org", gtagId: "G-3J9TZFDPL5" },
     { siteUrl: "https://cochin.ssrvm.org", gtagId: "G-P7T823N846" },
     { siteUrl: "https://thrissur.ssrvm.org", gtagId: "G-9CYCFMZZFS" },
-    { siteUrl: "https://indore.ssrvm.org", gtagId: "G-S7D8PXLCBY", gtmId: "GTM-PCG5Q78G" },
+    { siteUrl: "https://indore.ssrvm.org", gtagId: "G-S7D8PXLCBY"},
+    // { siteUrl: "https://indore.ssrvm.org", gtagId: "G-S7D8PXLCBY", gtmId: "GTM-PCG5Q78G"},
     { siteUrl: "https://moshi.ssrvm.org", gtagId: "G-155BE9KBJY" },
     { siteUrl: "https://noida.ssrvm.org", gtagId: "G-F165X86BQ0" },
     { siteUrl: "https://shrirampur.ssrvm.org", gtagId: "G-LBLPMSN3Z9" },
@@ -56,9 +62,11 @@ export default function App({ Component, pageProps }) {
     { siteUrl: "https://bangalorenorth.ssrvm.org", gtagId: "G-L0MF1LDNWV" },
     { siteUrl: "https://bhugaon.ssrvm.org", gtagId: "G-NRB3SGWLWP" },
     { siteUrl: "https://mulund.ssrvm.org", gtagId: "G-H6NZ21L3RC" },
-    { siteUrl: "https://borivalieast.ssrvm.org", gtagId: "G-5J1PLXPWRZ", gtmId: "GTM-PBJK7BX8" },
+    // { siteUrl: "https://borivalieast.ssrvm.org", gtagId: "G-5J1PLXPWRZ" , gtmId: "GTM-PBJK7BX8"},
+    { siteUrl: "https://borivalieast.ssrvm.org", gtagId: "G-5J1PLXPWRZ"},
     { siteUrl: "https://laturmarathi.ssrvm.org", gtagId: "G-9RW1L95JVD" },
-    { siteUrl: "https://borivaliwest.ssrvm.org", gtagId: "G-GPQTDEXJY9", gtmId: "GTM-5PB9BK9F" },
+    // { siteUrl: "https://borivaliwest.ssrvm.org", gtagId: "G-GPQTDEXJY9", gtmId:"GTM-5PB9BK9F"},
+    { siteUrl: "https://borivaliwest.ssrvm.org", gtagId: "G-GPQTDEXJY9"},
     { siteUrl: "https://adajan.ssrvm.org", gtagId: "G-SNBGFS52ZT" },
     { siteUrl: "https://dharavi.ssrvm.org", gtagId: "G-RLPCQVEB9C" },
     { siteUrl: "https://latur.ssrvm.org", gtagId: "G-MLJ4YPKVK4" },
@@ -104,7 +112,7 @@ export default function App({ Component, pageProps }) {
     { siteUrl: "https://hyderabad.ssa.org.in", gtagId: "G-2EMEGCYRRM" },
     { siteUrl: "https://cuttack.ssa.org.in", gtagId: "G-7LHVNFKPQF" },
   ]
-
+  
   useEffect(() => {
     import("bootstrap/dist/js/bootstrap");
     AOS.init({
@@ -115,12 +123,10 @@ export default function App({ Component, pageProps }) {
     AOS.refresh();
   }, []);
 
-  const { gtagId, gtmId } = sitesData.find((item) => {
-    const cleanItemUrl = item.siteUrl.replace(/^https?:\/\//, ''); // Remove http:// or https://
-    const cleanSiteUrl = site_url.replace(/^https?:\/\//, ''); // Remove http:// or https://
-    return cleanItemUrl === cleanSiteUrl; // Match the cleaned URLs
-  });
+  // const siteMap = new Map(sitesData.map(obj => [obj.siteUrl, obj]));
 
+  console.log("siteMap", sitesData)
+  const { gtagId, gtmId } = sitesData.has(siteUrl) ? sitesData.get(siteUrl) : { siteUrl: null, gtagId: null };
 
   return (
     <>

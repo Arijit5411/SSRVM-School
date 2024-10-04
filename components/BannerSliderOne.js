@@ -143,8 +143,7 @@ const BannerSliderOne = ({ siteUrl }) => {
                                 alt=""
                               />
                             </div>
-
-                            {(item.attributes.heading ?? null) && (item.attributes.description ?? null) && (
+                            {item.attributes.heading && item.attributes.description &&
                               <div className="header-inner-wrap">
                                 <div className="header-inner">
                                   <h1 className="title animated slideInRight">
@@ -155,7 +154,7 @@ const BannerSliderOne = ({ siteUrl }) => {
                                   </p>
                                 </div>
                               </div>
-                            )}
+                            }
 
                           </div>
                         </div>

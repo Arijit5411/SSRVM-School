@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
-import NavBar from "../components/NavBar";
-import Footer from "../components/Footer";
+import NavBar from "../../components/NavBar";
+import Footer from "../../components/Footer";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 
@@ -37,7 +37,7 @@ export const getServerSideProps = async (context) => {
 
 const Features = ({ seodata, featuresData,siteUrl }) => {
   const [features, setFeatures] = useState([]);
-  console.log("feature data", features,featuresData);
+  // console.log("feature data", features,featuresData);
  
 
   useEffect(() => {
@@ -118,7 +118,7 @@ console.log('st url',siteUrl)
                     <div className="btn-wrapper mt-4">
                       <div className="btn-wrap">
                         <Link
-                          href={`/state-facility/${feature.id}`}
+                          href={`/features/${feature?.attributes?.Slug}`}
                           className="def-btn btn-1"
                         >
                           Know more

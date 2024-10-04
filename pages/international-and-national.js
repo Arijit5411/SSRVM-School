@@ -3,17 +3,20 @@ import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
+import Seo from '@/components/Seo';
 
 export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);
     const res = await fetch(`${siteUrl}/api/ssa-collaboration-pages?pagination[pageSize]=100&populate[school_name_and_title][populate]=*&populate[school_name_and_title2][populate]=*`)
-
+    const res2 = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
     const data = await res.json()
+    const data2 = await res2.json();
 
     return {
         props: {
             intandnat: data,
+            seodata: data2?.data?.attributes?.Pages ?? {},
             siteUrl
         }
     };
@@ -28,7 +31,7 @@ export const getServerSideProps = async (context) => {
 }
 };
 
-const International_and_National = ({ intandnat,siteUrl }) => {
+const International_and_National = ({ intandnat, siteUrl, seodata }) => {
 
     const [internationalAndNational, setInternationalAndNational] = useState(null);
 
@@ -76,6 +79,7 @@ const International_and_National = ({ intandnat,siteUrl }) => {
 
     return (
         <>
+            <Seo SeoData={seodata} PageSlug={"international-and-national"} />
             <Fragment>
                 <NavBar siteUrl={siteUrl}/>
                 <div className='top-section1-new'>

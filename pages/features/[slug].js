@@ -9,10 +9,10 @@ import Footer from "@/components/Footer";
 export const getServerSideProps = async (context) => {
     try {
         const siteUrl = determineStrapiUrl(context);
-        const { id } = context.params;
+        const { slug } = context.params;
 
         const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
-        const res1 = await fetch(`${siteUrl}/api/features/${id}?populate=deep,3`);
+        const res1 = await fetch(`${siteUrl}/api/features?filters[Slug][$eq]=${slug}&populate=deep,3`);
 
         const seoData = await res.json();
         const featureData = await res1.json();
@@ -20,9 +20,9 @@ export const getServerSideProps = async (context) => {
         return {
             props: {
                 seodata: seoData?.data?.attributes?.Pages ?? {},
-                featuredata: featureData.data,
+                featuredata: featureData.data[0],
                 siteUrl,
-                id
+                slug
             },
         };
     } catch (error) {
@@ -36,7 +36,10 @@ export const getServerSideProps = async (context) => {
     }
 };
 
-const BackToFeature = ({ seodata, featuredata, siteUrl, id }) => {
+const BackToFeature = ({ seodata, featuredata, siteUrl, slug }) => {
+
+    console.log("featuredata", featuredata)
+
     const renderImage = (props) => {
         const { src, alt } = props;
         const fullSrc = src.startsWith('http') ? src : `${siteUrl}${src}`;
@@ -47,7 +50,7 @@ const BackToFeature = ({ seodata, featuredata, siteUrl, id }) => {
 
     return (
         <>
-            {/* <Seo SeoData={seodata} PageSlug={"back-to-feature"} InnerPageSlug={id} /> */}
+            <Seo SeoData={seodata} PageSlug={"features"} InnerPageSlug={slug} />
             <NavBar siteUrl={siteUrl} />
             <div className="">
                 <section className="feature-cont-a4" style={{ backgroundColor: '#f7eecd' }}>
@@ -104,6 +107,8 @@ const BackToFeature = ({ seodata, featuredata, siteUrl, id }) => {
 
             </div>
             <Footer siteUrl={siteUrl} />
+
+
         </>
     );
 };
