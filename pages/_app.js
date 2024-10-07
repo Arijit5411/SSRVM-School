@@ -20,7 +20,8 @@ import Head from "next/head";
 
 export default function App({ Component, pageProps }) {
 
-  let site_url = pageProps?.siteUrl?.split('/_s')?.join("");
+  // let site_url = pageProps?.siteUrl?.split('/_s')?.join("");
+  let site_url = pageProps?.siteUrl ? pageProps.siteUrl.split('/_s').join('') : '';
 
   const sitesData = [
     { siteUrl: "https://dahod.ssrvm.org", gtagId: "G-P2D8SRKKBD" },
@@ -115,11 +116,15 @@ export default function App({ Component, pageProps }) {
     AOS.refresh();
   }, []);
 
-  const { gtagId, gtmId } = sitesData.find((item) => {
+  // Find matching site or return an empty object if none is found
+  const matchedSite = sitesData.find((item) => {
     const cleanItemUrl = item.siteUrl.replace(/^https?:\/\//, ''); // Remove http:// or https://
     const cleanSiteUrl = site_url.replace(/^https?:\/\//, ''); // Remove http:// or https://
     return cleanItemUrl === cleanSiteUrl; // Match the cleaned URLs
-  });
+  }) || {}; // Return an empty object if no match is found
+
+  // Destructure gtagId and gtmId, with default values if undefined
+  const { gtagId = '', gtmId = '' } = matchedSite;
 
 
   return (
@@ -154,7 +159,7 @@ export default function App({ Component, pageProps }) {
       <ToastContainer />
       <RouteScrollToTop />
       {/* {gtagId !== null && <LoadScript gtagId={gtagId} />} */}
-      <LoadScript gtagId={gtagId} />
+      {gtagId && <LoadScript gtagId={gtagId} />}
       <Component {...pageProps} />
       <ScrollToTop smooth color='#210D7D' />
     </>
@@ -163,20 +168,23 @@ export default function App({ Component, pageProps }) {
 
 const LoadScript = ({ gtagId }) => (
   <>
-    <script
-      async
-      src={`https://www.googletagmanager.com/gtag/js?id=${gtagId}`}
-    ></script>
-    <script
-      dangerouslySetInnerHTML={{
-        __html: `
+    {gtagId &&
+      <><script
+        async
+        src={`https://www.googletagmanager.com/gtag/js?id=${gtagId}`}
+      ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
               gtag('config', ${gtagId});
             `,
-      }}
-    />
+          }}
+        />
+      </>
+    }
   </>
 );
 
