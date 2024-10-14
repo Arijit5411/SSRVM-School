@@ -14,39 +14,39 @@ import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from "@/components/Seo";
 
 export const getServerSideProps = async (context) => {
-  try {
-    const siteUrl = determineStrapiUrl(context);
-    const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
-    const res1 = await fetch(`${GlobalSiteUrl}/api/founder-pages?populate=*`)
-    const res2 = await fetch(`${GlobalSiteUrl}/api/art-of-living-foundations?populate=*`)
+    try {
+        const siteUrl = determineStrapiUrl(context);
+        const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
+        const res1 = await fetch(`${GlobalSiteUrl}/api/founder-pages?populate=*`)
+        const res2 = await fetch(`${GlobalSiteUrl}/api/art-of-living-foundations?populate=*`)
 
-    const data = await res.json()
-    const data1 = await res1.json()
-    const data2 = await res2.json()
+        const data = await res.json()
+        const data1 = await res1.json()
+        const data2 = await res2.json()
 
-    return {
-        props: {
-            seodata: data?.data?.attributes?.Pages ?? {},
-            founderprop: data1,
-            foundation: data2,
-            siteUrl
-        }
-    };
-} catch (error) {
-  console.error("Error fetching data:", error.message);
+        return {
+            props: {
+                seodata: data?.data?.attributes?.Pages ?? {},
+                founderprop: data1,
+                foundation: data2,
+                siteUrl
+            }
+        };
+    } catch (error) {
+        console.error("Error fetching data:", error.message);
 
-  return {
-    props: {
-      data: [],
-    },
-  };
-}
+        return {
+            props: {
+                data: [],
+            },
+        };
+    }
 };
 
-const FounderTrust = ({ seodata, founderprop, foundation,siteUrl }) => {
+const FounderTrust = ({ seodata, founderprop, foundation, siteUrl }) => {
     const [founder, setFounder] = useState(null);
     const [foundationData, setFoundationData] = useState(null);
-   
+
     useEffect(() => {
         // fetch(`${GlobalSiteUrl}/api/founder-pages?populate=*`)
         //     .then((response) => response.json())
@@ -73,7 +73,7 @@ const FounderTrust = ({ seodata, founderprop, foundation,siteUrl }) => {
         }
     }, []);
 
-   
+
     const logoUrl = `${GlobalSiteUrl}${foundationData?.logo_sun?.data?.attributes?.url}`;
     const videoUrl = `${foundationData?.video_link}`;
     const bottom_heading_gurudev = `${foundationData?.bottom_heading_gurudev}`;
@@ -93,9 +93,9 @@ const FounderTrust = ({ seodata, founderprop, foundation,siteUrl }) => {
 
     return (
         <>
-               <Seo SeoData={seodata} PageSlug={"founder"} />
+            <Seo SeoData={seodata} PageSlug={"founder"} />
 
-            <NavBar siteUrl={siteUrl}/>
+            <NavBar siteUrl={siteUrl} />
 
             {/* {seoData && (
         <Seo
@@ -189,10 +189,11 @@ const FounderTrust = ({ seodata, founderprop, foundation,siteUrl }) => {
                                                         src="assets/img/4b-Trust/2-hero-mobile.png"
                                                         alt="flag_image"
                                                     />
-                                                </div>
-                                                <button class="visit_website_alf_below">
-                                                    Vist website
-                                                </button>
+                                                </div>                                        
+                                                    <button  href="/" class="visit_website_alf_below">
+                                                        Vist website
+                                                    </button>
+                                   
                                             </div>
                                             {/* <div>
                       <img
@@ -413,7 +414,7 @@ const FounderTrust = ({ seodata, founderprop, foundation,siteUrl }) => {
                                                         ></span>
                                                     )}
                                                 </p>
-                                                <a href="#" className="founderbtn">Vist website</a>
+                                                <a href="/" className="founderbtn">Vist website</a>
                                             </div>
                                             <div class="button_visit_website_ALF">
                                                 <button class="visit_website_alf_below">
@@ -469,7 +470,7 @@ const FounderTrust = ({ seodata, founderprop, foundation,siteUrl }) => {
                     </div>
                 </div>
             </div>
-            <Footer siteUrl={siteUrl}/>
+            <Footer siteUrl={siteUrl} />
         </>
     );
 };

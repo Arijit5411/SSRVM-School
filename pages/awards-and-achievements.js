@@ -421,9 +421,9 @@ const AwardAch = ({ seodata, awardsData, siteUrl }) => {
                   <h6 className='mt-4'>
                     {award.attributes.award_name} - {award.attributes.award_type} - {award.attributes.year}
                   </h6>
-                  <p className=' mt-2'>
+                  {/* <p className=' mt-2'>
                     {award.attributes.description}
-                  </p>
+                  </p> */}
                 </div>
               ))}
             </div>
