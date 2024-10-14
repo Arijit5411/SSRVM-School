@@ -456,7 +456,7 @@ const Admissions = ({
 
                 <Tab eventKey="faqs" title={faqs_tab}>
                   <h4 className="title">{faq_heading}</h4>
-                  <AdmissionFaq siteUrl={siteUrl} />
+                  <AdmissionFaq siteUrl={siteUrl}/>
                   {/* <section className="container wrap-accord-faq-admission">
                                         <div className="row g-4 ">
 
