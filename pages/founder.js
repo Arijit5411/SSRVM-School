@@ -80,6 +80,7 @@ const FounderTrust = ({ seodata, founderprop, foundation, siteUrl }) => {
     const short_description = `${foundationData?.short_description}`;
     const paragraph = `${foundationData?.paragraph}`;
     const tab_heading = `${foundationData?.tab_heading}`;
+    const visit_website_button = `${foundationData?.visit_website_button}`;
 
     const tab_heading1 = `${founder?.tab_heading}`;
     const founded_heading = `${founder?.founded_heading}`;
@@ -189,11 +190,15 @@ const FounderTrust = ({ seodata, founderprop, foundation, siteUrl }) => {
                                                         src="assets/img/4b-Trust/2-hero-mobile.png"
                                                         alt="flag_image"
                                                     />
-                                                </div>                                        
-                                                    <button  href="/" class="visit_website_alf_below">
-                                                        Vist website
+                                                </div>
+                                                <a href={visit_website_button} >
+                                                    <button className="visit_website_alf_below">
+                                                        Visit website
+
                                                     </button>
-                                   
+                                                </a>
+
+
                                             </div>
                                             {/* <div>
                       <img
@@ -414,7 +419,7 @@ const FounderTrust = ({ seodata, founderprop, foundation, siteUrl }) => {
                                                         ></span>
                                                     )}
                                                 </p>
-                                                <a href="/" className="founderbtn">Vist website</a>
+                                                <a href={visit_website_button} className="founderbtn">Vist website</a>
                                             </div>
                                             <div class="button_visit_website_ALF">
                                                 <button class="visit_website_alf_below">
