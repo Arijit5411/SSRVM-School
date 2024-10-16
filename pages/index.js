@@ -19,8 +19,6 @@ export const getServerSideProps = async (context) => {
     const res2 = await fetch(`${siteUrl}/api/home?populate=*`);
     const res3 = await fetch(`${siteUrl}/api/home-popup-slider?populate=*`);
     const res4 = await fetch(`${siteUrl}/api/seo?populate=deep, 10`);
-
-
     const data2 = await res2.json();
     const data3 = await res3.json();
     const data4 = await res4.json();
@@ -49,14 +47,14 @@ const Home = ({ siteUrl, homeSettings, homePopupSlider, seodata }) => {
 
   return (
     <>
-      <Seo SeoData={seodata} PageSlug={"main-page"} />
-      <NavBar siteUrl={siteUrl} />
-      <HomeAutoPopup data={homePopupSlider} siteUrl={siteUrl} />
-      <BannerSliderOne siteUrl={siteUrl} />
-      <MandatoryDisclosure siteUrl={siteUrl} />
-      <ImpAnmnt siteUrl={siteUrl} />
-      <HomeAbout siteUrl={siteUrl} homeSettings={homeSettings} />
-      <Footer siteUrl={siteUrl} />
+      <Seo SeoData={seodata} PageSlug={"main-page"}/>
+      <NavBar siteUrl={siteUrl}/>
+      <HomeAutoPopup data={homePopupSlider} siteUrl={siteUrl}/>
+      <BannerSliderOne siteUrl={siteUrl}/>
+      <MandatoryDisclosure siteUrl={siteUrl}/>
+      <ImpAnmnt siteUrl={siteUrl}/>
+      <HomeAbout siteUrl={siteUrl} homeSettings={homeSettings}/>
+      <Footer siteUrl={siteUrl}/>
     </>
   );
 };
