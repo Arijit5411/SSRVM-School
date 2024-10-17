@@ -429,7 +429,7 @@ const Admissions = ({
                 className="mb-3"
                 onSelect={(k) => setRouteActive(k)}
               >
-                <Tab eventKey="Procedure" title={procedure_tab}>
+                <Tab eventKey="Procedure" title="Procedure">
                   {/* {renderContent()} */}
                   <Render selectedOption={selectedOption} />
 
@@ -454,8 +454,8 @@ const Admissions = ({
                   </div>
                 </Tab>
 
-                <Tab eventKey="faqs" title={faqs_tab}>
-                  <h4 className="title">{faq_heading}</h4>
+                <Tab eventKey="faqs" title="FAQs">
+                  <h4 className="title">FAQs</h4>
                   <AdmissionFaq siteUrl={siteUrl}/>
                   {/* <section className="container wrap-accord-faq-admission">
                                         <div className="row g-4 ">
