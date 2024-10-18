@@ -407,59 +407,68 @@ const HomeAbout = ({ siteUrl, homeSettings }) => {
         )}
 
         {/* Tabs Section */}
-          <div className="service-area pt-5 pd-bottom-90 pb-lg-0 newsEvent">
-            <div className="pt-5"></div>
-            <div className="container">
-              <div className="more-news-home">
-                <a
-                  href={
-                    activeTab === "Global Blogs"
-                      ? "/global-blogs"
-                      : activeTab === "Global Events"
-                        ? "/global-events"
-                        : `/${activeTab.toLowerCase()}`
-                  }
-                >
-                  <p>
-                    More {activeTab === "Global Blogs" || activeTab === "Global Events" ? "" : activeTab}
-                  </p>
-                </a>
+        {(
+          (homeSettings?.attributes?.News ||
+            homeSettings?.attributes?.Events ||
+            homeSettings?.attributes?.Blogs ||
+            events[0]?.attributes.enable_disable ||
+            blogs[0]?.attributes.enable_disable)
+        ) && (
+            <div className="service-area pt-5 pd-bottom-90 pb-lg-0 newsEvent">
+              <div className="pt-5"></div>
+              <div className="container">
+                <div className="more-news-home">
+                  <a
+                    href={
+                      activeTab === "Global Blogs"
+                        ? "/global-blogs"
+                        : activeTab === "Global Events"
+                          ? "/global-events"
+                          : `/${activeTab.toLowerCase()}`
+                    }
+                  >
+                    <p>
+                      More {activeTab === "Global Blogs" || activeTab === "Global Events" ? "" : activeTab}
+                    </p>
+                  </a>
+                </div>
+                <Tabs key={activeTab} defaultActiveKey={activeTab} onSelect={handleTabSelect} id="uncontrolled-tab-example" className="mb-3">
+                  {homeSettings?.attributes?.News && (
+                    <Tab eventKey="News" title="News">
+                      <div className="service-area pb-lg-0" style={{ background: "url(assets/img/service/bg.png)" }}>
+                        <HomeNews siteUrl={siteUrl} />
+                      </div>
+                    </Tab>
+                  )}
+
+                  {homeSettings?.attributes?.Events && (
+                    <Tab eventKey="Events" title="Events">
+                      <HomeEvents siteUrl={siteUrl} />
+                    </Tab>
+                  )}
+
+                  {homeSettings?.attributes?.Blogs && (
+                    <Tab eventKey="Blogs" title="Blogs">
+                      <HomeBlog siteUrl={siteUrl} />
+                    </Tab>
+                  )}
+
+                  {events[0]?.attributes.enable_disable && (
+                    <Tab eventKey="Global Blogs" title="Global Blogs">
+                      <HomeGlobalBlogs siteUrl={siteUrl} />
+                    </Tab>
+                  )}
+
+                  {blogs[0]?.attributes.enable_disable && (
+                    <Tab eventKey="Global Events" title="Global Events">
+                      <HomeGlobalEvents siteUrl={siteUrl} />
+                    </Tab>
+                  )}
+                </Tabs>
               </div>
-              <Tabs key={activeTab} defaultActiveKey={activeTab} onSelect={handleTabSelect} id="uncontrolled-tab-example" className="mb-3">
-                {((homeSettings === null) || homeSettings?.attributes?.News) && (
-                  <Tab eventKey="News" title="News">
-                    <div className="service-area pb-lg-0" style={{ background: "url(assets/img/service/bg.png)" }}>
-                      <HomeNews siteUrl={siteUrl} />
-                    </div>
-                  </Tab>
-                )}
-
-                {((homeSettings === null) || homeSettings?.attributes?.Events) && (
-                  <Tab eventKey="Events" title="Events">
-                    <HomeEvents siteUrl={siteUrl} />
-                  </Tab>
-                )}
-
-                {((homeSettings === null) || homeSettings?.attributes?.Blogs) && (
-                  <Tab eventKey="Blogs" title="Blogs">
-                    <HomeBlog siteUrl={siteUrl} />
-                  </Tab>
-                )}
-
-                {events[0]?.attributes.enable_disable && (
-                  <Tab eventKey="Global Blogs" title="Global Blogs">
-                    <HomeGlobalBlogs siteUrl={siteUrl} />
-                  </Tab>
-                )}
-
-                {blogs[0]?.attributes.enable_disable && (
-                  <Tab eventKey="Global Events" title="Global Events">
-                    <HomeGlobalEvents siteUrl={siteUrl} />
-                  </Tab>
-                )}
-              </Tabs>
             </div>
-          </div>
+          )}
+
       </div>
     </>
   );
