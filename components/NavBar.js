@@ -202,12 +202,44 @@ const NavBar = ({ siteUrl }) => {
                               {menuItem.attributes.children.data.map(
                                 (childItem, childIndex) => (
                                   <li key={childIndex}>
-                                    <a
-                                      href={childItem.attributes.url}
-                                      target={childItem.attributes.target}
-                                    >
-                                      {childItem.attributes.title}
-                                    </a>
+                                    <div className="sub-link-wrapper">
+                                      <a className="sub-link"
+                                        href={childItem.attributes.url}
+                                        target={childItem.attributes.target}
+                                      >
+                                        {childItem.attributes.title}
+                                        {childItem.attributes.children &&
+                                          childItem.attributes.children.data.length > 0 && (
+                                            <span>
+                                              {`>`}
+                                            </span>)}
+                                      </a>
+                                      {childItem.attributes.children &&
+                                        childItem.attributes.children.data.length > 0 && (
+                                          <>
+
+                                            <ul className="sub-menu-2">
+                                              {childItem.attributes.children.data.map(
+                                                (childItem2, childIndex2) => (
+                                                  <li key={childIndex2}>
+
+                                                    <a
+                                                      href={childItem2.attributes.url}
+                                                      target={childItem2.attributes.target}
+                                                    >
+                                                      {childItem2.attributes.title}
+                                                    </a>
+                                                    <ul>
+
+                                                    </ul>
+                                                  </li>
+                                                )
+                                              )}
+                                            </ul>
+                                          </>
+                                        )}
+                                    </div>
+
                                   </li>
                                 )
                               )}

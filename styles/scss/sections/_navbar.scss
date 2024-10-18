@@ -194,7 +194,7 @@
               box-shadow: 0 0 15px 0 rgba(#000, 0.05);
               background-color: $color-white;
               z-index: 9;
-              overflow: hidden;
+              // overflow: hidden;
               visibility: hidden;
               opacity: 0;
               @include transition(all, 0.4s, ease);
@@ -227,7 +227,7 @@
                 &:hover {
                   background: #210D7D;
 
-                  a {
+               a.sub-link {
                     color: #fff;
 
                     &:before {

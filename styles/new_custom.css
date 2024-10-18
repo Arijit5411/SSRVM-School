@@ -1097,7 +1097,6 @@ section.award-s1 h2 {
   padding-top: 150px;
 }
 
-
 .feature-cont-a4 h1 {
   font-size: 60px;
   line-height: 1.2;
@@ -1111,4 +1110,38 @@ section.award-s1 h2 {
   line-height: 1.5;
 }
 
+/* --------------------------------------------------------- */
 
+.sub-link-wrapper {
+  position: relative;
+}
+
+.sub-menu-2 {
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: auto;
+  padding: 0px;
+  margin: 0;
+  transform: translateX(100%);
+  transition: all 0.3s ease-in-out;
+  width: 200px;
+  background-color: white;
+  opacity: 0;
+}
+
+.sub-link-wrapper a.sub-link{
+  display: flex !important;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sub-link-wrapper:hover .sub-menu-2{
+  opacity: 1;
+  visibility: visible;
+}
+
+.sub-menu-2  > li > a:hover {
+  color: #fff !important;
+}

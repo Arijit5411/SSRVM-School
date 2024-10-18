@@ -424,7 +424,9 @@ const HomeAbout = ({ siteUrl, homeSettings }) => {
                         ? "/global-blogs"
                         : activeTab === "Global Events"
                           ? "/global-events"
-                          : `/${activeTab.toLowerCase()}`
+                          : activeTab === "Blogs"
+                            ? "/blog"  // Set to /blog instead of /blogs
+                            : `/${activeTab.toLowerCase()}`
                     }
                   >
                     <p>
