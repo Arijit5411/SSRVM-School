@@ -4,7 +4,7 @@ import Link from "next/link";
 const AdmissionFaq = ({siteUrl}) => {
     const [faqs, setFaqs] = useState([]);
     useEffect(() => {
-        fetch(`${siteUrl}/api/admission-faqs`)
+        fetch(`${siteUrl}/api/admission-faqs?pagination[start]=0&pagination[limit]=100`)
             .then((response) => response.json())
             .then((data) => {
                 setFaqs(data.data);
