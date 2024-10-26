@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
 import Link from "next/link";
-const postsPerPage = 6; 
+const postsPerPage = 6;
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from "@/components/Seo";
 
@@ -100,6 +100,7 @@ const Blog = ({ seodata, blogProp, siteUrl }) => {
                           <Link href={`/blog/${post.attributes.slug}`} className="text-muted-news">
                             read more
                           </Link>
+
                         </div>
                       </div>
                     </div>

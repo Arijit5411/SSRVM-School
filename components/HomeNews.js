@@ -9,6 +9,7 @@ const HomeNews = ({siteUrl}) => {
   const [news, setNews] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 8; // Number of news posts per page
+  
   useEffect(() => {
     fetch(`${siteUrl}/api/newspages?sort=id:desc&populate=*`)
       .then((response) => response.json())

@@ -94,7 +94,7 @@ const HomeBlog = ({siteUrl}) => {
                             {post.attributes.Title}
                           </p>
                           <Link
-                            href={`/back-to-blog/${post.id}`}
+                            href={`/blog/${post.attributes.slug}`}
                             className="text-muted-news"
                           >
                             read more
