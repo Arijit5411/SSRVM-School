@@ -6,7 +6,7 @@ const HomeFacebook = ({FacebookUrl, FacebookIframe}) => {
         <div className='row'>
             <div className="col-lg-5">
                 <div className="pe-xxl-5 h-100">
-                    <div className=" d-md-flex align-items-center justify-content-between">
+                    <div className=" d-flex align-items-center justify-content-between">
                         <h4 className="fs-30 fw-700 color-1">Facebook</h4>
                         <div className="btn-wrap">
                             <Link href={FacebookUrl} target="_blank" className="def-btn btn-8">Follow us on Facebook</Link>
