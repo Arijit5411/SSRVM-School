@@ -13,6 +13,7 @@ import HomeGallery from "./HomeGallery";
 import HomeGlobalBlogs from "./HomeGlobalBlogs";
 import HomeGlobalEvents from "./HomeGlobalEvents";
 import HomeFacebook from "./HomeFacebook";
+import HomeInstagram from "./HomeInstagram";
 
 const HomeAbout = ({ siteUrl, homeSettings }) => {
   const [gfounder, setGfounder] = useState(null);
@@ -76,7 +77,7 @@ const HomeAbout = ({ siteUrl, homeSettings }) => {
         setActiveTab("Blogs");
       }
       if (homeSettings?.attributes?.News === false && homeSettings?.attributes?.Events === false &&
-         homeSettings?.attributes?.Blogs === false) {
+        homeSettings?.attributes?.Blogs === false) {
         setActiveTab("Facebook");
       }
     }
@@ -184,22 +185,25 @@ const HomeAbout = ({ siteUrl, homeSettings }) => {
               <div className="pt-5"></div>
               <div className="container">
                 <div className="more-news-home">
-                  <a
-                    href={
-                      activeTab === "Global Blogs"
-                        ? "/global-blogs"
-                        : activeTab === "Global Events"
-                          ? "/global-events"
-                          : activeTab === "Blogs"
-                            ? "/blog"  // Set to /blog instead of /blogs
-                            : `/${activeTab.toLowerCase()}`
-                    }
-                  >
-                    <p>
-                      More {activeTab === "Global Blogs" || activeTab === "Global Events" || activeTab === "Global Facebook" ? "" : activeTab}
-                    </p>
-                  </a>
+                  {activeTab !== "Facebook" && (
+                    <a
+                      href={
+                        activeTab === "Global Blogs"
+                          ? "/global-blogs"
+                          : activeTab === "Global Events"
+                            ? "/global-events"
+                            : activeTab === "Blogs"
+                              ? "/blog" // Set to /blog instead of /blogs
+                              : `/${activeTab.toLowerCase()}`
+                      }
+                    >
+                      <p>
+                        More {activeTab === "Global Blogs" || activeTab === "Global Events" ? "" : activeTab}
+                      </p>
+                    </a>
+                  )}
                 </div>
+
                 <Tabs key={activeTab} defaultActiveKey={activeTab} onSelect={handleTabSelect} id="uncontrolled-tab-example" className="mb-3">
                   {homeSettings?.attributes?.News && (
                     <Tab eventKey="News" title="News">
@@ -219,14 +223,20 @@ const HomeAbout = ({ siteUrl, homeSettings }) => {
                       <HomeBlog siteUrl={siteUrl} />
                     </Tab>
                   )}
-                  {/* HomeFacebook Tab */}
                   {homeSettings?.attributes?.Facebook &&
                     <Tab eventKey="Facebook" title="Facebook">
-                      <HomeFacebook FacebookUrl={homeSettings?.attributes?.Facebook_URL} 
-                      FacebookIframe={homeSettings?.attributes?.Facebook_iFrame_URL} />
+                      <HomeFacebook FacebookUrl={homeSettings?.attributes?.Facebook_URL}
+                        FacebookIframe={homeSettings?.attributes?.Facebook_iFrame_URL} />
                     </Tab>
                   }
-
+                  {homeSettings?.attributes?.Instagram && (
+                    <Tab eventKey="Instagram" title="Instagram">
+                      <HomeInstagram
+                        InstagramUrl={homeSettings?.attributes?.Instagram_URL}
+                        InstagramIframe={homeSettings?.attributes?.Instagram_iFrame_URL}
+                      />
+                    </Tab>
+                  )}
                   {events[0]?.attributes.enable_disable && (
                     <Tab eventKey="Global Blogs" title="Global Blogs">
                       <HomeGlobalBlogs siteUrl={siteUrl} />
