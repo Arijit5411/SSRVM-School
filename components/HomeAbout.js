@@ -102,7 +102,8 @@ const HomeAbout = ({ siteUrl, homeSettings }) => {
         homeSettings?.attributes?.News === false &&
         homeSettings?.attributes?.Events === false &&
         homeSettings?.attributes?.Blogs === false &&
-        homeSettings?.attributes?.Facebook === false
+        homeSettings?.attributes?.Facebook === false &&
+        homeSettings?.attributes?.Instagram === false
       ) {
         setActiveTab("Instagram");
       }
@@ -194,72 +195,74 @@ const HomeAbout = ({ siteUrl, homeSettings }) => {
         homeSettings?.attributes?.Events ||
         homeSettings?.attributes?.Blogs ||
         homeSettings?.attributes?.Facebook ||
+        homeSettings?.attributes?.Instagram ||
         events[0]?.attributes.enable_disable ||
         blogs[0]?.attributes.enable_disable) && (
-        <div className="service-area pt-5 pd-bottom-90 pb-lg-0 newsEvent">
-          <div className="pt-5"></div>
-          <div className="container">
-            <div className="more-news-home">
-              {activeTab !== "Facebook" && activeTab !== "Instagram" && (
-                <a
-                  href={
-                    activeTab === "Global Blogs"
-                      ? "/global-blogs"
-                      : activeTab === "Global Events"
-                      ? "/global-events"
-                      : activeTab === "Blogs"
-                      ? "/blog"
-                      : `/${activeTab.toLowerCase()}`
-                  }
-                >
-                  <p>More {activeTab}</p>
-                </a>
-              )}
+          <div className="service-area pt-5 pd-bottom-90 pb-lg-0 newsEvent">
+            <div className="pt-5"></div>
+            <div className="container">
+              <div className="more-news-home">
+                {activeTab !== "Facebook" && activeTab !== "Instagram" && (
+                  <a
+                    href={
+                      activeTab === "Global Blogs"
+                        ? "/global-blogs"
+                        : activeTab === "Global Events"
+                          ? "/global-events"
+                          : activeTab === "Blogs"
+                            ? "/blog"
+                            : `/${activeTab.toLowerCase()}`
+                    }
+                  >
+                    <p>More {activeTab}</p>
+                  </a>
+                )}
+              </div>
+              <Tabs key={activeTab} activeKey={activeTab} onSelect={handleTabSelect} id="uncontrolled-tab-example" className="mb-3">
+                {homeSettings?.attributes?.News && (
+                  <Tab eventKey="News" title="News">
+                    <HomeNews siteUrl={siteUrl} />
+                  </Tab>
+                )}
+                {homeSettings?.attributes?.Events && (
+                  <Tab eventKey="Events" title="Events">
+                    <HomeEvents siteUrl={siteUrl} />
+                  </Tab>
+                )}
+                {homeSettings?.attributes?.Blogs && (
+                  <Tab eventKey="Blogs" title="Blogs">
+                    <HomeBlog siteUrl={siteUrl} />
+                  </Tab>
+                )}
+                {homeSettings?.attributes?.Facebook && (
+                  <Tab eventKey="Facebook" title="Facebook">
+                    <HomeFacebook
+                      FacebookUrl={homeSettings?.attributes?.Facebook_URL}
+                      FacebookIframe={homeSettings?.attributes?.Facebook_iFrame_URL}
+                    />
+                  </Tab>
+                )}
+                {homeSettings?.attributes?.Instagram &&
+                  <Tab eventKey="Instagram" title="Instagram">
+                    <HomeInstagram
+                      InstagramUrl={homeSettings?.attributes?.Instagram_Url}
+                      InstagramIframe={homeSettings?.attributes?.Instagram_Post_Url}
+                    />
+                  </Tab>}
+                {events[0]?.attributes.enable_disable && (
+                  <Tab eventKey="Global Blogs" title="Global Blogs">
+                    <HomeGlobalBlogs siteUrl={siteUrl} />
+                  </Tab>
+                )}
+                {blogs[0]?.attributes.enable_disable && (
+                  <Tab eventKey="Global Events" title="Global Events">
+                    <HomeGlobalEvents siteUrl={siteUrl} />
+                  </Tab>
+                )}
+              </Tabs>
             </div>
-            <Tabs key={activeTab} activeKey={activeTab} onSelect={handleTabSelect} id="uncontrolled-tab-example" className="mb-3">
-              {homeSettings?.attributes?.News && (
-                <Tab eventKey="News" title="News">
-                  <HomeNews siteUrl={siteUrl} />
-                </Tab>
-              )}
-              {homeSettings?.attributes?.Events && (
-                <Tab eventKey="Events" title="Events">
-                  <HomeEvents siteUrl={siteUrl} />
-                </Tab>
-              )}
-              {homeSettings?.attributes?.Blogs && (
-                <Tab eventKey="Blogs" title="Blogs">
-                  <HomeBlog siteUrl={siteUrl} />
-                </Tab>
-              )}
-              {homeSettings?.attributes?.Facebook && (
-                <Tab eventKey="Facebook" title="Facebook">
-                  <HomeFacebook
-                    FacebookUrl={homeSettings?.attributes?.Facebook_URL}
-                    FacebookIframe={homeSettings?.attributes?.Facebook_iFrame_URL}
-                  />
-                </Tab>
-              )}
-              <Tab eventKey="Instagram" title="Instagram">
-                <HomeInstagram 
-                  InstagramUrl={homeSettings?.attributes?.Instagram_Url}
-                  InstagramIframe={homeSettings?.attributes?.Instagram_Post_Url}
-                />
-              </Tab>
-              {events[0]?.attributes.enable_disable && (
-                <Tab eventKey="Global Blogs" title="Global Blogs">
-                  <HomeGlobalBlogs siteUrl={siteUrl} />
-                </Tab>
-              )}
-              {blogs[0]?.attributes.enable_disable && (
-                <Tab eventKey="Global Events" title="Global Events">
-                  <HomeGlobalEvents siteUrl={siteUrl} />
-                </Tab>
-              )}
-            </Tabs>
           </div>
-        </div>
-      )}
+        )}
     </div>
   );
 };
