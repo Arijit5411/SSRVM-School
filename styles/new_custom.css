@@ -1145,3 +1145,12 @@ section.award-s1 h2 {
 .sub-menu-2  > li > a:hover {
   color: #fff !important;
 }
+
+
+
+@media only screen and (max-width: 600px) {
+  .nav-item #uncontrolled-tab-example-tab-Facebook{
+  display: none;
+  }
+
+}
