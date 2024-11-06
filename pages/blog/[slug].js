@@ -1,15 +1,14 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect } from "react";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 import ReactMarkdown from "react-markdown";
 import RecentPostsSidebar from "@/components/RecentPostsSidebar";
-
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from "@/components/Seo";
 import RecentSidebar from "@/components/RecentSidebar";
 
 export const getServerSideProps = async (context) => {
-
   try {
     const siteUrl = determineStrapiUrl(context);
     const { slug } = context.params;
@@ -28,12 +27,13 @@ export const getServerSideProps = async (context) => {
         blogdata: data1.data[0],
         relData: data2.data,
         siteUrl,
-        slug
+        slug,
+        articleSchema: data1.data[0]?.attributes?.Article_Schema || null,
+        faqSchema: data1.data[0]?.attributes?.FAQ_Schema || null,
       },
     };
   } catch (error) {
     console.error("Error fetching data:", error.message);
-
     return {
       props: {
         data: [],
@@ -41,7 +41,8 @@ export const getServerSideProps = async (context) => {
     };
   }
 };
-const BackToBlog = ({ seodata, blogdata, relData, siteUrl, slug }) => {
+
+const BackToBlog = ({ seodata, blogdata, relData, siteUrl, slug, articleSchema, faqSchema }) => {
   const [publicUrl, setPublicUrl] = useState();
   const components = {
     img: ({ src, alt }) => {
@@ -53,21 +54,34 @@ const BackToBlog = ({ seodata, blogdata, relData, siteUrl, slug }) => {
     setPublicUrl(window.location.origin);
   }, [publicUrl]);
 
-
   return (
     <>
-    <Seo SeoData={seodata} PageSlug={"blog"} InnerPageSlug={slug} />
+      <Seo SeoData={seodata} PageSlug={"blog"} InnerPageSlug={slug} />
       <NavBar siteUrl={siteUrl} />
+
+      {/* JSON-LD Schema for Article */}
+      {articleSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema)}}
+        />
+      )}
+
+      {/* JSON-LD Schema for FAQ */}
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema)}}
+        />
+      )}
+
       <div className="top-section4 desktophide">
         <section className="wrap-item-blog-se1 first-section position-relative">
           <div className="container">
             <div className="row">
               <div className="col-content">
                 <a className="backto-btn" href="/blog">
-                  <img
-                    src={publicUrl + "/assets/img/blog/13-arrow-left.png"}
-                    alt="Transpro"
-                  />
+                  <img src={publicUrl + "/assets/img/blog/13-arrow-left.png"} alt="Transpro" />
                   <span>Back to Blog</span>
                 </a>
               </div>
@@ -97,16 +111,11 @@ const BackToBlog = ({ seodata, blogdata, relData, siteUrl, slug }) => {
           <div className="container">
             <div className="row gx-5 blog-inn-row">
               <div className="col-lg-3 col-1">
-                {/* Sidebar content */}
                 <div className="col-content">
                   <a className="backto-btn" href="/blog">
-                    <img
-                      src={publicUrl + "/assets/img/blog/13-arrow-left.png"}
-                      alt="Transpro"
-                    />
+                    <img src={publicUrl + "/assets/img/blog/13-arrow-left.png"} alt="Transpro"/>
                     <span>Back to Blog</span>
                   </a>
-
                   <RecentSidebar Page="Blog" PageSlug="blog" RelData={relData} Slug={slug} siteUrl={siteUrl} Title="Title"/>
                 </div>
               </div>
