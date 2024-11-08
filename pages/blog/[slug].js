@@ -45,25 +45,23 @@ export const getServerSideProps = async (context) => {
 const BackToBlog = ({ seodata, blogdata, relData, siteUrl, slug, articleSchema, faqSchema }) => {
   const [publicUrl, setPublicUrl] = useState();
   const components = {
-    img: ({ src, alt }) => {
-      return <img src={`${siteUrl}${src}`} alt={alt} />;
-    },
+    img: ({ src, alt }) => <img src={`${siteUrl}${src}`} alt={alt}/>,
   };
 
   useEffect(() => {
     setPublicUrl(window.location.origin);
-  }, [publicUrl]);
+  }, []);
 
   return (
     <>
-      <Seo SeoData={seodata} PageSlug={"blog"} InnerPageSlug={slug} />
+      <Seo SeoData={seodata} PageSlug={"blog"} InnerPageSlug={slug}/>
       <NavBar siteUrl={siteUrl} />
-
-      {/* JSON-LD Schema for Article */}
       {articleSchema && (
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema)}}
+          dangerouslySetInnerHTML={{
+            __html: articleSchema.replace(/\\n|\\\"|\s{2,}/g, match => match === '\\"' ? '"' : ' '),
+          }}
         />
       )}
 
@@ -71,7 +69,9 @@ const BackToBlog = ({ seodata, blogdata, relData, siteUrl, slug, articleSchema, 
       {faqSchema && (
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema)}}
+          dangerouslySetInnerHTML={{
+            __html: faqSchema.replace(/\\n|\\\"|\s{2,}/g, match => match === '\\"' ? '"' : ' '),
+          }}
         />
       )}
 
@@ -81,7 +81,7 @@ const BackToBlog = ({ seodata, blogdata, relData, siteUrl, slug, articleSchema, 
             <div className="row">
               <div className="col-content">
                 <a className="backto-btn" href="/blog">
-                  <img src={publicUrl + "/assets/img/blog/13-arrow-left.png"} alt="Transpro" />
+                  <img src={`${publicUrl}/assets/img/blog/13-arrow-left.png`} alt="Back to Blog" />
                   <span>Back to Blog</span>
                 </a>
               </div>
@@ -113,7 +113,7 @@ const BackToBlog = ({ seodata, blogdata, relData, siteUrl, slug, articleSchema, 
               <div className="col-lg-3 col-1">
                 <div className="col-content">
                   <a className="backto-btn" href="/blog">
-                    <img src={publicUrl + "/assets/img/blog/13-arrow-left.png"} alt="Transpro"/>
+                    <img src={`${publicUrl}/assets/img/blog/13-arrow-left.png`} alt="Back to Blog"/>
                     <span>Back to Blog</span>
                   </a>
                   <RecentSidebar Page="Blog" PageSlug="blog" RelData={relData} Slug={slug} siteUrl={siteUrl} Title="Title"/>
