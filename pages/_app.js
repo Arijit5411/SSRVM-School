@@ -50,8 +50,8 @@ export default function App({ Component, pageProps }) {
     { siteUrl: "https://warje.ssrvm.org", gtagId: "G-DRRET5QJR4" },
     { siteUrl: "https://thiru.ssrvm.org", gtagId: "G-KLWGDK95WE" },
     { siteUrl: "https://mulbagal.ssrvm.org", gtagId: "G-D49M36JKSB" },
-    { siteUrl: "https://bangaloresouth.ssrvm.org", gtagId: "G-J8FGF6ER70"},
-    // { siteUrl: "https://bangaloresouth.ssrvm.org", gtagId: "G-FP52Z6SNWF" },
+    // { siteUrl: "https://bangaloresouth.ssrvm.org", gtagId: "G-J8FGF6ER70"},
+    { siteUrl: "https://bangaloresouth.ssrvm.org", gtagId: "G-FP52Z6SNWF" },
     { siteUrl: "https://rrnagar.ssrvm.org", gtagId: "G-9YDR5E3XCV" },
     { siteUrl: "https://kgf.ssrvm.org", gtagId: "G-NC8YYDTLKW'" },
     { siteUrl: "https://bangalorenorth.ssrvm.org", gtagId: "G-L0MF1LDNWV" },
@@ -106,6 +106,7 @@ export default function App({ Component, pageProps }) {
     { siteUrl: "https://asansol.ssa.org.in", gtagId: "G-5VPQ23P4TR" },
     { siteUrl: "https://hyderabad.ssa.org.in", gtagId: "G-2EMEGCYRRM" },
     { siteUrl: "https://cuttack.ssa.org.in", gtagId: "G-7LHVNFKPQF" },
+    { siteUrl: "https://bangaloresouth.ssa.org.in", gtagId: "G-J8FGF6ER70" },
   ]
 
   useEffect(() => {
