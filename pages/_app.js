@@ -14,8 +14,6 @@ import '../node_modules/react-datetime/css/react-datetime.css';
 import '../node_modules/react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Script from "next/script";
-import { useRouter } from "next/router";
 import Head from "next/head";
 
 export default function App({ Component, pageProps }) {
@@ -28,7 +26,8 @@ export default function App({ Component, pageProps }) {
     { siteUrl: "https://osmanabad.ssrvm.org", gtagId: "G-3J9TZFDPL5" },
     { siteUrl: "https://cochin.ssrvm.org", gtagId: "G-P7T823N846" },
     { siteUrl: "https://thrissur.ssrvm.org", gtagId: "G-9CYCFMZZFS" },
-    { siteUrl: "https://indore.ssrvm.org", gtagId: "G-S7D8PXLCBY", gtmId: "GTM-PCG5Q78G" },
+    // { siteUrl: "https://indore.ssrvm.org", gtagId: "G-S7D8PXLCBY", gtmId: "GTM-PCG5Q78G" },
+    { siteUrl: "https://indore.ssrvm.org", gtagId: "G-S7D8PXLCBY" },
     { siteUrl: "https://moshi.ssrvm.org", gtagId: "G-155BE9KBJY" },
     { siteUrl: "https://noida.ssrvm.org", gtagId: "G-F165X86BQ0" },
     { siteUrl: "https://shrirampur.ssrvm.org", gtagId: "G-LBLPMSN3Z9" },
@@ -51,7 +50,8 @@ export default function App({ Component, pageProps }) {
     { siteUrl: "https://warje.ssrvm.org", gtagId: "G-DRRET5QJR4" },
     { siteUrl: "https://thiru.ssrvm.org", gtagId: "G-KLWGDK95WE" },
     { siteUrl: "https://mulbagal.ssrvm.org", gtagId: "G-D49M36JKSB" },
-    { siteUrl: "https://bangaloresouth.ssrvm.org", gtagId: "G-FP52Z6SNWF" },
+    { siteUrl: "https://bangaloresouth.ssrvm.org", gtagId: "G-J8FGF6ER70"},
+    // { siteUrl: "https://bangaloresouth.ssrvm.org", gtagId: "G-FP52Z6SNWF" },
     { siteUrl: "https://rrnagar.ssrvm.org", gtagId: "G-9YDR5E3XCV" },
     { siteUrl: "https://kgf.ssrvm.org", gtagId: "G-NC8YYDTLKW'" },
     { siteUrl: "https://bangalorenorth.ssrvm.org", gtagId: "G-L0MF1LDNWV" },
@@ -190,17 +190,3 @@ const LoadScript = ({ gtagId }) => (
   </>
 );
 
-
-
-
-
-// const LoadScript = (props) => (
-// <script async src={`https://www.googletagmanager.com/gtag/js?id=${props?.gtagId}`}>
-//   {
-//     // `  window.dataLayer = window.dataLayer || [];
-//     //           function gtag(){dataLayer.push(arguments)}
-//     //           gtag('js', new Date());
-//     //           gtag('config', ${props?.gtagId});
-//     //      `
-//   }
-// </script>)
