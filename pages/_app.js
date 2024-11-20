@@ -54,7 +54,7 @@ export default function App({ Component, pageProps }) {
     { siteUrl: "https://bangaloresouth.ssrvm.org", gtagId: "G-FP52Z6SNWF", gtmId:'GTM-M3HCW2V' },
     { siteUrl: "https://rrnagar.ssrvm.org", gtagId: "G-9YDR5E3XCV" },
     { siteUrl: "https://kgf.ssrvm.org", gtagId: "G-NC8YYDTLKW'" },
-    { siteUrl: "https://bangalorenorth.ssrvm.org", gtagId: "G-L0MF1LDNWV" },
+    { siteUrl: "https://bangalorenorth.ssrvm.org", gtagId: "G-L0MF1LDNWV", gtmId:'GTM-PV5JPZV9' },
     { siteUrl: "https://bhugaon.ssrvm.org", gtagId: "G-NRB3SGWLWP" },
     { siteUrl: "https://mulund.ssrvm.org", gtagId: "G-H6NZ21L3RC", gtmId:"GTM-KXKTK39M"},
     // { siteUrl: "https://borivalieast.ssrvm.org", gtagId: "G-5J1PLXPWRZ", gtmId: "GTM-PBJK7BX8" },
