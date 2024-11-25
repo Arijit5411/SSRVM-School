@@ -10,38 +10,38 @@ import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from "@/components/Seo";
 
 export const getServerSideProps = async (context) => {
-  try {
-    const siteUrl = determineStrapiUrl(context);
+    try {
+        const siteUrl = determineStrapiUrl(context);
 
-    const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
-    const res1 = await fetch(`${siteUrl}/api/magazines?sort=id:desc&populate=*`)
+        const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
+        const res1 = await fetch(`${siteUrl}/api/magazines?sort=id:desc&populate=*`)
 
-    const data = await res.json()
-    const data1 = await res1.json()
+        const data = await res.json()
+        const data1 = await res1.json()
 
-    return {
-        props: {
-            seodata: data?.data?.attributes?.Pages ?? {},
-            magazineData: data1,
-            siteUrl
-        }
-    };
-} catch (error) {
-  console.error("Error fetching data:", error.message);
+        return {
+            props: {
+                seodata: data?.data?.attributes?.Pages ?? {},
+                magazineData: data1,
+                siteUrl
+            }
+        };
+    } catch (error) {
+        console.error("Error fetching data:", error.message);
 
-  return {
-    props: {
-      data: [],
-    },
-  };
-}
+        return {
+            props: {
+                data: [],
+            },
+        };
+    }
 };
 
 
-const School_Magazine = ({ seodata, magazineData,siteUrl }) => {
+const School_Magazine = ({ seodata, magazineData, siteUrl }) => {
     const [schoolMagazines, setSchoolMagazines] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-   
+
     const magazinesPerPage = 8;
 
     useEffect(() => {
@@ -71,7 +71,7 @@ const School_Magazine = ({ seodata, magazineData,siteUrl }) => {
         }
     }, []);
 
-    
+
 
     // for pagination
     const indexOfLastMagazine = currentPage * magazinesPerPage;
@@ -96,9 +96,9 @@ const School_Magazine = ({ seodata, magazineData,siteUrl }) => {
     return (
         <>
             <Fragment>
-            <Seo SeoData={seodata} PageSlug={"school-magazine"} />
+                <Seo SeoData={seodata} PageSlug={"school-magazine"} />
 
-                <NavBar siteUrl={siteUrl}/>
+                <NavBar siteUrl={siteUrl} />
 
                 {/* {seoData && (
                     <Seo
@@ -130,10 +130,26 @@ const School_Magazine = ({ seodata, magazineData,siteUrl }) => {
                                         />
                                         <div className="card-body">
                                             <p className="card-text-school">{magazine.attributes.title}</p>
-                                            <a href={siteUrl + magazine.attributes.download_pdf.data.attributes.url} className="text-muted-mag" download>
-                                                Download
-                                            </a>
+                                            {magazine.attributes.download_pdf?.data?.attributes?.url ? (
+                                                <a
+                                                    href={`${siteUrl}${magazine.attributes.download_pdf.data.attributes.url}`}
+                                                    className="text-muted-mag"
+                                                    download
+                                                >
+                                                    Download
+                                                </a>
+                                            ) : magazine.attributes.External_Link ? (
+                                                <a
+                                                    href={magazine.attributes.External_Link}
+                                                    className="text-muted-mag"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                >
+                                                    Read More
+                                                </a>
+                                            ) : null}
                                         </div>
+
                                     </div>
                                 </div>
                             ))}
@@ -156,7 +172,7 @@ const School_Magazine = ({ seodata, magazineData,siteUrl }) => {
                         </div>
                     </section>
                 </div>
-                <Footer siteUrl={siteUrl}/>
+                <Footer siteUrl={siteUrl} />
             </Fragment>
         </>
     );
