@@ -14,7 +14,6 @@ export const getServerSideProps = async (context) => {
     const siteUrl = determineStrapiUrl(context);
     const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
     const res1 = await fetch(`${siteUrl}/api/testimonial-pages?populate=*`);
-
     const data = await res.json();
     const data1 = await res1.json();
 
@@ -156,16 +155,13 @@ const Testimonials = ({ seodata, testimonial, siteUrl }) => {
   return (
     <>
       <Fragment>
-      <Seo SeoData={seodata} PageSlug={"testimonials"} />
-
-        <NavBar siteUrl={siteUrl} />
-
+      <Seo SeoData={seodata} PageSlug={"testimonials"}/>
+        <NavBar siteUrl={siteUrl}/>
         <div className="top-section1">
           <div className="container">
             <h1 className="principal-mess">Testimonials</h1>
-            <TestimonialsVideo siteUrl={siteUrl} />
+            <TestimonialsVideo siteUrl={siteUrl}/>
           </div>
-
           <section className="container marginTopExternal">
             <div className="testimonial-drop">
               <div className="dropdown">
@@ -224,10 +220,9 @@ const Testimonials = ({ seodata, testimonial, siteUrl }) => {
               </Tabs>
             </div>
           </section>
-
-          <TestimonialsForm siteUrl={siteUrl} />
+          <TestimonialsForm siteUrl={siteUrl}/>
         </div>
-        <Footer siteUrl={siteUrl} />
+        <Footer siteUrl={siteUrl}/>
       </Fragment>
     </>
   );

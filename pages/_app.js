@@ -107,8 +107,8 @@ export default function App({ Component, pageProps }) {
     { siteUrl: "https://hyderabad.ssa.org.in", gtagId: "G-2EMEGCYRRM", gtmId:"'GTM-NL2FZ2SX" },
     { siteUrl: "https://cuttack.ssa.org.in", gtagId: "G-7LHVNFKPQF", gtmId:"GTM-WXJPS9WK" },
     { siteUrl: "https://bangaloresouth.ssa.org.in", gtagId: "G-J8FGF6ER70", gtmId:"GTM-KLP62H8M" },
-    { siteUrl: "https://panampillynagar.ssrvm.org", gtagId: "xxxxxx", gtmId:"GTM-P3MWLFTT" },
-    { siteUrl: "https://vignannagar.ssrvm.org", gtagId: "xxxxxx", gtmId:"GTM-MMC6FSXB" },
+    { siteUrl: "https://panampillynagar.ssrvm.org", gtagId: "G-FL6RSKQY7P", gtmId:"GTM-P3MWLFTT" },
+    { siteUrl: "https://vignannagar.ssrvm.org", gtagId: "G-WX9F7CD3Z8", gtmId:"GTM-MMC6FSXB" },
   ]
 
   useEffect(() => {
