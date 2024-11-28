@@ -249,12 +249,12 @@ const HomeAbout = ({ siteUrl, homeSettings }) => {
                       InstagramIframe={homeSettings?.attributes?.Instagram_Post_Url}
                     />
                   </Tab>}
-                {events[0]?.attributes.enable_disable && (
+                {blogs[0]?.attributes.enable_disable && (
                   <Tab eventKey="Global Blogs" title="Global Blogs">
                     <HomeGlobalBlogs siteUrl={siteUrl} />
                   </Tab>
                 )}
-                {blogs[0]?.attributes.enable_disable && (
+                {events[0]?.attributes.enable_disable && (
                   <Tab eventKey="Global Events" title="Global Events">
                     <HomeGlobalEvents siteUrl={siteUrl} />
                   </Tab>

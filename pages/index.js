@@ -52,7 +52,7 @@ const Home = ({ siteUrl, homeSettings, homePopupSlider, seodata }) => {
       <HomeAutoPopup data={homePopupSlider} siteUrl={siteUrl}/>
       <BannerSliderOne siteUrl={siteUrl}/>
       <MandatoryDisclosure siteUrl={siteUrl}/>
-      <ImpAnmnt siteUrl={siteUrl}/>
+      <ImpAnmnt siteUrl={siteUrl}/> 
       <HomeAbout siteUrl={siteUrl} homeSettings={homeSettings}/>
       <Footer siteUrl={siteUrl}/>
     </>
