@@ -104,12 +104,18 @@ const CertificateThree = ({siteUrl}) => {
         }
 
         // Additional validation for email
-        if (!email) {
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!email.match(emailPattern)) {
-                errors.email = "Please enter a valid email address.";
-            }
-        }
+        // if (!email) {
+        //     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        //     if (!email.match(emailPattern)) {
+        //         errors.email = "Please enter a valid email address.";
+        //     }
+        // }
+        if (!formData.email.trim()) {
+            validationErrors.email = "Email ID is required";
+          } else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email)) {
+            validationErrors.email = "Invalid email format";
+          }
+          
 
         // Check if there are any errors
         if (Object.keys(errors).length > 0) {

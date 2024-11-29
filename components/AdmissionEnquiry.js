@@ -55,11 +55,17 @@ const AdmissionEnquiry = ({siteUrl, onClose }) => {
       validationErrors.fullName = "Full Name is required";
     }
 
+    // if (!formData.email.trim()) {
+    //   validationErrors.email = "Email ID is required";
+    // } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    //   validationErrors.email = "Invalid email format";
+    // }
     if (!formData.email.trim()) {
       validationErrors.email = "Email ID is required";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    } else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email)) {
       validationErrors.email = "Invalid email format";
     }
+    
 
     if (!formData.contactNumber.trim()) {
       validationErrors.contactNumber = "Contact Number is required";

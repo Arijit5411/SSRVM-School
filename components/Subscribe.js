@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const Subscribe = ({siteUrl}) => {
+const Subscribe = ({ siteUrl }) => {
   const [email, setEmail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -54,7 +54,7 @@ const Subscribe = ({siteUrl}) => {
     event.preventDefault();
 
     // Basic email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!email || !emailRegex.test(email)) {
       setErrorMessage("Please enter a valid email address.");
     } else {
@@ -182,10 +182,11 @@ const Subscribe = ({siteUrl}) => {
                           />
                           <p style={{ margin: '0px auto' }}>
                             <a
-                              href="http://eepurl.com/hRxQdf"
+                              href="https://eepurl.com/hRxQdf"
                               title="Mailchimp - email marketing made easy and fun"
                             >
                             </a>
+
                           </p>
                         </div>
                       </div>

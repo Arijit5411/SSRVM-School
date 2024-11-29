@@ -46,11 +46,12 @@ const TestimonialsForm = ({siteUrl}) => {
         }
 
         // Validate Email ID
-        if (!email.trim()) {
-            errors.email = 'Email ID is required';
-        } else if (!/\S+@\S+\.\S+/.test(email)) {
-            errors.email = 'Invalid Email ID';
-        }
+        if (!formData.email.trim()) {
+            validationErrors.email = "Email ID is required";
+          } else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email)) {
+            validationErrors.email = "Invalid email format";
+          }
+          
 
         // Validate Contact Number
         if (!contactNumber.trim()) {

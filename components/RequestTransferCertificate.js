@@ -120,11 +120,17 @@ const RequestTransferCertificate = ({siteUrl}) => {
     }
 
     // Validation for Email (should be a valid email format)
-    if (!data.email) {
-      errors.email = "Email ID is required.";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
-      errors.email = "Invalid email format.";
+    // if (!data.email) {
+    //   errors.email = "Email ID is required.";
+    // } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+    //   errors.email = "Invalid email format.";
+    // }
+    if (!formData.email.trim()) {
+      validationErrors.email = "Email ID is required";
+    } else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email)) {
+      validationErrors.email = "Invalid email format";
     }
+    
 
     // Validation for Academic Year (should not be empty)
     if (!data.academicYear.trim()) {
