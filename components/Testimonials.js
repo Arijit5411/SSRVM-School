@@ -56,7 +56,7 @@ const Testimonial = ({siteUrl}) => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `${siteUrl}/api/testimonial-pages?populate=*&tab_option=parents`
+          `${siteUrl}/api/testimonial-pages?sort=id:desc&populate=*&tab_option=parents`
         );
         const data = await response.json();
         setParentTestimonials(data.data);
