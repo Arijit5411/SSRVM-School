@@ -111,8 +111,8 @@ const GlobalIndividualEvents = ({ siteUrl, seodata }) => {
                 )}
               </div>
               <div className="container">
-                <RecentSidebar Page="Events" PageSlug="global-individual-events" RelData={relData} Slug={slug} siteUrl={siteUrl} />
-                {/* <GlobalRecentEvents siteUrl={siteUrl} /> */}
+                {/* <RecentSidebar Page="Events" PageSlug="global-individual-events" RelData={relData} Slug={slug} siteUrl={siteUrl} /> */}
+                <GlobalRecentEvents siteUrl={siteUrl} />
               </div>
             </div>
           </div>
@@ -132,8 +132,8 @@ const GlobalIndividualEvents = ({ siteUrl, seodata }) => {
                     />
                     <span>Back to Events</span>
                   </a>
-                  <RecentSidebar Page="Events" PageSlug="global-individual-events" RelData={relData} Slug={slug} siteUrl={siteUrl} />
-                  {/* <GlobalRecentEvents siteUrl={siteUrl} /> */}
+                  {/* <RecentSidebar Page="Events" PageSlug="global-individual-events" RelData={relData} Slug={slug} siteUrl={siteUrl} /> */}
+                  <GlobalRecentEvents siteUrl={siteUrl} />
                 </div>
               </div>
               <div className="col-lg-9 col-2">
