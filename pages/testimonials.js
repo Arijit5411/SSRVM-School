@@ -38,7 +38,7 @@ export const getServerSideProps = async (context) => {
 const Testimonials = ({ seodata, testimonial, siteUrl }) => {
   const [selectedOption, setSelectedOption] = useState("Students");
   const [selectedYear, setSelectedYear] = useState("year 2023");
- 
+
   const handleChangeOption = (eventKey) => {
     setSelectedOption(eventKey);
   };
@@ -64,14 +64,14 @@ const Testimonials = ({ seodata, testimonial, siteUrl }) => {
     }
   }, []);
 
-  
+
 
   useEffect(() => {
     const filteredData = testimonialsData.filter(
       (testimonial) =>
         testimonial.attributes.year === selectedYear &&
         testimonial.attributes.tab_option.toLowerCase() ===
-          selectedOption.toLowerCase()
+        selectedOption.toLowerCase()
     );
 
     setFilteredTestimonials(filteredData);
@@ -109,13 +109,21 @@ const Testimonials = ({ seodata, testimonial, siteUrl }) => {
           <div className="col-lg-6" key={testimonial.id}>
             <div className="testimonial-mess-item">
               <div className="principal-image">
-                {testimonial.attributes.image && (
+                {/* {testimonial.attributes.image && (
                   <img
                     src={`${siteUrl}${testimonial.attributes.image.data.attributes.url}`}
                     alt={testimonial.attributes.name}
                     className="wrap-img-testimonial"
                   />
+                )} */}
+                {testimonial.attributes.image?.data?.attributes?.url && (
+                  <img
+                    src={`${siteUrl}${testimonial.attributes.image.data.attributes.url}`}
+                    alt={testimonial.attributes.name || "Testimonial"}
+                    className="wrap-img-testimonial"
+                  />
                 )}
+
                 <h6 className="wrap-principal-mess-item">
                   {testimonial.attributes.name}
                 </h6>
@@ -155,12 +163,12 @@ const Testimonials = ({ seodata, testimonial, siteUrl }) => {
   return (
     <>
       <Fragment>
-      <Seo SeoData={seodata} PageSlug={"testimonials"}/>
-        <NavBar siteUrl={siteUrl}/>
+        <Seo SeoData={seodata} PageSlug={"testimonials"} />
+        <NavBar siteUrl={siteUrl} />
         <div className="top-section1">
           <div className="container">
             <h1 className="principal-mess">Testimonials</h1>
-            <TestimonialsVideo siteUrl={siteUrl}/>
+            <TestimonialsVideo siteUrl={siteUrl} />
           </div>
           <section className="container marginTopExternal">
             <div className="testimonial-drop">
@@ -220,9 +228,9 @@ const Testimonials = ({ seodata, testimonial, siteUrl }) => {
               </Tabs>
             </div>
           </section>
-          <TestimonialsForm siteUrl={siteUrl}/>
+          <TestimonialsForm siteUrl={siteUrl} />
         </div>
-        <Footer siteUrl={siteUrl}/>
+        <Footer siteUrl={siteUrl} />
       </Fragment>
     </>
   );
