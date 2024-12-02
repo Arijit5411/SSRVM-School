@@ -110,7 +110,6 @@ const BackToNews = ({ newsdata, siteUrl, seodata, slug, relData }) => {
                     />
                     <span>Back to News</span>
                   </a>
-
                   <RecentSidebar Page="News" PageSlug="news" RelData={relData} Slug={slug} siteUrl={siteUrl} />
                 </div>
               </div>

@@ -6,6 +6,7 @@ import ReactMarkdown from 'react-markdown';
 import GlobalRecentBlogs from '@/components/GlobalRecentBlogs';
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from '@/components/Seo';
+import RecentSidebar from '@/components/RecentSidebar';
 
 
 
@@ -108,7 +109,8 @@ const GlobalIndividualBlogs = ({siteUrl,seodata}) => {
                                     </div>
                                 )}
                             </div>
-                            <GlobalRecentBlogs siteUrl={siteUrl}/>
+                            <RecentSidebar Page="Blogs" PageSlug="blogs" RelData={relData} Slug={slug} siteUrl={siteUrl} />
+                            {/* <GlobalRecentBlogs siteUrl={siteUrl}/> */}
 
                         </div>
                     </div>
@@ -128,7 +130,8 @@ const GlobalIndividualBlogs = ({siteUrl,seodata}) => {
                                         </span>
                                     </a>
 
-                                    <GlobalRecentBlogs siteUrl={siteUrl}/>
+                                    {/* <GlobalRecentBlogs siteUrl={siteUrl}/> */}
+                                    <RecentSidebar Page="Blogs" PageSlug="blogs" RelData={relData} Slug={slug} siteUrl={siteUrl} />
 
 
                                 </div>

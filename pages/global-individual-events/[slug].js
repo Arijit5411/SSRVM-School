@@ -1,4 +1,4 @@
-import React, {  useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import NavBar from "@/components/NavBar";
 import { useRouter } from "next/router";
 import Footer from "@/components/Footer";
@@ -36,7 +36,7 @@ export const getServerSideProps = async (context) => {
   }
 };
 
-const GlobalIndividualEvents = ({ siteUrl,seodata }) => {
+const GlobalIndividualEvents = ({ siteUrl, seodata }) => {
   const router = useRouter();
   const [events, setEvents] = useState(null);
   const { slug } = router.query;
@@ -74,7 +74,7 @@ const GlobalIndividualEvents = ({ siteUrl,seodata }) => {
 
   return (
     <>
-        <Seo SeoData={seodata} PageSlug={"global-individual-events"} InnerPageSlug={slug} />
+      <Seo SeoData={seodata} PageSlug={"global-individual-events"} InnerPageSlug={slug} />
 
       <NavBar siteUrl={siteUrl} />
       <div className="top-section4-new desktophide">
@@ -111,7 +111,8 @@ const GlobalIndividualEvents = ({ siteUrl,seodata }) => {
                 )}
               </div>
               <div className="container">
-                <GlobalRecentEvents siteUrl={siteUrl} />
+                <RecentSidebar Page="Events" PageSlug="events" RelData={relData} Slug={slug} siteUrl={siteUrl} />
+                {/* <GlobalRecentEvents siteUrl={siteUrl} /> */}
               </div>
             </div>
           </div>
@@ -131,8 +132,8 @@ const GlobalIndividualEvents = ({ siteUrl,seodata }) => {
                     />
                     <span>Back to Events</span>
                   </a>
-
-                  <GlobalRecentEvents siteUrl={siteUrl} />
+                  <RecentSidebar Page="Events" PageSlug="events" RelData={relData} Slug={slug} siteUrl={siteUrl} />
+                  {/* <GlobalRecentEvents siteUrl={siteUrl} /> */}
                 </div>
               </div>
               <div className="col-lg-9 col-2">
