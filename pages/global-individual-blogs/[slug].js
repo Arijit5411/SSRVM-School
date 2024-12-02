@@ -109,7 +109,7 @@ const GlobalIndividualBlogs = ({siteUrl,seodata}) => {
                                     </div>
                                 )}
                             </div>
-                            <RecentSidebar Page="Blogs" PageSlug="blogs" RelData={relData} Slug={slug} siteUrl={siteUrl} />
+                            <RecentSidebar Page="Blogs" PageSlug="global-individual-blogs" RelData={relData} Slug={slug} siteUrl={siteUrl} />
                             {/* <GlobalRecentBlogs siteUrl={siteUrl}/> */}
 
                         </div>
@@ -131,8 +131,7 @@ const GlobalIndividualBlogs = ({siteUrl,seodata}) => {
                                     </a>
 
                                     {/* <GlobalRecentBlogs siteUrl={siteUrl}/> */}
-                                    <RecentSidebar Page="Blogs" PageSlug="blogs" RelData={relData} Slug={slug} siteUrl={siteUrl} />
-
+                                    <RecentSidebar Page="Blogs" PageSlug="global-individual-blogs" RelData={relData} Slug={slug} siteUrl={siteUrl} />
 
                                 </div>
                             </div>
