@@ -8,75 +8,59 @@ import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from '@/components/Seo';
 import RecentSidebar from '@/components/RecentSidebar';
 
-
+const GlobalSiteUrl = process.env.GSURL
 
 export const getServerSideProps = async (context) => {
     try {
 
-      const siteUrl = determineStrapiUrl(context);
-      const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
-      const data = await res.json();
-      return {
-        props: {
-          siteUrl,
-          seodata: data?.data?.attributes?.Pages ?? {},
-          slug
-        },
-      };
+        const siteUrl = determineStrapiUrl(context);
+        const { slug } = context.query;
+
+        const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
+        const res1 = await fetch(`${GlobalSiteUrl}/api/global-blogs?filters[slug][$eq]=${slug}&sort=id:desc&populate=*`);
+        const res2 = await fetch(`${GlobalSiteUrl}/api/global-blogs?filters[slug][$ne]=${slug}&sort=id:desc&populate=*`);
+
+        const data = await res.json();
+        const data1 = await res1.json();
+        const data2 = await res2.json();
+
+
+        return {
+            props: {
+                siteUrl,
+                seodata: data?.data?.attributes?.Pages ?? {},
+                blog: data1?.data[0]?.attributes ?? {},
+                recentBlogs: data2?.data ?? {},
+                slug
+            },
+        };
     } catch (error) {
-      console.error("Error fetching data:", error.message);
-      return {
-        props: {
-          data: [],
-        },
-      };
+        console.error("Error fetching data:", error.message);
+        return {
+            props: {
+                data: [],
+            },
+        };
     }
-  };
-const GlobalIndividualBlogs = ({siteUrl,seodata}) => {
-    const router = useRouter()
-    const [blog, setBlog] = useState(null);
-    const { slug } = router.query;
-    const [loading, setLoading] = useState(true);
+
+};
+const GlobalIndividualBlogs = ({ siteUrl, seodata, blog, recentBlogs, slug }) => {
+
     const [publicUrl, setPublicUrl] = useState();
-
-
-    const GlobalSiteUrl = process.env.GSURL
-
-
-    useEffect(() => {
-        if (slug) {
-            fetch(`${GlobalSiteUrl}/api/global-blogs/${slug}?populate=*`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.error) {
-                        console.error('Error:', data.error.message);
-                    } else {
-                        setBlog(data.data.attributes); // Access the attributes directly
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                })
-                .finally(() => {
-                    setLoading(false);
-                });
-        }
-    }, [slug]);
-
     const components = {
         img: ({ src, alt }) => {
             return <img src={`${GlobalSiteUrl}${src}`} alt={alt} />;
         },
     };
     useEffect(() => {
-        setPublicUrl(window.location.origin) 
-      }, [publicUrl]);
+        setPublicUrl(window.location.origin)
+    }, [publicUrl]);
 
 
     return (
         <>
             <Seo SeoData={seodata} PageSlug={"global-individual-blogs"} InnerPageSlug={slug} />
-            <NavBar siteUrl={siteUrl}/>
+            <NavBar siteUrl={siteUrl} />
             <div className='top-section4 desktophide'>
                 <section className="wrap-item-blog-se1 first-section position-relative">
                     <div className='container'>
@@ -89,28 +73,24 @@ const GlobalIndividualBlogs = ({siteUrl,seodata}) => {
                                     </span>
                                 </a>
 
-
-
                             </div>
                             <div className="row">
-                                {loading ? (
-                                    <p>Loading blog post...</p>
-                                ) : (
-                                    <div className="blog-post">
-                                        <img src={`${GlobalSiteUrl}${blog?.image?.data?.attributes?.url}`} alt={blog?.Title} />
-                                        <h1 className="wrap-text-inner">
-                                            {blog?.Title}
-                                        </h1>
-                                        <p className="blog-parg-item">
-                                            <ReactMarkdown components={components}>
-                                                {blog?.content}
-                                            </ReactMarkdown>
-                                        </p>
+                                <div className="blog-post">
+                                    <img src={`${GlobalSiteUrl}${blog?.image?.data?.attributes?.url}`} alt={blog?.Title} />
+                                    <h1 className="wrap-text-inner">
+                                        {blog?.Title}
+                                    </h1>
+                                    <div className="blog-parg-item">
+                                        <ReactMarkdown components={components}>
+                                            {blog?.content}
+                                        </ReactMarkdown>
                                     </div>
-                                )}
+                                </div>
                             </div>
-                            {/* <RecentSidebar Page="Blogs" PageSlug="global-individual-blogs" RelData={relData} Slug={slug} siteUrl={siteUrl} /> */}
-                            <GlobalRecentBlogs siteUrl={siteUrl}/>
+
+
+                            <RecentSidebar Page="Blog" PageSlug="global-individual-blogs" RelData={recentBlogs} Slug={slug} siteUrl={siteUrl} Title="Title" />
+
 
                         </div>
                     </div>
@@ -121,7 +101,7 @@ const GlobalIndividualBlogs = ({siteUrl,seodata}) => {
                     <div className='container'>
                         <div className="row gx-5 blog-inn-row">
                             <div className="col-lg-3 col-1">
-                                {/* Sidebar content */}
+
                                 <div className='col-content'>
                                     <a className='backto-btn' href='/global-blogs'>
                                         <img src={publicUrl + "/assets/img/blog/13-arrow-left.png"} alt="Transpro" />
@@ -130,35 +110,30 @@ const GlobalIndividualBlogs = ({siteUrl,seodata}) => {
                                         </span>
                                     </a>
 
-                                    <GlobalRecentBlogs siteUrl={siteUrl}/>
-                                    {/* <RecentSidebar Page="Blogs" PageSlug="global-individual-blogs" RelData={relData} Slug={slug} siteUrl={siteUrl} /> */}
+                                    <RecentSidebar Page="Blog" PageSlug="global-individual-blogs" RelData={recentBlogs} Slug={slug} siteUrl={siteUrl} Title="Title" />
 
                                 </div>
                             </div>
                             <div className="col-lg-9 col-2">
-                                {loading ? (
-                                    <p>Loading blog post...</p>
-                                ) : (
-                                    <div className="blog-post">
-                                        <img src={`${GlobalSiteUrl}${blog?.image?.data?.attributes?.url}`} alt={blog?.Title} />
-                                        <h1 className="wrap-text-inner">
+                                <div className="blog-post">
+                                    <img src={`${GlobalSiteUrl}${blog?.image?.data?.attributes?.url}`} alt={blog?.Title} />
+                                    <h1 className="wrap-text-inner">
 
-                                            {blog?.Title}
+                                        {blog?.Title}
 
-                                        </h1>
-                                        <p className="blog-parg-item">
-                                            <ReactMarkdown components={components}>
-                                                {blog?.content}
-                                            </ReactMarkdown>
-                                        </p>
+                                    </h1>
+                                    <div className="blog-parg-item">
+                                        <ReactMarkdown components={components}>
+                                            {blog?.content}
+                                        </ReactMarkdown>
                                     </div>
-                                )}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </section>
             </div>
-            <Footer siteUrl={siteUrl}/>
+            <Footer siteUrl={siteUrl} />
         </>
     );
 }

@@ -14,8 +14,8 @@ export const getServerSideProps = async (context) => {
     const { slug } = context.params;
 
     const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
-    const res1 = await fetch(`${siteUrl}/api/blogs?filters[slug][$eq]=${slug}&populate=*`);
-    const res2 = await fetch(`${siteUrl}/api/blogs?filters[slug][$ne]=${slug}&populate=*`);
+    const res1 = await fetch(`${siteUrl}/api/blogs?filters[slug][$eq]=${slug}&sort=id:desc&populate=*`);
+    const res2 = await fetch(`${siteUrl}/api/blogs?filters[slug][$ne]=${slug}&sort=id:desc&populate=*`);
 
     const data = await res.json();
     const data1 = await res1.json();

@@ -1,31 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import Link from "next/link";
 
-const GlobalRecentBlogs = () => {
-    const [recentPosts, setRecentPosts] = useState([]);
-    const GlobalSiteUrl = process.env.GSURL
-    useEffect(() => {
-        fetch(`${GlobalSiteUrl}/api/global-blogs?_limit=3&_sort=createdAt:desc`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log('API Response:', data); // Log the API response for debugging
-                if (data.error) {
-                    console.error('Error:', data.error.message);
-                } else if (data.data) {
-                    const sortedBlogs = data.data.sort((a, b) => new Date(b.attributes.date) - new Date(a.attributes.date));
-                    // Use slice to limit to the first three recent posts
-                    setRecentPosts(sortedBlogs.slice(0, 3).map(post => ({ ...post.attributes, id: post.id })));
-                }
-            })
-            .catch(error => {
-                console.error('Fetch Error:', error);
-            });
-    }, []);
 
+const GlobalRecentBlogs = ({ recentBlogs, siteUrl }) => {
+
+    // console.log("tgreee", recentBlogs)
+    const currUrl = siteUrl && siteUrl.replace("/_s", "");
 
     return (
 
@@ -39,19 +18,19 @@ const GlobalRecentBlogs = () => {
 
                     <ul className='social-share'>
                         <li>
-                            <a href='' target='_blank'>
+                            <Link href='#' target='_blank'>
                                 <i className="fa-brands fa-facebook-f"></i>
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a href='' target='_blank'>
+                            <Link href='#' target='_blank'>
                                 <i className="fa-brands fa-twitter"></i>
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a href='' target='_blank'>
+                            <Link href='#' target='_blank'>
                                 <i className="fa-brands fa-linkedin-in"></i>
-                            </a>
+                            </Link>
                         </li>
                     </ul>
 
@@ -61,11 +40,11 @@ const GlobalRecentBlogs = () => {
             <div className='siderbar-item item-2'>
                 <div className='sidebar-content'>
                     <ul className='similar-posts'>
-                        {recentPosts.map(post => (
+                        {recentBlogs && recentBlogs.map(post => (
                             <li key={post.id}>
-                                <a href={`/global-individual-blogs/${post.id}`} target='_blank'>
-                                    {post.Title}
-                                </a>
+                                <Link href={`/global-individual-blogs/${post?.attributes?.slug}`} target='_blank'>
+                                    {post?.attributes?.Title}
+                                </Link>
                             </li>
                         ))}
                     </ul>

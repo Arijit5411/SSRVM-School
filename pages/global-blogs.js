@@ -109,7 +109,7 @@ console.log('data',blogData)
                                             <div className="card-body">
                                                 <p className="card-text-news">{post.attributes.date}</p>
                                                 <p className="card-text-news">{post.attributes.Title}</p>
-                                                <Link href={`/global-individual-blogs/${post.id}`} className="text-muted-news">read more</Link>
+                                                <Link href={`/global-individual-blogs/${post?.attributes?.slug}`} className="text-muted-news">read more</Link>
                                             </div>
                                         </div>
                                     </div>

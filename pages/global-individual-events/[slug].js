@@ -6,71 +6,56 @@ import ReactMarkdown from "react-markdown";
 import GlobalRecentEvents from "@/components/GlobalRecentEvents";
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from "@/components/Seo";
+import RecentSidebar from "@/components/RecentSidebar";
 
-const GlobalSiteUrl = process.env.GSURL;
+
+const GlobalSiteUrl = process.env.GSURL
+
 export const getServerSideProps = async (context) => {
-  try {
-    const { slug } = context.params;
+    try {
 
-    const siteUrl = determineStrapiUrl(context);
-    const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
-    const data = await res.json();
+        const siteUrl = determineStrapiUrl(context);
+        const { slug } = context.query;
+
+        const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
+        const res1 = await fetch(`${GlobalSiteUrl}/api/global-events?filters[slug][$eq]=${slug}&sort=id:desc&populate=*`);
+        const res2 = await fetch(`${GlobalSiteUrl}/api/global-events?filters[slug][$ne]=${slug}&sort=id:desc&populate=*`);
+
+        const data = await res.json();
+        const data1 = await res1.json();
+        const data2 = await res2.json();
 
 
-    return {
-      props: {
-        siteUrl,
-        seodata: data?.data?.attributes?.Pages ?? {},
-        slug
-
-      },
-    };
-  } catch (error) {
-    console.error("Error fetching data:", error.message);
-
-    return {
-      props: {
-        data: [],
-      },
-    };
-  }
-};
-
-const GlobalIndividualEvents = ({ siteUrl, seodata }) => {
-  const router = useRouter();
-  const [events, setEvents] = useState(null);
-  const { slug } = router.query;
-  const [loading, setLoading] = useState(true);
-  const [publicUrl, setPublicUrl] = useState();
-
-  useEffect(() => {
-    if (slug) {
-      fetch(`${GlobalSiteUrl}/api/global-events/${slug}?populate=*`)
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.error) {
-            console.error("Error:", data.error.message);
-          } else {
-            setEvents(data.data.attributes); // Access the attributes directly
-          }
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
+        return {
+            props: {
+                siteUrl,
+                seodata: data?.data?.attributes?.Pages ?? {},
+                events: data1?.data[0]?.attributes ?? {},
+                recentEvents: data2?.data ?? {},
+                slug
+            },
+        };
+    } catch (error) {
+        console.error("Error fetching data:", error.message);
+        return {
+            props: {
+                data: [],
+            },
+        };
     }
-  }, [slug]);
 
-  const components = {
-    img: ({ src, alt }) => {
-      return <img src={`${GlobalSiteUrl}${src}`} alt={alt} />;
-    },
-  };
-  useEffect(() => {
-    setPublicUrl(window.location.origin);
-  }, [publicUrl]);
+};
+const GlobalIndividualEvents = ({ siteUrl, seodata, events, recentEvents, slug }) => {
+
+    const [publicUrl, setPublicUrl] = useState();
+    const components = {
+        img: ({ src, alt }) => {
+            return <img src={`${GlobalSiteUrl}${src}`} alt={alt} />;
+        },
+    };
+    useEffect(() => {
+        setPublicUrl(window.location.origin)
+    }, [publicUrl]);
 
   return (
     <>
@@ -92,27 +77,23 @@ const GlobalIndividualEvents = ({ siteUrl, seodata }) => {
               </div>
 
               <div className="col-lg-12">
-                {loading ? (
-                  <p>Loading Events post...</p>
-                ) : (
-                  <div className="blog-post">
+              <div className="blog-post">
                     <img
                       src={`${GlobalSiteUrl}${events?.image?.data?.attributes?.url}`}
                       alt={events?.Title}
                       className="widthEventImg"
                     />
                     <h1 className="wrap-text-inner">{events?.title}</h1>
-                    <p className="blog-parg-item">
+                    <div className="blog-parg-item">
                       <ReactMarkdown components={components}>
                         {events?.content}
                       </ReactMarkdown>
-                    </p>
+                    </div>
                   </div>
-                )}
               </div>
               <div className="container">
                 {/* <RecentSidebar Page="Events" PageSlug="global-individual-events" RelData={relData} Slug={slug} siteUrl={siteUrl} /> */}
-                <GlobalRecentEvents siteUrl={siteUrl} />
+                <RecentSidebar Page="Event" PageSlug="global-individual-events" RelData={recentEvents} Slug={slug} siteUrl={siteUrl} Title="title" />
               </div>
             </div>
           </div>
@@ -133,27 +114,23 @@ const GlobalIndividualEvents = ({ siteUrl, seodata }) => {
                     <span>Back to Events</span>
                   </a>
                   {/* <RecentSidebar Page="Events" PageSlug="global-individual-events" RelData={relData} Slug={slug} siteUrl={siteUrl} /> */}
-                  <GlobalRecentEvents siteUrl={siteUrl} />
+                  <RecentSidebar Page="Event" PageSlug="global-individual-events" RelData={recentEvents} Slug={slug} siteUrl={siteUrl} Title="title" />
                 </div>
               </div>
               <div className="col-lg-9 col-2">
-                {loading ? (
-                  <p>Loading Events post...</p>
-                ) : (
-                  <div className="blog-post">
+              <div className="blog-post">
                     <img
                       src={`${GlobalSiteUrl}${events?.image?.data?.attributes?.url}`}
                       alt={events?.Title}
                       className="widthEventImg"
                     />
                     <h1 className="wrap-text-inner">{events?.title}</h1>
-                    <p className="blog-parg-item">
+                    <div className="blog-parg-item">
                       <ReactMarkdown components={components}>
                         {events?.content}
                       </ReactMarkdown>
-                    </p>
+                    </div>
                   </div>
-                )}
               </div>
             </div>
           </div>

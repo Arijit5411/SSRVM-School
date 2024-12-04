@@ -121,7 +121,7 @@ const GlobalEvents = ({ seodata, eventData ,siteUrl}) => {
                                                 <div className="card-body">
                                                     <p className="card-text-news">{post.attributes.date}</p>
                                                     <p className="card-text-news">{post.attributes.title}</p>
-                                                    <Link href={`/global-individual-events/${post.id}`} className="text-muted-news">read more</Link>
+                                                    <Link href={`/global-individual-events/${post?.attributes?.slug}`} className="text-muted-news">read more</Link>
                                                 </div>
                                             </div>
                                         </div>
