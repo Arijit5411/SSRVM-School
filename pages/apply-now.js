@@ -48,6 +48,22 @@ export const getServerSideProps = async (context) => {
 const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
 
 
+
+    const [schoolData, setschoolData] = useState([]);
+
+      useEffect(() => {
+        fetch(`${siteUrl}/api/menus?filters[slug][$eq]=school-links&nested&populate=*`)
+          .then((response) => response.json())
+          .then((data) => {
+            const items = data?.data[0]?.attributes?.items?.data;
+            setschoolData(items);
+          })
+          .catch((error) => {
+            console.error("Error fetching data:", error);
+          });
+      }, [siteUrl]);
+
+
     const banner = [
         {
             id: 1,
@@ -220,7 +236,8 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
                         <div className="row justify-content-between py-2 ">
                             <div className='col-lg-6 py-2 d-flex justify-content-center justify-content-lg-start align-items-center gap-3'>
                                 <img style={{ height: '80px', weight: '60px' }} src='assets/img/north-banglor/logo-top.webp' alt='' />
-                                <h3 className='fs-20 text-white text-uppercase fw-500'>SSRVM <br />Bangalore North</h3>
+                                <h3 className='fs-20 text-white text-uppercase fw-500'> {schoolData && schoolData.length > 0 && schoolData[0].attributes.title}</h3>
+                               
                             </div>
                             <div className="col-lg-6 d-flex flex-column flex-lg-row  justify-content-lg-end align-items-center my-2 gap-3">
                                 <div className='text-white d-flex align-items-center gap-3'>
