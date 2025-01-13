@@ -437,14 +437,14 @@ const AwardAch = ({ seodata, awardsData, siteUrl }) => {
                   className={`${currentPage === 1 ? 'btn-disabled' : ''} page-btn-d2`}
                   onClick={() => { scrollTo(); setCurrentPage(currentPage - 1); }}
                 >
-                  <i class="fa-solid fa-arrow-left-long"></i>
+                  <i className="fa-solid fa-arrow-left-long"></i>
                 </button>
                 <span>Page {currentPage} of {totalPages}</span>
                 <button
                   className={`${currentPage === totalPages ? 'btn-disabled' : ''} page-btn-d2`}
                   onClick={() => { scrollTo(); setCurrentPage(currentPage + 1); }}
                 >
-                  <i class="fa-solid fa-arrow-right-long"></i>
+                  <i className="fa-solid fa-arrow-right-long"></i>
                 </button>
               </div>
             )}

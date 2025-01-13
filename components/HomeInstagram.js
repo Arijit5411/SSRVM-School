@@ -43,7 +43,7 @@ const HomeInstagram = ({
               <div 
                 dangerouslySetInnerHTML={{
                   __html: ` 
-                    <blockquote class="instagram-media" data-instgrm-permalink="${InstagramIframe}" data-instgrm-version="12" style="width: 100%;">
+                    <blockquote className="instagram-media" data-instgrm-permalink="${InstagramIframe}" data-instgrm-version="12" style="width: 100%;">
                       <a href="${InstagramIframe}?utm_source=ig_embed&amp;utm_campaign=loading" target="_blank" rel="noopener noreferrer"></a>
                     </blockquote>
                   `,

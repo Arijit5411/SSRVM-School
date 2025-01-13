@@ -168,7 +168,7 @@ const FounderTrust = ({ seodata, founderprop, foundation, siteUrl }) => {
                                 <div className="desktophide">
                                     <section>
                                         <div>
-                                            <div class="upper_section_alfSection">
+                                            <div className="upper_section_alfSection">
                                                 <div>
                                                     <img
                                                         src={logoUrl}
@@ -176,7 +176,7 @@ const FounderTrust = ({ seodata, founderprop, foundation, siteUrl }) => {
                                                         className="founderImg"
                                                     />
                                                 </div>
-                                                <div class="container">
+                                                <div className="container">
                                                     <p>
                                                         {paragraph && (
                                                             <span
@@ -204,7 +204,7 @@ const FounderTrust = ({ seodata, founderprop, foundation, siteUrl }) => {
                       <img
                         src="assets/img/4c-AOL/2-hero-desktop.jpg"
                         alt=" Description"
-                        className='class="art_of_living_foundation_imageOne"'
+                        className='className="art_of_living_foundation_imageOne"'
                       />
                     </div> */}
                                         </div>
@@ -224,7 +224,7 @@ const FounderTrust = ({ seodata, founderprop, foundation, siteUrl }) => {
                                                         allowfullscreen
                                                     ></iframe>
                                                 </div>
-                                                <div class="text_onside_video">
+                                                <div className="text_onside_video">
                                                     <h2>{bottom_heading_gurudev}</h2>
 
                                                     <p>
@@ -247,15 +247,15 @@ const FounderTrust = ({ seodata, founderprop, foundation, siteUrl }) => {
                                 <div className="mobilehide-founder">
                                     <section>
                                         <div>
-                                            <div class="upper_section_alfSection">
+                                            <div className="upper_section_alfSection">
                                                 <div>
                                                     <img
                                                         src={logoUrl}
                                                         alt=" Description"
-                                                        className='class="art_of_living_foundation_logo"'
+                                                        className='className="art_of_living_foundation_logo"'
                                                     />
                                                 </div>
-                                                <div class="para_with_image_art_of_living">
+                                                <div className="para_with_image_art_of_living">
                                                     <p>
                                                         {paragraph && (
                                                             <span
@@ -266,8 +266,8 @@ const FounderTrust = ({ seodata, founderprop, foundation, siteUrl }) => {
                                                         )}
                                                     </p>
                                                 </div>
-                                                {/* <div class="button_visit_website_ALF">
-                          <button class="visit_website_alf_below">
+                                                {/* <div className="button_visit_website_ALF">
+                          <button className="visit_website_alf_below">
                             Vist website
                           </button>
                         </div> */}
@@ -276,7 +276,7 @@ const FounderTrust = ({ seodata, founderprop, foundation, siteUrl }) => {
                                                 <img
                                                     src="assets/img/4c-AOL/2-hero-desktop.jpg"
                                                     alt=" Description"
-                                                    className='class="art_of_living_foundation_imageOne"'
+                                                    className='className="art_of_living_foundation_imageOne"'
                                                 />
                                             </div>
                                         </div>
@@ -296,7 +296,7 @@ const FounderTrust = ({ seodata, founderprop, foundation, siteUrl }) => {
                                                         allowfullscreen
                                                     ></iframe>
                                                 </div>
-                                                <div class="text_onside_video">
+                                                <div className="text_onside_video">
                                                     <h2>{bottom_heading_gurudev}</h2>
 
                                                     <p>
@@ -401,15 +401,15 @@ const FounderTrust = ({ seodata, founderprop, foundation, siteUrl }) => {
                             <Tab eventKey="Arts" title={tab_heading}>
                                 <section>
                                     <div>
-                                        <div class="upper_section_alfSection">
+                                        <div className="upper_section_alfSection">
                                             <div>
                                                 <img
                                                     src={logoUrl}
                                                     alt=" Description"
-                                                    className='class="art_of_living_foundation_logo"'
+                                                    className='className="art_of_living_foundation_logo"'
                                                 />
                                             </div>
-                                            <div class="para_with_image_art_of_living">
+                                            <div className="para_with_image_art_of_living">
                                                 <p>
                                                     {paragraph && (
                                                         <span
@@ -421,8 +421,8 @@ const FounderTrust = ({ seodata, founderprop, foundation, siteUrl }) => {
                                                 </p>
                                                 <a href={visit_website_button} className="founderbtn">Vist website</a>
                                             </div>
-                                            <div class="button_visit_website_ALF">
-                                                <button class="visit_website_alf_below">
+                                            <div className="button_visit_website_ALF">
+                                                <button className="visit_website_alf_below">
                                                     Vist website545
                                                 </button>
                                             </div>
@@ -451,7 +451,7 @@ const FounderTrust = ({ seodata, founderprop, foundation, siteUrl }) => {
                                                     allowfullscreen
                                                 ></iframe>
                                             </div>
-                                            <div class="text_onside_video">
+                                            <div className="text_onside_video">
                                                 <h2>{bottom_heading_gurudev}</h2>
 
                                                 <p>

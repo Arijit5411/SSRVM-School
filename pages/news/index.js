@@ -10,8 +10,6 @@ import Seo from '@/components/Seo';
 export const getServerSideProps = async (context) => {
     try {
         const siteUrl = determineStrapiUrl(context);
-
-
         const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
         const res1 = await fetch(`${siteUrl}/api/newspages?sort=id:desc&populate=*`)
 

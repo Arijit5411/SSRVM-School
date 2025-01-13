@@ -239,7 +239,7 @@ function OurToppers({siteUrl}) {
                     </div>
                 </div>
                 {/* {renderContent()} */}
-                <Rankers selectedClass={selectedClass} />
+                <Rankers selectedclassName={selectedClass} />
             </div>
 
             <div className="container pd-top-75 desktophide">
@@ -251,7 +251,7 @@ function OurToppers({siteUrl}) {
                     </div>
                 </div>
                 {/* {renderContent()} */}
-                <Rankers selectedClass={selectedClass} />
+                <Rankers selectedclassName={selectedClass} />
             </div>
         </>
 

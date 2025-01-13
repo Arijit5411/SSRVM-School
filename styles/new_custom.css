@@ -1,4 +1,5 @@
 @import url("mod.css");
+@import url("ardh.css");
 
 .life-at-video {
   height: 430px;
@@ -183,6 +184,13 @@ header.navbar-are {
   line-height: 1;
   border: 2px solid #fff;
   background-color: transparent;
+}
+
+
+.admission-query-form-a1 > .form-input input,
+.admission-query-form-a1 > .form-input select,
+.admission-query-form-a1 > .form-input textarea{
+  color: #000;
 }
 
 .form-input input,

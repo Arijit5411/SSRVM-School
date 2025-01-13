@@ -167,7 +167,7 @@ const AdmissionEnquiry = ({siteUrl, onClose }) => {
           <div className="form-title-area">
             <h4>Admission Enquiry</h4>
             <button className="poup-close-btn" onClick={onClose}>
-              <i class="fa-solid fa-xmark"></i>
+              <i className="fa-solid fa-xmark"></i>
             </button>
           </div>
           <div className="admsn-form-wrap">

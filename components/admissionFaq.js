@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import ReactMarkdown from "react-markdown";
 
-const AdmissionFaq = ({siteUrl}) => {
+const AdmissionFaq = ({ siteUrl }) => {
     const [faqs, setFaqs] = useState([]);
     useEffect(() => {
         fetch(`${siteUrl}/api/admission-faqs?pagination[start]=0&pagination[limit]=100`)
@@ -38,7 +39,9 @@ const AdmissionFaq = ({siteUrl}) => {
                                         <div id={answerId} className={`accordion-collapse collapse ${isDefaultOpen ? 'show' : ''}`}
                                             aria-labelledby={questionId} data-bs-parent={`#${accordionId}`}>
                                             <div className="accordion-body">
-                                                {faq.attributes.answer}
+                                                <ReactMarkdown>
+                                                    {faq.attributes.answer}
+                                                </ReactMarkdown>
                                             </div>
                                         </div>
                                     </div>

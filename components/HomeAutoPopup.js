@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import AdmissionEnquiry from './AdmissionEnquiry';
 import ContentPopup from './Popups/ContentPopup'
-import MainSlider from './Sliders/MainSlider'
+import MainSlider from './Sliders/MainSlider1'
 
 const HomeAutoPopup = ({ data, siteUrl }) => {
     const [popupOpen, setPopupOpen] = useState(false);

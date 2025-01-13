@@ -1,4 +1,5 @@
 import { yellow } from "@mui/material/colors";
+import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import Slider from "react-slick";
@@ -125,7 +126,7 @@ const BannerSliderOne = ({ siteUrl }) => {
             >
               {banner?.map((item) => (
                 <div key={item.id}>
-                  <div
+                  <Link href="https://indore.ssrvm.org/" target="_blank"
                     className={`home-banner-bg-image header-bg banner-${item.id}-Color `}
                     style={{ backgroundImage: `url(${siteUrl}${item.attributes.image.data.attributes.url})` }}
                   >
@@ -160,7 +161,7 @@ const BannerSliderOne = ({ siteUrl }) => {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 </div>
               ))}
             </Slider>

@@ -100,7 +100,6 @@ const Blog = ({ seodata, blogProp, siteUrl }) => {
                           <Link href={`/blog/${post.attributes.slug}`} className="text-muted-news">
                             read more
                           </Link>
-
                         </div>
                       </div>
                     </div>

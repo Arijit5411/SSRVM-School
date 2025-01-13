@@ -300,8 +300,8 @@ const ContactUs = ({ seodata, contactData, siteUrl }) => {
                   <button type="submit" className="submit-contact" disabled={Loader}>
                     Submit
                     {Loader && 
-                    <div class="spinner-border text-light" role="status">
-                      <span class="sr-only">Loading...</span>
+                    <div className="spinner-border text-light" role="status">
+                      <span className="sr-only">Loading...</span>
                     </div> 
                     }
                   </button>
