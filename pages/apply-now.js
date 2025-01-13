@@ -289,10 +289,7 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
                         <AddEnqForm siteUrl={siteUrl} />
                     </div>
                 </div>
-            </section>
-            <section className=''>
-
-            </section>
+            </section>      
             {/* ====================================================================== s2*/}
             <section className='' style={{ backgroundColor: '#F8FFEF' }}>
                 <div className="bg-[#874487] py-6">
@@ -301,24 +298,23 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
                             <span className="mx-3 impSpan">{AdmissionOpen}!!!</span>
                         </Marquee> */}
                         <div className="scrolling-container">
-                            <div className="scrolling-text">
-                                <span>{applyNow.attributes.Admission_Year}</span>
+                            <div className="scrolling-text d-flex align-items-center gap-4">
+                                <span style={{color:"#c89e01"}}>{applyNow.attributes.Admission_Year}</span>
+                                <span className="separator" style={{color:"#c89e01"}}>♦</span>
+                                <span style={{color:"#17436d"}}>Admission Open</span>
                                 <span className="separator">♦</span>
-                                <span>Admission Open</span>
+                                <span style={{color:"#c89e01"}}>{applyNow.attributes.Admission_Year}</span>
+                                <span className="separator" style={{color:"#c89e01"}}>♦</span>
+                                <span style={{color:"#17436d"}}>Admission Open</span>
                                 <span className="separator">♦</span>
-                                <span>{applyNow.attributes.Admission_Year}</span>
+                                <span style={{color:"#c89e01"}}>{applyNow.attributes.Admission_Year}</span>
+                                <span className="separator" style={{color:"#c89e01"}}>♦</span>
+                                <span style={{color:"#17436d"}}>Admission Open</span>
                                 <span className="separator">♦</span>
-                                <span>Admission Open</span>
+                                <span style={{color:"#c89e01"}}>{applyNow.attributes.Admission_Year}</span>
+                                <span className="separator" style={{color:"#c89e01"}}>♦</span>
+                                <span style={{color:"#17436d"}}>Admission Open</span>
                                 <span className="separator">♦</span>
-                                <span>{applyNow.attributes.Admission_Year}</span>
-                                <span className="separator">♦</span>
-                                <span>Admission Open</span>
-                                <span className="separator">♦</span>
-                                <span>{applyNow.attributes.Admission_Year}</span>
-                                <span className="separator">♦</span>
-                                <span>Admission Open</span>
-                                <span className="separator">♦</span>
-
                                 {/* <span className="separator">♦</span>
                                 <span>2024–2025</span>
                                 <span className="separator">♦</span>
@@ -396,7 +392,7 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
             <section className="section" style={{ backgroundColor: '#F7FEEE' }}>
                 <div className='container'>
                     <div className='section-title mb-5'>
-                        <h2 className="fs-32 fs-md-40 fs-lg-48 mb-5 text-center" style={{ color: '#17436D' }}>Nature-friendly <span style={{ color: '#C89E01' }}> Campus</span> </h2>
+                        <h2 className="fs-32 fs-md-40 fs-lg-48 mb-3 text-center" style={{ color: '#17436D' }}>Nature-friendly <span style={{ color: '#C89E01' }}> Campus</span> </h2>
                         <p className='fs-16 fs-md-18 fs-lg-20 fw-500 text-black text-center'>Nestled within greenery, our campus provides a stress-free environment. Complemented by our open <br /> classrooms, it offers a unique blend of nature and modern education.</p>
                     </div>
                     <div className='campus-s4-a1 mx-auto'>
