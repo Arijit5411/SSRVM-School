@@ -170,7 +170,7 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
                     </div>
                 </div>
             </header>
-            <WhatsAppButton/>
+            {/* <WhatsAppButton/> */}
             <section className='position-relative overflow-hidden'>
                 <div className='position-absolute start-0 top-0 w-100 h-100'>
                     <MainSlider
