@@ -18,41 +18,41 @@ export const getServerSideProps = async (context) => {
     const siteUrl = determineStrapiUrl(context);
     const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
 
-  const res1 = await fetch(`${siteUrl}/api/careers-pages?populate=*`);
+    const res1 = await fetch(`${siteUrl}/api/careers-pages?populate=*`);
 
-  const data = await res.json();
-  const data1 = await res1.json();
+    const data = await res.json();
+    const data1 = await res1.json();
 
-  return {
-    props: {
-      seodata: data?.data?.attributes?.Pages ?? {},
-      careerProp: data1,
-      siteUrl
-    },
+    return {
+      props: {
+        seodata: data?.data?.attributes?.Pages ?? {},
+        careerProp: data1,
+        siteUrl
+      },
+    }
+  } catch (error) {
+    console.error("Error fetching data:", error.message);
+
+    return {
+      props: {
+        data: [],
+      },
+    };
   }
-} catch (error) {
-  console.error("Error fetching data:", error.message);
-
-  return {
-    props: {
-      data: [],
-    },
-  };
-}
 };
 
-const Careers = ({ seodata, careerProp,siteUrl }) => {
+const Careers = ({ seodata, careerProp, siteUrl }) => {
   const [careers, setCareers] = useState(null);
- 
+
 
   useEffect(() => {
-   
+
     if (careerProp && careerProp?.data && careerProp?.data?.length > 0) {
       setCareers(careerProp?.data[0]?.attributes);
     }
   }, []);
 
-  
+
 
   const image_career = `${siteUrl}${careers?.image_career?.data?.attributes?.url}`;
   // console.log("image=",image_career)
@@ -82,10 +82,10 @@ const Careers = ({ seodata, careerProp,siteUrl }) => {
 
   return (
     <>
-          <Seo SeoData={seodata} PageSlug={"careers"} />
+      <Seo SeoData={seodata} PageSlug={"careers"} />
 
       <Fragment>
-        <NavBar siteUrl={siteUrl}/>
+        <NavBar siteUrl={siteUrl} />
         {careers && (
           <div className="top-section18-new mobiletoppadding">
             <section className="upper_content_careers">
@@ -133,32 +133,32 @@ const Careers = ({ seodata, careerProp,siteUrl }) => {
                 <div className="job-opening-list">
                   {(careers?.Job_Role) &&
                     careers?.Job_Role.map((data, index) => {
-                      if(data.Job_Role !== null){
+                      if (data.Job_Role !== null) {
                         return (
-                            <Accordion
-                              expanded={expanded === data.id}
-                              onChange={handleChange(data.id)}
-                              key={data.id}
-                            >
-                              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                                <h4 className="fs-20 fw-600">{`${index + 1}. ${data.Job_Role}`}</h4>
-                              </AccordionSummary>
-                              <AccordionDetails>
-                                <div className="job-details">
-                                    <ReactMarkdown>{data.Job_Details}</ReactMarkdown>
-                                    <Link className="def-btn btn-1 mt-3" href={`/career-apply`} >Apply Now</Link>
-                                </div>
-                              </AccordionDetails>
-                            </Accordion>
-                          );
-                        }
+                          <Accordion
+                            expanded={expanded === data.id}
+                            onChange={handleChange(data.id)}
+                            key={data.id}
+                          >
+                            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                              <h4 className="fs-20 fw-600">{`${index + 1}. ${data.Job_Role}`}</h4>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                              <div className="job-details">
+                                <ReactMarkdown>{data.Job_Details}</ReactMarkdown>
+                                <Link className="def-btn btn-1 mt-3" href={`/career-apply`} >Apply Now</Link>
+                              </div>
+                            </AccordionDetails>
+                          </Accordion>
+                        );
+                      }
                     })}
                 </div>
               </div>
             </section>
           </div>
         )}
-        <Footer siteUrl={siteUrl}/>
+        <Footer siteUrl={siteUrl} />
       </Fragment>
     </>
   );

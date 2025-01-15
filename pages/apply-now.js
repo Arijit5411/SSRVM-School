@@ -12,6 +12,8 @@ import * as Yup from 'yup';
 import VideoModal from '@/components/Modal/VideoModal';
 import AddEnqForm from '@/components/Form/AddEnqForm';
 import ReactMarkdown from "react-markdown";
+import Link from 'next/link';
+import WhatsAppButton from '@/components/WhatsAppButton';
 
 
 
@@ -50,151 +52,32 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
 
 
     const [schoolData, setschoolData] = useState([]);
+    const [apiData, setApiData] = useState(null);
 
-      useEffect(() => {
+    useEffect(() => {
+        fetch(`${siteUrl}/api/navbar-menu-headers?populate=*`)
+            .then((response) => response.json())
+            .then((data) => {
+                setApiData(data);
+            })
+            .catch((error) => {
+                console.error("Error fetching data from the API:", error);
+            });
+    }, [siteUrl]);
+
+
+    useEffect(() => {
         fetch(`${siteUrl}/api/menus?filters[slug][$eq]=school-links&nested&populate=*`)
-          .then((response) => response.json())
-          .then((data) => {
-            const items = data?.data[0]?.attributes?.items?.data;
-            setschoolData(items);
-          })
-          .catch((error) => {
-            console.error("Error fetching data:", error);
-          });
-      }, [siteUrl]);
+            .then((response) => response.json())
+            .then((data) => {
+                const items = data?.data[0]?.attributes?.items?.data;
+                setschoolData(items);
+            })
+            .catch((error) => {
+                console.error("Error fetching data:", error);
+            });
+    }, [siteUrl]);
 
-
-    const banner = [
-        {
-            id: 1,
-            image: 'assets/img/north-banglor/banner_slider_1.png',
-
-        },
-        {
-            id: 2,
-            image: 'assets/img/north-banglor/banner_slider_2.png',
-
-        },
-        {
-            id: 3,
-            image: 'assets/img/north-banglor/image.png',
-        },
-        {
-            id: 4,
-            image: 'assets/img/north-banglor/s3_image_01.png',
-        },
-        {
-            id: 5,
-            image: 'assets/img/north-banglor/s5_item_img.png',
-        },
-        {
-            id: 6,
-            image: 'assets/img/north-banglor/s6_item_img.png',
-        },
-    ];
-
-
-    const stats = [
-        { number: "K-12", label: "Grades Offered", color: "gold" },
-        { number: "14+", label: "States in India", color: "blue" },
-        { number: "15+", label: "Indoor and Outdoor Sports", color: "blue" },
-        { number: "2500+", label: "Teachers", color: "blue" },
-        { number: "1", label: "Vision", color: "gold" },
-        { number: "1000+", label: "Active Alumni", color: "blue" },
-        { number: "90+", label: "Institutions", color: "gold" },
-        { number: "40000+", label: "Students", color: "blue" },
-        { number: "25", label: "Years of Excellence", color: "gold" },
-    ];
-
-
-    const data_5 = [
-        {
-            title: "Pre-Primary",
-            subtitle: "(NUR - UKG)",
-            image: "assets/img/north-banglor/s5_item_img.png",
-        },
-        {
-            title: "Primary",
-            subtitle: "(Class 1 - 5)",
-            image: "assets/img/north-banglor/s5_item_img.png",
-        },
-        {
-            title: "High School",
-            subtitle: "(Class 6 - 10)",
-            image: "assets/img/north-banglor/s5_item_img.png",
-        },
-        {
-            title: "High School",
-            subtitle: "(Class 6 - 10)",
-            image: "assets/img/north-banglor/s5_item_img.png",
-        },
-        {
-            title: "High School",
-            subtitle: "(Class 6 - 10)",
-            image: "assets/img/north-banglor/s5_item_img.png",
-        }
-    ];
-
-    const AdmissionOpen =
-        ["Admission Open 2025-26"];
-
-
-    const accordionData = [
-        {
-            id: '0',
-            title: 'Accordion Item #1',
-            content: 'This is the first item\'s accordion body. You can modify this content as per your needs.',
-        },
-        {
-            id: '1',
-            title: 'Accordion Item #2',
-            content: 'This is the second item\'s accordion body. Add your content here for the second accordion section.',
-        },
-        {
-            id: '2',
-            title: 'Accordion Item #3',
-            content: 'This is the third item\'s accordion body. Add more sections as needed.',
-        },
-    ];
-
-    const data_6 = [
-        {
-            img: 'assets/img/north-banglor/s3_image_01.png',
-            title: 'Dance & Music',
-            highlightColor: '#C89E01',
-            textColor: '#17436D',
-        },
-        {
-            img: 'assets/img/north-banglor/s3_image_01.png',
-            title: 'Art & Craft',
-            highlightColor: '#C89E01',
-            textColor: '#17436D',
-        },
-        {
-            img: 'assets/img/north-banglor/s3_image_01.png',
-            title: 'Sports & Fitness',
-            highlightColor: '#C89E01',
-            textColor: '#17436D',
-        },
-        {
-            img: 'assets/img/north-banglor/s3_image_01.png',
-            title: 'Sports & Fitness',
-            highlightColor: '#C89E01',
-            textColor: '#17436D',
-        },
-        {
-            img: 'assets/img/north-banglor/s3_image_01.png',
-            title: 'Sports & Fitness',
-            highlightColor: '#C89E01',
-            textColor: '#17436D',
-        },
-        {
-            img: 'assets/img/north-banglor/s3_image_01.png',
-            title: 'Sports & Fitness',
-            highlightColor: '#C89E01',
-            textColor: '#17436D',
-        },
-    ];
 
 
     const [isHovered, setIsHovered] = useState(false);
@@ -206,14 +89,11 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
 
     const handleOpenModal = (videoType) => {
 
-
         let videoUrl;
 
         if (videoType === 'video1') {
-            // Set the URL for the first video
             videoUrl = `https://www.youtube.com/embed/${videoId1}?rel=0&autoplay=1`;
         } else if (videoType === 'video2') {
-            // Set the URL for the second video
             videoUrl = `https://www.youtube.com/embed/${videoId2}?rel=0&autoplay=1`;
         }
         setVideoUrl(videoUrl);
@@ -225,39 +105,74 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
         setVideoUrl('');
     };
 
+
+    const maxLength = Math.max(applyNow.attributes.Banner_Images.data.length, applyNow.attributes.Banner_Images.data.length);
+
+    const bannerData = Array.from({ length: maxLength }, (_, index) => {
+        const desktopImage = applyNow.attributes.Banner_Images.data[index] || null;
+        const mobileImage = applyNow.attributes.Banner_Images.data[index] || null;
+
+        return {
+            id: index + 1,
+            Mobile_url: mobileImage ? mobileImage.attributes.url : null,
+            Desktop_url: desktopImage ? desktopImage.attributes.url : null,
+        };
+    });
+
     return (
-        <main>
+        <main className='apply-now-page'>
             {/* <NavBar siteUrl={siteUrl} /> */}
 
             {/* ====================================================================== s1*/}
-            <section className='position-relative'>
-                <div className='fixed-top bg-black z-10'>
-                    <div className="container ">
-                        <div className="row justify-content-between py-2 ">
-                            <div className='col-lg-6 py-2 d-flex justify-content-center justify-content-lg-start align-items-center gap-3'>
-                                <img style={{ height: '80px', weight: '60px' }} src='assets/img/north-banglor/logo-top.webp' alt='' />
-                                <h3 className='fs-20 text-white text-uppercase fw-500'> {schoolData && schoolData.length > 0 && schoolData[0].attributes.title}</h3>
-                               
-                            </div>
-                            <div className="col-lg-6 d-flex flex-column flex-lg-row  justify-content-lg-end align-items-center my-2 gap-3">
-                                <div className='text-white d-flex align-items-center gap-3'>
-                                    <i class="fa-solid fa-phone"></i>
-                                    <a href="tel:08023641305">08023641305</a>
-                                    <a href="tel:9606354017">9606354017</a>
-                                </div>
+            <header className='fixed-top bg-black z-10'>
+                <div className="container">
+                    <div className="d-flex justify-content-between py-2">
+                        <div className='w-auto d-inline-flex align-items-center gap-3'>
+                            <Link href="/">
+                                {apiData && apiData.data && apiData.data.length > 0 && (
+                                    <img
+                                        style={{ width: '60px' }}
+                                        src={`${siteUrl}${apiData.data[0].attributes.logo?.data?.attributes?.url}`}
+                                        alt="Transpro"
+                                    />
+                                )}
+                            </Link>
+                            {/* <a href='#'>
+                                <img style={{ width: '60px' }} src='assets/img/north-banglor/logo-top.webp' alt='' />
+                            </a> */}
+                            <h3 className='d-none d-lg-block fs-20 text-white text-uppercase fw-500'> {schoolData && schoolData.length > 0 && schoolData[0].attributes.title}</h3>
 
-                                <button
-                                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                                    className="enquire-btn rounded-pill d-flex align-items-center text-black gap-2 justify-content-center"
-                                >
-                                    <span>Enquire Now</span>
-                                    <i className="fa-solid fa-circle-arrow-right"></i>
-                                </button>
+                        </div>
+                        <div className="w-auto d-inline-flex justify-content-lg-end align-items-center gap-3">
+                            <div className='d-none d-lg-flex text-white d-flex align-items-center gap-3'>
+                                <i class="fa-solid fa-phone"></i>
+                                {apiData && apiData.data && apiData.data.length > 0 &&
+                                <a className='tele-apn' href={apiData.data[0].attributes.number_link}>{apiData.data[0].attributes.number}</a>
+                                }
+                                {/* <a href="tel:9606354017">9606354017</a> */}
                             </div>
+
+                            <button
+                                onClick={() => {
+                                    // Scroll to the element with the ID 'apply-form-xx1'
+                                    const target = document.getElementById('apply-form-xx1');
+                                    if (target) {
+                                        target.scrollIntoView({ behavior: 'smooth' });
+                                    }
+                                }}
+                                className="enquire-btn rounded-pill d-flex align-items-center text-black gap-2 justify-content-center"
+                            >
+                                <span>Enquire Now</span>
+                                <i className="fa-solid fa-circle-arrow-right"></i>
+                            </button>
+
                         </div>
                     </div>
                 </div>
-                <div className="position-relative">
+            </header>
+            <WhatsAppButton/>
+            <section className='position-relative overflow-hidden'>
+                <div className='position-absolute start-0 top-0 w-100 h-100'>
                     <MainSlider
                         settings={{
                             dots: false,
@@ -277,36 +192,40 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
                         }}
                         className="custom-slider-nb-a1">
 
-                        {banner.map((item) => (
-                            <div className="position-relative" key={item.id}>
+                        {bannerData.map((item) => (
+                            <div key={item.id}>
                                 <div className="image-wrap">
                                     <img
-                                        className="position-absolute top-0 left-0 w-100 h-100 object-fit-cover"
-                                        src={item.image}
-                                        alt={item.title}
+                                        className="w-100 h-100 object-fit-cover"
+                                        src={siteUrl + item.Mobile_url}
+                                        alt={''}
                                     />
-                                </div>
-                                <div className="position-relative zi-1 banner-slider-nb-a1 d-flex flex-column justify-content-end p-5">
-                                    <div className=''>
-
-                                        <div className='col-lg-7 text-center text-lg-start'>
-                                            <h2 className="fs-32 fs-md-46 fs-lg-56 fw-600 text-white" style={{ color: "#C89E01" }}>Join <span style={{ color: '#f2c006' }}>{applyNow.attributes.Banner_Title}</span> </h2>
-                                            <h4 className="fs-20 fs-md-22 fs-lg-24 fw-500 text-white"><i className="fa-solid fa-location-dot pe-2"></i>
-                                                {applyNow.attributes.Banner_Subtitle}
-                                            </h4>
-                                        </div>
-                                    </div>
-
                                 </div>
                             </div>
                         ))}
 
                     </MainSlider>
-                    <div className='bg-white p-4 banner-nb-from'>
-                        <AddEnqForm siteUrl={siteUrl} />
+                </div>
+
+                <div className='position-relative py-4 px-3 px-lg-5'>
+                    <div className='position-absolute start-0 top-0 w-100 h-100 overlay-black-ap-nw'></div>
+                    <div className='d-lg-flex align-items-end justify-content-between position-relative'>
+                        <div className='ap-nw-ban-cont-a2'>
+                            <div className='text-center text-lg-start'>
+                                <h2 className="fs-32 fs-md-46 fs-lg-56 fw-600 text-white" style={{ color: "#C89E01" }}>Join <span style={{ color: '#f2c006' }}>{applyNow.attributes.Banner_Title}</span> </h2>
+                                <h4 className="fs-20 fs-md-22 fs-lg-24 fw-500 text-white"><i className="fa-solid fa-location-dot pe-2"></i>
+                                    {applyNow.attributes.Banner_Subtitle}
+                                </h4>
+                            </div>
+                        </div>
+                        <div className='position-relative' id='apply-form-xx1'>
+                            <div className='bg-white p-3 p-lg-4 banner-nb-from'>
+                                <AddEnqForm siteUrl={siteUrl} />
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </section>      
+            </section>
             {/* ====================================================================== s2*/}
             <section className='' style={{ backgroundColor: '#F8FFEF' }}>
                 <div className="bg-[#874487] py-6">
@@ -316,21 +235,21 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
                         </Marquee> */}
                         <div className="scrolling-container">
                             <div className="scrolling-text d-flex align-items-center gap-4">
-                                <span style={{color:"#c89e01"}}>{applyNow.attributes.Admission_Year}</span>
-                                <span className="separator" style={{color:"#c89e01"}}>♦</span>
-                                <span style={{color:"#17436d"}}>Admission Open</span>
+                                <span style={{ color: "#c89e01" }}>{applyNow.attributes.Admission_Year}</span>
+                                <span className="separator" style={{ color: "#c89e01" }}>♦</span>
+                                <span style={{ color: "#17436d" }}>Admission Open</span>
                                 <span className="separator">♦</span>
-                                <span style={{color:"#c89e01"}}>{applyNow.attributes.Admission_Year}</span>
-                                <span className="separator" style={{color:"#c89e01"}}>♦</span>
-                                <span style={{color:"#17436d"}}>Admission Open</span>
+                                <span style={{ color: "#c89e01" }}>{applyNow.attributes.Admission_Year}</span>
+                                <span className="separator" style={{ color: "#c89e01" }}>♦</span>
+                                <span style={{ color: "#17436d" }}>Admission Open</span>
                                 <span className="separator">♦</span>
-                                <span style={{color:"#c89e01"}}>{applyNow.attributes.Admission_Year}</span>
-                                <span className="separator" style={{color:"#c89e01"}}>♦</span>
-                                <span style={{color:"#17436d"}}>Admission Open</span>
+                                <span style={{ color: "#c89e01" }}>{applyNow.attributes.Admission_Year}</span>
+                                <span className="separator" style={{ color: "#c89e01" }}>♦</span>
+                                <span style={{ color: "#17436d" }}>Admission Open</span>
                                 <span className="separator">♦</span>
-                                <span style={{color:"#c89e01"}}>{applyNow.attributes.Admission_Year}</span>
-                                <span className="separator" style={{color:"#c89e01"}}>♦</span>
-                                <span style={{color:"#17436d"}}>Admission Open</span>
+                                <span style={{ color: "#c89e01" }}>{applyNow.attributes.Admission_Year}</span>
+                                <span className="separator" style={{ color: "#c89e01" }}>♦</span>
+                                <span style={{ color: "#17436d" }}>Admission Open</span>
                                 <span className="separator">♦</span>
                                 {/* <span className="separator">♦</span>
                                 <span>2024–2025</span>

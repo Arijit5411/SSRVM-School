@@ -1,8 +1,23 @@
 /* ================================================= */
 
+
+
+a.tele-apn:hover{
+  color: unset !important;
+  text-decoration: underline;
+}
+.overlay-black-ap-nw{
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 5%, #000 85%);
+}
+
 .section {
   padding-top: 90px;
   padding-bottom: 90px;
+}
+
+
+.importantDiv{
+  z-index: 1 !important;
 }
 
 .def-btn.banner-from-submit {
@@ -40,30 +55,24 @@
 }  */
 
 /* ================================================= banner */
-.banner-slider-nb-a1 {
-  min-height: 700px;
-  background: linear-gradient(183deg, rgba(0, 66, 29, 0) 31.29%, #000 97.19%);
+
+.custom-slider-nb-a1.slick-slider,
+.custom-slider-nb-a1.slick-slider .slick-list,
+.custom-slider-nb-a1.slick-slider .slick-list .slick-track,
+.custom-slider-nb-a1.slick-slider .slick-list .slick-track .slick-slide,
+.custom-slider-nb-a1.slick-slider .slick-list .slick-track .slick-slide div {
+  height: 100% !important;
+}
+.slick-track {
+  display: flex !important;
 }
 
-@media only screen and (max-width: 767px) {
-  .banner-nb-from {
-    width: 100%;
-  }
+.slick-slide {
+  height: inherit !important;
 }
-
 .banner-nb-from {
-  position: absolute;
-  top: 55%;
-  transform: translateY(-50%);
-  right: 40px;
   border: 1px solid #1c077b;
   border-radius: 16px;
-  margin-top: 20px;
-}
-
-.banner-nb-from > div {
-  position: relative;
-  min-width: 450px;
 }
 
 .from-wrap-banner-a3 > .form-input > input {
@@ -97,18 +106,6 @@
 
 /* ========================================= Media Queries */
 @media only screen and (max-width: 1280px) {
-  .banner-nb-from {
-    position: static;
-    top: 0;
-    transform: none;
-    margin: 20px 0 20px 0;
-  }
-
-  .banner-nb-from > div {
-    position: relative;
-    min-width: 150px;
-  }
-
   .from-wrap-banner-a3 .form-input > input {
     padding: 12px;
     font-size: 14px;
@@ -122,6 +119,15 @@
 }
 
 @media only screen and (max-width: 767px) {
+
+
+  h2 {
+    font-size: 32px !important;
+  }
+
+  .overlay-black-ap-nw{
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 5%, #000 30%);
+  }
   .section {
     padding-top: 30px;
     padding-bottom: 30px;
@@ -136,7 +142,14 @@
   .banner-slider-nb-a1 {
     min-height: 1000px;
   }
+
+  .ap-nw-ban-cont-a2 {
+    margin: 250px 0px 30px 0px;
+  }
 }
+
+
+
 
 /* ================================================= s3 */
 
@@ -291,14 +304,12 @@
   }
 }
 
-
 .accordion-body p > a {
   text-decoration: underline;
 }
 
 @media only screen and (max-width: 767px) {
-
-  h3{
+  h3 {
     font-size: 24px;
   }
 
@@ -327,17 +338,6 @@
   .accordion-header .accordion-button {
     font-size: 16px !important;
     border-bottom: none !important;
-  }
-
-  .custom-slider-nb-a1 {
-    margin-top: 30%;
-  }
-
-  .banner-nb-from {
-    position: absolute;
-    top: 15%;
-    right: 0;
-    left: auto;
   }
 }
 
@@ -604,4 +604,8 @@
     margin-left: 0%;
     padding: 10px;
   }
+}
+
+.apply-now-page {
+  padding-top: 88px;
 }

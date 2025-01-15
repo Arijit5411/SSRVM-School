@@ -38,6 +38,7 @@ const AddEnqForm = ({ submitted = () => {}, siteUrl }) => {
           setThank(false);
           submitted(); // Calls the passed function or does nothing if it's not provided
         }, 3000);
+        window.location.href = '/thank-you';
       }
     } catch (error) {
       console.log("Error sending data:", error);
