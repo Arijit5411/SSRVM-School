@@ -167,7 +167,7 @@ export default function App({ Component, pageProps }) {
       {/* {gtagId !== null && <LoadScript gtagId={gtagId} />} */}
       {gtagId && <LoadScript gtagId={gtagId} />}
       <Component {...pageProps} />
-      <ScrollToTop smooth color='#210D7D' />
+      <ScrollToTop className="d-none d-lg-block" smooth color='#210D7D' />
     </>
   );
 }

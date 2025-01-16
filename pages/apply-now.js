@@ -1,6 +1,6 @@
 import HomeAutoPopup from '@/components/HomeAutoPopup';
 import MainSlider from '@/components/Sliders/MainSlider1';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Marquee from 'react-fast-marquee';
 import MainAccordion from '@/components/Accordion/MainAccordion';
@@ -13,7 +13,9 @@ import VideoModal from '@/components/Modal/VideoModal';
 import AddEnqForm from '@/components/Form/AddEnqForm';
 import ReactMarkdown from "react-markdown";
 import Link from 'next/link';
-import WhatsAppButton from '@/components/WhatsAppButton';
+import WhatsAppButton from '@/components/FloatContact';
+import FloatContact from '@/components/FloatContact';
+import FooterApplyNow from '@/components/FooterApplyNow';
 
 
 
@@ -88,16 +90,22 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
     const videoId2 = applyNow?.attributes?.Section_02_Secondary_Video_ID; // from second API endpoint
 
     const handleOpenModal = (videoType) => {
-
         let videoUrl;
 
-        if (videoType === 'video1') {
+        if (videoType === 'video1' && videoId1) {
             videoUrl = `https://www.youtube.com/embed/${videoId1}?rel=0&autoplay=1`;
-        } else if (videoType === 'video2') {
+        } else if (videoType === 'video2' && videoId2) {
             videoUrl = `https://www.youtube.com/embed/${videoId2}?rel=0&autoplay=1`;
         }
-        setVideoUrl(videoUrl);
-        setShowModal(true);
+
+        // Ensure the video URL is valid before opening the modal
+        if (videoUrl) {
+            setVideoUrl(videoUrl);
+            setShowModal(true);
+        } else {
+            // Handle case where video is not available
+            alert("Video not available!");
+        }
     };
 
     const handleCloseModal = () => {
@@ -118,6 +126,8 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
             Desktop_url: desktopImage ? desktopImage.attributes.url : null,
         };
     });
+
+    const formRef = useRef(null);
 
     return (
         <main className='apply-now-page'>
@@ -147,7 +157,7 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
                             <div className='d-none d-lg-flex text-white d-flex align-items-center gap-3'>
                                 <i class="fa-solid fa-phone"></i>
                                 {apiData && apiData.data && apiData.data.length > 0 &&
-                                <a className='tele-apn' href={apiData.data[0].attributes.number_link}>{apiData.data[0].attributes.number}</a>
+                                    <a className='tele-apn' href={apiData.data[0].attributes.number_link}>{apiData.data[0].attributes.number}</a>
                                 }
                                 {/* <a href="tel:9606354017">9606354017</a> */}
                             </div>
@@ -218,9 +228,16 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
                                 </h4>
                             </div>
                         </div>
-                        <div className='position-relative' id='apply-form-xx1'>
-                            <div className='bg-white p-3 p-lg-4 banner-nb-from'>
+                        <div className="position-relative" id="apply-form-xx1">
+                            <div
+                                className="bg-white p-3 p-lg-4 banner-nb-from"
+                                ref={formRef}
+                            >
                                 <AddEnqForm siteUrl={siteUrl} />
+                            </div>
+
+                            <div className='d-lg-none position-relative'>
+                                <FloatContact apiData={apiData} targetRef={formRef} />
                             </div>
                         </div>
                     </div>
@@ -307,7 +324,7 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
             {/* ================================================================ s3*/}
             <section className="section">
                 <div className='container'>
-                    <h2 className="fs-32 fs-md-40 fs-lg-48 mb-5 text-center" style={{ color: '#17436D' }}>SSRVM Community <span style={{ color: '#C89E01' }}>Overview</span> </h2>
+                    <h2 className="fs-32 fs-md-40 fs-lg-48 mb-5 text-center" style={{ color: '#17436D' }}>{applyNow?.attributes?.Section_01_Title}<span style={{ color: '#C89E01' }}> Overview</span> </h2>
 
                     <div className="row text-center Overview-s3-a1 mx-auto">
                         {applyNow.attributes.Comm_Overview && applyNow.attributes.Comm_Overview.map((stat, index) => (
@@ -328,8 +345,11 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
             <section className="section" style={{ backgroundColor: '#F7FEEE' }}>
                 <div className='container'>
                     <div className='section-title mb-5'>
-                        <h2 className="fs-32 fs-md-40 fs-lg-48 mb-3 text-center" style={{ color: '#17436D' }}>Nature-friendly <span style={{ color: '#C89E01' }}> Campus</span> </h2>
-                        <p className='fs-16 fs-md-18 fs-lg-20 fw-500 text-black text-center'>Nestled within greenery, our campus provides a stress-free environment. Complemented by our open <br /> classrooms, it offers a unique blend of nature and modern education.</p>
+                        <h2 className="fs-32 fs-md-40 fs-lg-48 mb-3 text-center" style={{ color: '#17436D' }}>{applyNow?.attributes?.Section_02_Title}<span style={{ color: '#C89E01' }}> Campus</span> </h2>
+                        <div className='col-8 mx-auto'>
+                            <p className='fs-16 fs-md-18 fs-lg-20 fw-500 text-black text-center'>{applyNow?.attributes?.Section_02_Content}</p>
+
+                        </div>
                     </div>
                     <div className='campus-s4-a1 mx-auto'>
                         <div className='d-flex flex-column flex-lg-row gap-lg-5'>
@@ -348,13 +368,6 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
                                         <ReactMarkdown>
                                             {applyNow?.attributes?.Section_02_Right_Side_Content}
                                         </ReactMarkdown>
-                                        {/* <h4 className='fs-20 fs-md-28 fs-lg-30 fw-600 ' style={{ color: '#707861' }}>Lush green campus</h4>
-                                        <ul className='d-flex flex-column gap-4 fs-16 fw-600 text-black mt-4'>
-                                            <li>CCTV Enabled Campus</li>
-                                            <li>CCTV Enabled Campus</li>
-                                            <li>CCTV Enabled Campus</li>
-                                            <li>CCTV Enabled Campus</li>
-                                        </ul> */}
                                         <button
                                             className='text-uppercase view-f-btn-a2 fs-16 fw-600 text-decoration-underline mt-4'
                                             style={{ color: '#707861' }}
@@ -365,27 +378,42 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
                                         </button>
                                     </div>
                                     <div className="d-flex flex-column flex-md-row mt-4 gap-4">
-                                        <button
-                                            className="enquire-btn rounded-pill"
-                                            onClick={() => handleOpenModal('video1')}
-                                        >
-                                            <span>Pre-Primary Tour</span>
-                                            <i className="fa-regular fa-circle-play"></i>
-                                        </button>
-                                        <button
-                                            className="enquire-btn rounded-pill"
-                                            onClick={() => handleOpenModal('video2')}
-                                        >
-                                            <span>Senior Secondary Tour</span>
-                                            <i className="fa-regular fa-circle-play"></i>
-                                        </button>
+                                        {videoId1 && (
+                                            <button
+                                                className="enquire-btn rounded-pill"
+                                                onClick={() => handleOpenModal('video1')}
+                                            >
+                                                <span>Pre-Primary Tour</span>
+                                                <i className="fa-regular fa-circle-play"></i>
+                                            </button>
+                                        )}
+
+                                        {videoId2 && (
+                                            <button
+                                                className="enquire-btn rounded-pill"
+                                                onClick={() => handleOpenModal('video2')}
+                                            >
+                                                <span>Senior Secondary Tour</span>
+                                                <i className="fa-regular fa-circle-play"></i>
+                                            </button>
+                                        )}
                                     </div>
 
-                                    <VideoModal
+                                    <div>
+                                        {videoUrl && (
+                                            <VideoModal
+                                                show={showModal}
+                                                onHide={handleCloseModal}
+                                                videoUrl={videoUrl}
+                                            />
+                                        )}
+                                    </div>
+
+                                    {/* <VideoModal
                                         show={showModal}
                                         onHide={handleCloseModal}
                                         videoUrl={videoUrl}
-                                    />
+                                    /> */}
                                 </article>
                             </div>
                         </div>
@@ -396,8 +424,8 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
             <section className="section">
                 <div className='container'>
                     <div className='section-title mb-5'>
-                        <h4 className='fs-20 text-center mb-2' style={{ color: '#343434' }}>ENRICHING CURRICULUM </h4>
-                        <h2 className="fs-md-40 fs-lg-48 mb-5 text-center" style={{ color: '#17436D' }}>Academic <span style={{ color: '#C89E01' }}>Landscape</span> </h2>
+                        <h4 className='fs-20 text-center mb-2 text-uppercase' style={{ color: '#343434' }}>{applyNow?.attributes?.Section_03_Sub_Title}</h4>
+                        <h2 className="fs-md-40 fs-lg-48 mb-5 text-center" style={{ color: '#17436D' }}>{applyNow?.attributes?.Section_03_Title} <span style={{ color: '#C89E01' }}>Landscape</span> </h2>
                     </div>
 
                     <div className="d-flex flex-column flex-lg-row justify-content-center align-item-center landscape-s5-a1">
@@ -422,22 +450,10 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
             <section className="section">
                 <div className='container'>
                     <div className='section-title mb-3 mb-lg-5'>
-                        <h4 className='fs-20 text-center mb-2' style={{ color: '#343434' }}>Holisitic Education </h4>
-                        <h2 className='fs-48 fw-600 text-black text-center' style={{ color: '#17436D' }}>Beyond the <span style={{ color: '#C89E01' }}>Books</span> </h2>
+                        <h4 className='fs-20 text-center mb-2 text-uppercase' style={{ color: '#343434' }}>{applyNow?.attributes?.Section_04_Sub_Title}</h4>
+                        <h2 className="fs-md-40 fs-lg-48 mb-5 text-center" style={{ color: '#17436D' }}>{applyNow?.attributes?.Section_04_Title} <span style={{ color: '#C89E01' }}>Books</span> </h2>
                     </div>
-
                     <div className="row education-s6-a1 row-gap-3">
-
-                        {/* {applyNow?.attributes?.Beyond_Books_Contents &&
-                            applyNow?.attributes?.Beyond_Books_Contents.map((item, id) => (
-                                <div className="col-lg-3 mx-auto" key={id}>
-                                    <div className="item-wrap">
-                                        <img src={siteUrl + item?.image?.data?.attributes?.url} alt='image' />
-                                        {item.Text_01}<span>{item.Text_02}</span>
-                                    </div>
-                                </div>
-                            ))} */}
-
                         {applyNow?.attributes?.Beyond_Books_Contents &&
                             applyNow?.attributes?.Beyond_Books_Contents.map((item, id) => {
                                 return (
@@ -465,7 +481,8 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
                     </div>
                 </div>
             </section>
-            <Footer siteUrl={siteUrl} />
+            {/* <Footer siteUrl={siteUrl} /> */}
+            <FooterApplyNow siteUrl={siteUrl} />
 
         </main >
     )
