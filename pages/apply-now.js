@@ -479,7 +479,9 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
             <section className='py-5'>
                 <div className='container'>
                     <div className=''>
-                        <h3 className='text-uppercase text-center fs-14 fs-md-22 fs-lg-24 fw-500'>Things to note</h3>
+                    {applyNow?.attributes?.FAQ_Section_SubTitle &&
+                        <h3 className='text-uppercase text-center fs-14 fs-md-22 fs-lg-24 fw-500'>{applyNow?.attributes?.FAQ_Section_SubTitle}</h3>
+                    }
                         {applyNow?.attributes?.FAQ_Section_Title &&
                             <h2 className='fs-32 fs-md-40 fs-lg-56 fw-600 text-center'>{applyNow?.attributes?.FAQ_Section_Title}</h2>
                         }
