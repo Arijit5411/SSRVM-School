@@ -239,13 +239,13 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
                     </div>
                 </div>
             </section>
-            <section className='sticky-section'>
+            {/* <section className='sticky-section'>
                 <div className='d-lg-none position-relative'>
                     <div className='text-center'>
                         Contact
                     </div>
                 </div>
-            </section>
+            </section> */}
 
             {/* ====================================================================== s2*/}
             <section className='' style={{ backgroundColor: '#F8FFEF' }}>
