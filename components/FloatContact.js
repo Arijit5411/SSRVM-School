@@ -1,40 +1,29 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const FloatContact = ({ targetRef, apiData }) => {
-    const [showBanner, setShowBanner] = useState(false);
+const FloatContact = () => {
+    const [isSticky, setIsSticky] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
-            const { current } = targetRef || {};
-            const { top, bottom } = current?.getBoundingClientRect() || {};
-            setShowBanner(bottom < 0); // Show when element is scrolled past
+            const section = document.getElementById('bottomSection');
+            if (section) {
+                const rect = section.getBoundingClientRect();
+                setIsSticky(rect.top <= window.innerHeight && rect.bottom >= 0);
+            }
         };
 
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
-    }, [targetRef]);
-
-    if (!showBanner) return null;
-
-    const contact = apiData?.data?.[0]?.attributes;
+    }, []);
 
     return (
-        <div className="scroll-down-banner">
-            <div className="d-flex gap-2 align-items-center col-6">
-                <i className="fa-solid fa-phone"></i>
-                {contact && <a className="tele-apn" href={contact.number_link}>{contact.number}</a>}
+        <section id="bottomSection" className={isSticky ? 'section-bottom' : ''}>
+            <div className="d-lg-none position-relative">
+                <div className="text-center">
+                    Contact
+                </div>
             </div>
-            {contact && (
-                <a
-                    className="tele-apn"
-                    href={`https://wa.me/${contact.number_link}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <img src="/whatsApp.svg" alt="WhatsApp" />
-                </a>
-            )}
-        </div>
+        </section>
     );
 };
 

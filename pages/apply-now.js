@@ -235,14 +235,18 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
                             >
                                 <AddEnqForm siteUrl={siteUrl} />
                             </div>
-
-                            <div className='d-lg-none position-relative'>
-                                <FloatContact apiData={apiData} targetRef={formRef} />
-                            </div>
                         </div>
                     </div>
                 </div>
             </section>
+            <section className='sticky-section'>
+                <div className='d-lg-none position-relative'>
+                    <div className='text-center'>
+                        Contact
+                    </div>
+                </div>
+            </section>
+
             {/* ====================================================================== s2*/}
             <section className='' style={{ backgroundColor: '#F8FFEF' }}>
                 <div className="bg-[#874487] py-6">
@@ -383,7 +387,7 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
                                                 className="enquire-btn rounded-pill"
                                                 onClick={() => handleOpenModal('video1')}
                                             >
-                                                <span>Pre-Primary Tour</span>
+                                                <span>{applyNow?.attributes?.Section_02_Button_01_Name}</span>
                                                 <i className="fa-regular fa-circle-play"></i>
                                             </button>
                                         )}
@@ -393,7 +397,7 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
                                                 className="enquire-btn rounded-pill"
                                                 onClick={() => handleOpenModal('video2')}
                                             >
-                                                <span>Senior Secondary Tour</span>
+                                                <span>{applyNow?.attributes?.Section_02_Button_02_Name}</span>
                                                 <i className="fa-regular fa-circle-play"></i>
                                             </button>
                                         )}
@@ -476,7 +480,9 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
                 <div className='container'>
                     <div className=''>
                         <h3 className='text-uppercase text-center fs-14 fs-md-22 fs-lg-24 fw-500'>Things to note</h3>
-                        <h2 className='fs-32 fs-md-40 fs-lg-56 fw-600 text-center'>FAQs</h2>
+                        {applyNow?.attributes?.FAQ_Section_Title &&
+                            <h2 className='fs-32 fs-md-40 fs-lg-56 fw-600 text-center'>{applyNow?.attributes?.FAQ_Section_Title}</h2>
+                        }
                         <MainAccordion accordionData={applyNow?.attributes?.FAQs} />
                     </div>
                 </div>
