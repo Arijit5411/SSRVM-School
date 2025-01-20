@@ -126,42 +126,83 @@ const BannerSliderOne = ({ siteUrl }) => {
             >
               {banner?.map((item) => (
                 <div key={item.id}>
-                  <Link href="https://indore.ssrvm.org/" target="_blank"
-                    className={`home-banner-bg-image header-bg banner-${item.id}-Color `}
-                    style={{ backgroundImage: `url(${siteUrl}${item.attributes.image.data.attributes.url})` }}
-                  >
-                    <div className="container">
-                      <div className="row header-height justify-content-start">
-                        <div className="col-lg-6">
-                          <div className="banner-item-wrap">
-                            <div className="mob-bann-img h-100 d-md-none">
-                              <img
-                                className="w-100 h-100 object-fit-cover"
-                                src={
-                                  siteUrl +
-                                  item.attributes.image.data.attributes.url
-                                }
-                                alt=""
-                              />
-                            </div>
-                            {item.attributes.heading && item.attributes.description &&
-                              <div className="header-inner-wrap">
-                                <div className="header-inner">
-                                  <h1 className="title animated slideInRight">
-                                    {item.attributes.heading}
-                                  </h1>
-                                  <p className="sub-title">
-                                    {item.attributes.description}
-                                  </p>
-                                </div>
-                              </div>
-                            }
+                  {item?.attributes?.URL ? (
 
+                    <Link href={item.attributes.URL} target="_blank"
+                      className={`home-banner-bg-image header-bg banner-${item.id}-Color `}
+                      style={{ backgroundImage: `url(${siteUrl}${item.attributes.image.data.attributes.url})` }}
+                    >
+                      <div className="container">
+                        <div className="row header-height justify-content-start">
+                          <div className="col-lg-6">
+                            <div className="banner-item-wrap">
+                              <div className="mob-bann-img h-100 d-md-none">
+                                <img
+                                  className="w-100 h-100 object-fit-cover"
+                                  src={
+                                    siteUrl +
+                                    item.attributes.image.data.attributes.url
+                                  }
+                                  alt=""
+                                />
+                              </div>
+                              {item.attributes.heading && item.attributes.description &&
+                                <div className="header-inner-wrap">
+                                  <div className="header-inner">
+                                    <h1 className="title animated slideInRight">
+                                      {item.attributes.heading}
+                                    </h1>
+                                    <p className="sub-title">
+                                      {item.attributes.description}
+                                    </p>
+                                  </div>
+                                </div>
+                              }
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+                  ) : (
+                    <div target="_blank"
+                      className={`home-banner-bg-image header-bg banner-${item.id}-Color `}
+                      style={{ backgroundImage: `url(${siteUrl}${item.attributes.image.data.attributes.url})` }}
+                    >
+                      <div className="container">
+                        <div className="row header-height justify-content-start">
+                          <div className="col-lg-6">
+                            <div className="banner-item-wrap">
+                              <div className="mob-bann-img h-100 d-md-none">
+                                <img
+                                  className="w-100 h-100 object-fit-cover"
+                                  src={
+                                    siteUrl +
+                                    item.attributes.image.data.attributes.url
+                                  }
+                                  alt=""
+                                />
+                              </div>
+                              {item.attributes.heading && item.attributes.description &&
+                                <div className="header-inner-wrap">
+                                  <div className="header-inner">
+                                    <h1 className="title animated slideInRight">
+                                      {item.attributes.heading}
+                                    </h1>
+                                    <p className="sub-title">
+                                      {item.attributes.description}
+                                    </p>
+                                  </div>
+                                </div>
+                              }
+
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </Link>
+                  )
+                  }
                 </div>
               ))}
             </Slider>
