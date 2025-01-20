@@ -862,6 +862,7 @@ header.navbar-are {
 @media only screen and (min-width: 767px) {
   .home-area {
     min-height: calc(100vh - 80px);
+    height: auto;
   }
 
   .header-bg {
