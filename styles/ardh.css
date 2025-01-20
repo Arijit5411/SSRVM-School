@@ -18,13 +18,17 @@ a.tele-apn:hover{
 .sticky-section {
   position: fixed;
   bottom: 0;
+  /* transition: all 0.5s ease-in-out; */
+  transform: translateY(100%);
   width: 100%;
   background-color: white; /* Add background color if needed */
   z-index: 1000; /* Adjust z-index if necessary to ensure visibility */
   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow effect */
   padding: 10px 0; /* Optional: Adjust padding for better styling */
 }
-
+.sticky-section.active{
+  transform: translateY(0);
+}
 
 
 

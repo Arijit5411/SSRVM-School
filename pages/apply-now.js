@@ -13,8 +13,6 @@ import VideoModal from '@/components/Modal/VideoModal';
 import AddEnqForm from '@/components/Form/AddEnqForm';
 import ReactMarkdown from "react-markdown";
 import Link from 'next/link';
-import WhatsAppButton from '@/components/FloatContact';
-import FloatContact from '@/components/FloatContact';
 import FooterApplyNow from '@/components/FooterApplyNow';
 
 
@@ -127,7 +125,31 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
         };
     });
 
-    const formRef = useRef(null);
+
+
+    const targetSectionRef = useRef(null);
+    const [isActive, setIsActive] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (targetSectionRef.current) {
+                const rect = targetSectionRef.current.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+
+                if (rect.top <= windowHeight && rect.bottom >= 0) {
+                    setIsActive(true); // Section is fully in view
+                }
+
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll);
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
+
 
     return (
         <main className='apply-now-page'>
@@ -230,25 +252,36 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
                         </div>
                         <div className="position-relative" id="apply-form-xx1">
                             <div
-                                className="bg-white p-3 p-lg-4 banner-nb-from"
-                                ref={formRef}
-                            >
+                                className="bg-white p-3 p-lg-4 banner-nb-from">
                                 <AddEnqForm siteUrl={siteUrl} />
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
-            {/* <section className='sticky-section'>
-                <div className='d-lg-none position-relative'>
-                    <div className='text-center'>
-                        Contact
+            <section
+                className={`d-lg-none sticky-section ${isActive ? "active" : ""}`} style={{backgroundColor:"#D6AE18"}}>
+                <div className=' position-relative'>
+                    <div className='d-flex justify-content-between align-items-center px-2 text-black'>
+                        <div className='col-4'></div>
+                        <div className='col-4'>
+                            {apiData && apiData.data && apiData.data.length > 0 &&
+                                <a className='tele-apn' href={apiData.data[0].attributes.number_link}>{apiData.data[0].attributes.number}</a>
+                            }
+                        </div>
+                        <div className='col-4 text-end'>
+                            {apiData && apiData.data && apiData.data.length > 0 &&
+                                <a className='tele-apn' href={`https://wa.me/${apiData.data[0].attributes.number_link}`} target="_blank" rel="noopener noreferrer">
+                                    <img src='/whats_app_logo.png' alt='whatsapp_Logo' style={{ width: '40px' }} />
+                                </a>
+                            }
+                        </div>
+
                     </div>
                 </div>
-            </section> */}
-
+            </section>
             {/* ====================================================================== s2*/}
-            <section className='' style={{ backgroundColor: '#F8FFEF' }}>
+            <section ref={targetSectionRef} className='' style={{ backgroundColor: '#F8FFEF' }}>
                 <div className="bg-[#874487] py-6">
                     <div className="importantDiv cursor-pointer">
                         {/* <Marquee className="imp">
@@ -411,12 +444,6 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
                                             />
                                         )}
                                     </div>
-
-                                    {/* <VideoModal
-                                        show={showModal}
-                                        onHide={handleCloseModal}
-                                        videoUrl={videoUrl}
-                                    /> */}
                                 </article>
                             </div>
                         </div>
@@ -477,9 +504,9 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
             <section className='py-5'>
                 <div className='container'>
                     <div className=''>
-                    {applyNow?.attributes?.FAQ_Section_SubTitle &&
-                        <h3 className='text-uppercase text-center fs-14 fs-md-22 fs-lg-24 fw-500'>{applyNow?.attributes?.FAQ_Section_SubTitle}</h3>
-                    }
+                        {applyNow?.attributes?.FAQ_Section_SubTitle &&
+                            <h3 className='text-uppercase text-center fs-14 fs-md-22 fs-lg-24 fw-500'>{applyNow?.attributes?.FAQ_Section_SubTitle}</h3>
+                        }
                         {applyNow?.attributes?.FAQ_Section_Title &&
                             <h2 className='fs-32 fs-md-40 fs-lg-56 fw-600 text-center'>{applyNow?.attributes?.FAQ_Section_Title}</h2>
                         }
