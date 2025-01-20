@@ -6,7 +6,7 @@ import ReactMarkdown from "react-markdown";
 const MainAccordion = ({ accordionData }) => {
   return (
     <Accordion defaultActiveKey="0">
-      {accordionData.map((item) => (
+      {accordionData?.map((item) => (
         <Accordion.Item eventKey={item.id} key={item.id}>
           <Accordion.Header>{item.Question}</Accordion.Header>
           <Accordion.Body>

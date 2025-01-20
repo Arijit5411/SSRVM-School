@@ -114,7 +114,7 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
     };
 
 
-    const maxLength = Math.max(applyNow.attributes.Banner_Images.data.length, applyNow.attributes.Banner_Images.data.length);
+    const maxLength = Math.max(applyNow?.attributes?.Banner_Images?.data?.length, applyNow?.attributes?.Banner_Images?.data?.length);
 
     const bannerData = Array.from({ length: maxLength }, (_, index) => {
         const desktopImage = applyNow.attributes.Banner_Images.data[index] || null;
@@ -222,9 +222,9 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
                     <div className='d-lg-flex align-items-end justify-content-between position-relative'>
                         <div className='ap-nw-ban-cont-a2'>
                             <div className='text-center text-lg-start'>
-                                <h2 className="fs-32 fs-md-46 fs-lg-56 fw-600 text-white" style={{ color: "#C89E01" }}>Join <span style={{ color: '#f2c006' }}>{applyNow.attributes.Banner_Title}</span> </h2>
+                                <h2 className="fs-32 fs-md-46 fs-lg-56 fw-600 text-white" style={{ color: "#C89E01" }}>Join <span style={{ color: '#f2c006' }}>{applyNow?.attributes.Banner_Title}</span></h2>
                                 <h4 className="fs-20 fs-md-22 fs-lg-24 fw-500 text-white"><i className="fa-solid fa-location-dot pe-2"></i>
-                                    {applyNow.attributes.Banner_Subtitle}
+                                    {applyNow?.attributes?.Banner_Subtitle}
                                 </h4>
                             </div>
                         </div>
@@ -256,19 +256,19 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
                         </Marquee> */}
                         <div className="scrolling-container">
                             <div className="scrolling-text d-flex align-items-center gap-4">
-                                <span style={{ color: "#c89e01" }}>{applyNow.attributes.Admission_Year}</span>
+                                <span style={{ color: "#c89e01" }}>{applyNow?.attributes?.Admission_Year}</span>
                                 <span className="separator" style={{ color: "#c89e01" }}>♦</span>
                                 <span style={{ color: "#17436d" }}>Admission Open</span>
                                 <span className="separator">♦</span>
-                                <span style={{ color: "#c89e01" }}>{applyNow.attributes.Admission_Year}</span>
+                                <span style={{ color: "#c89e01" }}>{applyNow?.attributes?.Admission_Year}</span>
                                 <span className="separator" style={{ color: "#c89e01" }}>♦</span>
                                 <span style={{ color: "#17436d" }}>Admission Open</span>
                                 <span className="separator">♦</span>
-                                <span style={{ color: "#c89e01" }}>{applyNow.attributes.Admission_Year}</span>
+                                <span style={{ color: "#c89e01" }}>{applyNow?.attributes?.Admission_Year}</span>
                                 <span className="separator" style={{ color: "#c89e01" }}>♦</span>
                                 <span style={{ color: "#17436d" }}>Admission Open</span>
                                 <span className="separator">♦</span>
-                                <span style={{ color: "#c89e01" }}>{applyNow.attributes.Admission_Year}</span>
+                                <span style={{ color: "#c89e01" }}>{applyNow?.attributes?.Admission_Year}</span>
                                 <span className="separator" style={{ color: "#c89e01" }}>♦</span>
                                 <span style={{ color: "#17436d" }}>Admission Open</span>
                                 <span className="separator">♦</span>
@@ -328,16 +328,15 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
             {/* ================================================================ s3*/}
             <section className="section">
                 <div className='container'>
-                    <h2 className="fs-32 fs-md-40 fs-lg-48 mb-5 text-center" style={{ color: '#17436D' }}>{applyNow?.attributes?.Section_01_Title}<span style={{ color: '#C89E01' }}> Overview</span> </h2>
-
+                    <h2 className="fs-32 fs-md-40 fs-lg-48 mb-5 text-center" style={{ color: '#17436D' }}>{applyNow?.attributes?.Section_01_Title}</h2>
                     <div className="row text-center Overview-s3-a1 mx-auto">
-                        {applyNow.attributes.Comm_Overview && applyNow.attributes.Comm_Overview.map((stat, index) => (
+                        {applyNow?.attributes?.Comm_Overview && applyNow?.attributes?.Comm_Overview?.map((stat, index) => (
                             <div className="col-4 px-2" key={index}>
                                 <h4
                                     className="fs-20 fs-md-34 fs-lg-40 fw-600 lh-1">
-                                    {stat.Title}
+                                    {stat?.Title}
                                     <br />
-                                    <span className="fs-14 fs-md-16 fs-lg-20 fw-400 text-black">{stat.Sub_Title}</span>
+                                    <span className="fs-14 fs-md-16 fs-lg-20 fw-400 text-black">{stat?.Sub_Title}</span>
                                 </h4>
                             </div>
                         ))}
@@ -349,7 +348,7 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
             <section className="section" style={{ backgroundColor: '#F7FEEE' }}>
                 <div className='container'>
                     <div className='section-title mb-5'>
-                        <h2 className="fs-32 fs-md-40 fs-lg-48 mb-3 text-center" style={{ color: '#17436D' }}>{applyNow?.attributes?.Section_02_Title}<span style={{ color: '#C89E01' }}> Campus</span> </h2>
+                        <h2 className="fs-32 fs-md-40 fs-lg-48 mb-3 text-center" style={{ color: '#17436D' }}>{applyNow?.attributes?.Section_02_Title} </h2>
                         <div className='col-8 mx-auto'>
                             <p className='fs-16 fs-md-18 fs-lg-20 fw-500 text-black text-center'>{applyNow?.attributes?.Section_02_Content}</p>
 
@@ -429,9 +428,8 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
                 <div className='container'>
                     <div className='section-title mb-5'>
                         <h4 className='fs-20 text-center mb-2 text-uppercase' style={{ color: '#343434' }}>{applyNow?.attributes?.Section_03_Sub_Title}</h4>
-                        <h2 className="fs-md-40 fs-lg-48 mb-5 text-center" style={{ color: '#17436D' }}>{applyNow?.attributes?.Section_03_Title} <span style={{ color: '#C89E01' }}>Landscape</span> </h2>
+                        <h2 className="fs-md-40 fs-lg-48 mb-5 text-center" style={{ color: '#17436D' }}>{applyNow?.attributes?.Section_03_Title}</h2>
                     </div>
-
                     <div className="d-flex flex-column flex-lg-row justify-content-center align-item-center landscape-s5-a1">
                         {applyNow?.attributes?.Section_03_Components.map((item, index) => (
                             <div className="position-relative" key={index}>
@@ -455,7 +453,7 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
                 <div className='container'>
                     <div className='section-title mb-3 mb-lg-5'>
                         <h4 className='fs-20 text-center mb-2 text-uppercase' style={{ color: '#343434' }}>{applyNow?.attributes?.Section_04_Sub_Title}</h4>
-                        <h2 className="fs-md-40 fs-lg-48 mb-5 text-center" style={{ color: '#17436D' }}>{applyNow?.attributes?.Section_04_Title} <span style={{ color: '#C89E01' }}>Books</span> </h2>
+                        <h2 className="fs-md-40 fs-lg-48 mb-5 text-center" style={{ color: '#17436D' }}>{applyNow?.attributes?.Section_04_Title}</h2>
                     </div>
                     <div className="row education-s6-a1 row-gap-3">
                         {applyNow?.attributes?.Beyond_Books_Contents &&
