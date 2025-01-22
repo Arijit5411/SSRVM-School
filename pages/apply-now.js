@@ -260,22 +260,25 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
                 </div>
             </section>
             <section
-                className={`d-lg-none sticky-section ${isActive ? "active" : ""}`} style={{backgroundColor:"#D6AE18"}}>
+                className={`d-lg-none sticky-section ${isActive ? "active" : ""}`} style={{ backgroundColor: "#D6AE18" }}>
                 <div className=' position-relative'>
-                    <div className='d-flex justify-content-between align-items-center px-2 text-black'>
-                        <div className='col-4'></div>
-                        <div className='col-4'>
+                    <div className='d-flex justify-content-center align-items-center px-2 text-black'>
+                        {/* <div className='col-4'></div> */}
+                        <div className=''>
                             {apiData && apiData.data && apiData.data.length > 0 &&
-                                <a className='tele-apn' href={apiData.data[0].attributes.number_link}>{apiData.data[0].attributes.number}</a>
+                                <div className='d-flex align-items-center gap-2 text-white'>
+                                    <i class="fa-solid fa-phone"></i>
+                                    <a className='tele-apn' href={apiData.data[0].attributes.number_link}>{apiData.data[0].attributes.number}</a>
+                                </div>
                             }
                         </div>
-                        <div className='col-4 text-end'>
+                        {/* <div className='col-4 text-end'>
                             {apiData && apiData.data && apiData.data.length > 0 &&
                                 <a className='tele-apn' href={`https://wa.me/${apiData.data[0].attributes.number_link}`} target="_blank" rel="noopener noreferrer">
                                     <img src='/whats_app_logo.png' alt='whatsapp_Logo' style={{ width: '40px' }} />
                                 </a>
                             }
-                        </div>
+                        </div> */}
 
                     </div>
                 </div>

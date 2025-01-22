@@ -16,6 +16,11 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Head from "next/head";
 
+
+
+
+
+
 export default function App({ Component, pageProps }) {
 
   // let site_url = pageProps?.siteUrl?.split('/_s')?.join("");
@@ -66,8 +71,8 @@ export default function App({ Component, pageProps }) {
     { siteUrl: "https://dharavi.ssrvm.org", gtagId: "G-RLPCQVEB9C", gtmId: "GTM-579TXDK5" },
     { siteUrl: "https://latur.ssrvm.org", gtagId: "G-MLJ4YPKVK4", gtmId: "GTM-KJWB22HB" },
     { siteUrl: "https://godhra.ssrvm.org", gtagId: "G-CJ69QZNQCX", gtmId: "GTM-PJQ7XLMW" },
-    { siteUrl: "https://mangalore.ssrvm.org", gtagId: "G-15KDVN7WSQ", gtmId: "GTM-TP9RH3QC"},
-    { siteUrl: "https://jaipur.ssrvm.org", gtagId: "G-W972L9GQYN", gtmId: "GTM-P5R3JFJ6"},
+    { siteUrl: "https://mangalore.ssrvm.org", gtagId: "G-15KDVN7WSQ", gtmId: "GTM-TP9RH3QC" },
+    { siteUrl: "https://jaipur.ssrvm.org", gtagId: "G-W972L9GQYN", gtmId: "GTM-P5R3JFJ6" },
     { siteUrl: "https://kozhikode.ssrvm.org", gtagId: "G-L1V5R63J9F", gtmId: "GTM-5C3JGM8Q" },
     { siteUrl: "https://karkala.ssrvm.org", gtagId: "G-D71JG1JDTB", gtmId: "GTM-WXH8BJGP" },
     { siteUrl: "https://sastha.ssrvm.org", gtagId: "G-CG91LS7DD7", gtmId: "GTM-NN4FG8G8" },
@@ -78,7 +83,7 @@ export default function App({ Component, pageProps }) {
     { siteUrl: "https://omerga.ssrvm.org", gtagId: "G-20Y31J7LKE", gtmId: "GTM-MBS8S57F" },
     { siteUrl: "https://cherthala.ssrvm.org", gtagId: "G-PM9Z5FS4VW", gtmId: "GTM-PQ28W5BH" },
     { siteUrl: "https://rourkela.ssrvm.org", gtagId: "G-XWECQ0VEPJ", gtmId: "GTM-PL6KMRP8" },
-    { siteUrl: "https://cidcoaurangabad.ssrvm.org", gtagId: "G-2LSBMMYTS6", gtmId: "GTM-PW9M3PGC"},
+    { siteUrl: "https://cidcoaurangabad.ssrvm.org", gtagId: "G-2LSBMMYTS6", gtmId: "GTM-PW9M3PGC" },
     { siteUrl: "https://bongaigaon.ssrvm.org", gtagId: "G-X9B2K2VT2C", gtmId: "GTM-MHR8VMCF" },
     { siteUrl: "https://westhill.ssrvm.org", gtagId: "G-RLJH74S4X7", gtmId: "GTM-MM2KHP7D" },
     { siteUrl: "https://itanagar.ssrvm.org", gtagId: "G-8DEXN9WBKD", gtmId: "GTM-KHH4X323" },
@@ -149,6 +154,21 @@ export default function App({ Component, pageProps }) {
             }}
           />
         }
+
+     
+        {/* <meta property="og:title" content={seo.ogTitle || "Default Title"}/>
+        <meta property="og:type" content={seo.ogType || "website"}/>
+        <meta property="og:url" content={seo.ogUrl || "https://defaulturl.com"} />
+        <meta property="og:image" content={seo.ogImage?.url || "https://defaultimage.com"} />
+        <meta property="og:description" content={seo.ogDescription || "Default Description"} />
+        <meta property="og:site_name" content={seo.ogSiteName || "Default Site"} />
+
+     
+        <meta name="twitter:card" content={seo.twitterCard || "summary_large_image"} />
+        <meta name="twitter:title" content={seo.twitterTitle || "Default Title"} />
+        <meta name="twitter:description" content={seo.twitterDescription || "Default Description"} />
+        <meta name="twitter:image" content={seo.twitterImage?.url || "https://defaultimage.com"} />
+        <meta name="twitter:site" content={seo.twitterSite || "@defaultsite"} /> */}
       </Head>
 
       {gtmId &&
