@@ -228,7 +228,7 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
                             <div key={item.id}>
                                 <div className="image-wrap">
                                     <img
-                                        className="w-100 h-100"
+                                        className="w-100 h-100 object-fit-cover"
                                         src={siteUrl + item.Mobile_url}
                                         alt={''}
                                     />
