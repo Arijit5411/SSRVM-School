@@ -618,6 +618,8 @@ a.tele-apn:hover{
   }
 }
 
+
+
 @media (max-width: 767px) {
   .modal-content {
     width: 100% !important;
@@ -625,8 +627,18 @@ a.tele-apn:hover{
     margin-left: 0%;
     padding: 10px;
   }
+  .ril__navButtons {
+    display: none;
+  }
 }
 
 .apply-now-page {
   padding-top: 76px;
+}
+
+
+
+
+.ril__navButtons{
+  padding: 45px 80px !important;
 }
