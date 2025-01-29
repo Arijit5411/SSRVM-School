@@ -6,11 +6,12 @@ const Document = (props) => {
 
   const Organization_Schema = seoData?.data?.attributes?.Organization_Schema ?? null;
   const Location_Schema = seoData?.data?.attributes?.Location_Schema ?? null;
+  const OtherTags = seoData?.data?.attributes?.Other_Tags ?? null;
 
   return (
     <Html lang="en">
       <Head>
-      {/* <script
+        {/* <script
             dangerouslySetInnerHTML={{
               __html: `
                 (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -27,7 +28,6 @@ const Document = (props) => {
           integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
           crossOrigin="anonymous" referrerPolicy="no-referrer" />
         <link href="https://db.onlinewebfonts.com/c/c02d97eb2b2899bdb0d87b182a64333d?family=Metropolis-Regular" rel="stylesheet" />
-        
         {/* Insert schemas if they exist */}
         {Organization_Schema && (
           <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: Organization_Schema }} />
@@ -35,9 +35,13 @@ const Document = (props) => {
         {Location_Schema && (
           <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: Location_Schema }} />
         )}
+
+        {OtherTags && <div dangerouslySetInnerHTML={{ __html: OtherTags }} />}
       </Head>
+
+
       <body>
-      {/* <noscript>
+        {/* <noscript>
             <iframe
               src={`https://www.googletagmanager.com/ns.html?id=GTM-PCG5Q78G`}
               height="0"

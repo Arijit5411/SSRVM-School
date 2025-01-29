@@ -12,50 +12,38 @@ import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from '@/components/Seo';
 
 export const getServerSideProps = async (context) => {
-  try {
-    const siteUrl = determineStrapiUrl(context);
-    const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
-    const res1 = await fetch(`${siteUrl}/api/teams?pagination[start]=0&pagination[limit]=100&populate=*`)
+    try {
+        const siteUrl = determineStrapiUrl(context);
+        const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
+        const res1 = await fetch(`${siteUrl}/api/teams?pagination[start]=0&pagination[limit]=100&populate=*`)
 
-    const data = await res.json()
-    const data1 = await res1.json()
+        const data = await res.json()
+        const data1 = await res1.json()
 
-    return {
-        props: {
-            seodata: data?.data?.attributes?.Pages ?? {},
-            team: data1,
-            siteUrl
-        }
-    };
-} catch (error) {
-  console.error("Error fetching data:", error.message);
+        return {
+            props: {
+                seodata: data?.data?.attributes?.Pages ?? {},
+                team: data1,
+                siteUrl
+            }
+        };
+    } catch (error) {
+        console.error("Error fetching data:", error.message);
 
-  return {
-    props: {
-      data: [],
-    },
-  };
-}
+        return {
+            props: {
+                data: [],
+            },
+        };
+    }
 };
 
 
-const Team = ({ seodata, team ,siteUrl}) => {
+const Team = ({ seodata, team, siteUrl }) => {
     const [academicTeam, setAcademicTeam] = useState([]);
     const [adminTeam, setAdminTeam] = useState([]);
-   
-    useEffect(() => {
-        // fetch(`${siteUrl}/api/teams?populate=*`)
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         const academicMembers = data.data.filter(member => member.attributes.academic_or_admin === "Core Academic Team");
-        //         const adminMembers = data.data.filter(member => member.attributes.academic_or_admin === "Core Admin Team");
 
-        //         setAcademicTeam(academicMembers);
-        //         setAdminTeam(adminMembers);
-        //     })
-        //     .catch(error => {
-        //         console.error('Error:', error);
-        //     });
+    useEffect(() => {
         if (team && team?.data && team?.data?.length > 0) {
             const academicMembers = team?.data.filter(member => member?.attributes?.academic_or_admin === "Core Academic Team");
             const adminMembers = team?.data.filter(member => member?.attributes?.academic_or_admin === "Core Admin Team");
@@ -64,8 +52,6 @@ const Team = ({ seodata, team ,siteUrl}) => {
             setAdminTeam(adminMembers);
         }
     }, []);
-
-   
 
 
     const TeamSection = ({ teamData }) => (
@@ -84,6 +70,9 @@ const Team = ({ seodata, team ,siteUrl}) => {
                             <div className="wrap-text">
                                 <h6>{member.attributes.designation || "No Designation"}</h6>
                                 <p>{member.attributes.name || "No Name"}</p>
+                                {member?.attributes?.Qualification &&
+                                    <p>{member?.attributes?.Qualification}</p>
+                                }
                             </div>
                         </div>
                     </div>
@@ -94,11 +83,11 @@ const Team = ({ seodata, team ,siteUrl}) => {
 
     return (
         <>
-               <Seo SeoData={seodata} PageSlug={"team"} />
+            <Seo SeoData={seodata} PageSlug={"team"} />
 
             <Fragment>
-                <NavBar siteUrl={siteUrl}/>
-                
+                <NavBar siteUrl={siteUrl} />
+
 
                 <div className='top-section1-new'>
                     <div className="container">
@@ -117,7 +106,7 @@ const Team = ({ seodata, team ,siteUrl}) => {
                         </div>
                     </section>
                 </div>
-                <Footer siteUrl={siteUrl}/>
+                <Footer siteUrl={siteUrl} />
             </Fragment>
         </>
     );
