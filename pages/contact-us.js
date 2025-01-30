@@ -88,7 +88,6 @@ const ContactUs = ({ seodata, contactData, siteUrl }) => {
     //     newErrors.fullName =
     //         "Please enter your full name with at least two words.";
     // }
-
     // Validate email
     if (!email) {
       newErrors.email = "Email is required.";
