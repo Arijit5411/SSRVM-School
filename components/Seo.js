@@ -100,23 +100,23 @@ const Seo = ({ SeoData, PageSlug, InnerPageSlug }) => {
       <Head>
         {/* Meta Tags */}
         {Meta_Title && <title>{Meta_Title}</title>}
-        {Meta_Description && <meta name="description" content={Meta_Description} />}
-        {Meta_Keywords && <meta name="keywords" content={Meta_Keywords} />}
-        {Canonical && <link rel="canonical" href={Canonical} />}
-        {Robots && <meta name="robots" content={Robots} />}
+        {Meta_Description && <meta name="description" content={Meta_Description}/>}
+        {Meta_Keywords && <meta name="keywords" content={Meta_Keywords}/>}
+        {Canonical && <link rel="canonical" href={Canonical}/>}
+        {Robots && <meta name="robots" content={Robots}/>}
 
         {/* Open Graph Tags */}
-        {OG_Title && <meta property="og:title" content={OG_Title} />}
-        {OG_Description && <meta property="og:description" content={OG_Description} />}
-        {OG_Image && <meta property="og:image" content={OG_Image} />}
-        {OG_Url && <meta property="og:url" content={OG_Url} />}
-        {OG_Type && <meta property="og:type" content={OG_Type} />}
+        {OG_Title && <meta property="og:title" content={OG_Title}/>}
+        {OG_Description && <meta property="og:description" content={OG_Description}/>}
+        {OG_Image && <meta property="og:image" content={OG_Image}/>}
+        {OG_Url && <meta property="og:url" content={OG_Url}/>}
+        {OG_Type && <meta property="og:type" content={OG_Type}/>}
 
         {/* Twitter Card Tags */}
-        {Twitter_Title && <meta name="twitter:title" content={Twitter_Title} />}
-        {Twitter_Description && <meta name="twitter:description" content={Twitter_Description} />}
-        {Twitter_Image && <meta name="twitter:image" content={Twitter_Image} />}
-        {Twitter_Card && <meta name="twitter:card" content={Twitter_Card} />}
+        {Twitter_Title && <meta name="twitter:title" content={Twitter_Title}/>}
+        {Twitter_Description && <meta name="twitter:description" content={Twitter_Description}/>}
+        {Twitter_Image && <meta name="twitter:image" content={Twitter_Image}/>}
+        {Twitter_Card && <meta name="twitter:card" content={Twitter_Card}/>}
       </Head>
     </>
   );

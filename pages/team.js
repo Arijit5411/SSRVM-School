@@ -14,10 +14,8 @@ export const getServerSideProps = async (context) => {
         const siteUrl = determineStrapiUrl(context);
         const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
         const res1 = await fetch(`${siteUrl}/api/teams?pagination[start]=0&pagination[limit]=100&populate=*`)
-
         const data = await res.json();
         const data1 = await res1.json();
-
         return {
             props: {
                 seodata: data?.data?.attributes?.Pages ?? {},

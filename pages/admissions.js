@@ -76,23 +76,38 @@ const Admissions = ({
     }
   }, []);
 
+
+
+  const [sortedClasses, setSortedClasses] = useState([]);
+
+  useEffect(() => {
+    if (t_class) {
+      const sortedData = [...t_class].sort((a, b) => {
+        if (a?.attributes?.Order && !b?.attributes?.Order) return -1;
+        if (!a?.attributes?.Order && b?.attributes?.Order) return 1;
+        return (a?.attributes?.Order || 0) - (b?.attributes?.Order || 0);
+      });
+      setSortedClasses(sortedData);
+    }
+  }, [t_class]);
+
   const page_title = `${admissions?.page_title}`;
   const subheading_admission = `${admissions?.subheading_admission}`;
   const para_1 = `${admissions?.para_1}`;
   const apply_button = `${admissions?.apply_button}`;
   const admission_procedure = `${admissions?.admission_procedure}`;
   const image_1 = `${siteUrl}${admissions?.image_1?.data?.attributes?.url}`;
-  const class_pre_primary = `${admissions?.class_pre_primary}`;
-  const class_pre_primary2 = `${admissions?.class_pre_primary2}`;
-  const class_pre_primary3 = `${admissions?.class_pre_primary3}`;
-  const class1 = `${admissions?.class1}`;
+  // const class_pre_primary = `${admissions?.class_pre_primary}`;
+  // const class_pre_primary2 = `${admissions?.class_pre_primary2}`;
+  // const class_pre_primary3 = `${admissions?.class_pre_primary3}`;
+  // const class1 = `${admissions?.class1}`;
 
   const box_content_apply = admissions?.box_content_apply;
   const apply_button_box = `${admissions?.apply_button_box}`;
   const apply_button_link = `${admissions?.apply_button_link}`;
-  const procedure_tab = `${admissions?.procedure_tab}`;
-  const faqs_tab = `${admissions?.faqs_tab}`;
-  const faq_heading = `${admissions?.faq_heading}`;
+  // const procedure_tab = `${admissions?.procedure_tab}`;
+  // const faqs_tab = `${admissions?.faqs_tab}`;
+  // const faq_heading = `${admissions?.faq_heading}`;
   const document_eq_heading = `${admissions?.document_eq_heading}`;
   const point_1 = `${admissions?.point_1}`;
   const point_2 = `${admissions?.point_2}`;
@@ -394,7 +409,6 @@ const Admissions = ({
               </div>
             </div>
           </section>
-
           <section>
             <div className="container wrapper-mid-admission">
               <div className="wrap-tag-admission">
@@ -402,27 +416,23 @@ const Admissions = ({
                   <h2>{admission_procedure}</h2>
                 </div>
                 <div className="wrap-dropdown-admission">
-                  <select
-                    className="dropadmission"
-                    value={selectedOption}
-                    onChange={handleChange}
-                  >
-                    {t_class?.length > 0 &&
-                      t_class?.map((c) => {
-                        return (
-                          <option key={c?.id} value={c?.attributes?.name}>
-                            {c?.attributes?.name}
-                          </option>
-                        );
-                      })}
-                    {/* <option value="class1">{class_pre_primary}</option>
-                                        <option value="class2">{class_pre_primary2}</option>
-                                        <option value="class3">{class_pre_primary3}</option>
-                                        <option value="class4">{class1}</option> */}
+                  <select className="dropadmission" onChange={handleChange}>
+                    {sortedClasses.map((c) => (
+                      <option key={c?.id} value={c?.attributes?.name}>
+                        {c?.attributes?.name} {/* Only display the name */}
+                      </option>
+                    ))}
                   </select>
+                  {/* <select className="dropadmission" value={selectedOption} onChange={handleChange}>
+                    {sortedClasses.map((c) => (
+                      <option key={c?.id} value={c?.attributes?.name}>
+                        {c?.attributes?.Order ? `${c?.attributes?.Order}. ` : ""}
+                        {c?.attributes?.name}
+                      </option>
+                    ))}
+                  </select> */}
                 </div>
               </div>
-
               <Tabs
                 activeKey={routeActive}
                 id="controlled-tab-example"
@@ -453,133 +463,9 @@ const Admissions = ({
                     </div>
                   </div>
                 </Tab>
-
                 <Tab eventKey="faqs" title="FAQs">
                   <h4 className="title">FAQs</h4>
-                  <AdmissionFaq siteUrl={siteUrl}/>
-                  {/* <section className="container wrap-accord-faq-admission">
-                                        <div className="row g-4 ">
-
-                                            <div className='col-lg-6'>
-                                                <div className="row g-4 accordion" id="accordionExample1">
-                                                    <div className=" col-lg-12 accordion-item">
-                                                        <h2 className="accordion-header" id="headingOne">
-                                                            <button className="accordion-button" type="button"
-                                                                data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                                                                aria-expanded="true" aria-controls="collapseOne">
-                                                                {question_1}
-                                                            </button>
-                                                        </h2>
-                                                        <div id="collapseOne" className="accordion-collapse collapse show"
-                                                            aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                                            <div className="accordion-body">
-                                                                {answer_1}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-lg-12 accordion-item">
-                                                        <h2 className="accordion-header" id="headingTwo">
-                                                            <button className="accordion-button collapsed" type="button"
-                                                                data-bs-toggle="collapse" data-bs-target="#collapseTwo"
-                                                                aria-expanded="false" aria-controls="collapseTwo">
-                                                                {question_2}
-                                                            </button>
-                                                        </h2>
-                                                        <div id="collapseTwo" className="accordion-collapse collapse"
-                                                            aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                                                            <div className="accordion-body">
-                                                                {answer_2}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-lg-12 accordion-item">
-                                                        <h2 className="accordion-header" id="headingThree">
-                                                            <button className="accordion-button collapsed" type="button"
-                                                                data-bs-toggle="collapse" data-bs-target="#collapseThree"
-                                                                aria-expanded="false" aria-controls="collapseThree">
-                                                                {question_3}
-                                                            </button>
-                                                        </h2>
-                                                        <div id="collapseThree" className="accordion-collapse collapse"
-                                                            aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                                                            <div className="accordion-body">
-                                                                {answer_3}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-lg-12 accordion-item">
-                                                        <h2 className="accordion-header" id="headingFour">
-                                                            <button className="accordion-button collapsed" type="button"
-                                                                data-bs-toggle="collapse" data-bs-target="#collapseFour"
-                                                                aria-expanded="false" aria-controls="collapseFour">
-                                                                {question_4}
-                                                            </button>
-                                                        </h2>
-                                                        <div id="collapseFour" className="accordion-collapse collapse"
-                                                            aria-labelledby="headingFour" data-bs-parent="#accordionExample">
-                                                            <div className="accordion-body">
-                                                                {answer_4}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div className='col-lg-6'>
-                                                <div className="row g-4 accordion" id="accordionExample2">
-                                                    <div className="col-lg-12 accordion-item">
-                                                        <h2 className="accordion-header" id="headingFive">
-                                                            <button className="accordion-button collapsed" type="button"
-                                                                data-bs-toggle="collapse" data-bs-target="#collapseFive"
-                                                                aria-expanded="false" aria-controls="collapseFive">
-                                                                {question_5}
-                                                            </button>
-                                                        </h2>
-                                                        <div id="collapseFive" className="accordion-collapse collapse"
-                                                            aria-labelledby="headingFive" data-bs-parent="#accordionExample">
-                                                            <div className="accordion-body">
-                                                                {answer_5}
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-lg-12 accordion-item">
-                                                        <h2 className="accordion-header" id="headingSix">
-                                                            <button className="accordion-button collapsed" type="button"
-                                                                data-bs-toggle="collapse" data-bs-target="#collapseSix"
-                                                                aria-expanded="false" aria-controls="collapseSix">
-                                                                {question_6}
-                                                            </button>
-                                                        </h2>
-                                                        <div id="collapseSix" className="accordion-collapse collapse"
-                                                            aria-labelledby="headingSix" data-bs-parent="#accordionExample">
-                                                            <div className="accordion-body">
-                                                                {answer_6}
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-lg-12 accordion-item">
-                                                        <h2 className="accordion-header" id="headingSeven">
-                                                            <button className="accordion-button collapsed" type="button"
-                                                                data-bs-toggle="collapse" data-bs-target="#collapseSeven"
-                                                                aria-expanded="false" aria-controls="collapseSeven">
-                                                                {question_7}
-                                                            </button>
-                                                        </h2>
-                                                        <div id="collapseSeven" className="accordion-collapse collapse"
-                                                            aria-labelledby="headingSeven" data-bs-parent="#accordionExample">
-                                                            <div className="accordion-body">
-                                                                {answer_7}
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </section> */}
+                  <AdmissionFaq siteUrl={siteUrl} />
                 </Tab>
               </Tabs>
             </div>
