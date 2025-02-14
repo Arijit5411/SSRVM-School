@@ -261,7 +261,9 @@ const Gallery = ({ seodata,siteUrl }) => {
                 if (data && data.data && data.data.length > 0) {
                     const { API_KEY, ROOT_FOLDER_ID } = data.data[0].attributes;
                     setApiConfig({ API_KEY, ROOT_FOLDER_ID });
-                    let yrArr = data?.data[0]?.attributes?.year_list.split(",")
+                    // let yrArr = data?.data[0]?.attributes?.year_list.split(",")
+                    let yearData = '2036,2035,2034,2033,2032,2031,2030,2029,2028,2027,2026,2025,2024,2023,2022,2021,2020,2019,2018,2017';
+                    let yrArr = yearData.split(",");
                     setYears(yrArr)
                 } else {
                     console.error('No data found in the API response.');
