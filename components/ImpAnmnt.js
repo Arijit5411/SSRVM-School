@@ -5,7 +5,7 @@ import AnnouncementPopup from "./AnnouncementPopup";
 import LiveEvents from "./liveEvents";
 import GlobalLiveEvents from "./GlobalLiveEvents";
 
-const ImpAnmnt = ({siteUrl}) => {
+const ImpAnmnt = ({ siteUrl }) => {
   const [events, setEvents] = useState([]);
   const [announcements, setAnnouncements] = useState([]);
 
@@ -98,7 +98,7 @@ const ImpAnmnt = ({siteUrl}) => {
                     <div className="col-lg-9 align-self-center">
                       <div className="section-title">
                         <div className="feature-slider owl-carousel">
-                          <Slider {...settings}>
+                          {/* <Slider {...settings}>
                             {announcements.map((announcement) => (
                               <div className="item" key={announcement.id}>
                                 <div className="service-single-item">
@@ -106,6 +106,7 @@ const ImpAnmnt = ({siteUrl}) => {
                                     {announcement.attributes.new}
                                   </p>
                                   <p>{announcement.attributes.heading}</p>
+                                  <p>{announcement.attributes.Order}</p>
                                   <AnnouncementPopup
                                     announcement={announcement}
                                     siteUrl={siteUrl}
@@ -113,7 +114,22 @@ const ImpAnmnt = ({siteUrl}) => {
                                 </div>
                               </div>
                             ))}
+                          </Slider> */}
+                          <Slider {...settings}>
+                            {announcements
+                              .sort((a, b) => a.attributes.Order - b.attributes.Order) // Sorting by Order field
+                              .map((announcement) => (
+                                <div className="item" key={announcement.id}>
+                                  <div className="service-single-item">
+                                    <p className="new impnew">{announcement.attributes.new}</p>
+                                    <p>{announcement.attributes.heading}</p>
+                                    {/* <p>{announcement.attributes.Order}</p> */}
+                                    <AnnouncementPopup announcement={announcement} siteUrl={siteUrl} />
+                                  </div>
+                                </div>
+                              ))}
                           </Slider>
+
                         </div>
                       </div>
                     </div>
@@ -123,7 +139,7 @@ const ImpAnmnt = ({siteUrl}) => {
             </div>
           )
       )}
-      <LiveEvents siteUrl={siteUrl}/>
+      <LiveEvents siteUrl={siteUrl} />
       <GlobalLiveEvents siteUrl={siteUrl} />
     </div>
   );
