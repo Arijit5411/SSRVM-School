@@ -114,6 +114,7 @@ export default function App({ Component, pageProps }) {
     { siteUrl: "https://bangaloresouth.ssa.org.in", gtagId: "G-J8FGF6ER70", gtmId: "GTM-KLP62H8M" },
     { siteUrl: "https://panampillynagar.ssrvm.org", gtagId: "G-FL6RSKQY7P", gtmId: "GTM-P3MWLFTT" },
     { siteUrl: "https://vignannagar.ssrvm.org", gtagId: "G-WX9F7CD3Z8", gtmId: "GTM-MMC6FSXB" },
+    { siteUrl: "https://gorakhpur.ssrvm.org", gtagId: "G-J7JBL235FT", gtmId: "GTM-NT9QLZTW" },
 
   ]
 
