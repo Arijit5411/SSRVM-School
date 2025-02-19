@@ -4,6 +4,7 @@ import Slider from "react-slick";
 import AnnouncementPopup from "./AnnouncementPopup";
 import LiveEvents from "./liveEvents";
 import GlobalLiveEvents from "./GlobalLiveEvents";
+import { useRouter } from 'next/router';
 
 const ImpAnmnt = ({ siteUrl }) => {
   const [events, setEvents] = useState([]);
@@ -78,13 +79,42 @@ const ImpAnmnt = ({ siteUrl }) => {
     ],
   };
 
+  const [selectedItem, setSelectedItem] = useState(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (announcements.length > 0) {
+      const handleHashChange = () => {
+        const hashValue = window.location.hash.replace('#', ''); // Get hash without #
+        const matchedItem = announcements.find((item) => item.id === parseInt(hashValue, 10));
+
+        if (matchedItem) {
+          setSelectedItem(matchedItem);
+        } else {
+          setSelectedItem(null);
+        }
+      };
+
+      // Check hash on initial load
+      handleHashChange();
+
+      // Listen for hash changes
+      window.addEventListener('hashchange', handleHashChange);
+
+      return () => {
+        window.removeEventListener('hashchange', handleHashChange);
+      };
+    }
+
+
+  }, [announcements]);
+
   return (
     <div>
       {events.map(
         (event) =>
           event.attributes.enable_disable && (
             <div key={event.id} className="service_area-3">
-              {console.log('events', event)}
               <div className="container">
                 <div className="service-item">
                   <div className="row align-items-center">
@@ -98,23 +128,6 @@ const ImpAnmnt = ({ siteUrl }) => {
                     <div className="col-lg-9 align-self-center">
                       <div className="section-title">
                         <div className="feature-slider owl-carousel">
-                          {/* <Slider {...settings}>
-                            {announcements.map((announcement) => (
-                              <div className="item" key={announcement.id}>
-                                <div className="service-single-item">
-                                  <p className="new impnew">
-                                    {announcement.attributes.new}
-                                  </p>
-                                  <p>{announcement.attributes.heading}</p>
-                                  <p>{announcement.attributes.Order}</p>
-                                  <AnnouncementPopup
-                                    announcement={announcement}
-                                    siteUrl={siteUrl}
-                                  />
-                                </div>
-                              </div>
-                            ))}
-                          </Slider> */}
                           <Slider {...settings}>
                             {announcements
                               .sort((a, b) => a.attributes.Order - b.attributes.Order) // Sorting by Order field
@@ -124,7 +137,7 @@ const ImpAnmnt = ({ siteUrl }) => {
                                     <p className="new impnew">{announcement.attributes.new}</p>
                                     <p>{announcement.attributes.heading}</p>
                                     {/* <p>{announcement.attributes.Order}</p> */}
-                                    <AnnouncementPopup announcement={announcement} siteUrl={siteUrl} />
+                                    <AnnouncementPopup currID={selectedItem} announcement={announcement} siteUrl={siteUrl} />
                                   </div>
                                 </div>
                               ))}

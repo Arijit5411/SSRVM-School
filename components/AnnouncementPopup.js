@@ -1,21 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import ReactMarkdown from "react-markdown";
+import { useRouter } from 'next/router';
 
 
-const AnnouncementPopup = ({ announcement, siteUrl }) => {
+const AnnouncementPopup = ({ announcement, siteUrl, currID }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const router = useRouter();
 
+  useEffect(() => {
+    if (announcement.id === currID?.id) {
+      setModalIsOpen(true);
 
+      // setTimeout(() => {
+      //   const backdrops = document.querySelectorAll(".fade.modal-backdrop.show ~ .fade.modal-backdrop.show, .fade.modal.show ~ .fade.modal.show");
+
+      //   if (backdrops.length > 1) {
+      //     // Remove all backdrops except the last one
+      //     for (let i = 0; i < backdrops.length - 1; i++) {
+      //       backdrops[i].remove();
+      //     }
+      //   }
+      // }, 100);
+
+    } else {
+      setModalIsOpen(false);
+    }
+  }, [currID]);
 
   const openModal = () => {
     setModalIsOpen(true);
+    router.push(`#${announcement.id}`, undefined, { shallow: true });
   };
 
   const closeModal = () => {
     setModalIsOpen(false);
   };
-
 
   return (
     <>
