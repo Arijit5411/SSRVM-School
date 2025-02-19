@@ -26,7 +26,7 @@ const closeModal = () => {
           <Modal.Header>
             <div className="displayFlex displayBlock">
               <img
-                src={`${siteUrl}${announcement.attributes.image.data.attributes.url}`}
+                src={`${siteUrl}${announcement?.attributes?.image?.data?.attributes?.url}`}
                 alt="school"
                 className="imgPop"
               />
