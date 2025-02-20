@@ -14,6 +14,9 @@ const nextConfig = {
     SMTP_PORT: 465,
     SMTP_USER: "noreply@ssrvm.org",
     SMTP_PASS: "Gold2005",
+    CAPTCHA_SITE_KEY: '6LcHdSIpAAAAAEKFA_WyznjnY2mkvoqg3IJqPn6P',
+    CAPTCHA_SECRET_KEY: '6LcHdSIpAAAAAMrf1VChG69K3fzZzdgADFIwvjq2',
+
     // LOCAL_SURL: "https://hyderabad.ssa.org.in",
     // LOCAL_SURL: "https://bangalorenorth.ssa.org.in",
     LOCAL_SURL: "https://indore.ssrvm.org",

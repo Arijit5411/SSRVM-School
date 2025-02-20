@@ -262,7 +262,7 @@ const AddEnqForm = ({ submitted = () => {}, siteUrl }) => {
             {/* Google reCAPTCHA */}
             <div className="my-2">
               <ReCAPTCHA
-                sitekey="YOUR_RECAPTCHA_SITE_KEY" // Replace with your actual site key
+               sitekey={process.env.CAPTCHA_SITE_KEY} // Replace with your actual site key
                 onChange={(token) => setCaptchaValue(token)}
                 onExpired={() => setCaptchaValue(null)}
               />
