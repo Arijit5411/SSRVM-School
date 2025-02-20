@@ -17,8 +17,8 @@ const nextConfig = {
     SSRVM_CAPTCHA_SITE_KEY: '6LcHdSIpAAAAAEKFA_WyznjnY2mkvoqg3IJqPn6P',
     SSRVM_CAPTCHA_SECRET_KEY: '6LcHdSIpAAAAAMrf1VChG69K3fzZzdgADFIwvjq2',
 
-    SSA_CAPTCHA_SITE_KEY: '6LcHdSIpAAAAAEKFA_WyznjnY2mkvoqg3IJqPn6P',
-    SSA_CAPTCHA_SECRET_KEY: '6LcHdSIpAAAAAMrf1VChG69K3fzZzdgADFIwvjq2',
+    SSA_CAPTCHA_SITE_KEY: '6LcUCSsqAAAAAPehitasLIE5Iw5eyK9GRRQq-oiU',
+    SSA_CAPTCHA_SECRET_KEY: '6LcUCSsqAAAAAILWe_tHRaw3Nv85CyY6JySBW1Ow',
 
     // LOCAL_SURL: "https://hyderabad.ssa.org.in",
     // LOCAL_SURL: "https://bangalorenorth.ssa.org.in",
