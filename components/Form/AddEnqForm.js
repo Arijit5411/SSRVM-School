@@ -158,6 +158,14 @@ const AddEnqForm = ({ submitted = () => {}, siteUrl }) => {
   const [thank, setThank] = useState(false);
   const [captchaValue, setCaptchaValue] = useState(null);
 
+  let capSiteKey;
+  if(siteUrl.includes("ssrvm.org")){
+    capSiteKey = process.env.SSRVM_CAPTCHA_SITE_KEY;
+  }
+  if(siteUrl.includes("ssa.org.in")){
+    capSiteKey = process.env.SSA_CAPTCHA_SITE_KEY;
+  }
+
   const handleSubmit = async (values, { resetForm }) => {
     if (!captchaValue) {
       alert("Please verify the reCAPTCHA");
@@ -257,12 +265,12 @@ const AddEnqForm = ({ submitted = () => {}, siteUrl }) => {
                 <i className="fa-brands fa-whatsapp text-success px-2"></i> WhatsApp
               </label>
             </div>
-            <ErrorMessage name="whatsappConsent" component="div" className="error" />
+            <ErrorMessage name="whatsappConsent" component="div" className="error"/>
 
             {/* Google reCAPTCHA */}
             <div className="my-2">
               <ReCAPTCHA
-               sitekey={process.env.CAPTCHA_SITE_KEY} // Replace with your actual site key
+               sitekey={capSiteKey}
                 onChange={(token) => setCaptchaValue(token)}
                 onExpired={() => setCaptchaValue(null)}
               />

@@ -25,7 +25,7 @@ export function determineStrapiUrl(context) {
     return `${process.env.LOCAL_SURL}/_s`;
   } else {
     apiUrl = `https://${subdomain}/_s`;
-    console.log('Api url ', apiUrl);
+    // console.log('Api url ', apiUrl);
     return apiUrl;
   }
 }
