@@ -48,10 +48,10 @@ const Home = ({ siteUrl, homeSettings, homePopupSlider, seodata }) => {
   return (
     <>
       <Seo SeoData={seodata} PageSlug={"main-page"}/>
+      <MandatoryDisclosure siteUrl={siteUrl}/>
       <NavBar siteUrl={siteUrl}/>
       <HomeAutoPopup data={homePopupSlider} siteUrl={siteUrl}/>
       <BannerSliderOne siteUrl={siteUrl}/>
-      <MandatoryDisclosure siteUrl={siteUrl}/>
       <ImpAnmnt siteUrl={siteUrl}/>
       <HomeAbout siteUrl={siteUrl} homeSettings={homeSettings}/>
       <Footer siteUrl={siteUrl}/>
