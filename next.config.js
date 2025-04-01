@@ -14,6 +14,8 @@ const nextConfig = {
     SMTP_PORT: 465,
     SMTP_USER: "noreply@ssrvm.org",
     SMTP_PASS: "Gold2005",
+
+    
     // SSRVM_CAPTCHA_SITE_KEY: '6LcHdSIpAAAAAEKFA_WyznjnY2mkvoqg3IJqPn6P',
     // SSRVM_CAPTCHA_SECRET_KEY: '6LcHdSIpAAAAAMrf1VChG69K3fzZzdgADFIwvjq2',
 

@@ -61,7 +61,7 @@ const GlobalIndividualBlogs = ({ siteUrl, seodata, blog, recentBlogs, slug }) =>
         <>
             <Seo SeoData={seodata} PageSlug={"global-individual-blogs"} InnerPageSlug={slug} />
             <NavBar siteUrl={siteUrl} />
-            <div className='top-section4 desktophide'>
+            <div className='top-section4 desktophide'>             
                 <section className="wrap-item-blog-se1 first-section position-relative">
                     <div className='container'>
                         <div className="row">

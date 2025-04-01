@@ -95,7 +95,7 @@ const HomeGlobalEvents = ({siteUrl}) => {
                                                         {post.attributes.title}
                                                     </p>
                                                     <Link
-                                                        href={`/global-individual-events/${post.id}`}
+                                                        href={`/global-individual-events/${post.attributes.slug}`}
                                                         className="text-muted-news"
                                                     >
                                                         read more

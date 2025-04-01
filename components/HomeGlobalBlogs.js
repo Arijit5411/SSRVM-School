@@ -98,7 +98,7 @@ const HomeGlobalBlogs = () => {
                                                         {post.attributes.Title}
                                                     </p>
                                                     <Link
-                                                        href={`/global-individual-blogs/${post.id}`}
+                                                        href={`/global-individual-blogs/${post.attributes.slug}`}
                                                         className="text-muted-news"
                                                     >
                                                         read more
