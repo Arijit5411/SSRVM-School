@@ -1170,3 +1170,15 @@ section.award-s1 h2 {
 .fade.modal.show ~ .fade.modal.show {
   display: none!important;
 }
+
+
+.mandatoryDiv {
+  z-index: 9999;
+  position: fixed;
+  background-color: #200e7d;
+   /* margin: 2px 0 0 0; */
+  padding: 2px;
+  color: #fff;
+  font-size: 15px;
+  height: fit-content;
+}
