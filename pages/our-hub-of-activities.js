@@ -79,7 +79,7 @@ const OurHubOfActivities = ({ seodata, hubdata, siteUrl }) => {
                 <NavBar siteUrl={siteUrl} />
 
                
-                <div className="top-section1-new">
+                <div style={{ minHeight: '100vh', padding: '160px 0 60px 0' }}>
                     <div className="container">
                         <div className=" wrap-item-text1">
                             <h1 className="principal-mess wrap-hub-act">

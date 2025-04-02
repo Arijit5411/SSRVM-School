@@ -64,7 +64,7 @@ const Our_Pedagogy = ({ seodata, pedagogy, siteUrl }) => {
                         <section className="section p-0 position-relative">
                             <div className="container position-relative zi-9">
                                 <div className="row g-0">
-                                    <div className="col-lg-6 position-relative zi-9 pe-5" style={{ minHeight: '100vh', padding: '120px 0 60px 0' }}>
+                                    <div className="col-lg-6 position-relative zi-9 pe-5" style={{ minHeight: '100vh', padding: '160px 0 60px 0' }}>
                                         <div className="position-absolute h-100 end-0 top-0 bg-white" style={{ width: '50vw', backgroundColor: "#F6F2F3" }}></div>
                                         <h3 className="mb-5 position-relative zi-9">Our Pedagogy</h3>
                                         <div className="accordion-wrap position-relative zi-9">

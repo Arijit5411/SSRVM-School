@@ -14,6 +14,7 @@ import {
 } from "react-icons/fa";
 import ImportantAnnouncment from "./ImportantAnnouncment";
 import Head from "next/head";
+import MandatoryDisclosure from "./MandatoryDisclosure";
 
 const NavBar = ({ siteUrl }) => {
   const [open, setOpen] = useState(false);
@@ -25,7 +26,6 @@ const NavBar = ({ siteUrl }) => {
   const [schoolData, setschoolData] = useState([]);
   const [social, setSocial] = useState([]);
   const [enableDisable, setEnableDisable] = useState(false);
-
   const [apiData, setApiData] = useState(null);
 
   useEffect(() => {
@@ -112,6 +112,7 @@ const NavBar = ({ siteUrl }) => {
               "navbar navbar-area-1  navbar-area-3 navbar-area navbar-expand-lg d-flex flex-column"
             }
           >
+            <MandatoryDisclosure siteUrl={siteUrl}/>
             <ImportantAnnouncment siteUrl={siteUrl} />
             <div className="container nav-container">
               <div className="responsive-mobile-menu">

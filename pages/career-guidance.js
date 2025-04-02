@@ -60,7 +60,7 @@ const CareerGuidance = ({ seodata, careerGuide,siteUrl }) => {
                 <Seo SeoData={seodata} PageSlug={"career-guidance"} />
             <Fragment>
                 <NavBar siteUrl={siteUrl}/>
-                <div className="top-section-new mobiletoppadding">
+                <div className="mobiletoppadding" style={{ minHeight: '100vh', padding: '160px 0 60px 0' }}>
                     <div className="container">
                         <h1 className="principal-mess mob_head linehightdesktop">{page_title}</h1>
                     </div>

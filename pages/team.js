@@ -65,7 +65,7 @@ const Team = ({ seodata, team, siteUrl }) => {
         <section className="container wrap-item-1">
             <div className="row g-4">
                 {teamData.map((member, index) => (
-                    <div className="col-lg-6" key={index}>
+                    <div className="col-lg-6" key={index} >
                         <div className="wrap-item-member">
                             <div className="wrap-image">
                                 {member.attributes.image && member.attributes.image.data && member.attributes.image.data.attributes.url ? (
@@ -95,7 +95,7 @@ const Team = ({ seodata, team, siteUrl }) => {
 
             <Fragment>
                 <NavBar siteUrl={siteUrl} />
-                <div className='top-section1-new'>
+                <div style={{ minHeight: '100vh', padding: '160px 0 60px 0' }}>
                     <div className="container">
                         <h1 className="principal-mess">Team</h1>
                     </div>

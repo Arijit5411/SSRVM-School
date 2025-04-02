@@ -165,7 +165,7 @@ const Testimonials = ({ seodata, testimonial, siteUrl }) => {
       <Fragment>
         <Seo SeoData={seodata} PageSlug={"testimonials"} />
         <NavBar siteUrl={siteUrl} />
-        <div className="top-section1">
+        <div style={{ minHeight: '100vh', padding: '160px 0 60px 0' }}>
           <div className="container">
             <h1 className="principal-mess">Testimonials</h1>
             <TestimonialsVideo siteUrl={siteUrl} />

@@ -464,7 +464,7 @@ const Gallery = ({ seodata,siteUrl }) => {
             <Seo SeoData={seodata} PageSlug={"gallery"} />
 
                 <NavBar siteUrl={siteUrl}/>
-                <div className='top-section1-new'>
+                <div style={{ minHeight: '100vh', padding: '160px 0 60px 0' }}>
                     <div className="container">
                         <h1 className="principal-mess">Gallery</h1>
                     </div>

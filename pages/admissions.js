@@ -376,7 +376,7 @@ const Admissions = ({
       <Fragment>
 
         <NavBar siteUrl={siteUrl} />
-        <div className="top-section1-new">
+        <div style={{ minHeight: '100vh', padding: '160px 0 60px 0' }}>
           <div className="container">
             <h1 className="principal-mess">{page_title}</h1>
           </div>

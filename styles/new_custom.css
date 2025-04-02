@@ -1174,11 +1174,42 @@ section.award-s1 h2 {
 
 .mandatoryDiv {
   z-index: 9999;
-  position: fixed;
+  /* position: fixed; */
+  margin-bottom: 6px;
   background-color: #200e7d;
    /* margin: 2px 0 0 0; */
   padding: 2px;
   color: #fff;
   font-size: 15px;
   height: fit-content;
+}
+
+
+.navbar-area-1.navbar-area-3 {
+  /* top: 32px; */
+  padding: 0;
+  position: fixed !important;
+
+  .nav-container {
+    padding: 5px 0px 0px 10px 0px !important;
+
+    .navbar-collapse .navbar-nav {
+      display: flex;
+      border-radius: 47px;
+      /* border: 1px solid #210D7D; */
+      justify-content: flex-end;
+      padding-right: 32px;
+      margin-left: 1%;
+    }
+  }
+
+  .logo {
+    display: block;
+    z-index: 9;
+
+    img {
+      width: 80px;
+
+    }
+  }
 }

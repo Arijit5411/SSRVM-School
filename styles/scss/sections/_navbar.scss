@@ -290,7 +290,7 @@
 
 .navbar-area-1 {
   padding: 0;
-  top: 60px;
+  // top: 60px;
 
   .nav-container {
     padding: 7px 0px 27px;
@@ -372,34 +372,7 @@
   }
 }
 
-.navbar-area-1.navbar-area-3 {
-  top: 32px;
-  padding: 0;
-  position: fixed !important;
 
-  .nav-container {
-    padding: 5px 0px 0px 10px 0px !important;
-
-    .navbar-collapse .navbar-nav {
-      display: flex;
-      border-radius: 47px;
-      // border: 1px solid #210D7D;
-      justify-content: flex-end;
-      padding-right: 32px;
-      margin-left: 1%;
-    }
-  }
-
-  .logo {
-    display: block;
-    z-index: 9;
-
-    img {
-      width: 80px;
-
-    }
-  }
-}
 
 .logomenu {
   z-index: 9;

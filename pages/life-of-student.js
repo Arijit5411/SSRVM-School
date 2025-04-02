@@ -8,38 +8,38 @@ import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from "@/components/Seo";
 
 export const getServerSideProps = async (context) => {
-  try {
-    const siteUrl = determineStrapiUrl(context);
+    try {
+        const siteUrl = determineStrapiUrl(context);
 
 
-    const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
-    const res1 = await fetch(`${siteUrl}/api/a-day-in-life-of-student-pages`)
+        const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
+        const res1 = await fetch(`${siteUrl}/api/a-day-in-life-of-student-pages`)
 
-    const data = await res.json()
-    const data1 = await res1.json()
+        const data = await res.json()
+        const data1 = await res1.json()
 
-    return {
-        props: {
-            seodata: data?.data?.attributes?.Pages ?? {},
-            student: data1,
-            siteUrl
-        }
-    };
-} catch (error) {
-  console.error("Error fetching data:", error.message);
+        return {
+            props: {
+                seodata: data?.data?.attributes?.Pages ?? {},
+                student: data1,
+                siteUrl
+            }
+        };
+    } catch (error) {
+        console.error("Error fetching data:", error.message);
 
-  return {
-    props: {
-      data: [],
-    },
-  };
-}
+        return {
+            props: {
+                data: [],
+            },
+        };
+    }
 };
 
 
-const LifeOfStudent = ({ seodata, student,siteUrl }) => {
+const LifeOfStudent = ({ seodata, student, siteUrl }) => {
     const [suudentData, setStudentData] = useState(null);
-   
+
 
     useEffect(() => {
         // fetch(`${siteUrl}/api/a-day-in-life-of-student-pages`)
@@ -55,19 +55,19 @@ const LifeOfStudent = ({ seodata, student,siteUrl }) => {
         }
     }, []);
 
-   
+
 
     return (
         <>
-               <Seo SeoData={seodata} PageSlug={"life-of-student"} />
+            <Seo SeoData={seodata} PageSlug={"life-of-student"} />
 
-            <NavBar siteUrl={siteUrl}/>
+            <NavBar siteUrl={siteUrl} />
 
-           
+
 
             <section className="d-none d-sm-block studentlife-new pd-bottom-90 mobilehide">
-                <section className="wrap-item-principal-se1">
-                  
+                <section style={{ minHeight: '100vh', padding: '160px 0 60px 0' }}>
+
                     <div className=" wrap-item-text1">
                         <h1 className="principal-mess wrap-student-item">
                             {suudentData?.page_title}
@@ -191,7 +191,7 @@ const LifeOfStudent = ({ seodata, student,siteUrl }) => {
                     <p>{suudentData?.paragraph_6}</p>
                 </section>
             </section>
-            <Footer siteUrl={siteUrl}/>
+            <Footer siteUrl={siteUrl} />
         </>
     );
 };

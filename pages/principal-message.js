@@ -98,7 +98,7 @@ const PrincipalMessage = ({ seodata, principal_data, siteUrl }) => {
         {loading ? (
           <div className="loader">Loading...</div>
         ) : (
-          <div className="top-section1-new">
+          <div style={{ minHeight: '100vh', padding: '160px 0 60px 0' }}>
             <div className="container">
               <h1 className="principal-mess">{pageTitle}</h1>
             </div>
