@@ -112,7 +112,7 @@ const NavBar = ({ siteUrl }) => {
               "navbar navbar-area-1  navbar-area-3 navbar-area navbar-expand-lg d-flex flex-column"
             }
           >
-            <MandatoryDisclosure siteUrl={siteUrl}/>
+            <MandatoryDisclosure siteUrl={siteUrl} />
             <ImportantAnnouncment siteUrl={siteUrl} />
             <div className="container nav-container">
               <div className="responsive-mobile-menu">
@@ -132,15 +132,17 @@ const NavBar = ({ siteUrl }) => {
                 </button>
               </div>
               <div className="logo">
-                <Link href="/">
+                <Link className="home-logo-a1" href="/">
                   {apiData && apiData.data && apiData.data.length > 0 && (
                     <img
                       src={`${siteUrl}${apiData.data[0].attributes.logo?.data?.attributes?.url}`}
                       alt="Transpro"
                     />
                   )}
+                  <span className="logo-text">Home</span>
                 </Link>
               </div>
+
               <div className="nav-left-part"></div>
 
               <div

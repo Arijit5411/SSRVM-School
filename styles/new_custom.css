@@ -186,10 +186,9 @@ header.navbar-are {
   background-color: transparent;
 }
 
-
 .admission-query-form-a1 > .form-input input,
 .admission-query-form-a1 > .form-input select,
-.admission-query-form-a1 > .form-input textarea{
+.admission-query-form-a1 > .form-input textarea {
   color: #000;
 }
 
@@ -1140,50 +1139,43 @@ section.award-s1 h2 {
   opacity: 0;
 }
 
-.sub-link-wrapper a.sub-link{
+.sub-link-wrapper a.sub-link {
   display: flex !important;
   justify-content: space-between;
   align-items: center;
 }
 
-.sub-link-wrapper:hover .sub-menu-2{
+.sub-link-wrapper:hover .sub-menu-2 {
   opacity: 1;
   visibility: visible;
 }
 
-.sub-menu-2  > li > a:hover {
+.sub-menu-2 > li > a:hover {
   color: #fff !important;
 }
 
-
-
 @media only screen and (max-width: 600px) {
-  .nav-item #uncontrolled-tab-example-tab-Facebook{
-  display: none;
+  .nav-item #uncontrolled-tab-example-tab-Facebook {
+    display: none;
   }
-
 }
 
-
-
-.fade.modal-backdrop.show ~ .fade.modal-backdrop.show, 
+.fade.modal-backdrop.show ~ .fade.modal-backdrop.show,
 .fade.modal.show ~ .fade.modal.show {
-  display: none!important;
+  display: none !important;
 }
-
 
 .mandatoryDiv {
   z-index: 9999;
   /* position: fixed; */
   margin-bottom: 6px;
   background-color: #200e7d;
-   /* margin: 2px 0 0 0; */
+  /* margin: 2px 0 0 0; */
   padding: 2px;
   color: #fff;
   font-size: 15px;
   height: fit-content;
 }
-
 
 .navbar-area-1.navbar-area-3 {
   /* top: 32px; */
@@ -1209,7 +1201,29 @@ section.award-s1 h2 {
 
     img {
       width: 80px;
-
     }
   }
+}
+
+.home-logo-a1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+.logo-text {
+  position: absolute;
+  top: auto;
+  bottom: -32px;
+  font-size: 12px;
+  font-weight: 400;
+  background-color: #1c077b;
+  border-radius: 6px;
+  padding: 5px 15px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.logo:hover .logo-text {
+  opacity: 1;
 }
