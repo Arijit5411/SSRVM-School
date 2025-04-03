@@ -65,7 +65,7 @@ const Safety_Assuarance = ({ seodata, safety ,siteUrl}) => {
                 <NavBar siteUrl={siteUrl}/>
                
 
-                <div className='top-section1'>
+                <div className='' style={{ padding: '160px 0 60px 0' }}>
                     <div className="container">
                         <h1 className="principal-mess">Safety Assurance</h1>
                         

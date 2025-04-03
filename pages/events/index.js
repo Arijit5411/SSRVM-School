@@ -80,7 +80,7 @@ const EventsPage = ({ seodata, eventsProp ,siteUrl}) => {
 
                 <NavBar siteUrl={siteUrl}/>
                
-                <div className="top-section1-new">
+                <div className='' style={{ padding: '160px 0 60px 0' }}>
                     <div className="container">
                         <h1 className="principal-mess mob_head">Events</h1>
                     </div>

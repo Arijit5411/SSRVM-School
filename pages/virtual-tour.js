@@ -52,13 +52,14 @@ const VirtualTour = ({ seodata, virtual, siteUrl }) => {
 
     return (
         <>
+            {/* <div className='' style={{ padding: '160px 0 60px 0' }}></> */}
             <Seo SeoData={seodata} PageSlug={"virtual-tour"} />
 
             <NavBar siteUrl={siteUrl} />
 
 
             {virtualTour && (
-                <div className='top-section1'>
+                   <div className='' >
                     <div className="container">
                         <h1 className="principal-mess">{virtualTour.title}</h1>
                     </div>

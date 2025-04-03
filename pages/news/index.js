@@ -89,11 +89,10 @@ const News = ({ seodata, newsProp, siteUrl }) => {
 
 
 
-            <div className='top-section1-new'>
+            <div className='' style={{ padding: '160px 0 60px 0' }}>
                 <div className="container d-flex align-items-center gap-4 my-5">
                     <h1 className="principal-mess wrap-margin m-0 lh-0">News
                         {/* <a href="/press-releases"> */}
-
                         {/* </a> */}
                     </h1>
                     <button className='newsbtm m-0 position-relative' style={{ zIndex: 9 }} onClick={() => { window.open(' /press-releases', '_self') }}>

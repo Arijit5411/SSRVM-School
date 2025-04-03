@@ -93,12 +93,12 @@ const School_Timings = ({ seodata,timings,siteUrl }) => {
             <Fragment>
                 {console.log(schoolTimings)}
                 <Seo SeoData={seodata} PageSlug={"school-timings"} />
-
+           
                 <NavBar siteUrl={siteUrl}/>
 
                 
                 <div className="container">
-                    <div className='d-flex flex-column justify-content-center align-items-start school-content' style={{ margin: '10rem 0 6rem 0' }} dangerouslySetInnerHTML={{
+                    <div className='d-flex flex-column justify-content-center align-items-start school-content' style={{ padding: '160px 0 60px 0' }} dangerouslySetInnerHTML={{
                         __html: schoolTimings?.page_content,
                     }}></div>
                 </div>
