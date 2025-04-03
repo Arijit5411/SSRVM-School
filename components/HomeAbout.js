@@ -14,6 +14,7 @@ import HomeGlobalBlogs from "./HomeGlobalBlogs";
 import HomeGlobalEvents from "./HomeGlobalEvents";
 import HomeFacebook from "./HomeFacebook";
 import HomeInstagram from "./HomeInstagram";
+import Image from "next/image";
 
 const HomeAbout = ({ siteUrl, homeSettings }) => {
   const [gfounder, setGfounder] = useState(null);
@@ -121,7 +122,7 @@ const HomeAbout = ({ siteUrl, homeSettings }) => {
             <div className="col-lg-6 remove-col-padding">
               <span className="subtitles">{founded_by}</span>
               <h1 className="title">{gfounder?.gurudev_ssrs}</h1>
-              <img
+              <Image width={636} height={470}
                 src={`${GlobalSiteUrl}${gfounder?.founded_by_image?.data?.attributes?.url}`}
                 alt="school"
                 className="image-Banner-Round"

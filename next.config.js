@@ -4,6 +4,14 @@ const nextConfig = {
   devIndicators: {
     buildActivity: false,
   },
+  images: {
+    remotePatterns: [
+        {
+            protocol: 'https',
+            hostname: '**',
+        },
+    ],
+},
   env: {
     // PUBLIC_URL: 'https://ssrvmtemplate.ssrvmtrust.org.in',
     //  PUBLIC_URL: 'http://43.205.227.120:3000/',

@@ -396,7 +396,7 @@ const FounderTrust = ({ seodata, founderprop, foundation, siteUrl }) => {
                                 </div>
                             </Tab>
                             <Tab eventKey="Trust" title="SSRVM Trust">
-                                <SsrvmTrust />
+                                <SsrvmTrust/>
                             </Tab>
                             <Tab eventKey="Arts" title={tab_heading}>
                                 <section>

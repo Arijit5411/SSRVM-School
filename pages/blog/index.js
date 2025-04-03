@@ -5,6 +5,7 @@ import Link from "next/link";
 const postsPerPage = 6;
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from "@/components/Seo";
+import Image from "next/image";
 
 export const getServerSideProps = async (context) => {
   try {
@@ -74,7 +75,7 @@ const Blog = ({ seodata, blogProp, siteUrl }) => {
       <Seo SeoData={seodata} PageSlug={"blog"} />
       <Fragment>
         <NavBar siteUrl={siteUrl} />
-        <div className="top-section1">
+        <div className="" style={{ padding: '160px 0 60px 0' }}>
           <div className="container">
             <h1 className="principal-mess">Blog</h1>
           </div>
@@ -85,7 +86,7 @@ const Blog = ({ seodata, blogProp, siteUrl }) => {
                   currentPosts.map((post) => (
                     <div className="col-lg-4" key={post.id}>
                       <div className="card wrap-news">
-                        <img
+                        <Image height={200} width={400}
                           src={`${siteUrl}${post.attributes.image?.data?.attributes?.url}`}
                           className="wrap-img-top"
                           alt="..."

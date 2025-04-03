@@ -8,6 +8,7 @@ import Head from "next/head";
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from "@/components/Seo";
+import Image from "next/image";
 
 export const getServerSideProps = async (context) => {
   try {
@@ -105,7 +106,7 @@ const PrincipalMessage = ({ seodata, principal_data, siteUrl }) => {
             <section className="container">
               <div className="principal-mess-item">
                 <div className="principal-image">
-                  <img src={imageUrl} alt="Transpro" className="wrap-img w-[100px]"/>
+                  <Image width={300} height={400} src={imageUrl} alt="Transpro" className="wrap-img w-[100px]"/>
                   <h6 className="wrap-principal-mess-item">{principalName}</h6>
                 </div>
                 <p>
