@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import Head from "next/head";
+import Image from "next/image";
 
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
@@ -70,7 +71,7 @@ const CommitteeMembers = ({ seodata, commitee_Data ,siteUrl}) => {
                                 <div className="col-lg-6" key={member.id}>
                                     <div className="wrap-item-member">
                                         <div className="wrap-image">
-                                            <img
+                                            <Image width={130} height={130}
                                                 src={`${siteUrl}${member.attributes.image.data.attributes.url}`}
                                                 alt="Transpro"
                                                 className="member-img"

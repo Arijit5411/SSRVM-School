@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import Head from "next/head";
+import Image from "next/image";
 // import Seo from './Seo';
 
 
@@ -93,13 +94,13 @@ const TeachingMethodology = ({ seodata, teaching ,siteUrl}) => {
           </div>
           <div className="w-100 mt-5">
             <div>
-                <img
+                <Image width={594} height={420}
                   className="rounded-3"
                   src={
                     GlobalSiteUrl +
                     teachingData?.Content_Image?.data?.attributes?.url
                   }
-                ></img>
+                ></Image>
             </div>
           </div>
         </div>

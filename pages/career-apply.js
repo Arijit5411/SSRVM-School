@@ -6,6 +6,7 @@ import axios from "axios";
 import Link from "next/link";
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 import NavBar from "@/components/NavBar";
+import Image from "next/image";
 export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);
@@ -194,7 +195,7 @@ const CareerForm = ({siteUrl,data1}) => {
               style={{ zIndex: "99" }}
               href="/careers"
             >
-              <img src="assets/img/blog/13-arrow-left.png" alt="Transpro" />
+              <Image width={80} height={80} src="assets/img/blog/13-arrow-left.png" alt="Transpro" />
               <span>Back to Careers</span>
             </Link>
             <div className="container">

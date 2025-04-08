@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import Head from "next/head";
+import Image from "next/image";
 // import Seo from './Seo';
 
 
@@ -75,7 +76,7 @@ const LifeOfTeacher = ({ seodata, teacher, siteUrl }) => {
 
             <section className="techerlife-new pd-bottom-90">
                 <div className="">
-                    <img
+                    <Image width={80} height={80}
                         src="assets/img/service/3-title-dots.png"
                         alt="Transpro"
                         className="wrap-img-dots"
@@ -88,7 +89,7 @@ const LifeOfTeacher = ({ seodata, teacher, siteUrl }) => {
                 <div className="container marginTop">
                     <div className="row">
                         <div className="col-sm-3">
-                            <img src={imageUrl1} alt="" className="" />
+                            <Image width={306} height={306} src={imageUrl1} alt="" className="" />
                             <div className="text-under-image-lifeofteacher">
                                 <p>
                                     {teacher1 && (
@@ -108,7 +109,7 @@ const LifeOfTeacher = ({ seodata, teacher, siteUrl }) => {
                         </div>
 
                         <div className="col-sm-3">
-                            <img src={imageUrl2} alt="" className="" />
+                            <Image width={306} height={306} src={imageUrl2} alt="" className="" />
                             <div className="text-under-image-lifeofteacher">
                                 <p>
                                     {teacher2 && (
@@ -128,7 +129,7 @@ const LifeOfTeacher = ({ seodata, teacher, siteUrl }) => {
                         </div>
 
                         <div className="col-sm-3">
-                            <img src={imageUrl3} alt="" className="" />
+                            <Image width={306} height={306} src={imageUrl3} alt="" className="" />
                             <div className="text-under-image-lifeofteacher">
                                 <p>{teacher3}</p>
                             </div>

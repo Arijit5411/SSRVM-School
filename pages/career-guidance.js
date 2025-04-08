@@ -5,6 +5,7 @@ import Head from "next/head";
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from "@/components/Seo";
+import Image from "next/image";
 
 export const getServerSideProps = async (context) => {
   try {
@@ -73,7 +74,7 @@ const CareerGuidance = ({ seodata, careerGuide,siteUrl }) => {
                                     <br></br>
                                     {paragraph_2}
                                 </p>
-                                <img src={imageUrl} className="career_image" alt="career_img" />
+                                <Image width={679} height={416} src={imageUrl} className="career_image" alt="career_img" />
                             </div>
                             <div className="bottom_para_career">
                                 <p className="para_career_mob">{paragraph_3}</p>

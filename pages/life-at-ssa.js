@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import Head from "next/head";
 import Slider from "react-slick";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import Image from "next/image";
 // import Seo from './Seo';
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
@@ -207,7 +208,7 @@ const LifeAtSriAcademy = ({ seodata, lifeatssa,videolist,siteUrl }) => {
                   images?.length > 0 &&
                   images.map((img) => {
                     return (
-                      <img
+                      <Image width={1701} height={952}
                         key={img?.id}
                         src={`${siteUrl}${img?.image?.data?.attributes?.url}`}
                         alt="Gallery Image"

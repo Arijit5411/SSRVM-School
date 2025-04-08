@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
+import Image from "next/image";
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 export const getServerSideProps = async (context) => {
@@ -45,13 +46,13 @@ const SchoolTeam = ({ data, siteUrl }) => {
                         <div className="wrap-image">
                           {post.attributes.image &&
                           post.attributes.image.data.attributes.url ? (
-                            <img
+                            <Image width={130} height={130}
                               src={`${siteUrl}${post.attributes.image.data.attributes.url}`}
                               alt="Transpro"
                               className="member-img"
                             />
                           ) : (
-                            <img
+                            <Image width={130} height={130}
                               src="placeholder-url"
                               alt="No Image"
                               className="member-img"

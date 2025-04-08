@@ -3,7 +3,7 @@ import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import Link from 'next/link';
 import Head from 'next/head';
-
+import Image from "next/image";
 
 
 const GlobalSiteUrl = process.env.GSURL
@@ -117,7 +117,7 @@ const GlobalEvents = ({ seodata, eventData ,siteUrl}) => {
                                     currentPosts.map((post) => (
                                         <div className='col-lg-4' key={post.id}>
                                             <div className="card wrap-news">
-                                                <img src={`${GlobalSiteUrl}${post.attributes.image?.data?.attributes?.url}`} className="wrap-img-top" alt="..." />
+                                                <Image width={416} height={393} src={`${GlobalSiteUrl}${post.attributes.image?.data?.attributes?.url}`} className="wrap-img-top" alt="..." />
                                                 <div className="card-body">
                                                     <p className="card-text-news">{post.attributes.date}</p>
                                                     <p className="card-text-news">{post.attributes.title}</p>

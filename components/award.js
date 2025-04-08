@@ -4,6 +4,7 @@ import "slick-carousel/slick/slick-theme.css";
 import MarqueeAward from "../components/marqueeAward";
 import Slider from "react-slick";
 import Link from "next/link";
+import Image from "next/image";
 
 const Award = ({ siteUrl }) => {
   const [awards, setAwards] = useState([]);
@@ -66,10 +67,12 @@ const Award = ({ siteUrl }) => {
               </div>
             </div>
             {/* <span className="d-none d-md-flex"> */}
+
+            {/* -------------------------------------------------------Desktop View --------------------------------------- */}
             {awards.map((award) => (
               <div key={award.id} className="col-sm-3 d-none d-md-flex">
                 <div className="single-service-wrap">
-                  <img
+                  <Image width={277} height={348}
                     src={`${siteUrl}${award.attributes.image?.data?.attributes?.url}`}
                     alt={award.attributes.award_name}
                     className="wrap-img-top1 wrap-side-award"
@@ -83,13 +86,13 @@ const Award = ({ siteUrl }) => {
               </div>
             ))}
             {/* </span> */}
-
+            {/* -------------------------------------------------------------------------------------------------Mobile view */}
             <div className="d-md-none px-3 mb-5">
               <Slider {...settings}>
                 {awards.map((award) => (
                   <div key={award.id} className="col-sm-3">
                     <div className="single-service-wrap">
-                      <img
+                      <Image width={356} height={311}
                         src={`${siteUrl}${award.attributes.image?.data?.attributes?.url}`}
                         alt={award.attributes.award_name}
                         className="wrap-img-top1 wrap-side-award"

@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from 'react';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import Head from 'next/head';
+import Image from "next/image";
 // import Seo from './Seo';
 
 
@@ -119,7 +120,7 @@ const Trustees = ({ seodata, trusteeData, siteUrl}) => {
                                 <div className="col-lg-6" key={index}>
                                     <div className="wrap-item-member1">
                                         <div className="wrap-image-trustees">
-                                            <img src={`${GlobalSiteUrl}${trustee.attributes.image?.data?.attributes?.url}`} alt={trustee.attributes.name} className="trustees-img" />
+                                            <Image width={130} height={166} src={`${GlobalSiteUrl}${trustee.attributes.image?.data?.attributes?.url}`} alt={trustee.attributes.name} className="trustees-img" />
                                         </div>
                                         <div className="wrap-text-trustees">
                                             <h5 className="wrap-trustees-item">{trustee.attributes.name}</h5>

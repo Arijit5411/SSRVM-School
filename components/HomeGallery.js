@@ -4,6 +4,7 @@ import Slider from "react-slick";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
 import Link from "next/link";
+import Image from "next/image";
 
 const HomeGallery = ({ siteUrl }) => {
   const [subfolders, setSubfolders] = useState([]);
@@ -241,11 +242,11 @@ const HomeGallery = ({ siteUrl }) => {
                         className="card boxMargin"
                         onClick={() => handleSubfolderClick(subfolder, index)}
                       >
-                        <img
+                        <Image width={402} height={220}
                           className="card-img-top"
                           src={
                             firstImageURLs[index] ||
-                            "assets/img/banner/5a-admissions.jpg"
+                            "/assets/img/banner/5a-admissions.jpg"
                           }
                           alt="Card image cap"
                         />

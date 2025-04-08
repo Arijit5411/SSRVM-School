@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import ReactMarkdown from "react-markdown";
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from "@/components/Seo";
+import Image from "next/image";
 
 export const getServerSideProps = async (context) => {
   try {
@@ -400,7 +401,7 @@ const Admissions = ({
                   </div>
                 </div>
                 <div className="col-lg-6">
-                  <img
+                  <Image width={636} height={338}
                     src={image_1}
                     alt="Admissions"
                     className="image-curriculum"

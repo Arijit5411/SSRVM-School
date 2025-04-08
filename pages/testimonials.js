@@ -8,6 +8,7 @@ import TestimonialsVideo from "../components/testimonial-video";
 import ReactMarkdown from "react-markdown";
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from "@/components/Seo";
+import Image from "next/image";
 
 export const getServerSideProps = async (context) => {
   try {
@@ -117,7 +118,7 @@ const Testimonials = ({ seodata, testimonial, siteUrl }) => {
                   />
                 )} */}
                 {testimonial.attributes.image?.data?.attributes?.url && (
-                  <img
+                  <Image width={138} height={138}
                     src={`${siteUrl}${testimonial.attributes.image.data.attributes.url}`}
                     alt={testimonial.attributes.name || "Testimonial"}
                     className="wrap-img-testimonial"

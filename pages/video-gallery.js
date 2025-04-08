@@ -7,6 +7,7 @@ import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 import GalleryVideo from '../components/galleryVideo';
 import Head from 'next/head';
+import Image from "next/image";
 // import Seo from './Seo';
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";

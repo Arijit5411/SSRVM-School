@@ -4,6 +4,7 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import Link from "next/link";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Image from "next/image";
 
 const HomeGlobalBlogs = () => {
     const [blog, setBlog] = useState(null);
@@ -85,7 +86,7 @@ const HomeGlobalBlogs = () => {
                                     currentPosts.reverse().map((post, index) => (
                                         <div className="item" key={index}>
                                             <div className="card wrap-news">
-                                                <img
+                                                <Image width={400} height={300}
                                                     src={`${GlobalSiteUrl}${post.attributes.image?.data?.attributes?.url}`}
                                                     className="wrap-img-top"
                                                     alt="..."

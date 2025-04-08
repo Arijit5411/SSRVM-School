@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import Head from "next/head";
+import Image from "next/image";
 // import Seo from './Seo';
 
 
@@ -125,7 +126,7 @@ const Co_curricular_Activities = ({ seodata, activities,siteUrl }) => {
                                     return (
                                         <div key={img?.id} className="col-lg-6 mobile-overlap">
                                             <div className="card wrap-sust-proj">
-                                                <img src={`${siteUrl}${img?.image?.data?.attributes?.url}`} className="wrap-img-proj" alt="..." />
+                                                <Image width={634} height={398} src={`${siteUrl}${img?.image?.data?.attributes?.url}`} className="wrap-img-proj" alt="..." />
                                             </div>
                                         </div>
                                     )
@@ -166,7 +167,7 @@ const Co_curricular_Activities = ({ seodata, activities,siteUrl }) => {
                                             </div>
                                         )
                                     }
-                                    <img
+                                    <Image width={1725} height={1121}
                                         src={`${siteUrl}${images[currentImage]?.image?.data?.attributes?.url}`}
                                         alt="Gallery Image"
                                         className="life-at-ssa"

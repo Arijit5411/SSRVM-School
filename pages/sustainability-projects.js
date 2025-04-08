@@ -3,6 +3,7 @@ import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 // import Seo from './Seo';
 import Head from 'next/head';
+import Image from "next/image";
 
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
@@ -112,7 +113,7 @@ const Sustainability_Projects = ({ seodata, project,siteUrl }) => {
                                         <>
                                             <div key={prj?.id} className='col-lg-6'>
                                                 <div className="card wrap-sust-proj">
-                                                    <img src={`${siteUrl}${prj.image?.data?.attributes?.url}`} className="wrap-img-proj" alt={prj?.Heading} />
+                                                    <Image width={634} height={398} src={`${siteUrl}${prj.image?.data?.attributes?.url}`} className="wrap-img-proj" alt={prj?.Heading} />
                                                     <div className="card-body">
                                                         <h4 className="card-text-news">
                                                             {prj?.Heading}

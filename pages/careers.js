@@ -102,7 +102,7 @@ const Careers = ({ seodata, careerProp, siteUrl }) => {
                     </div>
                   </div>
                   <div className="col-sm-8">
-                    <img
+                    <Image width={856} height={500}
                       src={image_career}
                       alt=""
                       className="career_side_img careers_para_side"

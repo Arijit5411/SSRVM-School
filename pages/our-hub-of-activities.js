@@ -3,6 +3,7 @@ import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import Link from "next/link";
 import Head from "next/head";
+import Image from "next/image";
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from "@/components/Seo";
@@ -120,7 +121,7 @@ const OurHubOfActivities = ({ seodata, hubdata, siteUrl }) => {
                                             }}
                                         >
                                             <div className="image-container">
-                                                <img
+                                                <Image width={150} height={150}
                                                     src={`${siteUrl}${activity.image?.data?.attributes?.url}`}
                                                     alt="Card"
                                                     className="card-image"

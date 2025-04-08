@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
+
 
 const HomeAdmissionProcess = ({siteUrl}) => {
   const [admission, setAdmission] = useState([]);
@@ -45,7 +47,7 @@ const HomeAdmissionProcess = ({siteUrl}) => {
                   </div>
                   <div className="col-sm-6">
                     <div className="imgRight">
-                      <img
+                      <Image width={658} height={640}
                         src={`${siteUrl}${event.attributes.image.data.attributes.url}`}
                         alt="school"
                         className="image-Banner-Round"

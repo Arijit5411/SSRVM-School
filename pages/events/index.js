@@ -7,6 +7,7 @@ import Head from 'next/head';
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from '@/components/Seo';
+import Image from 'next/image';
 
 export const getServerSideProps = async (context) => {
   try {
@@ -78,9 +79,8 @@ const EventsPage = ({ seodata, eventsProp ,siteUrl}) => {
             <Fragment>
             <Seo SeoData={seodata} PageSlug={"events"} />
 
-                <NavBar siteUrl={siteUrl}/>
-               
-                <div className='' style={{ padding: '160px 0 60px 0' }}>
+                <NavBar siteUrl={siteUrl}/>             
+                <div className="" style={{ padding: '160px 0 60px 0' }}>
                     <div className="container">
                         <h1 className="principal-mess mob_head">Events</h1>
                     </div>
@@ -91,7 +91,7 @@ const EventsPage = ({ seodata, eventsProp ,siteUrl}) => {
                                     currentPosts.map((post) => (
                                         <div className='col-lg-4' key={post.id}>
                                             <div className="card wrap-news">
-                                                <img src={`${siteUrl}${post.attributes.image?.data?.attributes?.url}`} className="wrap-img-top" alt="..." />
+                                                <Image width={416} height={221} src={`${siteUrl}${post.attributes.image?.data?.attributes?.url}`} className="wrap-img-top" alt="..." />
                                                 <div className="card-body">
                                                     <p className="card-text-news">{post.attributes.date}</p>
                                                     <p className="card-text-news">{post.attributes.title}</p>

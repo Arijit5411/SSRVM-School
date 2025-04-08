@@ -3,6 +3,7 @@ import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
+import Image from "next/image";
 
 
 import Head from "next/head";
@@ -158,7 +159,7 @@ const SchoolCurriculum = ({ seodata, schoolCurr, siteUrl }) => {
                     {paragraph_1}</ReactMarkdown>
                 </div>
                 <div className="col-lg-6">
-                  <img
+                  <Image width={636} height={338}
                     src={imgUrl1}
                     alt="school"
                     className="image-curriculum"
@@ -168,7 +169,7 @@ const SchoolCurriculum = ({ seodata, schoolCurr, siteUrl }) => {
 
               <div className="row wrap-curric">
                 <div className="col-lg-6">
-                  <img
+                  <Image width={636} height={338}
                     src={imgUrl2}
                     alt="school"
                     className="image-curriculum"

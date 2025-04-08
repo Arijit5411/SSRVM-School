@@ -3,6 +3,7 @@ import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 // import Seo from './Seo';
 import Head from "next/head";
+import Image from "next/image";
 
 
 const GlobalSiteUrl = process.env.GSURL;
@@ -103,13 +104,13 @@ const ShraddhaTraining = ({ seodata, shraddha,siteUrl }) => {
               <div className="w-100 mt-5">
                 <div>
                  
-                    <img
+                    <Image width={879} height={574}
                       className="rounded-3 w-100"
                       src={
                         GlobalSiteUrl +
                         shardhaData.Shardha_Image.data.attributes.url
                       }
-                    ></img>
+                    ></Image>
                   
                 </div>
               </div>

@@ -14,6 +14,7 @@ import AddEnqForm from '@/components/Form/AddEnqForm';
 import ReactMarkdown from "react-markdown";
 import Link from 'next/link';
 import FooterApplyNow from '@/components/FooterApplyNow';
+import Image from "next/image";
 
 
 
@@ -162,7 +163,7 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
                         <div className='w-auto d-inline-flex align-items-center gap-3'>
                             <Link href="/">
                                 {apiData && apiData.data && apiData.data.length > 0 && (
-                                    <img
+                                    <Image width={60} height={60}
                                         style={{ width: '60px' }}
                                         src={`${siteUrl}${apiData.data[0].attributes.logo?.data?.attributes?.url}`}
                                         alt="Transpro"
@@ -227,7 +228,7 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
                         {bannerData.map((item) => (
                             <div key={item.id}>
                                 <div className="image-wrap">
-                                    <img
+                                    <Image width={1905} height={646}
                                         className="w-100 h-100 object-fit-cover"
                                         src={siteUrl + item.Mobile_url}
                                         alt={''}
@@ -395,10 +396,10 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
                             <div className='col-12 col-lg-5 position-relative item-wrap'>
 
                                 <div className={`img-wrap position-relative w-100 h-100 object-fit-cover ${isHovered ? 'hovered' : ''}`}>
-                                    <img className={`img-1 rounded-4 w-100 h-100 object-fit-cover p-2 bg-white ${isHovered ? 'hovered-img-1' : ''}`} src={siteUrl + (applyNow?.attributes?.Sec_02_images?.data?.[0]?.attributes?.url || '')} alt='' />
+                                    <Image width={412} height={130} className={`img-1 rounded-4 w-100 h-100 object-fit-cover p-2 bg-white ${isHovered ? 'hovered-img-1' : ''}`} src={siteUrl + (applyNow?.attributes?.Sec_02_images?.data?.[0]?.attributes?.url || '')} alt='' />
                                 </div>
                                 <div className={`position-absolute bottom-0 left-0 img-wrap w-100 h-100 object-fit-cover ${isHovered ? 'hovered' : ''}`}>
-                                    <img className={`img-2 rounded-4 w-100 h-100 object-fit-cover p-2 bg-white ${isHovered ? 'hovered-img-2' : ''}`} src={siteUrl + (applyNow?.attributes?.Sec_02_images?.data?.[1]?.attributes?.url || '')} alt='' />
+                                    <Image width={412} height={130} className={`img-2 rounded-4 w-100 h-100 object-fit-cover p-2 bg-white ${isHovered ? 'hovered-img-2' : ''}`} src={siteUrl + (applyNow?.attributes?.Sec_02_images?.data?.[1]?.attributes?.url || '')} alt='' />
                                 </div>
                             </div>
                             <div className='col-12 col-lg-7'>
@@ -463,7 +464,7 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
                     <div className="d-flex flex-column flex-lg-row justify-content-center align-item-center landscape-s5-a1">
                         {applyNow?.attributes?.Section_03_Components.map((item, index) => (
                             <div className="position-relative" key={index}>
-                                {item?.image?.data?.attributes?.url && <img
+                                {item?.image?.data?.attributes?.url && <Image width={323} height={350}
                                     className="position-absolute top-0 left-0 z-0"
                                     src={siteUrl + item?.image?.data?.attributes?.url}
                                     alt="" style={{ filter: "brightness(70%)" }}
@@ -491,7 +492,7 @@ const ApplyNow = ({ siteUrl, homePopupSlider, applyNow }) => {
                                 return (
                                     <div className="col-lg-3 mx-auto" key={id}>
                                         <div className="item-wrap">
-                                            <img src={siteUrl + item?.image?.data?.attributes?.url} alt="image" />
+                                            <Image width={288} height={280} src={siteUrl + item?.image?.data?.attributes?.url} alt="image" />
                                             <div className='d-flex gap-2 justify-content-center py-2'>
                                                 <span style={{ color: '#C89E01' }}>{item.Text_01}</span>
                                                 <span >{item.Text_02}</span>

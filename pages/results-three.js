@@ -7,6 +7,7 @@ import DownloadResult from "@/components/DownloadResult";
 import SsaResultsAward from "@/components/SsaResultsAward";
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
+import Image from "next/image";
 
 export const getServerSideProps = async (context) => {
   try {
@@ -95,7 +96,7 @@ console.log('data in re3',data)
                                         {data.data.map((graphItem, index) => (
                                             <div className='item' key={index}>
                                                 <div className='thumb'>
-                                                    <img src={`${siteUrl}${graphItem?.attributes?.image?.data?.attributes?.url}`} alt='Transpro' />
+                                                    <Image width={396} height={396} src={`${siteUrl}${graphItem?.attributes?.image?.data?.attributes?.url}`} alt='Transpro' />
                                                 </div>
                                             </div>
                                         )

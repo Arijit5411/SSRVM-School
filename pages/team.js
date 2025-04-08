@@ -4,6 +4,7 @@ import Footer from '../components/Footer';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import Head from 'next/head';
+import Image from "next/image";
 // import Seo from './Seo';
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
@@ -69,9 +70,9 @@ const Team = ({ seodata, team, siteUrl }) => {
                         <div className="wrap-item-member">
                             <div className="wrap-image">
                                 {member.attributes.image && member.attributes.image.data && member.attributes.image.data.attributes.url ? (
-                                    <img src={`${siteUrl}${member.attributes.image.data.attributes.url}`} alt="Transpro" className="member-img" />
+                                    <Image width={130} height={130} src={`${siteUrl}${member.attributes.image.data.attributes.url}`} alt="Transpro" className="member-img" />
                                 ) : (
-                                    <img src="placeholder-url" alt="No Image" className="member-img"/>
+                                    <Image width={130} height={130} src="placeholder-url" alt="No Image" className="member-img"/>
                                 )}
                             </div>
                             <div className="wrap-text">

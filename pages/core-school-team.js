@@ -102,6 +102,7 @@ import Footer from "../components/Footer";
 import Head from "next/head";
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from "@/components/Seo";
+import Image from "next/image";
 
 export const getServerSideProps = async (context) => {
   try {
@@ -167,7 +168,7 @@ const Core_School_Team = ({ seodata, teamData, siteUrl }) => {
                   <div className="col-lg-6" key={member.id}>
                     <div className="wrap-item-member">
                       <div className="wrap-image">
-                        <img
+                        <Image width={128} height={128}
                           src={`${siteUrl}${member.attributes.image.data.attributes.url}`}
                           alt={member.attributes.full_name}
                           className="core-img"

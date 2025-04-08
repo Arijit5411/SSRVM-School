@@ -7,6 +7,8 @@ import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 import GalleryVideo from '../components/galleryVideo';
 import Head from 'next/head';
+import Image from "next/image";
+
 // import Seo from './Seo';
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
@@ -339,7 +341,7 @@ const Gallery = ({ seodata,siteUrl }) => {
                                                 handleSubfolderTabSelect(subfolder.id); // Pass the selected subfolder ID
                                             }}
                                         >
-                                            <img
+                                            <Image width={396} height={220}
                                                 className="card-img-top"
                                                 src={subfolderFirstImageURLs[subfolder.id] || 'default-thumbnail-url.jpg'} // Provide a default thumbnail URL
                                                 alt="Card image cap"
@@ -421,7 +423,7 @@ const Gallery = ({ seodata,siteUrl }) => {
                                                     handleSubfolderTabSelect(subfolder.id);
                                                 }}
                                             >
-                                                <img
+                                                <Image width={396} height={220}
                                                     className="card-img-top test"
                                                     src={subfolderThumbnailURL}
                                                     alt="Card image cap"

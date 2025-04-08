@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import Head from "next/head";
+import Image from "next/image";
 // import Seo from "./Seo";
 
 
@@ -189,7 +190,7 @@ const Our_Pedagogy = ({ seodata, pedagogy, siteUrl }) => {
                 <section>
                     <div className="container mt-5 mb-5">
                         <h2 className="peda-title">BROADEN THE VISION</h2>
-                        <img
+                        <Image width={1296} height={1513}
                             className="w-100"
                             src="assets/img/service/1-pedagogy-tree.jpg"
                             alt=""

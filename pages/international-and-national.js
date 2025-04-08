@@ -4,6 +4,7 @@ import Footer from '../components/Footer';
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from '@/components/Seo';
+import Image from "next/image";
 
 export const getServerSideProps = async (context) => {
   try {
@@ -110,7 +111,7 @@ const International_and_National = ({ intandnat, siteUrl, seodata }) => {
                                         <>
                                             <div key={school?.id} className="col-lg-4">
                                                 <div className="card wrap-inter">
-                                                    <img src={`${siteUrl}${school?.logo?.data?.attributes?.url}`} className="wrap-img-partners" alt={school?.title} />
+                                                    <Image width={183} height={152} src={`${siteUrl}${school?.logo?.data?.attributes?.url}`} className="wrap-img-partners" alt={school?.title} />
                                                     <div className="card-body">
                                                         <p className="card-text-partners">{school?.title && <span dangerouslySetInnerHTML={{ __html: school?.title.replace(/\n/g, "<br />") }}></span>}
                                                         </p>
@@ -188,7 +189,7 @@ const International_and_National = ({ intandnat, siteUrl, seodata }) => {
                                             <div key={school?.id} className="col-lg-6">
                                                 <div className="card wrap-inter-pan">
                                                     <div className="wrap-last-ssa">
-                                                        <img src={`${siteUrl}${school?.logo?.data?.attributes?.url}`} className="wrap-img-pan" alt={school?.title} />
+                                                        <Image width={183} height={152} src={`${siteUrl}${school?.logo?.data?.attributes?.url}`} className="wrap-img-pan" alt={school?.title} />
                                                         <div className="card-body">
                                                             <p className="card-text-partn">{school?.title && <span dangerouslySetInnerHTML={{ __html: school?.title.replace(/\n/g, "<br />") }}></span>}
                                                             </p>

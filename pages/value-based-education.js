@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from 'react';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import Head from 'next/head';
+import Image from "next/image";
 // import Seo from './Seo';
 
 
@@ -86,7 +87,7 @@ const ValueBasedEducation = ({ seodata, value,siteUrl }) => {
                                     </div>
                                 </div>
                             </div>
-                            <img
+                            <Image width={1296} height={1003}
                                 src={`${GlobalSiteUrl}${valueData?.image?.data?.attributes?.url}`}
                                 className='imgWidth' />
                         </section>

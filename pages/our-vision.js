@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import Head from "next/head";
+import Image from "next/image";
 // import Seo from './Seo';
 
 
@@ -102,7 +103,7 @@ const OurVision = ({ seodata, visionMission ,siteUrl}) => {
                                     ))}
                                 </div>
                                 <div className="col-lg-6">
-                                    <img
+                                    <Image width={636} height={424}
                                         src={`${GlobalSiteUrl}${visionMissionData?.vision_img?.data?.attributes?.url}`}
                                         alt="Vision Image"
                                         className="vision-img"

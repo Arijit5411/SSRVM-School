@@ -7,6 +7,7 @@ import Slider from "react-slick";
 import OurToppers from "../components/OurTopper";
 import DownloadResult from "../components/DownloadResult";
 import Head from "next/head";
+import Image from "next/image";
 // import Seo from './Seo';
 
 
@@ -123,7 +124,7 @@ const Results = ({ seodata, graphData,siteUrl }) => {
                                     {graph.map((graphItem, index) => (
                                         <div className='item' key={index}>
                                             <div className='thumb'>
-                                                <img src={`${siteUrl}${graphItem?.image?.data?.attributes?.url}`} alt='Transpro' />
+                                                <Image width={396} height={396} src={`${siteUrl}${graphItem?.image?.data?.attributes?.url}`} alt='Transpro' />
                                             </div>
                                         </div>
                                     ))}

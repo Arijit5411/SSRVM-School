@@ -291,6 +291,7 @@ import Seo from "@/components/Seo";
 import NavBar from '@/components/NavBar';
 import Footer from '@/components/Footer';
 import ModalAward from '@/components/Popups/ModalAward';
+import Image from "next/image";
 
 export const getServerSideProps = async (context) => {
   try {
@@ -416,7 +417,7 @@ const AwardAch = ({ seodata, awardsData, siteUrl }) => {
             <div className='row g-4 award-data-s1 justify-around'>
               {displayedData.map((award, index) => (
                 <div key={index} className='col-sm-3 cursor-pointer col-md-3' onClick={() => handleAwardClick(award)}>
-                  <img src={`${siteUrl}${award.attributes.image.data.attributes.url}`} alt={award.attributes.award_name} />
+                  <Image width={304} height={382} src={`${siteUrl}${award.attributes.image.data.attributes.url}`} alt={award.attributes.award_name} />
 
                   <h6 className='mt-4'>
                     {award.attributes.award_name} - {award.attributes.award_type} - {award.attributes.year}

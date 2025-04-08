@@ -7,6 +7,7 @@ import RecentPostsSidebar from "@/components/RecentPostsSidebar";
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from "@/components/Seo";
 import RecentSidebar from "@/components/RecentSidebar";
+import Image from "next/image";
 
 export const getServerSideProps = async (context) => {
   try {
@@ -87,7 +88,7 @@ const BackToBlog = ({ seodata, blogdata, relData, siteUrl, slug, articleSchema, 
               </div>
               <div className="row">
                 <div className="blog-post">
-                  <img
+                  <Image width={342} height={211}
                     src={`${siteUrl}${blogdata.attributes?.image?.data?.attributes?.url}`}
                     alt={blogdata.attributes?.Title}
                   />
@@ -121,7 +122,7 @@ const BackToBlog = ({ seodata, blogdata, relData, siteUrl, slug, articleSchema, 
               </div>
               <div className="col-lg-9 col-2">
                 <div className="blog-post">
-                  <img
+                  <Image width={960} height={590}
                     src={`${siteUrl}${blogdata.attributes?.image?.data?.attributes?.url}`}
                     alt={blogdata.attributes?.Title}
                   />

@@ -3,6 +3,7 @@ import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import Modal from "react-bootstrap/Modal";
 import Head from "next/head";
+import Image from "next/image";
 // import Seo from './Seo';
 
 
@@ -158,7 +159,7 @@ const PressReleases = ({ seodata ,siteUrl}) => {
                                 }
                             >
                                 <div className="card wrap-news">
-                                    <img
+                                    <Image width={306} height={380}
                                         src={`${siteUrl}${release.attributes.image.data.attributes.url}`}
                                         className="wrap-img-top"
                                         alt="..."
@@ -204,7 +205,7 @@ const PressReleases = ({ seodata ,siteUrl}) => {
                 onClick={handleCloseModal}
             >
                 <Modal.Body>
-                    <img src={selectedImage} className="modal-image" alt="..." />
+                    <Image width={124} height={154} src={selectedImage} className="modal-image" alt="..." />
                 </Modal.Body>
             </Modal>
         </Fragment>
