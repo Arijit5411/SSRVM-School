@@ -192,7 +192,7 @@ const Our_Pedagogy = ({ seodata, pedagogy, siteUrl }) => {
                         <h2 className="peda-title">BROADEN THE VISION</h2>
                         <Image width={1296} height={1513}
                             className="w-100"
-                            src="assets/img/service/1-pedagogy-tree.jpg"
+                            src="/assets/img/service/1-pedagogy-tree.jpg"
                             alt=""
                         />
                         <h2 className="peda-title">DEEPEN THE ROOTS</h2>

@@ -7,6 +7,7 @@ import GlobalRecentEvents from "@/components/GlobalRecentEvents";
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from "@/components/Seo";
 import RecentSidebar from "@/components/RecentSidebar";
+import Image from "next/image";
 
 
 const GlobalSiteUrl = process.env.GSURL
@@ -78,7 +79,7 @@ const GlobalIndividualEvents = ({ siteUrl, seodata, events, recentEvents, slug }
 
               <div className="col-lg-12">
               <div className="blog-post">
-                    <img
+                    <Image width={366} height={244}
                       src={`${GlobalSiteUrl}${events?.image?.data?.attributes?.url}`}
                       alt={events?.Title}
                       className="widthEventImg"
@@ -119,7 +120,7 @@ const GlobalIndividualEvents = ({ siteUrl, seodata, events, recentEvents, slug }
               </div>
               <div className="col-lg-9 col-2">
               <div className="blog-post">
-                    <img
+                    <Image width={960} height={640}
                       src={`${GlobalSiteUrl}${events?.image?.data?.attributes?.url}`}
                       alt={events?.Title}
                       className="widthEventImg"

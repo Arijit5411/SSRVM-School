@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React, { Fragment, useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 
@@ -41,7 +42,7 @@ const SsrvmTrust = () => {
                 {art.top_heading && (
                   <span
                     dangerouslySetInnerHTML={{
-                      __html: art.top_heading.replace(/\n/g, "<br />"),
+                      __html: art.top_heading.replace(/\n/g, "<br/>"),
                     }}
                   ></span>
                 )}
@@ -54,9 +55,9 @@ const SsrvmTrust = () => {
             </div>
           </div>
         </div>
-        <img
+        <Image width={1519} height={836}
           className="imgwidthfull"
-          src="assets/img/4b-Trust/1-hero-desktop.jpg"
+          src="/assets/img/4b-Trust/1-hero-desktop.jpg"
           alt="Founder img"
         />
       </section>

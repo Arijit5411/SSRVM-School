@@ -109,7 +109,7 @@ const School_Magazine = ({ seodata, magazineData, siteUrl }) => {
                     />
                 )} */}
 
-                <div className='top-section1'>
+                <div className="" style={{ padding: '160px 0 60px 0' }}>
                     <div className="container">
                         <h1 className="principal-mess">School Magazine
                             <a href="/publications">
@@ -124,7 +124,7 @@ const School_Magazine = ({ seodata, magazineData, siteUrl }) => {
                             {currentMagazines.map((magazine) => (
                                 <div className="col-lg-3 col-6" key={magazine.id}>
                                     <div className="card wrap-news">
-                                        <img
+                                        <Image width={304} height={348}
                                             src={siteUrl + magazine.attributes.image.data.attributes.url}
                                             className="wrap-img-top1 wrap-side-col"
                                             alt="..."

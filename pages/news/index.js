@@ -6,6 +6,7 @@ import Head from 'next/head';
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from '@/components/Seo';
+import Image from 'next/image';
 
 export const getServerSideProps = async (context) => {
     try {
@@ -86,10 +87,7 @@ const News = ({ seodata, newsProp, siteUrl }) => {
             <Seo SeoData={seodata} PageSlug={"news"} />
 
             <NavBar siteUrl={siteUrl} />
-
-
-
-            <div className='top-section1-new'>
+            <div className="" style={{ padding: '160px 0 60px 0' }}>
                 <div className="container d-flex align-items-center gap-4 my-5">
                     <h1 className="principal-mess wrap-margin m-0 lh-0">News
                         {/* <a href="/press-releases"> */}
@@ -108,7 +106,7 @@ const News = ({ seodata, newsProp, siteUrl }) => {
                                 currentPosts.map((post) => (
                                     <div className='col-lg-4' key={post.id}>
                                         <div className="card wrap-news">
-                                            <img src={`${siteUrl}${post.attributes.image?.data?.attributes?.url}`}
+                                            <Image width={416} height={221} src={`${siteUrl}${post.attributes.image?.data?.attributes?.url}`}
                                                 className="wrap-img-top" alt="..." />
                                             <div className="card-body">
                                                 <p className="card-text-news">{post.attributes.date}</p>

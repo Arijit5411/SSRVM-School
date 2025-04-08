@@ -7,6 +7,7 @@ import Head from 'next/head';
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from '@/components/Seo';
+import Image from 'next/image';
 
 export const getServerSideProps = async (context) => {
     try {
@@ -278,7 +279,7 @@ const VirtualTourGallery = ({ seodata, siteUrl }) => {
                                             }}
 
                                         >
-                                            <img
+                                            <Image width={396} height={220}
                                                 className="card-img-top test"
                                                 src={subfolderThumbnailURL}
                                                 alt="Card image cap"
@@ -298,10 +299,10 @@ const VirtualTourGallery = ({ seodata, siteUrl }) => {
     return (
         <>
             <Fragment>
-            <Seo SeoData={seodata} PageSlug={"virtual-tour-gallery"} />
+            <Seo SeoData={seodata} PageSlug={"virtual-tour-gallery"}/>
 
                 <NavBar siteUrl={siteUrl} />
-                <div className='top-section1-new' style={{ background: '#EFEBE4' }}>
+                <div className='' style={{ background: '#EFEBE4', padding: '160px 0 60px 0' }}>
                     <div className="container">
                         <h1 className="principal-mess">Virtual Tour Gallery</h1>
                     </div>

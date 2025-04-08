@@ -17,10 +17,12 @@ export const getServerSideProps = async (context) => {
         const seoData = await res.json();
         const featureData = await res1.json();
 
+        const feature = featureData?.data?.[0] ?? null; // Avoid undefined
+
         return {
             props: {
                 seodata: seoData?.data?.attributes?.Pages ?? {},
-                featuredata: featureData.data[0],
+                featuredata: feature,
                 siteUrl,
                 slug
             },
@@ -30,7 +32,10 @@ export const getServerSideProps = async (context) => {
 
         return {
             props: {
-                data: [],
+                seodata: {},
+                featuredata: null,
+                siteUrl: '',
+                slug: ''
             },
         };
     }
@@ -38,15 +43,25 @@ export const getServerSideProps = async (context) => {
 
 const BackToFeature = ({ seodata, featuredata, siteUrl, slug }) => {
 
-    console.log("featuredata", featuredata)
+    if (!featuredata) {
+        return (
+            <>
+                <Seo SeoData={seodata} PageSlug={"features"} InnerPageSlug={slug} />
+                <NavBar siteUrl={siteUrl} />
+                <div className="container text-center" style={{paddingTop:'200px', paddingBottom:"100px"}}>
+                    <h2>Feature Not Found</h2>
+                    <p>The page you're looking for doesn't exist or is currently unavailable.</p>
+                </div>
+                <Footer siteUrl={siteUrl} />
+            </>
+        );
+    }
 
     const renderImage = (props) => {
         const { src, alt } = props;
         const fullSrc = src.startsWith('http') ? src : `${siteUrl}${src}`;
         return <img src={fullSrc} alt={alt} />;
     };
-
-    const content = featuredata?.attributes?.Content?.[0]?.Content ?? '';
 
     return (
         <>
@@ -57,58 +72,65 @@ const BackToFeature = ({ seodata, featuredata, siteUrl, slug }) => {
                     <div className="container">
                         <div className='row g-4 pb-5 top-sec-a1'>
                             <div className='col-lg-6'>
-                                <h1 className=''>{featuredata?.attributes?.heading}</h1>
+                                <h1>{featuredata?.attributes?.heading}</h1>
                                 <p className='pt-4'>
                                     {featuredata?.attributes?.sub_heading}
                                 </p>
                             </div>
                             <div className='col-lg-6'>
                                 {featuredata?.attributes?.Thumbnail?.data?.attributes?.url &&
-                                    <img className='w-100 h-auto object-fit-cover' src={siteUrl + featuredata?.attributes?.Thumbnail?.data?.attributes?.url} alt="" />
+                                    <img
+                                        className='w-100 h-auto object-fit-cover'
+                                        src={siteUrl + featuredata.attributes.Thumbnail.data.attributes.url}
+                                        alt=""
+                                    />
                                 }
                             </div>
                         </div>
                     </div>
                 </section>
+
                 <section className='pb-5'>
                     <div className='container pt-5'>
-                        {
-                            featuredata?.attributes?.Content &&
-                            featuredata?.attributes?.Content.map((item, index) => (
-                                <div className='row align-items-center' >
-                                    {index % 2 === 0 ? (
-                                        <>
-                                            <div className='col-lg-6 pb-4'>
-                                                <img className='w-100 h-auto object-fit-cover' src={siteUrl + item.Content_Image?.data?.attributes?.url} alt="" />
-                                            </div>
-                                            <div className='col-lg-6 pb-4'>
-                                                <ReactMarkdown>
-                                                    {item.Content}
-                                                </ReactMarkdown>
-                                            </div>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <div className='col-lg-6 pb-4'>
-                                                <ReactMarkdown>
-                                                    {item.Content}
-                                                </ReactMarkdown>
-                                            </div>
-                                            <div className='col-lg-6 pb-4'>
-                                                <img className='w-100 h-auto object-fit-cover' src={siteUrl + item.Content_Image?.data?.attributes?.url} alt="" />
-                                            </div>
-                                        </>
-                                    )}
-                                </div>
-                            ))
-                        }
+                        {featuredata?.attributes?.Content?.map((item, index) => (
+                            <div key={index} className='row align-items-center'>
+                                {index % 2 === 0 ? (
+                                    <>
+                                        <div className='col-lg-6 pb-4'>
+                                            <img
+                                                className='w-100 h-auto object-fit-cover'
+                                                src={siteUrl + item.Content_Image?.data?.attributes?.url}
+                                                alt=""
+                                            />
+                                        </div>
+                                        <div className='col-lg-6 pb-4'>
+                                            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                                {item.Content}
+                                            </ReactMarkdown>
+                                        </div>
+                                    </>
+                                ) : (
+                                    <>
+                                        <div className='col-lg-6 pb-4'>
+                                            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                                {item.Content}
+                                            </ReactMarkdown>
+                                        </div>
+                                        <div className='col-lg-6 pb-4'>
+                                            <img
+                                                className='w-100 h-auto object-fit-cover'
+                                                src={siteUrl + item.Content_Image?.data?.attributes?.url}
+                                                alt=""
+                                            />
+                                        </div>
+                                    </>
+                                )}
+                            </div>
+                        ))}
                     </div>
                 </section>
-
             </div>
             <Footer siteUrl={siteUrl} />
-
-
         </>
     );
 };

@@ -6,6 +6,7 @@ import NavBar from "@/components/NavBar";
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from "@/components/Seo";
 import RecentSidebar from "@/components/RecentSidebar";
+import Image from "next/image";
 
 
 
@@ -75,7 +76,7 @@ const BackToNews = ({ newsdata, siteUrl, seodata, slug, relData }) => {
             <div className="row">
               <div className="blog-post">
                 {newsdata?.attributes?.image?.data?.attributes?.url &&
-                  < img
+                  <Image width={366} height={194}
                   src={siteUrl + newsdata?.attributes?.image?.data?.attributes?.url}
                 alt={newsdata?.attributes?.Title}
                 />
@@ -115,7 +116,7 @@ const BackToNews = ({ newsdata, siteUrl, seodata, slug, relData }) => {
               </div>
               <div className="col-lg-9 col-2">
                 <div className="blog-post">
-                  <img
+                  <Image width={960} height={509}
                     src={`${siteUrl}${newsdata?.attributes?.image?.data?.attributes?.url}`}
                     alt={newsdata?.attributes?.title}
                   />

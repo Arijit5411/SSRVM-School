@@ -15,36 +15,36 @@ export const getServerSideProps = async (context) => {
     const siteUrl = determineStrapiUrl(context);
     const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
 
-  const res1 = await fetch(
-    `${siteUrl}/api/publications?sort=id:desc&populate=*`
-  );
+    const res1 = await fetch(
+      `${siteUrl}/api/publications?sort=id:desc&populate=*`
+    );
 
-  const data = await res.json();
-  const data1 = await res1.json();
+    const data = await res.json();
+    const data1 = await res1.json();
 
-  return {
-    props: {
-      seodata: data?.data?.attributes?.Pages ?? {},
-      publicationData: data1,
-      siteUrl
-    },
-  };
-} catch (error) {
-  console.error("Error fetching data:", error.message);
+    return {
+      props: {
+        seodata: data?.data?.attributes?.Pages ?? {},
+        publicationData: data1,
+        siteUrl
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching data:", error.message);
 
-  return {
-    props: {
-      data: [],
-    },
-  };
-}
+    return {
+      props: {
+        data: [],
+      },
+    };
+  }
 };
 
 
-const Publications = ({ seodata, publicationData,siteUrl }) => {
+const Publications = ({ seodata, publicationData, siteUrl }) => {
   const [publications, setPublications] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
- 
+
 
   const publicationsPerPage = 8;
 
@@ -79,7 +79,7 @@ const Publications = ({ seodata, publicationData,siteUrl }) => {
     }
   }, []);
 
- 
+
 
   const indexOfLastPublication = currentPage * publicationsPerPage;
   const indexOfFirstPublication = indexOfLastPublication - publicationsPerPage;
@@ -106,12 +106,12 @@ const Publications = ({ seodata, publicationData,siteUrl }) => {
   return (
     <>
       <Fragment>
-      <Seo SeoData={seodata} PageSlug={"publications"} />
+        <Seo SeoData={seodata} PageSlug={"publications"} />
 
-        <NavBar siteUrl={siteUrl}/>
+        <NavBar siteUrl={siteUrl} />
 
-        <div className="top-section1">
-          <div className="d-flex  ml-5 pub-sec gap-3" style={{paddingLeft:'6rem'}}>
+        <div className="" style={{ padding: '160px 0 60px 0' }}>
+          <div className="d-flex  ml-5 pub-sec gap-3" style={{ paddingLeft: '6rem' }}>
             <h2 className="ml-5">Publications</h2>
             <a
               href="/school-magazine"
@@ -126,7 +126,7 @@ const Publications = ({ seodata, publicationData,siteUrl }) => {
               {currentpublication.map((publication) => (
                 <div className="col-lg-3 col-6" key={publication.id}>
                   <div className="card wrap-news">
-                    <img
+                    <Image width={304} height={348}
                       src={
                         siteUrl +
                         publication.attributes.image.data.attributes.url
@@ -178,12 +178,12 @@ const Publications = ({ seodata, publicationData,siteUrl }) => {
 
               {currentPage <
                 Math.ceil(publications.length / publicationsPerPage) && (
-                <button onClick={handleNextPage}>Next &rarr;</button>
-              )}
+                  <button onClick={handleNextPage}>Next &rarr;</button>
+                )}
             </div>
           </section>
         </div>
-        <Footer siteUrl={siteUrl}/>
+        <Footer siteUrl={siteUrl} />
       </Fragment>
     </>
   );

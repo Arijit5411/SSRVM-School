@@ -7,6 +7,7 @@ import GlobalRecentBlogs from '@/components/GlobalRecentBlogs';
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from '@/components/Seo';
 import RecentSidebar from '@/components/RecentSidebar';
+import Image from 'next/image';
 
 const GlobalSiteUrl = process.env.GSURL
 
@@ -76,7 +77,7 @@ const GlobalIndividualBlogs = ({ siteUrl, seodata, blog, recentBlogs, slug }) =>
                             </div>
                             <div className="row">
                                 <div className="blog-post">
-                                    <img src={`${GlobalSiteUrl}${blog?.image?.data?.attributes?.url}`} alt={blog?.Title} />
+                                    <Image width={342} height={257} src={`${GlobalSiteUrl}${blog?.image?.data?.attributes?.url}`} alt={blog?.Title} />
                                     <h1 className="wrap-text-inner">
                                         {blog?.Title}
                                     </h1>
@@ -116,7 +117,7 @@ const GlobalIndividualBlogs = ({ siteUrl, seodata, blog, recentBlogs, slug }) =>
                             </div>
                             <div className="col-lg-9 col-2">
                                 <div className="blog-post">
-                                    <img src={`${GlobalSiteUrl}${blog?.image?.data?.attributes?.url}`} alt={blog?.Title} />
+                                    <Image width={960} height={720} src={`${GlobalSiteUrl}${blog?.image?.data?.attributes?.url}`} alt={blog?.Title} />
                                     <h1 className="wrap-text-inner">
 
                                         {blog?.Title}

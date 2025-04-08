@@ -7,6 +7,7 @@ import ReactMarkdown from "react-markdown";
 import Head from "next/head";
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from "@/components/Seo";
+import Image from "next/image";
 export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);
@@ -55,7 +56,7 @@ console.log('st url',siteUrl)
       <Seo SeoData={seodata} PageSlug={"features"} />
         <NavBar siteUrl={siteUrl}/>
 
-        <div className="top-section1-new pb-5">
+        <div className="" style={{ padding: '160px 0 60px 0' }}>
           <section className="wrap-item-principal-se1 pri-item marginmobile">
             <div className="container">
               <div className="row">
@@ -129,7 +130,7 @@ console.log('st url',siteUrl)
                 </div>
                 <div className="col-lg-6">
                   <div className="h-100">
-                    <img
+                    <Image width={648} height={413}
                       src={`${siteUrl}${feature.attributes?.Thumbnail?.data?.attributes?.url}`}
                       alt={feature.attributes.heading}
                       className="w-100 h-100 object-fit-cover"

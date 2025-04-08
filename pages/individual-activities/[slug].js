@@ -7,6 +7,7 @@ import Slider from "react-slick";
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Link from "next/link";
 import Seo from "@/components/Seo";
+import Image from "next/image";
 
 export const getServerSideProps = async (context) => {
   try {
@@ -66,30 +67,30 @@ const SportsAndArts = ({ siteUrl, data1, data2,seodata,slug }) => {
         <Seo SeoData={seodata} PageSlug={"individual-activities"} InnerPageSlug={slug} />
       <NavBar siteUrl={siteUrl} />
       <div className="top-section15-new">
-        {(data1.data.attributes.title || data1.data.attributes.description) &&
+        {(data1?.data?.attributes?.title || data1?.data?.attributes?.description) &&
           <div className="container">
             <h1 className="principal-mess wrap-sports-arts sport_mob lineHight">
-              {data1.data.attributes.title}
+              {data1?.data?.attributes?.title}
             </h1>
-            <p className="sportp">{data1.data.attributes.description}</p>
+            <p className="sportp">{data1?.data?.attributes?.description}</p>
           </div>
         }
 
         <>
 
-          {(data1.data.attributes.image_gallery.length > 0) &&
+          {(data1?.data?.attributes?.image_gallery?.length > 0) &&
             <section className="container">
               <h4 className="heading_down_sports marginTop50">Images</h4>
               <div className="row">
                 <div className="d-none d-md-flex gap-4">
                   <div className="row g-4 w-100">
-                    {data1.data.attributes.image_gallery.map(
+                    {data1?.data?.attributes?.image_gallery?.map(
                         (imageItem, index) => (
                           <div className="col-lg-4" key={index}>
-                            <img
+                            <Image width={408} height={919}
                               src={
                                 siteUrl +
-                                imageItem.image_gal?.data?.attributes?.url
+                                imageItem?.image_gal?.data?.attributes?.url
                               }
                               alt={`Image ${index}`}
                               className="image_box_sports h-100"
@@ -104,10 +105,10 @@ const SportsAndArts = ({ siteUrl, data1, data2,seodata,slug }) => {
                 <div className="d-md-none px-3 mb-5">
                   <div className="row w-100">
                     <Slider {...settings}>
-                      {data1.data.attributes.image_gallery.map(
+                      {data1?.data?.attributes?.image_gallery?.map(
                           (imageItem, index) => (
                             <div className="col" key={index}>
-                              <img
+                              <Image width={334} height={418}
                                 src={
                                   siteUrl +
                                   imageItem.image_gal?.data?.attributes?.url
@@ -127,13 +128,13 @@ const SportsAndArts = ({ siteUrl, data1, data2,seodata,slug }) => {
 
           <div className="py-lg-4"></div>
 
-          {(data1.data.attributes.video_link.length > 0) &&
+          {(data1?.data?.attributes?.video_link?.length > 0) &&
             <section className="container">
               <h4 className="heading_down_sports marginTop50">Videos</h4>
               <div className="row">
                 <div className="d-none d-md-flex gap-4">
                   <div className="row w-100">
-                    {data1.data.attributes.video_link.map((videoItem, index) => (
+                    {data1?.data?.attributes?.video_link?.map((videoItem, index) => (
                         <div className="col-lg-4" key={index}>
                           {videoItem.video ? (
                             <Video videoUrl={videoItem.video} />
@@ -150,7 +151,7 @@ const SportsAndArts = ({ siteUrl, data1, data2,seodata,slug }) => {
               <div className="row">
                 <div className="d-md-none px-3 mb-5">
                   <Slider {...settings}>
-                    {data1.data.attributes.video_link.map((videoItem, index) => (
+                    {data1?.data?.attributes?.video_link?.map((videoItem, index) => (
                         <div className="col-lg-4" key={index}>
                           {videoItem.video ? (
                             <Video videoUrl={videoItem.video} />

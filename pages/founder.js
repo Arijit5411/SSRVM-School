@@ -122,8 +122,8 @@ const FounderTrust = ({ seodata, founderprop, foundation, siteUrl }) => {
                                     <div className="row justify-content-start">
                                         <div className="col-lg-5"></div>
                                         <div className="col-lg-6 remove-col-padding founder-main-img">
-                                            <Image width={466} height={50}
-                                                src="assets/img/founder/1-gurudev-hero.jpg"
+                                            <Image width={466} height={256}
+                                                src="/assets/img/founder/1-gurudev-hero.jpg"
                                                 alt="Founder img"
                                             />
                                             <div className="founder-mobile">
@@ -153,7 +153,7 @@ const FounderTrust = ({ seodata, founderprop, foundation, siteUrl }) => {
                                 <div className="container margintop125">
                                     <p>{descriptive_para1}</p>
                                     <Image width={860} height={564}
-                                        src="assets/img/founder/3-guruji2.png"
+                                        src="/assets/img/founder/3-guruji2.png"
                                         alt="Founder img"
                                     />
 
@@ -163,7 +163,7 @@ const FounderTrust = ({ seodata, founderprop, foundation, siteUrl }) => {
                                 <div></div>
                             </Tab>
                             <Tab eventKey="Trust" title="SSRVM Trust">
-                                <SsrvmTrustMobile />
+                                <SsrvmTrustMobile/>
                             </Tab>
                             <Tab eventKey="Arts" title={tab_heading}>
                                 <div className="desktophide">
@@ -187,27 +187,17 @@ const FounderTrust = ({ seodata, founderprop, foundation, siteUrl }) => {
                                                             ></span>
                                                         )}
                                                     </p>
-                                                    <Image width={800} height={567}
-                                                        src="assets/img/4b-Trust/2-hero-mobile.png"
+                                                    <Image width={366} height={260}
+                                                        src="/assets/img/4b-Trust/2-hero-mobile.png"
                                                         alt="flag_image"
                                                     />
                                                 </div>
                                                 <a href={visit_website_button} >
                                                     <button className="visit_website_alf_below">
                                                         Visit website
-
                                                     </button>
                                                 </a>
-
-
-                                            </div>
-                                            {/* <div>
-                      <img
-                        src="assets/img/4c-AOL/2-hero-desktop.jpg"
-                        alt=" Description"
-                        className='className="art_of_living_foundation_imageOne"'
-                      />
-                    </div> */}
+                                            </div>                                           
                                         </div>
                                     </section>
 
@@ -267,15 +257,11 @@ const FounderTrust = ({ seodata, founderprop, foundation, siteUrl }) => {
                                                         )}
                                                     </p>
                                                 </div>
-                                                {/* <div className="button_visit_website_ALF">
-                          <button className="visit_website_alf_below">
-                            Vist website
-                          </button>
-                        </div> */}
+                   
                                             </div>
                                             <div>
                                                 <Image width={245} height={103}
-                                                    src="assets/img/4c-AOL/2-hero-desktop.jpg"
+                                                    src="/assets/img/4c-AOL/2-hero-desktop.jpg"
                                                     alt=" Description"
                                                     className='className="art_of_living_foundation_imageOne"'
                                                 />
@@ -323,7 +309,7 @@ const FounderTrust = ({ seodata, founderprop, foundation, siteUrl }) => {
                 </div>
             </div>
             <div className="top-section26 mobilehide-founder">
-                {/* service area end */}
+    
                 <div className="founder-top">
                     <div>
                         <Tabs
@@ -365,8 +351,8 @@ const FounderTrust = ({ seodata, founderprop, foundation, siteUrl }) => {
                                                 </div>
                                             </div>
                                             <div className="col-lg-7 remove-col-padding founder-main-img">
-                                                <Image width={940} height={617}
-                                                    src="assets/img/founder/1-gurudev-hero.jpg" className="founderimg"
+                                                <Image width={860} height={564}
+                                                    src="/assets/img/founder/1-gurudev-hero.jpg" className="founderimg"
                                                     alt="Founder img"
                                                 />
                                             </div>
@@ -387,8 +373,8 @@ const FounderTrust = ({ seodata, founderprop, foundation, siteUrl }) => {
                                         <div>
                                             <p>{descriptive_para2}</p>
                                             <div className="col-lg-12 wrap-founder-img">
-                                                <Image width={940} height={617}
-                                                    src="assets/img/founder/3-guruji2.png"
+                                                <Image width={515} height={327}
+                                                    src="/assets/img/founder/3-guruji2.png"
                                                     alt="Founder img"
                                                 />
                                             </div>
@@ -430,7 +416,7 @@ const FounderTrust = ({ seodata, founderprop, foundation, siteUrl }) => {
                                         </div>
                                         <div>
                                             <Image width={1450} height={723}
-                                                src="assets/img/4c-AOL/2-hero-desktop.jpg"
+                                                src="/assets/img/4c-AOL/2-hero-desktop.jpg"
                                                 alt=" Description"
                                                 className="deskTopImg"
                                             />

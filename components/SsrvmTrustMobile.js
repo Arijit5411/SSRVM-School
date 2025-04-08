@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React, { Fragment, useState, useEffect } from "react";
 import ReactMarkdown from 'react-markdown';
 
@@ -54,9 +55,9 @@ const SsrvmTrustMobile = () => {
                         </div>
                     </div>
                 </div>
-                <img
+                <Image width={390} height={215}
                     className="imgwidthfull"
-                    src="assets/img/4b-Trust/1-hero-desktop.jpg"
+                    src="/assets/img/4b-Trust/1-hero-desktop.jpg"
                     alt="Founder img"
                 />
             </section>
