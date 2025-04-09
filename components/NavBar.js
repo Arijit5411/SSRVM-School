@@ -281,6 +281,7 @@ const NavBar = ({ siteUrl }) => {
       </div>
 
       <div className="desktophide">
+        <MandatoryDisclosure siteUrl={siteUrl} />
         <ImportantAnnouncment siteUrl={siteUrl} />
         <header className="navbar-area">
           <nav className="mobileshowmenu">
