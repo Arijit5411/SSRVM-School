@@ -1,0 +1,39 @@
+import { determineStrapiUrl } from '@/utils/strapiUtils';
+import React from 'react'
+
+
+
+
+export async function getServerSideProps(context) {
+    const siteUrl = determineStrapiUrl(context);
+
+    const [categoriesRes, seoRes] = await Promise.all([
+        fetch(
+            `${siteUrl}/api/blog-categories?sort=id:desc&populate=deep,10`
+        ),
+        fetch(`${siteUrl}/api/seo?populate=deep,10`),
+    ]);
+
+    const data = await categoriesRes.json();
+    const SeoData = await seoRes.json();
+
+    return {
+        props: {
+            blgCats: data?.data || [],
+            SeoData: SeoData?.data?.attributes?.Pages || null,
+            siteUrl,
+        },
+    };
+}
+
+const CatBlogs = ({blgCats, SeoData, siteUrl}) => {
+
+    console.log("blgCats", blgCats)
+    return (
+        <div>
+
+        </div>
+    )
+}
+
+export default CatBlogs
