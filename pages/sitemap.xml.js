@@ -12,7 +12,7 @@ const generateSitemap = (baseUrl, allUrls) => {
     const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
         <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
             ${allUrls
-                .map((url, index) => {
+                .map((url) => {
                     const priority = getPriority(url);
                     return `
                         <url>
@@ -27,11 +27,9 @@ const generateSitemap = (baseUrl, allUrls) => {
     return sitemap;
 };
 
-const Sitemap = () => {
-    return null;
-};
+const Sitemap = () => null;
 
-const fetchUrls = async (apiEndpoint, pathPrefix, baseUrl) => {
+const fetchUrls = async (apiEndpoint, pathPrefix) => {
     try {
         const res = await fetch(apiEndpoint);
         const contentType = res.headers.get("content-type");
@@ -51,14 +49,17 @@ export async function getServerSideProps({ res }) {
     const strapiUrl = determineStrapiUrl(res);
     const baseUrl = `https://${res.req?.headers?.host}`;
 
-    const blogUrls = await fetchUrls(`${strapiUrl}/api/blogs`, '/blog', baseUrl);
-    const eventUrls = await fetchUrls(`${strapiUrl}/api/event-pages`, '/events', baseUrl);
-    const newsUrls = await fetchUrls(`${strapiUrl}/api/newspages`, '/news', baseUrl);
-    const globalEventsUrls = await fetchUrls(`${process.env.GSURL}/api/global-events`, '/global-individual-events', baseUrl);
-    const globalBlogsUrls = await fetchUrls(`${process.env.GSURL}/api/global-blogs`, '/global-individual-blogs', baseUrl);
-    const indiActUrls = await fetchUrls(`${strapiUrl}/api/activities`, '/individual-activities', baseUrl);
-    const stateFacUrls = await fetchUrls(`${strapiUrl}/api/features`, '/individual-activities/state-facility', baseUrl);
-    const otherUrls = await fetchUrls(`${strapiUrl}/api/others-pages`, '/others', baseUrl);
+    // For published content (using `filters[publishedAt][$notNull]`)
+    const blogUrls = await fetchUrls(`${strapiUrl}/api/blogs?filters[publishedAt][$notNull]=true`, '/blog');
+    const eventUrls = await fetchUrls(`${strapiUrl}/api/event-pages?filters[publishedAt][$notNull]=true`, '/events');
+    const newsUrls = await fetchUrls(`${strapiUrl}/api/newspages?filters[publishedAt][$notNull]=true`, '/news');
+
+    // Assuming these external/global URLs do not need filtering
+    const globalEventsUrls = await fetchUrls(`${process.env.GSURL}/api/global-events`, '/global-individual-events');
+    const globalBlogsUrls = await fetchUrls(`${process.env.GSURL}/api/global-blogs`, '/global-individual-blogs');
+    const indiActUrls = await fetchUrls(`${strapiUrl}/api/activities`, '/individual-activities');
+    const stateFacUrls = await fetchUrls(`${strapiUrl}/api/features`, '/individual-activities/state-facility');
+    const otherUrls = await fetchUrls(`${strapiUrl}/api/others-pages`, '/others');
 
     const staticPages = [
         '/',
@@ -118,12 +119,24 @@ export async function getServerSideProps({ res }) {
         '/news',
     ];
 
-    const allUrls = [...staticPages, ...dynamicPages, ...blogUrls, ...eventUrls, ...newsUrls, ...globalEventsUrls, ...globalBlogsUrls, ...indiActUrls, ...stateFacUrls, ...otherUrls];
+    const allUrls = [
+        ...staticPages,
+        ...dynamicPages,
+        ...blogUrls,
+        ...eventUrls,
+        ...newsUrls,
+        ...globalEventsUrls,
+        ...globalBlogsUrls,
+        ...indiActUrls,
+        ...stateFacUrls,
+        ...otherUrls,
+    ];
 
     const sitemap = generateSitemap(baseUrl, allUrls);
     res.setHeader('Content-Type', 'text/xml');
     res.write(sitemap);
     res.end();
+
     return {
         props: {},
     };
