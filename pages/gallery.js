@@ -15,32 +15,32 @@ import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from '@/components/Seo';
 
 export const getServerSideProps = async (context) => {
-  try {
-    const siteUrl = determineStrapiUrl(context);
+    try {
+        const siteUrl = determineStrapiUrl(context);
 
-    const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
+        const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
 
-    const data = await res.json()
+        const data = await res.json()
 
-    return {
-        props: {
-            seodata: data?.data?.attributes?.Pages ?? {},
-            siteUrl
-        }
-    };
-} catch (error) {
-  console.error("Error fetching data:", error.message);
+        return {
+            props: {
+                seodata: data?.data?.attributes?.Pages ?? {},
+                siteUrl
+            }
+        };
+    } catch (error) {
+        console.error("Error fetching data:", error.message);
 
-  return {
-    props: {
-      data: [],
-    },
-  };
-}
+        return {
+            props: {
+                data: [],
+            },
+        };
+    }
 };
 
 
-const Gallery = ({ seodata,siteUrl }) => {
+const Gallery = ({ seodata, siteUrl }) => {
     const [selectedOption, setSelectedOption] = useState('Photos');
     const [selectedYear, setSelectedYear] = useState('All');
     const [years, setYears] = useState(['All'])
@@ -55,7 +55,7 @@ const Gallery = ({ seodata,siteUrl }) => {
     const [lightboxIndex, setLightboxIndex] = useState(0);
     const [firstImageURLs, setFirstImageURLs] = useState([]);
     const [subfolderFirstImageURLs, setSubfolderFirstImageURLs] = useState({});
-   
+
 
     const [apiConfig, setApiConfig] = useState({
         API_KEY: '',
@@ -63,7 +63,7 @@ const Gallery = ({ seodata,siteUrl }) => {
     });
 
     useEffect(() => {
-       
+
         if (seodata && seodata?.data && seodata?.data?.length > 0) {
             const seoAttributes = seodata.data[35].attributes;
             setSeoData({
@@ -346,7 +346,7 @@ const Gallery = ({ seodata,siteUrl }) => {
                                                 src={subfolderFirstImageURLs[subfolder.id] || 'default-thumbnail-url.jpg'} // Provide a default thumbnail URL
                                                 alt="Card image cap"
                                                 referrerPolicy="no-referrer"
-                                                // src="https://drive.google.com/thumbnail?export=view&id=1eyXqRAlEf0k1pEbx1_ngTJ4W1zHCYeSJ"
+                                            // src="https://drive.google.com/thumbnail?export=view&id=1eyXqRAlEf0k1pEbx1_ngTJ4W1zHCYeSJ"
                                             />
                                             <h6 className="galleryTitle">{subfolder.name}</h6>
                                         </a>
@@ -463,10 +463,10 @@ const Gallery = ({ seodata,siteUrl }) => {
     return (
         <>
             <Fragment>
-            <Seo SeoData={seodata} PageSlug={"gallery"} />
+                <Seo SeoData={seodata} PageSlug={"gallery"} />
 
-                <NavBar siteUrl={siteUrl}/>
-                <div style={{ minHeight: '100vh', padding: '160px 0 60px 0' }}>
+                <NavBar siteUrl={siteUrl} />
+                <div className='top-pl-css'>
                     <div className="container">
                         <h1 className="principal-mess">Gallery</h1>
                     </div>
@@ -491,7 +491,7 @@ const Gallery = ({ seodata,siteUrl }) => {
                                                 {
                                                     years && years.map(yr => {
                                                         return (
-                                                        
+
                                                             <option value={yr}>{yr}</option>
                                                         )
                                                     })
@@ -518,7 +518,7 @@ const Gallery = ({ seodata,siteUrl }) => {
                             </div>
                         </div>
                         {selectedOption === 'Videos' ? (
-                            <GalleryVideo selectedYear={selectedYear} siteUrl={siteUrl}/>
+                            <GalleryVideo selectedYear={selectedYear} siteUrl={siteUrl} />
                         ) : (
 
                             <Tabs defaultActiveKey="All" id="uncontrolled-tab-example" className="mb-3" onSelect={handleFolderTabSelect}>
@@ -542,7 +542,7 @@ const Gallery = ({ seodata,siteUrl }) => {
 
                     </div>
                 </div>
-                <Footer siteUrl={siteUrl}/>
+                <Footer siteUrl={siteUrl} />
             </Fragment>
             {lightboxOpen && (
                 <Lightbox

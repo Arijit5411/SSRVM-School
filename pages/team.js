@@ -96,7 +96,7 @@ const Team = ({ seodata, team, siteUrl }) => {
 
             <Fragment>
                 <NavBar siteUrl={siteUrl} />
-                <div style={{ minHeight: '100vh', padding: '160px 0 60px 0' }}>
+                <div className='top-pl-css'>
                     <div className="container">
                         <h1 className="principal-mess">Team</h1>
                     </div>

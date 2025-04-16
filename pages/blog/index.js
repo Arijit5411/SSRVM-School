@@ -127,48 +127,50 @@ export default function Blog({ blgCats, SeoData, uncategorizedBlogs, siteUrl }) 
       <Seo SeoData={SeoData} PageSlug={"blog"} />
       <Fragment>
         <NavBar siteUrl={siteUrl} />
-        <div className="container" style={{ padding: "160px 0 60px 0" }}>
-          <h1 className="principal-mess">Blog</h1>
+        <div className="container">
+          <div className="top-pl-css">
+            <h1 className="principal-mess">Blog</h1>
 
-          {/* Render category-specific blogs */}
-          {blgCats?.length > 0 &&
-            blgCats
-              .filter((category) => {
-                const blogData = category?.attributes?.blog?.data || category?.attributes?.blogs?.data || [];
-                return Array.isArray(blogData) && blogData.length > 0;
-              })
-              .map((category) => {
-                const blogData = category?.attributes?.blog?.data || category?.attributes?.blogs?.data || [];
+            {/* Render category-specific blogs */}
+            {blgCats?.length > 0 &&
+              blgCats
+                .filter((category) => {
+                  const blogData = category?.attributes?.blog?.data || category?.attributes?.blogs?.data || [];
+                  return Array.isArray(blogData) && blogData.length > 0;
+                })
+                .map((category) => {
+                  const blogData = category?.attributes?.blog?.data || category?.attributes?.blogs?.data || [];
 
-                return (
-                  <div className="blogs-wrap mt-5 mt-lg-5" key={category.id}>
-                    <div className="sub-title">
-                      <h4 className="fs-30 fs-md-34 fs-lg-38 fw-700 color-1">
-                        {category?.attributes?.Title}
-                      </h4>
+                  return (
+                    <div className="blogs-wrap mt-5 mt-lg-5" key={category.id}>
+                      <div className="sub-title">
+                        <h4 className="fs-30 fs-md-34 fs-lg-38 fw-700 color-1">
+                          {category?.attributes?.Title}
+                        </h4>
+                      </div>
+
+                      <div className="p13s1-slider-f1 norm-3">
+                        {renderBlogs(blogData, category.id)}
+                      </div>
                     </div>
-
-                    <div className="p13s1-slider-f1 norm-3">
-                      {renderBlogs(blogData, category.id)}
-                    </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
 
 
-          {/* Always show uncategorized blogs at the end */}
-          {uncategorizedBlogs.length > 0 && (
-            <div className="blogs-wrap mt-5 mt-lg-5" key="all-blogs">
-              <div className="sub-title">
-                <h4 className="fs-30 fs-md-34 fs-lg-38 fw-700 color-1">
-                  All-Blogs
-                </h4>
+            {/* Always show uncategorized blogs at the end */}
+            {uncategorizedBlogs.length > 0 && (
+              <div className="blogs-wrap mt-5 mt-lg-5" key="all-blogs">
+                <div className="sub-title">
+                  <h4 className="fs-30 fs-md-34 fs-lg-38 fw-700 color-1">
+                    All-Blogs
+                  </h4>
+                </div>
+                <div className="p13s1-slider-f1 norm-3">
+                  {renderBlogs(uncategorizedBlogs, "all")}
+                </div>
               </div>
-              <div className="p13s1-slider-f1 norm-3">
-                {renderBlogs(uncategorizedBlogs, "all")}
-              </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
         <Footer siteUrl={siteUrl} />
       </Fragment>

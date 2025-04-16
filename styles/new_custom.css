@@ -1227,3 +1227,13 @@ section.award-s1 h2 {
 .logo:hover .logo-text {
   opacity: 1;
 }
+
+.top-pl-css{
+  padding: 160px 0 60px 0;
+}
+
+@media only screen and (max-width: 600px) {
+  .top-pl-css{
+    padding: 0;
+  }
+}

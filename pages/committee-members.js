@@ -58,7 +58,7 @@ const CommitteeMembers = ({ seodata, commitee_Data ,siteUrl}) => {
 
             <NavBar siteUrl={siteUrl}/>
 
-            <div style={{ minHeight: '100vh', padding: '160px 0 60px 0' }}>
+            <div className='top-pl-css'>
                 <div className="container">
                     <h1 className="principal-mess">Committee Members</h1>
                 </div>

@@ -8,46 +8,46 @@ import Seo from "@/components/Seo";
 import Image from "next/image";
 
 export const getServerSideProps = async (context) => {
-  try {
-    const siteUrl = determineStrapiUrl(context);
-    const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
-    const res1 = await fetch(`${siteUrl}/api/career-guidance-pages?populate=*`)
+    try {
+        const siteUrl = determineStrapiUrl(context);
+        const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
+        const res1 = await fetch(`${siteUrl}/api/career-guidance-pages?populate=*`)
 
-    const data = await res.json()
-    const data1 = await res1.json()
+        const data = await res.json()
+        const data1 = await res1.json()
 
-    return {
-        props: {
-            seodata: data?.data?.attributes?.Pages ?? {},
-            careerGuide: data1,
-            siteUrl
+        return {
+            props: {
+                seodata: data?.data?.attributes?.Pages ?? {},
+                careerGuide: data1,
+                siteUrl
+            }
         }
-    }
-} catch (error) {
-  console.error("Error fetching data:", error.message);
+    } catch (error) {
+        console.error("Error fetching data:", error.message);
 
-  return {
-    props: {
-      data: [],
-    },
-  };
-}
+        return {
+            props: {
+                data: [],
+            },
+        };
+    }
 };
 
 
-const CareerGuidance = ({ seodata, careerGuide,siteUrl }) => {
+const CareerGuidance = ({ seodata, careerGuide, siteUrl }) => {
     const [careerGuidance, setCareerGuidance] = useState(null);
-   
+
 
 
     useEffect(() => {
-       
+
         if (careerGuide && careerGuide?.data) {
             setCareerGuidance(careerGuide?.data[0]?.attributes)
         }
     }, []);
 
-   
+
 
     const imageUrl = `${siteUrl}${careerGuidance?.image?.data?.attributes?.url}`;
     const page_title = `${careerGuidance?.page_title}`;
@@ -58,10 +58,10 @@ const CareerGuidance = ({ seodata, careerGuide,siteUrl }) => {
 
     return (
         <>
-                <Seo SeoData={seodata} PageSlug={"career-guidance"} />
+            <Seo SeoData={seodata} PageSlug={"career-guidance"} />
             <Fragment>
                 <NavBar siteUrl={siteUrl}/>
-                <div className="mobiletoppadding" style={{ minHeight: '100vh', padding: '160px 0 60px 0' }}>
+                <div className='top-pl-css'>
                     <div className="container">
                         <h1 className="principal-mess mob_head linehightdesktop">{page_title}</h1>
                     </div>
