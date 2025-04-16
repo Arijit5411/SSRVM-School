@@ -12,9 +12,9 @@ export async function getServerSideProps(context) {
   const siteUrl = determineStrapiUrl(context);
 
   const [categoriesRes, seoRes, allBlogsRes] = await Promise.all([
-    fetch(`${siteUrl}/api/blog-categories?sort=id:desc&populate=deep,10`),
+    fetch(`${siteUrl}/api/blog-categories?sort=id:desc&populate=deep,10&pagination[pageSize]=1000`),
     fetch(`${siteUrl}/api/seo?populate=deep,10`),
-    fetch(`${siteUrl}/api/blogs?sort=id:desc&populate=deep,10`),
+    fetch(`${siteUrl}/api/blogs?sort=id:desc&populate=deep,10&pagination[pageSize]=1000`),
   ]);
 
   const categoryData = await categoriesRes.json();
