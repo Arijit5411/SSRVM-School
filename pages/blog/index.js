@@ -4,7 +4,7 @@ import Link from "next/link";
 
 
 import Seo from "@/components/Seo";
-import { determineStrapiUrl } from "@/utils/strapiUtils";
+import { determineStrapiUrl } from "@/utils/strapiUtils" ;
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 
@@ -16,27 +16,21 @@ export async function getServerSideProps(context) {
     fetch(`${siteUrl}/api/seo?populate=deep,10`),
     fetch(`${siteUrl}/api/blogs?sort=id:desc&populate=deep,10&pagination[pageSize]=1000`),
   ]);
-
   const categoryData = await categoriesRes.json();
   const SeoData = await seoRes.json();
   const allBlogsData = await allBlogsRes.json();
-
   const blgCats = categoryData?.data || [];
   const allBlogs = allBlogsData?.data || [];
-
   // Gather all blog IDs that are categorized
   const categorizedBlogIds = new Set();
-
   blgCats.forEach((category) => {
     const blogData = category?.attributes?.blog?.data || category?.attributes?.blogs?.data || [];
     blogData.forEach((blog) => {
       categorizedBlogIds.add(blog.id);
     });
   });
-
   // Filter blogs that are NOT categorized
   const uncategorizedBlogs = allBlogs.filter(blog => !categorizedBlogIds.has(blog.id));
-
   return {
     props: {
       blgCats,
@@ -105,7 +99,6 @@ export default function Blog({ blgCats, SeoData, uncategorizedBlogs, siteUrl }) 
             );
           })}
         </div>
-
         <div className="text-center mt-3">
           {visibleCount < totalBlogs && (
             <button className="def-btn" onClick={() => handleLoadMore(categoryId, totalBlogs)}>
@@ -121,16 +114,14 @@ export default function Blog({ blgCats, SeoData, uncategorizedBlogs, siteUrl }) 
       </>
     );
   };
-
   return (
     <>
-      <Seo SeoData={SeoData} PageSlug={"blog"} />
+      <Seo SeoData={SeoData} PageSlug={"blog"}/>
       <Fragment>
-        <NavBar siteUrl={siteUrl} />
+        <NavBar siteUrl={siteUrl}/>
         <div className="container">
           <div className="top-pl-css">
             <h1 className="principal-mess">Blog</h1>
-
             {/* Render category-specific blogs */}
             {blgCats?.length > 0 &&
               blgCats
@@ -148,15 +139,12 @@ export default function Blog({ blgCats, SeoData, uncategorizedBlogs, siteUrl }) 
                           {category?.attributes?.Title}
                         </h4>
                       </div>
-
                       <div className="p13s1-slider-f1 norm-3">
                         {renderBlogs(blogData, category.id)}
                       </div>
                     </div>
                   );
                 })}
-
-
             {/* Always show uncategorized blogs at the end */}
             {uncategorizedBlogs.length > 0 && (
               <div className="blogs-wrap mt-5 mt-lg-5" key="all-blogs">
@@ -172,10 +160,8 @@ export default function Blog({ blgCats, SeoData, uncategorizedBlogs, siteUrl }) 
             )}
           </div>
         </div>
-        <Footer siteUrl={siteUrl} />
+        <Footer siteUrl={siteUrl}/>
       </Fragment>
-
-
     </>
   );
 }

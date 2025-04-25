@@ -4,37 +4,42 @@ import Footer from '../components/Footer';
 
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
+import Head from 'next/head';
 
 export const getServerSideProps = async (context) => {
-  try {
-    const siteUrl = determineStrapiUrl(context);
+    try {
+        const siteUrl = determineStrapiUrl(context);
         const res = await fetch(`${siteUrl}/api/thank-you-page`)
 
-    const data = await res.json()
+        const data = await res.json()
 
-    return {
-        props: {
-            content: data?.data,
-            siteUrl
+        return {
+            props: {
+                content: data?.data,
+                siteUrl
 
-        }
-    };
-} catch (error) {
-  console.error("Error fetching data:", error.message);
+            }
+        };
+    } catch (error) {
+        console.error("Error fetching data:", error.message);
 
-  return {
-    props: {
-      data: [],
-    },
-  };
-}
+        return {
+            props: {
+                data: [],
+            },
+        };
+    }
 };
 
-const ThankYou = ({ content,siteUrl }) => {
+const ThankYou = ({ content, siteUrl }) => {
     return (
         <>
+            <Head>
+                <meta name="robots" content="noindex, follow" />
+                <title>Thank You</title>
+            </Head>
             <Fragment>
-                <NavBar siteUrl={siteUrl}/>
+                <NavBar siteUrl={siteUrl} />
                 <section>
                     <div className="vh-100 d-flex justify-content-center align-items-center">
                         <div className="col-md-6 col-11">
@@ -60,7 +65,7 @@ const ThankYou = ({ content,siteUrl }) => {
                     </div>
                 </section >
 
-                <Footer siteUrl={siteUrl}/>
+                <Footer siteUrl={siteUrl} />
             </Fragment >
         </>
     );
