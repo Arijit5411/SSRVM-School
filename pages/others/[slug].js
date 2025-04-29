@@ -5,6 +5,7 @@ import ReactMarkdown from "react-markdown";
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from "@/components/Seo";
+import Image from "next/image";
 
 export const getServerSideProps = async (context) => {
   try {
@@ -82,7 +83,7 @@ const OtherPage = ({ data,siteUrl,seodata,slug }) => {
                       <div
                         className={(content.Content || content.Rich_Content) ? "col-lg-6" : "col-lg-12"}
                       >
-                        <img
+                        <Image width="636" height="434"
                           className="w-100 rounded-3"
                           src={siteUrl + dataImage}
                           alt=""

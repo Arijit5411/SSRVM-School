@@ -9,35 +9,35 @@ import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from "@/components/Seo";
 
 export const getServerSideProps = async (context) => {
-  try {
-    const siteUrl = determineStrapiUrl(context);
-    const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
-    const res1 = await fetch(`${siteUrl}/api/ssa-school-timing-pages`)
+    try {
+        const siteUrl = determineStrapiUrl(context);
+        const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
+        const res1 = await fetch(`${siteUrl}/api/ssa-school-timing-pages`)
 
-    const data = await res.json()
-    const data1 = await res1.json()
-    console.log("data1",JSON.stringify(data1));
-    return {
-        props: {
-            seodata: data?.data?.attributes?.Pages ?? {},
-            timings: data1,
-            siteUrl
-        }
-    };
-} catch (error) {
-  console.error("Error fetching data:", error.message);
+        const data = await res.json()
+        const data1 = await res1.json()
+        console.log("data1", JSON.stringify(data1));
+        return {
+            props: {
+                seodata: data?.data?.attributes?.Pages ?? {},
+                timings: data1,
+                siteUrl
+            }
+        };
+    } catch (error) {
+        console.error("Error fetching data:", error.message);
 
-  return {
-    props: {
-      data: [],
-    },
-  };
-}
+        return {
+            props: {
+                data: [],
+            },
+        };
+    }
 };
 
-const School_Timings = ({ seodata,timings,siteUrl }) => {
+const School_Timings = ({ seodata, timings, siteUrl }) => {
     const [schoolTimings, setSchoolTimings] = useState();
-  
+
 
     useEffect(() => {
         // fetch(`${siteUrl}/api/ssa-school-timing-pages`)
@@ -53,7 +53,7 @@ const School_Timings = ({ seodata,timings,siteUrl }) => {
         }
     }, []);
 
-   
+
     const page_title = `${schoolTimings?.page_title}`;
 
     const key1 = `${schoolTimings?.key1}`;
@@ -94,15 +94,16 @@ const School_Timings = ({ seodata,timings,siteUrl }) => {
                 {console.log(schoolTimings)}
                 <Seo SeoData={seodata} PageSlug={"school-timings"} />
 
-                <NavBar siteUrl={siteUrl}/>
+                <NavBar siteUrl={siteUrl} />
 
-                
-                <div className="container">
-                    <div className='d-flex flex-column justify-content-center align-items-start school-content' style={{ margin: '10rem 0 6rem 0' }} dangerouslySetInnerHTML={{
-                        __html: schoolTimings?.page_content,
-                    }}></div>
+                <div className="pt-lg-5">
+                    <div className="container">
+                        <div className='d-flex flex-column justify-content-center align-items-start school-content' style={{ margin: '10rem 0 6rem 0' }} dangerouslySetInnerHTML={{
+                            __html: schoolTimings?.page_content,
+                        }}></div>
+                    </div>
                 </div>
-                 {/* <div className="top-section1-new">
+                {/* <div className="top-section1-new">
                     <section className="wrap-item-timing-se1">
                         <div className="container">
                             <div className="wrap-item-timing">
@@ -217,7 +218,7 @@ const School_Timings = ({ seodata,timings,siteUrl }) => {
                         </div>
                     </section>
                 </div>  */}
-                <Footer siteUrl={siteUrl}/>
+                <Footer siteUrl={siteUrl} />
             </Fragment>
         </>
     );

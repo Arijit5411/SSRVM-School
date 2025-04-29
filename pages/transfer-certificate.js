@@ -14,40 +14,40 @@ import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from "@/components/Seo";
 
 export const getServerSideProps = async (context) => {
-  try {
-    const siteUrl = determineStrapiUrl(context);
-    const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
+    try {
+        const siteUrl = determineStrapiUrl(context);
+        const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
 
-    const data = await res.json()
+        const data = await res.json()
 
-    return {
-        props: {
-            seodata: data?.data?.attributes?.Pages ?? {},
-            siteUrl
-        }
-    };
-} catch (error) {
-  console.error("Error fetching data:", error.message);
+        return {
+            props: {
+                seodata: data?.data?.attributes?.Pages ?? {},
+                siteUrl
+            }
+        };
+    } catch (error) {
+        console.error("Error fetching data:", error.message);
 
-  return {
-    props: {
-      data: [],
-    },
-  };
-}
+        return {
+            props: {
+                data: [],
+            },
+        };
+    }
 };
 
-const TransferCertificate = ({ seodata ,siteUrl}) => {
-    
+const TransferCertificate = ({ seodata, siteUrl }) => {
 
-   
+
+
 
     return (
         <>
             <Fragment>
-            <Seo SeoData={seodata} PageSlug={"transfer-certificate"} />
-                <NavBar siteUrl={siteUrl}/>
-                <div className="top-section1">
+                <Seo SeoData={seodata} PageSlug={"transfer-certificate"} />
+                <NavBar siteUrl={siteUrl} />
+                <div className="top-pl-css">
                     <div className="container">
                         <h1 className="principal-mess">Transfer Certificate</h1>
                     </div>
@@ -56,11 +56,11 @@ const TransferCertificate = ({ seodata ,siteUrl}) => {
                     <div className="container mb-60 marginTopHeader">
                         <Tabs defaultActiveKey="Downloadnow" id="uncontrolled-tab-example" className="mb-3">
                             <Tab eventKey="Downloadnow" title="Download Now">
-                                <DownloadTransferCertificate siteUrl={siteUrl}/>
+                                <DownloadTransferCertificate siteUrl={siteUrl} />
                             </Tab>
 
                             <Tab eventKey="RequestCertificate" title="Request Certificate">
-                                <RequestTransferCertificate siteUrl={siteUrl}/>
+                                <RequestTransferCertificate siteUrl={siteUrl} />
                             </Tab>
                         </Tabs>
                     </div>
@@ -69,7 +69,7 @@ const TransferCertificate = ({ seodata ,siteUrl}) => {
                 {/*
     </div> */}
 
-                <Footer siteUrl={siteUrl}/>
+                <Footer siteUrl={siteUrl} />
             </Fragment>
         </>
     );

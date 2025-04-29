@@ -343,7 +343,7 @@ const Gallery = ({ seodata, siteUrl }) => {
                                         >
                                             <Image width={396} height={220}
                                                 className="card-img-top"
-                                                src={subfolderFirstImageURLs[subfolder.id] || 'default-thumbnail-url.jpg'} // Provide a default thumbnail URL
+                                                src={subfolderFirstImageURLs[subfolder.id] || '/default-thumbnail-url.jpg'} // Provide a default thumbnail URL
                                                 alt="Card image cap"
                                                 referrerPolicy="no-referrer"
                                             // src="https://drive.google.com/thumbnail?export=view&id=1eyXqRAlEf0k1pEbx1_ngTJ4W1zHCYeSJ"
@@ -411,7 +411,7 @@ const Gallery = ({ seodata, siteUrl }) => {
                         // Check if the subfolder matches the selected year or "All"
                         const subfolderYear = parseInt(subfolder.name.split('-')[0], 10);
                         if (selectedYear === 'All' || subfolderYear === parseInt(selectedYear, 10)) {
-                            const subfolderThumbnailURL = subfolderFirstImageURLs[subfolder.id] || 'default-thumbnail-url.jpg'; // Provide a default thumbnail URL
+                            const subfolderThumbnailURL = subfolderFirstImageURLs[subfolder.id] || '/default-thumbnail-url.jpg'; // Provide a default thumbnail URL
                             return (
                                 <div className='col-lg-4' key={subfolder.id}>
                                     <div className="card wrap-news">

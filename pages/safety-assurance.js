@@ -65,7 +65,7 @@ const Safety_Assuarance = ({ seodata, safety ,siteUrl}) => {
                 <NavBar siteUrl={siteUrl}/>
                
 
-                <div className='top-section1'>
+                <div className="top-pl-css">
                     <div className="container">
                         <h1 className="principal-mess">Safety Assurance</h1>
                         

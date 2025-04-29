@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React, { Fragment, useState, useEffect } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import Slider from "react-slick";
@@ -90,7 +91,7 @@ const Testimonial = ({siteUrl}) => {
                         <div className="item" key={index}>
                           <div className="testimonalBox">
                             <div className="imgbox">
-                              <img
+                              <Image width="361" height="360"
                                 src={`${siteUrl}${testimonial.attributes.image?.data?.attributes?.url}`}
                                 alt="school"
                                 className="image-Banner-Round"

@@ -77,7 +77,7 @@ const LifeOfTeacher = ({ seodata, teacher, siteUrl }) => {
             <section className="techerlife-new pd-bottom-90">
                 <div className="">
                     <Image width={80} height={80}
-                        src="assets/img/service/3-title-dots.png"
+                        src="/assets/img/service/3-title-dots.png"
                         alt="Transpro"
                         className="wrap-img-dots"
                     />

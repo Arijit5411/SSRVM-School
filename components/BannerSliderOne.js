@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
@@ -96,7 +97,6 @@ const BannerSliderOne = ({ siteUrl }) => {
 
   return (
     <>
-      {/* Header Start */}
       {isVideo ? (
         <div className="videoTop w-100 d-flex flex-row justify-content-center align-items-center">
           <iframe
@@ -109,7 +109,7 @@ const BannerSliderOne = ({ siteUrl }) => {
         </div>
       ) : (
         <div className="home-area home-v2">
-          <div className="header-slider header-slider2">
+          {/* <div className="header-slider header-slider2">
             <Slider
               {...settings}
               asNavFor={state.nav2}
@@ -189,6 +189,104 @@ const BannerSliderOne = ({ siteUrl }) => {
                 </div>
               ))}
             </Slider>
+          </div> */}
+
+          <div className="header-slider header-slider2">
+            <Slider {...settings} asNavFor={state.nav2} ref={slider1}>
+              {banner?.map((item) => (
+                <div key={item.id}>
+                  {item?.attributes?.URL ? (
+                    <Link
+                      href={item.attributes.URL}
+                      target="_blank"
+                      className={`home-banner-bg-image header-bg banner-${item.id}-Color`}
+                    >
+                      <div className="banner-image-container">
+                        <Image
+                          src={`${siteUrl}${item.attributes.image.data.attributes.url}`}
+                          alt={item.attributes.image.data.attributes.alternativeText || 'Banner image'}
+                          fill
+                          style={{ objectFit: 'cover' }}
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          priority={item.id === 1} // Preload only the first slide
+                          quality={75}
+                        />
+                      </div>
+                      <div className="container">
+                        <div className="row header-height justify-content-start">
+                          <div className="col-lg-6">
+                            <div className="banner-item-wrap">
+                              <div className="mob-bann-img h-100 d-md-none">
+                                <Image
+                                  src={`${siteUrl}${item.attributes.image.data.attributes.url}`}
+                                  alt={item.attributes.image.data.attributes.alternativeText || 'Mobile banner image'}
+                                  fill
+                                  style={{ objectFit: 'cover' }}
+                                  sizes="100vw"
+                                  quality={75}
+                                />
+                              </div>
+                              {item.attributes.heading && item.attributes.description && (
+                                <div className="header-inner-wrap">
+                                  <div className="header-inner">
+                                    <h1 className="title animated slideInRight">
+                                      {item.attributes.heading}
+                                    </h1>
+                                    <p className="sub-title">{item.attributes.description}</p>
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+                  ) : (
+                    <div className={`home-banner-bg-image header-bg banner-${item.id}-Color`}>
+                      <div className="banner-image-container">
+                        <Image
+                          src={`${siteUrl}${item.attributes.image.data.attributes.url}`}
+                          alt={item.attributes.image.data.attributes.alternativeText || 'Banner image'}
+                          fill
+                          style={{ objectFit: 'cover' }}
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          priority={item.id === 1}
+                          quality={75}
+                        />
+                      </div>
+                      <div className="container">
+                        <div className="row header-height justify-content-start">
+                          <div className="col-lg-6">
+                            <div className="banner-item-wrap">
+                              <div className="mob-bann-img h-100 d-md-none">
+                                <Image
+                                  src={`${siteUrl}${item.attributes.image.data.attributes.url}`}
+                                  alt={item.attributes.image.data.attributes.alternativeText || 'Mobile banner image'}
+                                  style={{ objectFit: 'cover' }}
+                                  height="960"
+                                  width="1280"
+                                  quality={75}
+                                />
+                              </div>
+                              {item.attributes.heading && item.attributes.description && (
+                                <div className="header-inner-wrap">
+                                  <div className="header-inner">
+                                    <h1 className="title animated slideInRight">
+                                      {item.attributes.heading}
+                                    </h1>
+                                    <p className="sub-title">{item.attributes.description}</p>
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </Slider>
           </div>
 
           <div className="header-bottom">
@@ -206,12 +304,13 @@ const BannerSliderOne = ({ siteUrl }) => {
                     >
                       {banner?.map((item) => (
                         <div key={item.id} className="custom-thumb">
-                          <img
+                          <Image                        
                             src={`${siteUrl}${item?.attributes?.image?.data?.attributes?.url}`}
                             className="img-fluid"
-                            alt=""
+                            alt=""                          
+                           height="200"
+                           width="140"
                           />
-                          {/* <div>{item.attributes.Order}</div> */}
                         </div>
                       ))}
                     </Slider>
@@ -222,7 +321,6 @@ const BannerSliderOne = ({ siteUrl }) => {
           </div>
         </div>
       )}
-      {/* Header End */}
     </>
   );
 };

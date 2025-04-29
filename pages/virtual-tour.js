@@ -43,7 +43,7 @@ const VirtualTour = ({ seodata, virtual, siteUrl }) => {
 
 
     useEffect(() => {
-       
+
         if (virtual && virtual?.data && virtual?.data?.length > 0) {
             setVirtualTour(virtual?.data[0]?.attributes)
         }
@@ -57,22 +57,35 @@ const VirtualTour = ({ seodata, virtual, siteUrl }) => {
             <NavBar siteUrl={siteUrl} />
 
 
-            {virtualTour && (
-                <div className='top-section1'>
+            {virtualTour ? (
+                <div className="top-pl-css">
                     <div className="container">
                         <h1 className="principal-mess">{virtualTour.title}</h1>
                     </div>
-                    <div className='desktophide marginTopHeader'>
-                        <iframe width="100%" height="500" src={virtualTour.tour_link} frameborder="0"
-                            allowfullscreen></iframe>
+                    <div className="desktophide marginTopHeader">
+                        <iframe
+                            width="100%"
+                            height="500"
+                            src={virtualTour.tour_link}
+                            frameBorder="0"
+                            allowFullScreen
+                        ></iframe>
                     </div>
-                    <div className='mobilehide'>
-                        <iframe width="100%" height="850" src={virtualTour.tour_link} frameborder="0"
-                            allowfullscreen></iframe>
-
+                    <div className="mobilehide">
+                        <iframe
+                            width="100%"
+                            height="850"
+                            src={virtualTour.tour_link}
+                            frameBorder="0"
+                            allowFullScreen
+                        ></iframe>
                     </div>
-
-
+                </div>
+            ) : (
+                <div className="top-pl-css">
+                    <div className='container'>
+                        <h4> Sorry Currently no tour</h4>
+                    </div>
                 </div>
             )}
             <Footer siteUrl={siteUrl} />

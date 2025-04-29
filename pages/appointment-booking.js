@@ -236,7 +236,7 @@ const AppointmentBooking = ({ seodata, classes ,siteUrl}) => {
           <Seo SeoData={seodata} PageSlug={"appointment-booking"} />
 
       <NavBar siteUrl={siteUrl}/>
-      <div className="top-section1">
+      <div className="top-pl-css">
         <div className="container">
           <h1 className="principal-mess">Appointment Booking</h1>
         </div>

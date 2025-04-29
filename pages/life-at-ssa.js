@@ -16,43 +16,43 @@ export const getServerSideProps = async (context) => {
 
     const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
 
-  const res1 = await fetch(
-    `${siteUrl}/api/life-at-ssas?populate[images][populate]=*`
-  );
+    const res1 = await fetch(
+      `${siteUrl}/api/life-at-ssas?populate[images][populate]=*`
+    );
 
-  const res2 = await fetch(
-    `${siteUrl}/api/life-at-ssas?populate[videos][populate]=*`
-  );
+    const res2 = await fetch(
+      `${siteUrl}/api/life-at-ssas?populate[videos][populate]=*`
+    );
 
-  const data = await res.json();
-  const data1 = await res1.json();
-  const data2 = await res2.json();
+    const data = await res.json();
+    const data1 = await res1.json();
+    const data2 = await res2.json();
 
 
-  return {
-    props: {
-      seodata: data?.data?.attributes?.Pages ?? {},
-      lifeatssa: data1,
-      videolist: data2,
-      siteUrl
-    },
-  };
-} catch (error) {
-  console.error("Error fetching data:", error.message);
+    return {
+      props: {
+        seodata: data?.data?.attributes?.Pages ?? {},
+        lifeatssa: data1,
+        videolist: data2,
+        siteUrl
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching data:", error.message);
 
-  return {
-    props: {
-      data: [],
-    },
-  };
-}
+    return {
+      props: {
+        data: [],
+      },
+    };
+  }
 };
 
-const LifeAtSriAcademy = ({ seodata, lifeatssa,videolist,siteUrl }) => {
+const LifeAtSriAcademy = ({ seodata, lifeatssa, videolist, siteUrl }) => {
   const [lifeAtSriAcademy, setLifeAtSriAcademy] = useState(null);
   const [videolistData, setvideolistData] = useState(null);
 
-  
+
 
   useEffect(() => {
     // fetch(`${siteUrl}/api/life-at-ssas?populate=*`)
@@ -68,11 +68,11 @@ const LifeAtSriAcademy = ({ seodata, lifeatssa,videolist,siteUrl }) => {
     }
 
     if (videolist && videolist?.data && videolist?.data?.length > 0) {
-        setvideolistData(videolist?.data[0].attributes);
-      }
+      setvideolistData(videolist?.data[0].attributes);
+    }
   }, []);
 
-  
+
 
   const page_title = `${lifeAtSriAcademy?.page_title}`;
   const paragraph_1 = `${lifeAtSriAcademy?.paragraph_1}`;
@@ -144,11 +144,11 @@ const LifeAtSriAcademy = ({ seodata, lifeatssa,videolist,siteUrl }) => {
   return (
     <>
       <Fragment>
-      <Seo SeoData={seodata} PageSlug={"life-at-ssa"} />
+        <Seo SeoData={seodata} PageSlug={"life-at-ssa"} />
 
-        <NavBar siteUrl={siteUrl}/>
+        <NavBar siteUrl={siteUrl} />
 
-        <div className="top-section1-new">
+        <div className="top-pl-css">
           <section className="wrap-state-se1">
             <div className="container">
               <div className="row wrap-top-section">
@@ -183,11 +183,11 @@ const LifeAtSriAcademy = ({ seodata, lifeatssa,videolist,siteUrl }) => {
                           return (
                             <iframe
                               width="100%"
-                             
+
                               src={item.youtube_video_url}
                               title="YouTube video player"
                               frameborder="0"
-                            //   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                              //   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                               allowfullscreen
                               className="life-at-video "
                             ></iframe>
@@ -240,7 +240,7 @@ const LifeAtSriAcademy = ({ seodata, lifeatssa,videolist,siteUrl }) => {
                     </section> */}
         </div>
 
-        <Footer siteUrl={siteUrl}/>
+        <Footer siteUrl={siteUrl} />
       </Fragment>
     </>
   );

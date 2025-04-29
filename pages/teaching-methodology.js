@@ -17,38 +17,38 @@ export const getServerSideProps = async (context) => {
   try {
     const siteUrl = determineStrapiUrl(context);
     const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
-  const res1 = await fetch(
-    `${GlobalSiteUrl}/api/teaching-methodologies?populate=*`
-  );
+    const res1 = await fetch(
+      `${GlobalSiteUrl}/api/teaching-methodologies?populate=*`
+    );
 
-  const data = await res.json();
-  const data1 = await res1.json();
+    const data = await res.json();
+    const data1 = await res1.json();
 
-  return {
-    props: {
-      seodata: data?.data?.attributes?.Pages ?? {},
-      teaching: data1,
-      siteUrl
-    },
-  };
-} catch (error) {
-  console.error("Error fetching data:", error.message);
+    return {
+      props: {
+        seodata: data?.data?.attributes?.Pages ?? {},
+        teaching: data1,
+        siteUrl
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching data:", error.message);
 
-  return {
-    props: {
-      data: [],
-    },
-  };
-}
+    return {
+      props: {
+        data: [],
+      },
+    };
+  }
 };
 
 
-const TeachingMethodology = ({ seodata, teaching ,siteUrl}) => {
+const TeachingMethodology = ({ seodata, teaching, siteUrl }) => {
   const [teachingData, setTeachingData] = useState(null);
   const [loading, setLoading] = useState(true);
-  
 
- 
+
+
   useEffect(() => {
     // fetch(`${GlobalSiteUrl}/api/teaching-methodologies`)
     //     .then((response) => response.json())
@@ -73,27 +73,28 @@ const TeachingMethodology = ({ seodata, teaching ,siteUrl}) => {
 
   return (
     <>
-          <Seo SeoData={seodata} PageSlug={"teaching-methodology"} />
+      <Seo SeoData={seodata} PageSlug={"teaching-methodology"} />
 
       <Fragment>
-        <NavBar siteUrl={siteUrl}/>
-        <div className="gap-5 shardha-training">
-          <div className="w-100 mt-5">
-            {loading ? (
-              <p>Loading...</p>
-            ) : (
-              <>
-                <h2 className="wrap-training-teach">
-                  {teachingData ? teachingData.title : "No Title Available"}
-                </h2>
-                <p className="fs-4">
-                  {teachingData ? teachingData.content : "No Content Available"}
-                </p>
-              </>
-            )}
-          </div>
-          <div className="w-100 mt-5">
-            <div>
+        <NavBar siteUrl={siteUrl} />
+        <div className="top-pl-css">
+          <div className="container">
+            <div className="w-100 mt-5">
+              {loading ? (
+                <p>Loading...</p>
+              ) : (
+                <>
+                  <h2 className="wrap-training-teach">
+                    {teachingData ? teachingData.title : "No Title Available"}
+                  </h2>
+                  <p className="fs-4">
+                    {teachingData ? teachingData.content : "No Content Available"}
+                  </p>
+                </>
+              )}
+            </div>
+            <div className="w-100 mt-5">
+              <div>
                 <Image width={594} height={420}
                   className="rounded-3"
                   src={
@@ -101,11 +102,12 @@ const TeachingMethodology = ({ seodata, teaching ,siteUrl}) => {
                     teachingData?.Content_Image?.data?.attributes?.url
                   }
                 ></Image>
+              </div>
             </div>
           </div>
         </div>
 
-        <Footer siteUrl={siteUrl}/>
+        <Footer siteUrl={siteUrl} />
       </Fragment>
     </>
   );

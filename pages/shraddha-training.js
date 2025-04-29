@@ -16,36 +16,36 @@ export const getServerSideProps = async (context) => {
     const siteUrl = determineStrapiUrl(context);
 
     const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
-  const res1 = await fetch(
-    `${GlobalSiteUrl}/api/shraddha-trainings?populate=*`
-  );
+    const res1 = await fetch(
+      `${GlobalSiteUrl}/api/shraddha-trainings?populate=*`
+    );
 
-  const data = await res.json();
-  const data1 = await res1.json();
+    const data = await res.json();
+    const data1 = await res1.json();
 
-  return {
-    props: {
-      seodata: data?.data?.attributes?.Pages ?? {},
-      shraddha: data1,
-      siteUrl
-    },
-  };
-} catch (error) {
-  console.error("Error fetching data:", error.message);
+    return {
+      props: {
+        seodata: data?.data?.attributes?.Pages ?? {},
+        shraddha: data1,
+        siteUrl
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching data:", error.message);
 
-  return {
-    props: {
-      data: [],
-    },
-  };
-}
+    return {
+      props: {
+        data: [],
+      },
+    };
+  }
 };
 
-const ShraddhaTraining = ({ seodata, shraddha,siteUrl }) => {
+const ShraddhaTraining = ({ seodata, shraddha, siteUrl }) => {
   const [shardhaData, setShardhaData] = useState(null);
   const [loading, setLoading] = useState(true);
- 
- 
+
+
 
   useEffect(() => {
     // fetch(`${GlobalSiteUrl}/api/shraddha-trainings?populate=*`)
@@ -67,10 +67,10 @@ const ShraddhaTraining = ({ seodata, shraddha,siteUrl }) => {
   }, []);
   return (
     <>
-          <Seo SeoData={seodata} PageSlug={"shraddha-training"} />
+      <Seo SeoData={seodata} PageSlug={"shraddha-training"} />
 
       <Fragment>
-        <NavBar siteUrl={siteUrl}/>
+        <NavBar siteUrl={siteUrl} />
 
         {/* {seoData && (
                     <Seo
@@ -84,26 +84,27 @@ const ShraddhaTraining = ({ seodata, shraddha,siteUrl }) => {
           <div className="loader">Loading...</div>
         ) : (
           <section>
-            <div className="gap-5 shardha-training">
-              <div className="w-100 mt-5">
-                <div>
-                   <h2 className="wrap-training-teach">
-                  {shardhaData ? shardhaData.title : "No Title Available"}
-                </h2>
-                  <div className="fontSize22">
-                    {shardhaData?.content && (
-                      <span
-                        dangerouslySetInnerHTML={{
-                          __html: shardhaData?.content.replace(/\n/g, "<br />"),
-                        }}
-                      ></span>
-                    )}
+            <div className="top-pl-css">
+              <div className="container">
+                <div className="w-100 mt-5">
+                  <div>
+                    <h2 className="wrap-training-teach">
+                      {shardhaData ? shardhaData.title : "No Title Available"}
+                    </h2>
+                    <div className="fontSize22">
+                      {shardhaData?.content && (
+                        <span
+                          dangerouslySetInnerHTML={{
+                            __html: shardhaData?.content.replace(/\n/g, "<br />"),
+                          }}
+                        ></span>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="w-100 mt-5">
-                <div>
-                 
+                <div className="w-100 mt-5">
+                  <div>
+
                     <Image width={879} height={574}
                       className="rounded-3 w-100"
                       src={
@@ -111,14 +112,15 @@ const ShraddhaTraining = ({ seodata, shraddha,siteUrl }) => {
                         shardhaData.Shardha_Image.data.attributes.url
                       }
                     ></Image>
-                  
+
+                  </div>
                 </div>
               </div>
             </div>
           </section>
         )}
 
-        <Footer siteUrl={siteUrl}/>
+        <Footer siteUrl={siteUrl} />
       </Fragment>
     </>
   );

@@ -1237,3 +1237,48 @@ section.award-s1 h2 {
     padding: 0;
   }
 }
+
+
+
+
+/* ----------------------------------optimized home bg-img */
+
+
+/* styles.module.css or global CSS */
+.home-banner-bg-image {
+  position: relative;
+  width: 100%;
+  height: 100%; /* Adjust based on your slider's height */
+}
+
+.banner-image-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1; /* Ensure the image is behind content */
+}
+
+.banner-image-container img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.header-inner-wrap {
+  position: relative;
+  z-index: 2; /* Ensure text overlays the image */
+}
+
+.mob-bann-img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.mob-bann-img img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}

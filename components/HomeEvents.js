@@ -4,6 +4,8 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import Link from "next/link";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Image from "next/image";
+
 
 const HomeEvents = ({siteUrl}) => {
   const [events, setEvents] = useState(null);
@@ -81,7 +83,7 @@ const HomeEvents = ({siteUrl}) => {
                   currentPosts.map((post, index) => (
                     <div className="item" key={index}>
                       <div className="card wrap-news">
-                        <img
+                        <Image width="400" height="400"
                           src={`${siteUrl}${post.attributes.image?.data?.attributes?.url}`}
                           className="wrap-img-top"
                           alt="..."

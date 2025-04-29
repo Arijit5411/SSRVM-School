@@ -39,20 +39,20 @@ export const getServerSideProps = async (context) => {
 };
 
 const GoogleCalendar = ({ seodata, calendar, downloadcal, siteUrl }) => {
-   
+
   console.log("data download", downloadcal);
   const [calendarData, setCalendarData] = useState([]);
   const [downloadCalender, setDownloadcalender] = useState([]);
 
   const [isLoading, setIsLoading] = useState(true);
-  
 
 
-  
+
+
 
 
   useEffect(() => {
-    
+
     if (calendar && calendar?.data && calendar?.data?.length > 0) {
       setCalendarData(calendar.data);
       setIsLoading(false);
@@ -62,16 +62,16 @@ const GoogleCalendar = ({ seodata, calendar, downloadcal, siteUrl }) => {
     }
   }, []);
 
-  
+
 
   useEffect(() => {
     if (downloadcal && downloadcal?.data && downloadcal?.data?.length > 0) {
-      console.log("download data?????", downloadcal.data.map((item)=>{
-        if (item.attributes.pdf.length>10000){
+      console.log("download data?????", downloadcal.data.map((item) => {
+        if (item.attributes.pdf.length > 10000) {
           setDownloadcalender(item.attributes.pdf);
           return item.attributes.pdf
         }
-       
+
       }));
       setIsLoading(false);
     } else {
@@ -79,10 +79,10 @@ const GoogleCalendar = ({ seodata, calendar, downloadcal, siteUrl }) => {
       setIsLoading(false);
     }
   }, []);
-  
+
   return (
     <>
-          <Seo SeoData={seodata} PageSlug={"monthly-calendar"} />
+      <Seo SeoData={seodata} PageSlug={"monthly-calendar"} />
 
       <Fragment>
         <NavBar siteUrl={siteUrl} />
@@ -95,7 +95,7 @@ const GoogleCalendar = ({ seodata, calendar, downloadcal, siteUrl }) => {
                     />
                 )} */}
 
-        <div className="top-section1-new">
+        <div className="top-pl-css">
           <div className="container">
             <h1 className="principal-mess">Monthly Calendar</h1>
           </div>
@@ -120,14 +120,14 @@ const GoogleCalendar = ({ seodata, calendar, downloadcal, siteUrl }) => {
           </div>
         </section>
         <div className="mt-5 container" >
-          { downloadcal?.data.filter(i=>i?.attributes.pdf?.data).map((item) => (
+          {downloadcal?.data.filter(i => i?.attributes.pdf?.data).map((item) => (
             <div className="col-lg-6 mt-3" key={item.id}>
               <div className="card-wrap">
                 <div className="d-flex gap-5 justify-content-between p-3">
-                    <div>
+                  <div>
                     <h6>{item.attributes.title}</h6>
 
-                    </div>
+                  </div>
                   <div>
                     {
 

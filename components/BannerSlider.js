@@ -28,7 +28,6 @@ const BannerSlider = () => {
   };
   return (
     <>
-      {/* header start */}
       <div className="home-area home-v3 ">
         <div className="header-slider header-slider2">
           <Slider
@@ -43,7 +42,6 @@ const BannerSlider = () => {
                     <div className="col-lg-6">
                       <div className="header-inner-wrap">
                         <div className="header-inner">
-                          {/* header inner */}
                           <h1 className="title animated slideInRight">
                             Always<br></br>
                             aiming for Excellence{" "}
@@ -52,13 +50,7 @@ const BannerSlider = () => {
                             Welcome to Sri Sri Ravi Shankar Vidya Mandir -
                             Bangalore South
                           </p>
-                          {/* <div className='btn-wrapper style-02 aanimated fadeInUpBig'>
-                        <a href='#' className='boxed-btn'>
-                          <span>Know more</span>
-                        </a>
-                      </div> */}
                         </div>
-                        {/* //.header inner */}
                       </div>
                     </div>
                     <div className="col-lg-6">
@@ -82,7 +74,6 @@ const BannerSlider = () => {
                     <div className="col-lg-6">
                       <div className="header-inner-wrap">
                         <div className="header-inner">
-                          {/* header inner */}
                           <h1 className="title animated slideInRight">
                             Always<br></br>
                             aiming for Excellence{" "}
@@ -91,13 +82,8 @@ const BannerSlider = () => {
                             Welcome to Sri Sri Ravi Shankar Vidya Mandir -
                             Bangalore South
                           </p>
-                          {/* <div className='btn-wrapper style-02 aanimated fadeInUpBig'>
-                        <a href='#' className='boxed-btn'>
-                          <span>Know more</span>
-                        </a>
-                      </div> */}
-                        </div>
-                        {/* //.header inner */}
+          
+                        </div>                    
                       </div>
                     </div>
                     <div className="col-lg-6">
@@ -121,7 +107,6 @@ const BannerSlider = () => {
                     <div className="col-lg-6">
                       <div className="header-inner-wrap">
                         <div className="header-inner">
-                          {/* header inner */}
                           <h1 className="title animated slideInRight">
                             Always<br></br>
                             aiming for Excellence{" "}
@@ -130,13 +115,8 @@ const BannerSlider = () => {
                             Welcome to Sri Sri Ravi Shankar Vidya Mandir -
                             Bangalore South
                           </p>
-                          {/* <div className='btn-wrapper style-02 aanimated fadeInUpBig'>
-                        <a href='#' className='boxed-btn'>
-                          <span>Know more</span>
-                        </a>
-                      </div> */}
+                          
                         </div>
-                        {/* //.header inner */}
                       </div>
                     </div>
                     <div className="col-lg-6">
@@ -160,7 +140,6 @@ const BannerSlider = () => {
                     <div className="col-lg-6">
                       <div className="header-inner-wrap">
                         <div className="header-inner">
-                          {/* header inner */}
                           <h1 className="title animated slideInRight">
                             Always<br></br>
                             aiming for Excellence{" "}
@@ -168,14 +147,8 @@ const BannerSlider = () => {
                           <p className="sub-title">
                             Welcome to Sri Sri Ravi Shankar Vidya Mandir -
                             Bangalore South
-                          </p>
-                          {/* <div className='btn-wrapper style-02 aanimated fadeInUpBig'>
-                        <a href='#' className='boxed-btn'>
-                          <span>Know more</span>
-                        </a>
-                      </div> */}
+                          </p>                        
                         </div>
-                        {/* //.header inner */}
                       </div>
                     </div>
                     <div className="col-lg-6">
@@ -194,7 +167,6 @@ const BannerSlider = () => {
           </Slider>
         </div>
       </div>
-      {/* header end */}
     </>
   );
 };
