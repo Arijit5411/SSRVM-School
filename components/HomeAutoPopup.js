@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import AdmissionEnquiry from './AdmissionEnquiry';
 import ContentPopup from './Popups/ContentPopup'
 import MainSlider from './Sliders/MainSlider1'
+import Image from 'next/image';
 
 const HomeAutoPopup = ({ data, siteUrl }) => {
     const [popupOpen, setPopupOpen] = useState(false);
@@ -25,10 +26,10 @@ const HomeAutoPopup = ({ data, siteUrl }) => {
                                         <div className="slider-item" key={item.id}>
                                             {item?.attributes?.caption ?
                                                 <a className="d-block h-100" href={item?.attributes?.caption}>
-                                                    <img src={siteUrl + item?.attributes?.url} alt="" />
+                                                    <Image height={800} width={800} src={siteUrl + item?.attributes?.url} alt="" />
                                                 </a>
                                                 :
-                                                <img src={siteUrl + item?.attributes?.url} alt="" />
+                                                <Image height={800} width={800} src={siteUrl + item?.attributes?.url} alt="" />
                                             }
                                         </div>
                                     )

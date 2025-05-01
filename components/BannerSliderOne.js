@@ -288,7 +288,6 @@ const BannerSliderOne = ({ siteUrl }) => {
               ))}
             </Slider>
           </div>
-
           <div className="header-bottom">
             <div className="container-fluid">
               <div className="row">

@@ -62,7 +62,7 @@ const GlobalIndividualBlogs = ({ siteUrl, seodata, blog, recentBlogs, slug }) =>
         <>
             <Seo SeoData={seodata} PageSlug={"global-individual-blogs"} InnerPageSlug={slug} />
             <NavBar siteUrl={siteUrl} />
-            <div className='top-section4 desktophide'>             
+            <div className='top-section4 desktophide'>
                 <section className="wrap-item-blog-se1 first-section position-relative">
                     <div className='container'>
                         <div className="row">
@@ -77,7 +77,9 @@ const GlobalIndividualBlogs = ({ siteUrl, seodata, blog, recentBlogs, slug }) =>
                             </div>
                             <div className="row">
                                 <div className="blog-post">
-                                    <Image width={342} height={257} src={`${GlobalSiteUrl}${blog?.image?.data?.attributes?.url}`} alt={blog?.Title} />
+                                    {blog?.image?.data?.attributes?.url &&
+                                        <Image width={342} height={257} src={`${GlobalSiteUrl}${blog?.image?.data?.attributes?.url}`} alt={blog?.Title} />
+                                    }
                                     <h1 className="wrap-text-inner">
                                         {blog?.Title}
                                     </h1>
@@ -116,8 +118,8 @@ const GlobalIndividualBlogs = ({ siteUrl, seodata, blog, recentBlogs, slug }) =>
                                 </div>
                             </div>
                             <div className="col-lg-9 col-2">
-                                <div className="blog-post">
-                                    <Image width={960} height={720} src={`${GlobalSiteUrl}${blog?.image?.data?.attributes?.url}`} alt={blog?.Title} />
+                                <div className="blog-post">{blog?.image?.data?.attributes?.url &&
+                                    <Image width={960} height={720} src={`${GlobalSiteUrl}${blog?.image?.data?.attributes?.url}`} alt={blog?.Title} />}
                                     <h1 className="wrap-text-inner">
 
                                         {blog?.Title}

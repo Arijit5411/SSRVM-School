@@ -13,50 +13,50 @@ import Image from "next/image";
 const GlobalSiteUrl = process.env.GSURL
 
 export const getServerSideProps = async (context) => {
-    try {
+  try {
 
-        const siteUrl = determineStrapiUrl(context);
-        const { slug } = context.query;
+    const siteUrl = determineStrapiUrl(context);
+    const { slug } = context.query;
 
-        const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
-        const res1 = await fetch(`${GlobalSiteUrl}/api/global-events?filters[slug][$eq]=${slug}&sort=id:desc&populate=*`);
-        const res2 = await fetch(`${GlobalSiteUrl}/api/global-events?filters[slug][$ne]=${slug}&sort=id:desc&populate=*`);
+    const res = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
+    const res1 = await fetch(`${GlobalSiteUrl}/api/global-events?filters[slug][$eq]=${slug}&sort=id:desc&populate=*`);
+    const res2 = await fetch(`${GlobalSiteUrl}/api/global-events?filters[slug][$ne]=${slug}&sort=id:desc&populate=*`);
 
-        const data = await res.json();
-        const data1 = await res1.json();
-        const data2 = await res2.json();
+    const data = await res.json();
+    const data1 = await res1.json();
+    const data2 = await res2.json();
 
 
-        return {
-            props: {
-                siteUrl,
-                seodata: data?.data?.attributes?.Pages ?? {},
-                events: data1?.data[0]?.attributes ?? {},
-                recentEvents: data2?.data ?? {},
-                slug
-            },
-        };
-    } catch (error) {
-        console.error("Error fetching data:", error.message);
-        return {
-            props: {
-                data: [],
-            },
-        };
-    }
+    return {
+      props: {
+        siteUrl,
+        seodata: data?.data?.attributes?.Pages ?? {},
+        events: data1?.data[0]?.attributes ?? {},
+        recentEvents: data2?.data ?? {},
+        slug
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching data:", error.message);
+    return {
+      props: {
+        data: [],
+      },
+    };
+  }
 
 };
 const GlobalIndividualEvents = ({ siteUrl, seodata, events, recentEvents, slug }) => {
 
-    const [publicUrl, setPublicUrl] = useState();
-    const components = {
-        img: ({ src, alt }) => {
-            return <img src={`${GlobalSiteUrl}${src}`} alt={alt} />;
-        },
-    };
-    useEffect(() => {
-        setPublicUrl(window.location.origin)
-    }, [publicUrl]);
+  const [publicUrl, setPublicUrl] = useState();
+  const components = {
+    img: ({ src, alt }) => {
+      return <img src={`${GlobalSiteUrl}${src}`} alt={alt} />;
+    },
+  };
+  useEffect(() => {
+    setPublicUrl(window.location.origin)
+  }, [publicUrl]);
 
   return (
     <>
@@ -78,19 +78,21 @@ const GlobalIndividualEvents = ({ siteUrl, seodata, events, recentEvents, slug }
               </div>
 
               <div className="col-lg-12">
-              <div className="blog-post">
+                <div className="blog-post">
+                  {events?.image?.data?.attributes?.url &&
                     <Image width={366} height={244}
                       src={`${GlobalSiteUrl}${events?.image?.data?.attributes?.url}`}
                       alt={events?.Title}
                       className="widthEventImg"
                     />
-                    <h1 className="wrap-text-inner">{events?.title}</h1>
-                    <div className="blog-parg-item">
-                      <ReactMarkdown components={components}>
-                        {events?.content}
-                      </ReactMarkdown>
-                    </div>
+                  }
+                  <h1 className="wrap-text-inner">{events?.title}</h1>
+                  <div className="blog-parg-item">
+                    <ReactMarkdown components={components}>
+                      {events?.content}
+                    </ReactMarkdown>
                   </div>
+                </div>
               </div>
               <div className="container">
                 {/* <RecentSidebar Page="Events" PageSlug="global-individual-events" RelData={relData} Slug={slug} siteUrl={siteUrl} /> */}
@@ -119,19 +121,19 @@ const GlobalIndividualEvents = ({ siteUrl, seodata, events, recentEvents, slug }
                 </div>
               </div>
               <div className="col-lg-9 col-2">
-              <div className="blog-post">
-                    <Image width={960} height={640}
-                      src={`${GlobalSiteUrl}${events?.image?.data?.attributes?.url}`}
-                      alt={events?.Title}
-                      className="widthEventImg"
-                    />
-                    <h1 className="wrap-text-inner">{events?.title}</h1>
-                    <div className="blog-parg-item">
-                      <ReactMarkdown components={components}>
-                        {events?.content}
-                      </ReactMarkdown>
-                    </div>
+                <div className="blog-post">
+                  <Image width={960} height={640}
+                    src={`${GlobalSiteUrl}${events?.image?.data?.attributes?.url}`}
+                    alt={events?.Title}
+                    className="widthEventImg"
+                  />
+                  <h1 className="wrap-text-inner">{events?.title}</h1>
+                  <div className="blog-parg-item">
+                    <ReactMarkdown components={components}>
+                      {events?.content}
+                    </ReactMarkdown>
                   </div>
+                </div>
               </div>
             </div>
           </div>
