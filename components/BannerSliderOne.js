@@ -202,29 +202,33 @@ const BannerSliderOne = ({ siteUrl }) => {
                       className={`home-banner-bg-image header-bg banner-${item.id}-Color`}
                     >
                       <div className="banner-image-container">
-                        <Image
-                          src={`${siteUrl}${item.attributes.image.data.attributes.url}`}
-                          alt={item.attributes.image.data.attributes.alternativeText || 'Banner image'}
-                          fill
-                          style={{ objectFit: 'cover' }}
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          priority={item.id === 1} // Preload only the first slide
-                          quality={75}
-                        />
+                        {item.attributes.image.data.attributes.url &&
+                          <Image
+                            src={`${siteUrl}${item.attributes.image.data.attributes.url}`}
+                            alt={item.attributes.image.data.attributes.alternativeText || 'Banner image'}
+                            fill
+                            style={{ objectFit: 'cover' }}
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            priority={item.id === 1} // Preload only the first slide
+                            quality={75}
+                          />
+                        }
                       </div>
                       <div className="container">
                         <div className="row header-height justify-content-start">
                           <div className="col-lg-6">
                             <div className="banner-item-wrap">
                               <div className="mob-bann-img h-100 d-md-none">
-                                <Image
-                                  src={`${siteUrl}${item.attributes.image.data.attributes.url}`}
-                                  alt={item.attributes.image.data.attributes.alternativeText || 'Mobile banner image'}
-                                  fill
-                                  style={{ objectFit: 'cover' }}
-                                  sizes="100vw"
-                                  quality={75}
-                                />
+                                {item.attributes.image.data.attributes.url &&
+                                  <Image
+                                    src={`${siteUrl}${item.attributes.image.data.attributes.url}`}
+                                    alt={item.attributes.image.data.attributes.alternativeText || 'Mobile banner image'}
+                                    fill
+                                    style={{ objectFit: 'cover' }}
+                                    sizes="100vw"
+                                    quality={75}
+                                  />
+                                }
                               </div>
                               {item.attributes.heading && item.attributes.description && (
                                 <div className="header-inner-wrap">
@@ -244,21 +248,24 @@ const BannerSliderOne = ({ siteUrl }) => {
                   ) : (
                     <div className={`home-banner-bg-image header-bg banner-${item.id}-Color`}>
                       <div className="banner-image-container">
-                        <Image
-                          src={`${siteUrl}${item.attributes.image.data.attributes.url}`}
-                          alt={item.attributes.image.data.attributes.alternativeText || 'Banner image'}
-                          fill
-                          style={{ objectFit: 'cover' }}
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          priority={item.id === 1}
-                          quality={75}
-                        />
+                        {item.attributes.image.data.attributes.url &&
+                          <Image
+                            src={`${siteUrl}${item.attributes.image.data.attributes.url}`}
+                            alt={item.attributes.image.data.attributes.alternativeText || 'Banner image'}
+                            fill
+                            style={{ objectFit: 'cover' }}
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            priority={item.id === 1}
+                            quality={75}
+                          />
+                        }
                       </div>
                       <div className="container">
                         <div className="row header-height justify-content-start">
                           <div className="col-lg-6">
                             <div className="banner-item-wrap">
                               <div className="mob-bann-img h-100 d-md-none">
+                                {item.attributes.image.data.attributes.url && 
                                 <Image
                                   src={`${siteUrl}${item.attributes.image.data.attributes.url}`}
                                   alt={item.attributes.image.data.attributes.alternativeText || 'Mobile banner image'}
@@ -267,6 +274,7 @@ const BannerSliderOne = ({ siteUrl }) => {
                                   width="1280"
                                   quality={75}
                                 />
+                                }
                               </div>
                               {item.attributes.heading && item.attributes.description && (
                                 <div className="header-inner-wrap">
@@ -303,13 +311,15 @@ const BannerSliderOne = ({ siteUrl }) => {
                     >
                       {banner?.map((item) => (
                         <div key={item.id} className="custom-thumb">
-                          <Image                        
+                          {item?.attributes?.image?.data?.attributes?.url && 
+                          <Image
                             src={`${siteUrl}${item?.attributes?.image?.data?.attributes?.url}`}
                             className="img-fluid"
-                            alt=""                          
-                           height="200"
-                           width="140"
+                            alt=""
+                            height="200"
+                            width="140"
                           />
+                          }
                         </div>
                       ))}
                     </Slider>

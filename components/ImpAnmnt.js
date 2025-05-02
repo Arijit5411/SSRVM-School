@@ -142,7 +142,6 @@ const ImpAnmnt = ({ siteUrl }) => {
                                 </div>
                               ))}
                           </Slider>
-
                         </div>
                       </div>
                     </div>

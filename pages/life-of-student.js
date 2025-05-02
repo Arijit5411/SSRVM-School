@@ -6,6 +6,7 @@ import Head from "next/head";
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from "@/components/Seo";
+import Image from "next/image";
 
 export const getServerSideProps = async (context) => {
     try {
@@ -65,16 +66,15 @@ const LifeOfStudent = ({ seodata, student, siteUrl }) => {
 
 
 
-            <section className="d-none d-sm-block studentlife-new pd-bottom-90 mobilehide">
+            <section className="d-none d-sm-block pd-bottom-90 mobilehide position-relative">
+                <Image className="Life-student-bg-a1" width={1450} height={972}  src="/assets/img/student/1-day-student-deskcrop2-new.jpg" alt="" />
                 <section style={{ minHeight: '100vh', padding: '160px 0 60px 0' }}>
-
                     <div className=" wrap-item-text1">
                         <h1 className="principal-mess wrap-student-item">
                             {suudentData?.page_title}
                         </h1>
                     </div>
                 </section>
-
                 <section className="whole_body_life-of-student">
                     <div>
                         <div className="life-of-student_first_para second-par2">

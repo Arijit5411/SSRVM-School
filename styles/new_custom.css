@@ -1282,3 +1282,14 @@ section.award-s1 h2 {
   width: 100%;
   height: 100%;
 }
+
+
+.Life-student-bg-a1{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}

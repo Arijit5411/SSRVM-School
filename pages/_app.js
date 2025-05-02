@@ -143,7 +143,7 @@ export default function App({ Component, pageProps }) {
     <>
       <Head>
         {gtmId &&
-          <script
+          <script strategy="lazyOnload"
             dangerouslySetInnerHTML={{
               __html: `
                 (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -196,11 +196,11 @@ export default function App({ Component, pageProps }) {
 const LoadScript = ({ gtagId }) => (
   <>
     {gtagId &&
-      <><script
+      <><script strategy="lazyOnload"
         async
         src={`https://www.googletagmanager.com/gtag/js?id=${gtagId}`}
       ></script>
-        <script
+        <script strategy="lazyOnload"
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
