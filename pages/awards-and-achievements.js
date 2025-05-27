@@ -390,7 +390,7 @@ const AwardAch = ({ seodata, awardsData, siteUrl }) => {
         <section className='award-s1' id='section-id' style={{ backgroundImage: `url('/assets/img/award_bg.jpg')`, width: `100%`, backgroundPosition: 'top-center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}>
           <div className='container'>
             <div className='d-md-flex justify-content-between mb-4 mb-md-5'>
-              <h2 className=''>Awards and Achievements</h2>
+              <h1 className=''>Awards and Achievements</h1>
               <div className='d-flex justify-content-center justify-content-md-start align-items-center gap-4'>
                 <label>
                   <select className='text-capitalize' value={awardTypeFilter} onChange={(e) => setAwardTypeFilter(e.target.value)}>

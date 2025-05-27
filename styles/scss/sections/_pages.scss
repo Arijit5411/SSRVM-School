@@ -5249,12 +5249,22 @@ h2.peda-title {
   padding-top: 10px;
   margin-bottom: 30px;
 
+  h1 {
+    color: var(--secondary-color);
+    font-size: 34px;
+    line-height: 3rem;
+  }
   h3 {
     color: var(--secondary-color);
     font-size: 34px;
   }
 
   h3 span {
+    display: inline-block;
+    // animation: flicker .8s infinite;
+    /* Apply flicker animation */
+  }
+  h1 span {
     display: inline-block;
     // animation: flicker .8s infinite;
     /* Apply flicker animation */

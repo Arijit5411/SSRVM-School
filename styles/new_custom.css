@@ -1293,3 +1293,12 @@ section.award-s1 h2 {
   object-fit: cover;
   z-index: -1;
 }
+
+.top-s1-pg h1{
+  font-size: 40px;
+}
+
+.award-s1 h1 {
+  font-size: 40px;
+  line-height: 3rem;
+}

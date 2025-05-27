@@ -191,11 +191,11 @@ const HomeGallery = ({ siteUrl }) => {
       } else {
         console.log("No images found in subfolder");
         // If there are no images in the subfolder, return a placeholder image URL.
-        return "assets/img/banner/5a-admissions.jpg";
+        return "/assets/img/banner/5a-admissions.jpg";
       }
     } catch (error) {
       console.error("Error fetching images in subfolder:", error);
-      return "assets/img/banner/5a-admissions.jpg"; // Return a placeholder image in case of an error
+      return "/assets/img/banner/5a-admissions.jpg"; // Return a placeholder image in case of an error
     }
   };
 

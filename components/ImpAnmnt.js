@@ -120,9 +120,9 @@ const ImpAnmnt = ({ siteUrl }) => {
                   <div className="row align-items-center">
                     <div className="col-lg-3">
                       <div className="service-single-item service-ansmnt">
-                        <h3>
-                          <span>{event.attributes.title}</span>
-                        </h3>
+                        <h1>
+                          {event.attributes.title}
+                        </h1>
                       </div>
                     </div>
                     <div className="col-lg-9 align-self-center">
