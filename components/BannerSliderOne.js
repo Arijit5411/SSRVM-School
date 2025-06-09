@@ -3,6 +3,7 @@ import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import Slider from "react-slick";
+import LazyYoutube from "./global/LazyYoutube";
 
 const BannerSliderOne = ({ siteUrl }) => {
   const [state, setState] = useState({
@@ -98,98 +99,18 @@ const BannerSliderOne = ({ siteUrl }) => {
   return (
     <>
       {isVideo ? (
-        <div className="videoTop w-100 d-flex flex-row justify-content-center align-items-center">
-          <iframe
+        <div className="videoTop w-100 h-100 d-flex flex-row justify-content-center align-items-center">
+          <LazyYoutube videoURL={vidUrl} />
+          {/* <iframe
             width="100%"
             height="500"
             src={`${vidUrl}?autoplay=1&mute=1&controls=1&loop=0`}
             frameBorder="0"
             allowFullScreen={true}
-          ></iframe>
+          ></iframe> */}
         </div>
       ) : (
         <div className="home-area home-v2">
-          {/* <div className="header-slider header-slider2">
-            <Slider
-              {...settings}
-              asNavFor={state.nav2}
-              ref={slider1}
-            >
-              {banner?.map((item) => (
-                <div key={item.id}>
-                  {item?.attributes?.URL ? (
-                    <Link
-                      href={item.attributes.URL}
-                      target="_blank"
-                      className={`home-banner-bg-image header-bg banner-${item.id}-Color`}
-                      style={{
-                        backgroundImage: `url(${siteUrl}${item.attributes.image.data.attributes.url})`,
-                      }}
-                    >
-                      <div className="container">
-                        <div className="row header-height justify-content-start">
-                          <div className="col-lg-6">
-                            <div className="banner-item-wrap">
-                              <div className="mob-bann-img h-100 d-md-none">
-                                <img
-                                  className="w-100 h-100 object-fit-cover"
-                                  src={`${siteUrl}${item.attributes.image.data.attributes.url}`}
-                                  alt=""
-                                />
-                              </div>
-                              {item.attributes.heading && item.attributes.description && (
-                                <div className="header-inner-wrap">
-                                  <div className="header-inner">
-                                    <h1 className="title animated slideInRight">
-                                      {item.attributes.heading}
-                                    </h1>
-                                    <p className="sub-title">{item.attributes.description}</p>
-                                  </div>
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </Link>
-                  ) : (
-                    <div
-                      className={`home-banner-bg-image header-bg banner-${item.id}-Color`}
-                      style={{
-                        backgroundImage: `url(${siteUrl}${item.attributes.image.data.attributes.url})`,
-                      }}
-                    >
-                      <div className="container">
-                        <div className="row header-height justify-content-start">
-                          <div className="col-lg-6">
-                            <div className="banner-item-wrap">
-                              <div className="mob-bann-img h-100 d-md-none">
-                                <img
-                                  className="w-100 h-100 object-fit-cover"
-                                  src={`${siteUrl}${item.attributes.image.data.attributes.url}`}
-                                  alt=""
-                                />
-                              </div>
-                              {item.attributes.heading && item.attributes.description && (
-                                <div className="header-inner-wrap">
-                                  <div className="header-inner">
-                                    <h1 className="title animated slideInRight">
-                                      {item.attributes.heading}
-                                    </h1>
-                                    <p className="sub-title">{item.attributes.description}</p>
-                                  </div>
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </Slider>
-          </div> */}
 
           <div className="header-slider header-slider2">
             <Slider {...settings} asNavFor={state.nav2} ref={slider1}>
@@ -265,15 +186,15 @@ const BannerSliderOne = ({ siteUrl }) => {
                           <div className="col-lg-6">
                             <div className="banner-item-wrap">
                               <div className="mob-bann-img h-100 d-md-none">
-                                {item.attributes.image.data.attributes.url && 
-                                <Image
-                                  src={`${siteUrl}${item.attributes.image.data.attributes.url}`}
-                                  alt={item.attributes.image.data.attributes.alternativeText || 'Mobile banner image'}
-                                  style={{ objectFit: 'cover' }}
-                                  height="960"
-                                  width="1280"
-                                  quality={75}
-                                />
+                                {item.attributes.image.data.attributes.url &&
+                                  <Image
+                                    src={`${siteUrl}${item.attributes.image.data.attributes.url}`}
+                                    alt={item.attributes.image.data.attributes.alternativeText || 'Mobile banner image'}
+                                    style={{ objectFit: 'cover' }}
+                                    height="960"
+                                    width="1280"
+                                    quality={75}
+                                  />
                                 }
                               </div>
                               {item.attributes.heading && item.attributes.description && (
@@ -311,14 +232,14 @@ const BannerSliderOne = ({ siteUrl }) => {
                     >
                       {banner?.map((item) => (
                         <div key={item.id} className="custom-thumb">
-                          {item?.attributes?.image?.data?.attributes?.url && 
-                          <Image
-                            src={`${siteUrl}${item?.attributes?.image?.data?.attributes?.url}`}
-                            className="img-fluid"
-                            alt=""
-                            height="200"
-                            width="140"
-                          />
+                          {item?.attributes?.image?.data?.attributes?.url &&
+                            <Image
+                              src={`${siteUrl}${item?.attributes?.image?.data?.attributes?.url}`}
+                              className="img-fluid"
+                              alt=""
+                              height="200"
+                              width="140"
+                            />
                           }
                         </div>
                       ))}
