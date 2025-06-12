@@ -31,7 +31,7 @@ const HomeAutoPopup = ({ data, siteUrl }) => {
                                                         alt="Descriptive alt text"
                                                         width={800}
                                                         height={800}
-                                                        priority // 👈 Ensures early load (critical for LCP)
+                                                        priority={item.id === 1} // 👈 Ensures early load (critical for LCP)
                                                         placeholder="blur"
                                                         blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD..." // 👈 Tiny placeholder (optional but boosts UX)
                                                         sizes="(max-width: 768px) 100vw, 50vw" // 👈 Responsive behavior
@@ -44,7 +44,7 @@ const HomeAutoPopup = ({ data, siteUrl }) => {
                                                     alt="Descriptive alt text"
                                                     width={800}
                                                     height={800}
-                                                    priority // 👈 Ensures early load (critical for LCP)
+                                                    priority={item.id === 1} // 👈 Ensures early load (critical for LCP)
                                                     placeholder="blur"
                                                     blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD..." // 👈 Tiny placeholder (optional but boosts UX)
                                                     sizes="(max-width: 768px) 100vw, 50vw" // 👈 Responsive behavior
