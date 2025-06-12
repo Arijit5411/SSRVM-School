@@ -132,6 +132,7 @@ const BannerSliderOne = ({ siteUrl }) => {
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                             priority={item.id === 1} // Preload only the first slide
                             quality={75}
+                            placeholder="blur"                        
                           />
                         }
                       </div>

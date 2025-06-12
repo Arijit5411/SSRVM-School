@@ -26,10 +26,30 @@ const HomeAutoPopup = ({ data, siteUrl }) => {
                                         <div className="slider-item" key={item.id}>
                                             {item?.attributes?.caption ?
                                                 <a className="d-block h-100" href={item?.attributes?.caption}>
-                                                    <Image height={800} width={800} src={siteUrl + item?.attributes?.url} alt="" />
+                                                    <Image
+                                                        src={siteUrl + item?.attributes?.url}
+                                                        alt="Descriptive alt text"
+                                                        width={800}
+                                                        height={800}
+                                                        priority // 👈 Ensures early load (critical for LCP)
+                                                        placeholder="blur"
+                                                        blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD..." // 👈 Tiny placeholder (optional but boosts UX)
+                                                        sizes="(max-width: 768px) 100vw, 50vw" // 👈 Responsive behavior
+                                                    />
+
                                                 </a>
                                                 :
-                                                <Image height={800} width={800} src={siteUrl + item?.attributes?.url} alt="" />
+                                                <Image
+                                                    src={siteUrl + item?.attributes?.url}
+                                                    alt="Descriptive alt text"
+                                                    width={800}
+                                                    height={800}
+                                                    priority // 👈 Ensures early load (critical for LCP)
+                                                    placeholder="blur"
+                                                    blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD..." // 👈 Tiny placeholder (optional but boosts UX)
+                                                    sizes="(max-width: 768px) 100vw, 50vw" // 👈 Responsive behavior
+                                                />
+
                                             }
                                         </div>
                                     )
