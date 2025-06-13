@@ -6,9 +6,29 @@ import Image from 'next/image';
 
 const HomeAutoPopup = ({ data, siteUrl }) => {
     const [popupOpen, setPopupOpen] = useState(false);
+    // useEffect(() => {
+    //     setPopupOpen(true);
+    // }, [])
+
+    // const togglePopup = () => {
+    //     setPopupOpen(!popupOpen);
+    // };
+
+
     useEffect(() => {
-        setPopupOpen(true);
-    }, [])
+        const handleScroll = () => {
+            if (window.scrollY > 10) {
+                setPopupOpen(true);
+                window.removeEventListener("scroll", handleScroll); // Remove listener after showing popup
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll);
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
 
     const togglePopup = () => {
         setPopupOpen(!popupOpen);
@@ -22,35 +42,18 @@ const HomeAutoPopup = ({ data, siteUrl }) => {
                         <ContentPopup className="home-auto-popup" onOpen={popupOpen} onClose={() => setPopupOpen(false)}>
                             <MainSlider className="home-popup-slider" settings={{ slidesToShow: 1, autoplay: true }}>
                                 {data?.attributes?.Image_Slider?.data.map((item) => {
+                                    const Wrapper = item.url ? Link : 'div';
                                     return (
                                         <div className="slider-item" key={item.id}>
-                                            {item?.attributes?.caption ?
-                                                <a className="d-block h-100" href={item?.attributes?.caption}>
-                                                    <Image
-                                                        src={siteUrl + item?.attributes?.url}
-                                                        alt="Descriptive alt text"
-                                                        width={800}
-                                                        height={800}
-                                                        priority={item.id === 1} // 👈 Ensures early load (critical for LCP)
-                                                        placeholder="blur"
-                                                        blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD..." // 👈 Tiny placeholder (optional but boosts UX)
-                                                        sizes="(max-width: 768px) 100vw, 50vw" // 👈 Responsive behavior
-                                                    />
-
-                                                </a>
-                                                :
+                                            <Wrapper {...(item.url ? { href: item.url, target: '_blank' } : {})} className="d-block h-100" href={item?.attributes?.caption}>
                                                 <Image
                                                     src={siteUrl + item?.attributes?.url}
                                                     alt="Descriptive alt text"
                                                     width={800}
                                                     height={800}
                                                     priority={item.id === 1} // 👈 Ensures early load (critical for LCP)
-                                                    placeholder="blur"
-                                                    blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD..." // 👈 Tiny placeholder (optional but boosts UX)
-                                                    sizes="(max-width: 768px) 100vw, 50vw" // 👈 Responsive behavior
                                                 />
-
-                                            }
+                                            </Wrapper>
                                         </div>
                                     )
                                 })}

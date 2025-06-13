@@ -98,6 +98,27 @@ const NavBar = ({ siteUrl }) => {
       });
   }, [siteUrl]);
 
+  const [Loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    const handlePageLoad = () => {
+      setTimeout(() => {
+        setLoaded(true); // ✅ Trigger 3 seconds after full page load
+      }, 1000);
+    };
+
+    if (document.readyState === 'complete') {
+      handlePageLoad();
+    } else {
+      window.addEventListener('load', handlePageLoad);
+    }
+
+    return () => {
+      window.removeEventListener('load', handlePageLoad);
+    };
+  }, []);
+
+
   return (
     <>
       <Head>
@@ -105,237 +126,241 @@ const NavBar = ({ siteUrl }) => {
           <link rel="icon" href={`${siteUrl}${apiData.data[0].attributes.logo?.data?.attributes?.url}`} />
         )}
       </Head>
-      <div className="mobilehide">
-        <header className="navbar-are">
-          <nav
-            className={
-              "navbar navbar-area-1  navbar-area-3 navbar-area navbar-expand-lg d-flex flex-column"
-            }
-          >
+      {Loaded &&
+        <>
+          <div className="mobilehide">
+            <header className="navbar-are">
+              <nav
+                className={
+                  "navbar navbar-area-1  navbar-area-3 navbar-area navbar-expand-lg d-flex flex-column"
+                }
+              >
+                <MandatoryDisclosure siteUrl={siteUrl} />
+                <ImportantAnnouncment siteUrl={siteUrl} />
+                <div className="container nav-container">
+                  <div className="responsive-mobile-menu">
+                    <button
+                      onClick={() => setOpen(!open)}
+                      className={
+                        open
+                          ? "menu toggle-btn d-block d-lg-none open"
+                          : "menu toggle-btn d-block d-lg-none "
+                      }
+                      data-target="#transpro_main_menu"
+                      aria-expanded="false"
+                      aria-label="Toggle navigation"
+                    >
+                      <span className="icon-left" />
+                      <span className="icon-right" />
+                    </button>
+                  </div>
+                  <div className="logo">
+                    <Link className="home-logo-a1" href="/">
+                      {apiData && apiData.data && apiData.data.length > 0 && (
+                        <img
+                          src={`${siteUrl}${apiData.data[0].attributes.logo?.data?.attributes?.url}`}
+                          alt="Transpro"
+                        />
+                      )}
+                      <span className="logo-text">Home</span>
+                    </Link>
+                  </div>
+
+                  <div className="nav-left-part"></div>
+
+                  <div
+                    className={
+                      open
+                        ? "collapse navbar-collapse sopen"
+                        : "collapse navbar-collapse"
+                    }
+                    id="transpro_main_menu"
+                  >
+                    <div className="dropdown logotext">
+                      <button className="dropbtn">
+                        {schoolData && schoolData.length > 0 && schoolData[0].attributes.title}
+                        <FaAngleDown className="arrowleft" />
+                      </button>
+                      <div className="dropdown-content">
+                        {schoolData && schoolData.map((item) => (
+                          <a
+                            key={item.id}
+                            href={item.attributes.url}
+                            target={item.attributes.target}
+                          >
+                            {item.attributes.title}
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+
+                    <ul className="navbar-nav menu-open text-end">
+                      <>
+                        {menuData.map((menuItem, index) => (
+                          <li
+                            key={index}
+                            className={
+                              menuItem.attributes.children &&
+                                menuItem.attributes.children.data.length > 0
+                                ? "menu-item-has-children"
+                                : ""
+                            }
+                          >
+                            <a
+                              href={menuItem.attributes.url}
+                              target={menuItem.attributes.target}
+                              onClick={(e) => {
+                                if (menuItem.attributes.children && menuItem.attributes.children.data.length > 0) {
+                                  e.preventDefault();
+                                  const subMenu = e.currentTarget.nextElementSibling;
+                                  if (subMenu) {
+                                    subMenu.classList.toggle("active");
+                                    e.currentTarget.classList.toggle("open");
+                                  }
+                                }
+                              }}
+                            >
+                              {menuItem.attributes.title}
+                            </a>
+                            {menuItem.attributes.children &&
+                              menuItem.attributes.children.data.length > 0 && (
+                                <ul className="sub-menu">
+                                  {menuItem.attributes.children.data.map(
+                                    (childItem, childIndex) => (
+                                      <li key={childIndex}>
+                                        <div className="sub-link-wrapper">
+                                          <a className="sub-link"
+                                            href={childItem.attributes.url}
+                                            target={childItem.attributes.target}
+                                          >
+                                            {childItem.attributes.title}
+                                            {childItem.attributes.children &&
+                                              childItem.attributes.children.data.length > 0 && (
+                                                <span>
+                                                  {`>`}
+                                                </span>)}
+                                          </a>
+                                          {childItem.attributes.children &&
+                                            childItem.attributes.children.data.length > 0 && (
+                                              <>
+
+                                                <ul className="sub-menu-2">
+                                                  {childItem.attributes.children.data.map(
+                                                    (childItem2, childIndex2) => (
+                                                      <li key={childIndex2}>
+
+                                                        <a
+                                                          href={childItem2.attributes.url}
+                                                          target={childItem2.attributes.target}
+                                                        >
+                                                          {childItem2.attributes.title}
+                                                        </a>
+                                                        <ul>
+
+                                                        </ul>
+                                                      </li>
+                                                    )
+                                                  )}
+                                                </ul>
+                                              </>
+                                            )}
+                                        </div>
+
+                                      </li>
+                                    )
+                                  )}
+                                </ul>
+                              )}
+                          </li>
+                        ))}
+                      </>
+                      <li>
+                        <span className="menuPopup" onClick={togglePopup}>
+                          Menu
+                        </span>
+                      </li>
+                    </ul>
+                    {enableDisable.Admission_Form_Button === true && (
+                      <div className="admission d-none d-md-block">
+                        <button onClick={togglePopup1}>Admission Enquiry</button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+                {showPopup && <MenuPopup siteUrl={siteUrl} onClose={togglePopup} />}
+              </nav>
+            </header>
+            <div className="sticky-icon">
+              {social && social.map((item) => (
+                item.attributes.Show_in_Sidebar !== false && (
+                  <a className="d-inline-flex" href={item.attributes.Url} key={item.id}
+                    dangerouslySetInnerHTML={{ __html: item.attributes.Icon }}
+                    target={item.attributes.Open_Self ? "_self" : "_blank"}>
+                  </a>
+                )
+              ))}
+            </div>
+            {showPopup1 && <AdmissionEnquiry siteUrl={siteUrl} onClose={togglePopup1} />}
+          </div>
+
+          <div className="desktophide">
             <MandatoryDisclosure siteUrl={siteUrl} />
             <ImportantAnnouncment siteUrl={siteUrl} />
-            <div className="container nav-container">
-              <div className="responsive-mobile-menu">
-                <button
-                  onClick={() => setOpen(!open)}
-                  className={
-                    open
-                      ? "menu toggle-btn d-block d-lg-none open"
-                      : "menu toggle-btn d-block d-lg-none "
-                  }
-                  data-target="#transpro_main_menu"
-                  aria-expanded="false"
-                  aria-label="Toggle navigation"
-                >
-                  <span className="icon-left" />
-                  <span className="icon-right" />
-                </button>
-              </div>
-              <div className="logo">
-                <Link className="home-logo-a1" href="/">
-                  {apiData && apiData.data && apiData.data.length > 0 && (
-                    <img
-                      src={`${siteUrl}${apiData.data[0].attributes.logo?.data?.attributes?.url}`}
-                      alt="Transpro"
-                    />
+            <header className="navbar-area">
+              <nav className="mobileshowmenu">
+                <div className="container nav-container">
+                  {enableDisable.Admission_Form_Button === true && (
+                    <div className="admission d-md-none">
+                      <button onClick={togglePopup1}>Admission Enquiry</button>
+                    </div>
                   )}
-                  <span className="logo-text">Home</span>
-                </Link>
-              </div>
-
-              <div className="nav-left-part"></div>
-
-              <div
-                className={
-                  open
-                    ? "collapse navbar-collapse sopen"
-                    : "collapse navbar-collapse"
-                }
-                id="transpro_main_menu"
-              >
-                <div className="dropdown logotext">
-                  <button className="dropbtn">
-                    {schoolData && schoolData.length > 0 && schoolData[0].attributes.title}
-                    <FaAngleDown className="arrowleft" />
-                  </button>
-                  <div className="dropdown-content">
-                    {schoolData && schoolData.map((item) => (
-                      <a
-                        key={item.id}
-                        href={item.attributes.url}
-                        target={item.attributes.target}
-                      >
-                        {item.attributes.title}
-                      </a>
-                    ))}
-                  </div>
-                </div>
-
-                <ul className="navbar-nav menu-open text-end">
-                  <>
-                    {menuData.map((menuItem, index) => (
-                      <li
-                        key={index}
-                        className={
-                          menuItem.attributes.children &&
-                            menuItem.attributes.children.data.length > 0
-                            ? "menu-item-has-children"
-                            : ""
-                        }
-                      >
-                        <a
-                          href={menuItem.attributes.url}
-                          target={menuItem.attributes.target}
-                          onClick={(e) => {
-                            if (menuItem.attributes.children && menuItem.attributes.children.data.length > 0) {
-                              e.preventDefault();
-                              const subMenu = e.currentTarget.nextElementSibling;
-                              if (subMenu) {
-                                subMenu.classList.toggle("active");
-                                e.currentTarget.classList.toggle("open");
-                              }
-                            }
-                          }}
-                        >
-                          {menuItem.attributes.title}
-                        </a>
-                        {menuItem.attributes.children &&
-                          menuItem.attributes.children.data.length > 0 && (
-                            <ul className="sub-menu">
-                              {menuItem.attributes.children.data.map(
-                                (childItem, childIndex) => (
-                                  <li key={childIndex}>
-                                    <div className="sub-link-wrapper">
-                                      <a className="sub-link"
-                                        href={childItem.attributes.url}
-                                        target={childItem.attributes.target}
-                                      >
-                                        {childItem.attributes.title}
-                                        {childItem.attributes.children &&
-                                          childItem.attributes.children.data.length > 0 && (
-                                            <span>
-                                              {`>`}
-                                            </span>)}
-                                      </a>
-                                      {childItem.attributes.children &&
-                                        childItem.attributes.children.data.length > 0 && (
-                                          <>
-
-                                            <ul className="sub-menu-2">
-                                              {childItem.attributes.children.data.map(
-                                                (childItem2, childIndex2) => (
-                                                  <li key={childIndex2}>
-
-                                                    <a
-                                                      href={childItem2.attributes.url}
-                                                      target={childItem2.attributes.target}
-                                                    >
-                                                      {childItem2.attributes.title}
-                                                    </a>
-                                                    <ul>
-
-                                                    </ul>
-                                                  </li>
-                                                )
-                                              )}
-                                            </ul>
-                                          </>
-                                        )}
-                                    </div>
-
-                                  </li>
-                                )
-                              )}
-                            </ul>
-                          )}
-                      </li>
-                    ))}
-                  </>
-                  <li>
-                    <span className="menuPopup" onClick={togglePopup}>
+                  <div className="responsive-mobile-menu">
+                    <button
+                      onClick={togglePopup2}
+                      className={
+                        open
+                          ? "menu toggle-btn d-block d-lg-none open"
+                          : "menu toggle-btn d-block d-lg-none "
+                      }
+                      aria-expanded="false"
+                      aria-label="Toggle navigation"
+                    >
                       Menu
-                    </span>
-                  </li>
-                </ul>
-                {enableDisable.Admission_Form_Button === true && (
-                  <div className="admission d-none d-md-block">
-                    <button onClick={togglePopup1}>Admission Enquiry</button>
+                    </button>
+                    {showPopup2 && <MobileMenu siteUrl={siteUrl} onClose={togglePopup2} />}
                   </div>
-                )}
-              </div>
-            </div>
-            {showPopup && <MenuPopup siteUrl={siteUrl} onClose={togglePopup} />}
-          </nav>
-        </header>
-        <div className="sticky-icon">
-          {social && social.map((item) => (
-            item.attributes.Show_in_Sidebar !== false && (
-              <a className="d-inline-flex" href={item.attributes.Url} key={item.id}
-                dangerouslySetInnerHTML={{ __html: item.attributes.Icon }}
-                target={item.attributes.Open_Self ? "_self" : "_blank"}>
-              </a>
-            )
-          ))}
-        </div>
-        {showPopup1 && <AdmissionEnquiry siteUrl={siteUrl} onClose={togglePopup1} />}
-      </div>
-
-      <div className="desktophide">
-        <MandatoryDisclosure siteUrl={siteUrl} />
-        <ImportantAnnouncment siteUrl={siteUrl} />
-        <header className="navbar-area">
-          <nav className="mobileshowmenu">
-            <div className="container nav-container">
-              {enableDisable.Admission_Form_Button === true && (
-                <div className="admission d-md-none">
-                  <button onClick={togglePopup1}>Admission Enquiry</button>
-                </div>
-              )}
-              <div className="responsive-mobile-menu">
-                <button
-                  onClick={togglePopup2}
-                  className={
-                    open
-                      ? "menu toggle-btn d-block d-lg-none open"
-                      : "menu toggle-btn d-block d-lg-none "
-                  }
-                  aria-expanded="false"
-                  aria-label="Toggle navigation"
-                >
-                  Menu
-                </button>
-                {showPopup2 && <MobileMenu siteUrl={siteUrl} onClose={togglePopup2} />}
-              </div>
-              <div className="logo">
-                <Link className="logo-1" href="/">
-                  {apiData && apiData.data && apiData.data.length > 0 && (
-                    <img
-                      src={`${siteUrl}${apiData.data[0].attributes.logo?.data?.attributes?.url}`}
-                      className="mobileLogo"
-                    />)}
-                </Link>
-                <div className="dropdown logotext mobileDropDown">
-                  <button className="dropbtnMobile">
-                    {schoolData.length > 0 && schoolData[0].attributes.title}
-                    <FaAngleDown className="arrowleft" />
-                  </button>
-                  <div className="dropdown-content">
-                    {schoolData.map((item) => (
-                      <a
-                        key={item.id}
-                        href={item.attributes.url}
-                        target={item.attributes.target}
-                      >
-                        {item.attributes.title}
-                      </a>
-                    ))}
+                  <div className="logo">
+                    <Link className="logo-1" href="/">
+                      {apiData && apiData.data && apiData.data.length > 0 && (
+                        <img
+                          src={`${siteUrl}${apiData.data[0].attributes.logo?.data?.attributes?.url}`}
+                          className="mobileLogo"
+                        />)}
+                    </Link>
+                    <div className="dropdown logotext mobileDropDown">
+                      <button className="dropbtnMobile">
+                        {schoolData.length > 0 && schoolData[0].attributes.title}
+                        <FaAngleDown className="arrowleft" />
+                      </button>
+                      <div className="dropdown-content">
+                        {schoolData.map((item) => (
+                          <a
+                            key={item.id}
+                            href={item.attributes.url}
+                            target={item.attributes.target}
+                          >
+                            {item.attributes.title}
+                          </a>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </nav>
-        </header>
-      </div>
+              </nav>
+            </header>
+          </div>
+        </>
+      }
     </>
   );
 };
