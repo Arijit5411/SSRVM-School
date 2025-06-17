@@ -78,7 +78,7 @@ const ValueBasedEducation = ({ seodata, value,siteUrl }) => {
                     <div className="loader">Loading...</div>
                 ) : (
 
-                    <section className="wrap-training-item-se3">
+                    <section className="top-section18-new">
                         <section className="container ">
                             <div className="row">
                                 <div className="col-lg-6">

@@ -78,7 +78,7 @@ console.log('data in re3',data)
         <>
             <Fragment>
                 <NavBar siteUrl={siteUrl}/>
-                <div className="top-section1-new">
+                <div className="top-section18-new">
                     <section className="wrap-item-principal-se1">
                         <div className="container">
                             <div className="wrap-item-text1">
