@@ -3729,6 +3729,12 @@ h1.principal-mess.wrap-events-item {
   margin-bottom: 54px;
 }
 
+@media (max-width: 640px) {
+  .top-section18-new {
+    padding-top: 20px; /* Or any other value suitable for larger screens */
+  }
+}
+
 //==================================================== Virtual Tour Page background image CSS ===================
 
 .top-section19 {

@@ -80,12 +80,10 @@ const ValueBasedEducation = ({ seodata, value,siteUrl }) => {
 
                     <section className="top-section18-new">
                         <section className="container ">
-                            <div className="row">
-                                <div className="col-lg-6">
-                                    <div className=" valueMargin">
+                            <div className="">
+                                    <div className="">
                                         <h1 className="principal-mess value_mob">{valueData.heading}</h1>
                                     </div>
-                                </div>
                             </div>
                             <Image width={1296} height={1003}
                                 src={`${GlobalSiteUrl}${valueData?.image?.data?.attributes?.url}`}
