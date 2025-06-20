@@ -5,17 +5,21 @@ import Footer from '../components/Footer';
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Head from 'next/head';
+import Seo from '@/components/Seo';
 
 export const getServerSideProps = async (context) => {
     try {
         const siteUrl = determineStrapiUrl(context);
-        const res = await fetch(`${siteUrl}/api/thank-you-page`)
+        const res = await fetch(`${siteUrl}/api/thank-you-page`);
+        const res1 = await fetch(`${siteUrl}/api/seo?populate=deep,10`);
 
         const data = await res.json()
+        const data1 = await res1.json();
 
         return {
             props: {
                 content: data?.data,
+                seodata: data1?.data?.attributes?.Pages ?? {},
                 siteUrl
 
             }
@@ -31,14 +35,11 @@ export const getServerSideProps = async (context) => {
     }
 };
 
-const ThankYou = ({ content, siteUrl }) => {
+const ThankYou = ({ content, siteUrl, seodata }) => {
     return (
         <>
-            <Head>
-                <meta name="robots" content="noindex, follow" />
-                <title>Thank You</title>
-            </Head>
             <Fragment>
+                <Seo SeoData={seodata} PageSlug={"thank-you"} />
                 <NavBar siteUrl={siteUrl} />
                 <section>
                     <div className="vh-100 d-flex justify-content-center align-items-center">
