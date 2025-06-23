@@ -13,7 +13,6 @@ const GlobalSiteUrl = process.env.GSURL
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from "@/components/Seo";
-import ArtOfLiving from "@/components/Founder/ArtOfLiving";
 
 export const getServerSideProps = async (context) => {
     try {
@@ -164,7 +163,7 @@ const FounderTrust = ({ seodata, founderprop, foundation, siteUrl }) => {
                                 <div></div>
                             </Tab>
                             <Tab eventKey="Trust" title="SSRVM Trust">
-                                <SsrvmTrustMobile />
+                                <SsrvmTrustMobile/>
                             </Tab>
                             <Tab eventKey="Arts" title={tab_heading}>
                                 <div className="desktophide">
@@ -198,7 +197,7 @@ const FounderTrust = ({ seodata, founderprop, foundation, siteUrl }) => {
                                                         Visit website
                                                     </button>
                                                 </a>
-                                            </div>
+                                            </div>                                           
                                         </div>
                                     </section>
 
@@ -258,7 +257,7 @@ const FounderTrust = ({ seodata, founderprop, foundation, siteUrl }) => {
                                                         )}
                                                     </p>
                                                 </div>
-
+                   
                                             </div>
                                             <div>
                                                 <Image width={245} height={103}
@@ -310,7 +309,7 @@ const FounderTrust = ({ seodata, founderprop, foundation, siteUrl }) => {
                 </div>
             </div>
             <div className="top-section26 mobilehide-founder">
-
+    
                 <div className="founder-top">
                     <div>
                         <Tabs
@@ -384,21 +383,20 @@ const FounderTrust = ({ seodata, founderprop, foundation, siteUrl }) => {
                                 </div>
                             </Tab>
                             <Tab eventKey="Trust" title="SSRVM Trust">
-                                <SsrvmTrust />
+                                <SsrvmTrust/>
                             </Tab>
                             <Tab eventKey="Arts" title={tab_heading}>
-
                                 <section>
                                     <div>
                                         <div className="upper_section_alfSection">
+                                            <div>
+                                                <Image width={245} height={103}
+                                                    src={logoUrl}
+                                                    alt=" Description"
+                                                    className='className="art_of_living_foundation_logo"'
+                                                />
+                                            </div>
                                             <div className="para_with_image_art_of_living">
-                                                <div className="pb-5">
-                                                    <Image width={245} height={103}
-                                                        src={logoUrl}
-                                                        alt=" Description"
-                                                        className="art_of_living_foundation_logo"
-                                                    />
-                                                </div>
                                                 <p>
                                                     {paragraph && (
                                                         <span
@@ -410,23 +408,18 @@ const FounderTrust = ({ seodata, founderprop, foundation, siteUrl }) => {
                                                 </p>
                                                 <a href={visit_website_button} className="founderbtn">Vist website</a>
                                             </div>
-                                            {/* <div className="button_visit_website_ALF">
+                                            <div className="button_visit_website_ALF">
                                                 <button className="visit_website_alf_below">
                                                     Vist website545
                                                 </button>
-                                            </div> */}
+                                            </div>
                                         </div>
-                                        <div className="aol-img02">
+                                        <div>
                                             <Image width={1450} height={723}
                                                 src="/assets/img/4c-AOL/2-hero-desktop.jpg"
                                                 alt=" Description"
-                                                className=""
-                                            />
-                                            {/* <Image width={1450} height={723}
-                                                src="/assets/img/4c-AOL/2-hero-desktop.jpg"
-                                                alt=" Description"
                                                 className="deskTopImg"
-                                            /> */}
+                                            />
                                         </div>
                                     </div>
                                 </section>

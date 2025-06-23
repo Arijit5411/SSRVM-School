@@ -1228,21 +1228,17 @@ section.award-s1 h2 {
   opacity: 1;
 }
 
-.top-pl-css{
+.top-pl-css {
   padding: 160px 0 60px 0;
 }
 
 @media only screen and (max-width: 600px) {
-  .top-pl-css{
+  .top-pl-css {
     padding: 0;
   }
 }
 
-
-
-
 /* ----------------------------------optimized home bg-img */
-
 
 /* styles.module.css or global CSS */
 .home-banner-bg-image {
@@ -1283,8 +1279,7 @@ section.award-s1 h2 {
   height: 100%;
 }
 
-
-.Life-student-bg-a1{
+.Life-student-bg-a1 {
   position: absolute;
   top: 0;
   left: 0;
@@ -1294,11 +1289,30 @@ section.award-s1 h2 {
   z-index: -1;
 }
 
-.top-s1-pg h1{
+.top-s1-pg h1 {
   font-size: 40px;
 }
 
 .award-s1 h1 {
   font-size: 40px;
   line-height: 3rem;
+}
+
+/* .aol-wrap-1 {
+  display: flex;
+  position: relative;
+  padding: 0 15%;
+}
+.aol-wrap-1 .art-of-lv-a1 {
+  width: 50%;
+}
+.art-of-lv-a2{
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+} */
+
+.aol-img02 img {
+  width: 100%;
 }
