@@ -13,7 +13,7 @@ const GlobalSiteUrl = process.env.GSURL
 
 import { determineStrapiUrl } from "@/utils/strapiUtils";
 import Seo from "@/components/Seo";
-import ArtOfLiving from "@/components/Founder/ArtOfLiving";
+
 
 export const getServerSideProps = async (context) => {
     try {
