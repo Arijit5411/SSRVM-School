@@ -58,7 +58,6 @@ const Core_School_Team = ({ seodata, teamData, siteUrl }) => {
         <Seo SeoData={seodata} PageSlug={"core-school-team"} />
 
         <NavBar siteUrl={siteUrl} />
-
         <div className="top-pl-css">
           <div className="container">
             <h1 className="principal-mess">Core School Team</h1>
