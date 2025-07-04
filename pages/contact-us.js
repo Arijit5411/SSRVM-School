@@ -205,7 +205,7 @@ const ContactUs = ({ seodata, contactData, siteUrl }) => {
           />
         )} */}
 
-        <div className="top-section29-new">
+        <div className="top-pl-css">
           <section className="wrap-item-principal-se1 contactReaponsive">
             <div className="container">
               <h1 className="principal-mess lineHight">Contact</h1>

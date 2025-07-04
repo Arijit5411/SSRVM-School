@@ -83,7 +83,7 @@ const International_and_National = ({ intandnat, siteUrl, seodata }) => {
             <Seo SeoData={seodata} PageSlug={"international-and-national"} />
             <Fragment>
                 <NavBar siteUrl={siteUrl}/>
-                <div className='top-section1-new'>
+                <div className='top-pl-css'>
                     <section className="internationalpadding pri-item">
                         <div className="container">
                             <div className="wrap-item-text1 mobilehide-international">
